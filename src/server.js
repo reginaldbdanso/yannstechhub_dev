@@ -11,11 +11,11 @@ require('dotenv').config();
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const ordersRoutes = require('./routes/ordersRoutes');
+const protect = require('./middleware/auth').protect;
 
 const app = express();
 
-// Connect to MongoDB Atlas
-connectDB();
 
 // Middleware
 app.use(cors());
@@ -27,6 +27,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/orders', protect, ordersRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -38,13 +39,20 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Seed data in development environment
-if (process.env.NODE_ENV === 'development') {
-  seedData().catch(console.error);
-}
+
 
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+// Connect to MongoDB Atlas
+connectDB().then(() => {
+  // Seed data in development environment
+  if (process.env.NODE_ENV === 'development') {
+    seedData().catch(console.error);
+  }
+}).then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  });
+}).catch((err) => {
+  console.log(err);
 });
