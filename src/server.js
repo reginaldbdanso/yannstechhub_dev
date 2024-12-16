@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
-app.use('/api/orders', protect, ordersRoutes);
+app.use('/api/orders', ordersRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
