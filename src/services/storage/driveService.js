@@ -1,12 +1,13 @@
 const { google } = require('googleapis');
 const auth = require('../../config/googleDrive');
+const streamifier = require('streamifier');
 
 class DriveService {
   constructor() {
     this.drive = google.drive({ version: 'v3', auth });
   }
 
-  async uploadFile(fileBuffer, filename, mimeType = 'image/jpeg') {
+  async uploadFile(fileBuffer, filename, mimeType = 'application/octet-stream') {
     try {
       const fileMetadata = {
         name: filename,
@@ -15,9 +16,10 @@ class DriveService {
 
       const media = {
         mimeType,
-        body: Buffer.from(fileBuffer)
+        body: streamifier.createReadStream(fileBuffer)
       };
 
+      // Upload file to Google Drive
       const file = await this.drive.files.create({
         resource: fileMetadata,
         media: media,
