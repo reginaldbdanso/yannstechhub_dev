@@ -1,0 +1,337 @@
+.landing-container {
+      background-color: #fff;
+      display: flex;
+      padding-bottom: 32px;
+      flex-direction: column;
+    }
+    
+    .main-wrapper {
+      background-color: #fff;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+    }
+    
+    @media (max-width: 991px) {
+      .main-wrapper {
+        max-width: 100%;
+      }
+    }
+
+    .header-section {
+        margin-top: 30px;
+        align-self: center;
+      position: fixed;
+      border-radius: 20px;
+      background-color: #f2f2f2;
+      display: flex;
+      /* width: 1203px; */
+      width: 70%;
+      overflow: hidden;
+      gap: 20px;
+      justify-content: space-between;
+      padding: 21px 68px;
+      box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.147);
+      z-index: 1000;
+    } 
+    
+    .logo {
+      aspect-ratio: 4.13;
+      object-fit: contain;
+      object-position: center;
+      width: 132px;
+      max-width: 100%;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #000;
+      justify-content: start;
+      margin: auto 0;
+      font: 500 14px Open Sans, sans-serif;
+    }
+    
+    .nav-link {
+      align-self: stretch;
+      margin: auto 0;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .user-actions {
+      align-self: start;
+      display: flex;
+      margin-top: 4px;
+      align-items: start;
+      gap: 30px;
+    }
+    
+    .action-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+    }
+    .cart-badge{
+      position: absolute;
+      top: 15px;
+      right: 60px;
+      background: red;
+      color: white;
+      font-size: 14px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      display: none;
+      z-index: 100;
+    }
+    
+    .hero-section {
+      background-color: #010103;
+      padding: 0 6px 37px;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-section {
+        max-width: 100%;
+      }
+    }
+    
+    .hero-content {
+      gap: 20px;
+      display: flex;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+    }
+    
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 50%;
+      margin-left: 0;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-left {
+        width: 100%;
+      }
+    }
+    
+    .hero-image-wrapper {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-height: 675px;
+      margin-top: 8px;
+      width: 100%;
+      padding: 11px 0 11px 32px;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-image-wrapper {
+        max-width: 100%;
+      }
+    }
+    
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .nav-container {
+      position: relative;
+      border-radius: 20px;
+      background-color: #f2f2f2;
+      display: flex;
+      margin-right: -523px;
+      width: 100%;
+      gap: 20px;
+      justify-content: space-between;
+      padding: 21px 68px;
+    }
+    
+    @media (max-width: 991px) {
+      .nav-container {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    
+    .logo {
+      aspect-ratio: 4.13;
+      object-fit: contain;
+      object-position: center;
+      width: 132px;
+      max-width: 100%;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #000;
+      justify-content: start;
+      margin: auto 0;
+      font: 500 14px Open Sans, sans-serif;
+    }
+    
+    .nav-link {
+      align-self: stretch;
+      margin: auto 0;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .nav-icons {
+      align-self: start;
+      display: flex;
+      margin-top: 4px;
+      align-items: start;
+      gap: 30px;
+    }
+    
+    .nav-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+    }
+    
+    .hero-title {
+      position: relative;
+      color: #fff;
+      align-self: end;
+      margin: 123px -92px 0 0;
+      font: 700 70px Open Sans, sans-serif;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-title {
+        margin-top: 40px;
+        font-size: 40px;
+      }
+    }
+    
+    .product-thumbnails {
+      position: relative;
+      align-self: center;
+      display: flex;
+      width: 316px;
+      max-width: 100%;
+      gap: 5px;
+      margin: 250px 0 0 21px;
+    }
+    
+    @media (max-width: 991px) {
+      .product-thumbnails {
+        margin-top: 40px;
+      }
+    }
+    
+    .thumbnail {
+      aspect-ratio: 1.25;
+      object-fit: contain;
+      object-position: center;
+      border-radius: 10px;
+      max-width: 100%;
+    }
+    
+    .thumbnail-1 {
+      width: 129px;
+    }
+    
+    .thumbnail-2 {
+      width: 88px;
+      aspect-ratio: 0.85;
+    }
+    
+    .thumbnail-3 {
+      width: 89px;
+      aspect-ratio: 0.86;
+    }
+    
+    .indicator {
+      aspect-ratio: 11.36;
+      object-fit: contain;
+      object-position: center;
+      width: 102px;
+      border-radius: 5px;
+      align-self: end;
+      margin-right: 27px;
+      max-width: 100%;
+    }
+    
+    @media (max-width: 991px) {
+      .indicator {
+        margin-right: 10px;
+      }
+    }
+    
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 50%;
+      margin-left: 20px;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-right {
+        width: 100%;
+      }
+    }
+    
+    .hero-content-right {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+    }
+    
+    @media (max-width: 991px) {
+      .hero-content-right {
+        max-width: 100%;
+      }
+    }
+    
+    .product-title {
+      color: #fff;
+      z-index: 10;
+      margin: 290px -69px 0 0;
+      font: 700 70px Open Sans, sans-serif;
+    }
+    
+    @media (max-width: 991px) {
+      .product-title {
+        margin-top: 40px;
+        font-size: 40px;
+      }
+    }
+    
+    .product-description {
+      color: #fff;
+      align-self: start;
+      font: 400 20px Open Sans, sans-serif;
+    }
+    
+    @media (max-width: 991px) {
+      .product-description {
+        max-width: 100%;
+      }
+    }
+    
