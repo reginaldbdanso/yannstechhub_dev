@@ -1,14 +1,14 @@
 // Import the necessary dependencies
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from './Header/Header'; // Import the Header component
-import Index from './Index/Index';
-import DailyDeals from './Daily Deals/daily-deals';
-import BundleDeals from './Bundle Deals/bundleDeals';
-import Shop from './Shop/shop';
+import Header from './components/Header/Header'; 
+import Index from './pages/Index/Index';
+import DailyDeals from './pages/Daily Deals/daily-deals';
+import BundleDeals from './pages/Bundle Deals/bundleDeals';
+import Shop from './pages/Shop/shop';
 
-import Cart from './Cart/cart';
-import Footer from './Footer/Footer';
+import Cart from './pages/Cart/cart';
+import Footer from './components/Footer/Footer';
 
 // Define the App component
 function App() {

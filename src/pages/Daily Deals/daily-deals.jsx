@@ -1,10 +1,12 @@
 import React from "react";
 import "./daily-deals.css"
+import ProductList from "../../assets/scripts/daily-deals-section";
 
 
 
 function DailyDeals() {
-    return (
+  return (
+      <>
         <section className="bundle-deals-container">
     <div className="main-content">
       {/* <header className="header-section">
@@ -47,7 +49,7 @@ function DailyDeals() {
   
       <div className="products-grid" id="product-list">
 
-          
+        <ProductList/>
       </div>
     </div>
   
@@ -92,7 +94,9 @@ function DailyDeals() {
       </div>
       <div className="copyright">@yannstechhub2025</div>
     </footer> */}
-  </section>
+      </section>
+    <script src="assets/scripts/daily-deals-section"></script>
+      </>
     );
 }
 

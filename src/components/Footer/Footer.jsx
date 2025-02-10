@@ -2,7 +2,8 @@ import React from "react";
 import './Footer.css';
 
 function Footer() {
-    return (
+  return (
+      <div className="main-content">
         <footer className="footer">
             <div className="footer-content">
               <div className="footer-sections">
@@ -43,7 +44,8 @@ function Footer() {
               </div>
             </div>
             <div className="copyright">@yannstechhub2025</div>
-          </footer> 
+      </footer>
+    </div>
     );
 }
 

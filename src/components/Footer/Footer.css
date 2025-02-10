@@ -1,5 +1,12 @@
 /* ---------------------Footer Styles-------------------------- */
-  
+  .main-content {
+      display: flex;
+      width: 100%;
+      height: none;
+      flex-direction: column;
+      align-items: center;
+    }
+
   .footer {
     background-color: #000;
     padding-top: 10px;
