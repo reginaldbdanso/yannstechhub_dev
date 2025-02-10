@@ -8,11 +8,11 @@ This is a full stack Ecommerce Website. It provides APIs for user authentication
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/reginaldbdanso/Ecommerce-Backend.git
+   git clone https://github.com/reginaldbdanso/yannstechhub_dev.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd Ecommerce-Backend
+   cd yannstechhub_dev
    ```
 3. Install the dependencies:
    ```bash
@@ -40,7 +40,7 @@ The following environment variables are required:
 
 ## Project Structure
 ```
-Ecommerce-Backend/
+yannstechhub_dev/
 ├── src/
 │   ├── config/
 │   │   ├── db.js
