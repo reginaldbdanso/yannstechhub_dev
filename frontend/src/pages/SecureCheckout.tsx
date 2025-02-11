@@ -5,7 +5,7 @@ const SecureCheckout = () => {
     <form className="checkout-container" aria-labelledby="checkout-title">
       <div className="main-content">
         <header className="header-section">
-          <a href="index.html"><img src="imgs/Logo.png" alt="YannsTechHub Logo" className="logo" /></a>
+          <a href="index.html"><img src="/src/assets/Logo.png" alt="YannsTechHub Logo" className="logo" /></a>
           <nav className="nav-buttons">
             <a href="daily-deals-section.html" className="nav-link">Daily deals</a>
             <a href="shop-section.html" className="nav-link">Shop</a>
@@ -13,10 +13,10 @@ const SecureCheckout = () => {
             <a href="#support" className="nav-link">Support</a>
           </nav>
           <div className="user-actions">
-            <img src="imgs/Search - 7.png" alt="Search" className="action-icon" />
-            <img src="imgs/Profile - 3.png" alt="User Account" className="action-icon" />
+            <img src="/src/assets/Search.png" alt="Search" className="action-icon" />
+            <img src="/src/assets/Profile.png" alt="User Account" className="action-icon" />
             <a href="your-cart.html">
-              <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" className="action-icon" />
+              <img src="/src/assets/Cart.png" alt="Shopping Cart" className="action-icon" />
             </a>
           </div>
         </header>

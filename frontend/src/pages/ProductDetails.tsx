@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import '../styles/ProductDetails.css';
 
 export const ProductDetails = () => {
   const [productName, setProductName] = useState('');
@@ -24,20 +25,7 @@ export const ProductDetails = () => {
   return (
     <section className="daily-deals-container">
       <div className="main-content">
-        <header className="header-section">
-          <a href="index.html"><img src="imgs/Logo.png" alt="YannsTechHub Logo" className="logo" /></a>
-          <nav className="nav-buttons">
-            <a href="daily-deals-section.html" className="nav-link">Daily deals</a>
-            <a href="shop-section.html" className="nav-link">Shop</a>
-            <a href="bundle-deals.html" className="nav-link">Bundle Deals</a>
-            <a href="#support" className="nav-link">Support</a>
-          </nav>
-          <div className="user-actions">
-            <img src="imgs/Search - 7.png" alt="Search" className="action-icon" />
-            <img src="imgs/Profile - 3.png" alt="User Account" className="action-icon" />
-            <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" className="action-icon" />
-          </div>
-        </header>
+      
 
         <div className="divider-top"></div>
 
@@ -67,10 +55,10 @@ export const ProductDetails = () => {
                 <div className="main-image-wrapper">
                   <img id="product-image" src={productImage} alt="Main Product" className="main-product-image" />
                   <div className="thumbnail-gallery">
-                    <img src="imgs/Rectangle 11.png" alt="Thumbnail 1" className="thumbnail" onClick={() => handleThumbnailClick('imgs/Rectangle 11.png')} />
-                    <img src="imgs/Rectangle 17.png" alt="Thumbnail 2" className="thumbnail" onClick={() => handleThumbnailClick('imgs/Rectangle 17.png')} />
-                    <img src="imgs/Rectangle 15.png" alt="Thumbnail 3" className="thumbnail" onClick={() => handleThumbnailClick('imgs/Rectangle 15.png')} />
-                    <img src="imgs/Rectangle 10.png" alt="Thumbnail 4" className="thumbnail" onClick={() => handleThumbnailClick('imgs/Rectangle 10.png')} />
+                    <img src="/src/assets/Rectangle 11.png" alt="Thumbnail 1" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 11.png')} />
+                    <img src="/src/assets/Rectangle 17.png" alt="Thumbnail 2" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 17.png')} />
+                    <img src="/src/assets/Rectangle 15.png" alt="Thumbnail 3" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 15.png')} />
+                    <img src="/src/assets/Rectangle 10.png" alt="Thumbnail 4" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 10.png')} />
                   </div>
                 </div>
               </div>

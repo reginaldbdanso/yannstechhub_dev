@@ -7,7 +7,7 @@ export const Footer = () => {
       <div className="py-[73px] px-[70px] flex justify-center">
         <div className="flex flex-row w-[655px] max-w-full gap-5 justify-between">
           <div className="flex flex-col">
-            <img src="/imgs/Logo (1).png" alt="YannsTechHub Footer Logo" className="w-[132px] aspect-[4.13] object-contain" />
+            <img src="/src/assets/Logo (1).png" alt="YannsTechHub Footer Logo" className="w-[132px] aspect-[4.13] object-contain" />
             <div className="flex mt-[19px] gap-[33px]">
               <Link to="#" aria-label="Facebook" className="text-white hover:text-blue-400">
                 <Facebook className="w-[18px] h-[18px]" />

@@ -19,10 +19,10 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product, onAddToCart, onToggleFavorite }: ProductCardProps) => {
   return (
-    <div 
-      key={product.id} 
+    <Link 
+      to={`/product/${product.id}`}
       className="bg-white rounded-[10px] p-4 pb-6 border border-[#e4e4e4] flex flex-col"
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', textDecoration: 'none' }}
     >
       <div className="relative rounded-[10px] aspect-[1.06] w-full">
         <img 
@@ -66,6 +66,6 @@ export const ProductCard = ({ product, onAddToCart, onToggleFavorite }: ProductC
           <img src="/src/assets/Buy - 6.png" alt="Add to cart" className="w-6 h-6" />
         </button>
       </div>
-    </div>
+    </Link>
   );
 };

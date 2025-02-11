@@ -6,7 +6,7 @@ const ShippingDetails = () => {
     <div className="checkout-container">
       <div className="main-content">
         <header className="header-section">
-          <a href="index.html"><img src="imgs/Logo.png" alt="YannsTechHub Logo" className="logo" /></a>
+          <a href="index.html"><img src="/src/assets/Logo.png" alt="YannsTechHub Logo" className="logo" /></a>
           <nav className="nav-buttons">
             <a href="daily-deals-section.html" className="nav-link">Daily deals</a>
             <a href="shop-section.html" className="nav-link">Shop</a>
@@ -14,10 +14,10 @@ const ShippingDetails = () => {
             <a href="#support" className="nav-link">Support</a>
           </nav>
           <div className="user-actions">
-            <img src="imgs/Search - 7.png" alt="Search" className="action-icon" />
-            <img src="imgs/Profile - 3.png" alt="User Account" className="action-icon" />
+            <img src="/src/assets/Search.png" alt="Search" className="action-icon" />
+            <img src="/src/assets/Profile.png" alt="User Account" className="action-icon" />
             <a href="your-cart.html">
-              <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" className="action-icon" />
+              <img src="/src/assets/Cart.png" alt="Shopping Cart" className="action-icon" />
             </a>
           </div>
         </header>
@@ -144,25 +144,25 @@ const ShippingDetails = () => {
         <div className="footer-content">
           <div className="footer-sections">
             <div className="footer-logo-social">
-              <img src="imgs/Logo (1).png" alt="YannsTechHub Footer Logo" className="logo" />
+              <img src="/src/assets/Logo (1).png" alt="YannsTechHub Footer Logo" className="logo" />
               <div className="social-icons">
                 <a href="#" aria-label="Facebook">
-                  <img src="imgs/Facebook.png" alt="" className="social-icon" />
+                  <img src="/src/assets/Facebook.png" alt="" className="social-icon" />
                 </a>
                 <a href="#" aria-label="Twitter">
-                  <img src="imgs/Twitter.png" alt="" className="social-icon" />
+                  <img src="/src/assets/Twitter.png" alt="" className="social-icon" />
                 </a>
                 <a href="#" aria-label="Instagram">
-                  <img src="imgs/Instagram.png" alt="" className="social-icon" />
+                  <img src="/src/assets/Instagram.png" alt="" className="social-icon" />
                 </a>
                 <a href="#" aria-label="LinkedIn">
-                  <img src="imgs/LinkedIn.png" alt="" className="social-icon" />
+                  <img src="/src/assets/LinkedIn.png" alt="" className="social-icon" />
                 </a>
                 <a href="#" aria-label="YouTube">
-                  <img src="imgs/YouTube.png" alt="" className="social-icon" />
+                  <img src="/src/assets/YouTube.png" alt="" className="social-icon" />
                 </a>
                 <a href="#" aria-label="TickTok">
-                  <img src="imgs/TikTok.png" alt="" className="social-icon" />
+                  <img src="/src/assets/TikTok.png" alt="" className="social-icon" />
                 </a>
               </div>
             </div>
