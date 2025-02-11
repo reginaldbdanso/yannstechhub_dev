@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import './Cart.css';
+import '../styles/Cart.css';
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+}
 
 const Cart = () => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const storedCart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart') as string) : [];
@@ -11,7 +18,7 @@ const Cart = () => {
   }, []);
 
   const updateSubtotal = () => {
-    let totalElements = document.querySelectorAll("[id^='total-price-']");
+    const totalElements = document.querySelectorAll("[id^='total-price-']")
     let subtotal = 0;
     
     totalElements.forEach(el => {
@@ -19,38 +26,45 @@ const Cart = () => {
       subtotal += price;
     });
 
-    document.getElementById("subtotal").innerText = subtotal.toFixed(2);
+    const subtotalElement = document.getElementById("subtotal");
+    if (subtotalElement) {
+      subtotalElement.innerText = subtotal.toFixed(2);
+    }
   };
 
-  const increaseQuantity = (index, price) => {
-    let quantitySpan = document.getElementById(`quantity-${index}`);
-    let totalPriceElement = document.getElementById(`total-price-${index}`);
+  const increaseQuantity = (index: number, price: number) => {
+    const quantitySpan = document.getElementById(`quantity-${index}`);
+    const totalPriceElement = document.getElementById(`total-price-${index}`);
+    
+    if (!quantitySpan || !totalPriceElement) return;
     
     let quantity = parseInt(quantitySpan.innerText);
     quantity += 1;
     
-    quantitySpan.innerText = quantity;
+    quantitySpan.innerText = quantity.toString();
     totalPriceElement.innerText = `$${(quantity * price).toFixed(2)}`;
 
     updateSubtotal();
   };
 
-  const decreaseQuantity = (index, price) => {
-    let quantitySpan = document.getElementById(`quantity-${index}`);
-    let totalPriceElement = document.getElementById(`total-price-${index}`);
+  const decreaseQuantity = (index: number, price: number) => {
+    const quantitySpan = document.getElementById(`quantity-${index}`);
+    const totalPriceElement = document.getElementById(`total-price-${index}`);
+    
+    if (!quantitySpan || !totalPriceElement) return;
     
     let quantity = parseInt(quantitySpan.innerText);
     if (quantity > 1) {
       quantity -= 1;
     }
 
-    quantitySpan.innerText = quantity;
+    quantitySpan.innerText = quantity.toString();
     totalPriceElement.innerText = `$${(quantity * price).toFixed(2)}`;
 
     updateSubtotal();
   };
 
-  const removeFromCart = (index) => {
+  const removeFromCart = (index: number) => {
     let updatedCart = [...cart];
     updatedCart.splice(index, 1);
     setCart(updatedCart);
@@ -61,19 +75,6 @@ const Cart = () => {
   return (
     <div className="charts">
       <div className="main-content">
-        <header className="header-section">
-          <img src="imgs/Logo.png" alt="YannsTechHub Logo" className="logo" />
-          <nav className="nav-buttons">
-            <a href="daily-deals-section.html" className="nav-link">Daily deals</a>
-            <a href="shop-section.html" className="nav-link">Shop</a>
-            <a href="bundle-deals.html" className="nav-link">Bundle Deals</a>
-            <a href="#support" className="nav-link">Support</a>
-          </nav>
-          <div className="user-actions">
-            <img src="imgs/Search - 7.png" alt="Search" className="action-icon" />
-            <img src="imgs/Profile - 3.png" alt="User Account" className="action-icon" />
-          </div>
-        </header>
 
         <div className="divider-top"></div>
 
@@ -140,51 +141,11 @@ const Cart = () => {
           </div>
           <div className="checkout-divider"></div>
           <div className="tax-shipping-info">Tax included and shipping calculated at checkout</div>
-          <div className="checkout-button" tabIndex="0" role="button"><a href="secure-checkout.html">Proceed to checkout</a></div>
+          <div className="checkout-button" tabIndex={0} role="button"><a href="secure-checkout.html">Proceed to checkout</a></div>
         </div>
       </div>
 
-      <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-sections">
-            <div className="footer-logo-social">
-              <img src="imgs/Logo (1).png" alt="YannsTechHub Footer Logo" className="logo" />
-              <div className="social-icons">
-                <a href="#" aria-label="Facebook">
-                  <img src="imgs/Facebook.png" alt="" className="social-icon" />
-                </a>
-                <a href="#" aria-label="Twitter">
-                  <img src="imgs/Twitter.png" alt="" className="social-icon" />
-                </a>
-                <a href="#" aria-label="Instagram">
-                  <img src="imgs/Instagram.png" alt="" className="social-icon" />
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                  <img src="imgs/LinkedIn.png" alt="" className="social-icon" />
-                </a>
-                <a href="#" aria-label="YouTube">
-                  <img src="imgs/YouTube.png" alt="" className="social-icon" />
-                </a>
-                <a href="#" aria-label="TickTok">
-                  <img src="imgs/TikTok.png" alt="" className="social-icon" />
-                </a>
-              </div>
-            </div>
-            <div className="footer-links">
-              <h3 className="footer-heading">Company</h3>
-              <a href="#about" className="footer-link">About Us</a>
-              <a href="#careers" className="footer-link">Careers</a>
-            </div>
-            <div className="footer-links">
-              <h3 className="footer-heading">Help</h3>
-              <a href="#legal" className="footer-link">Legal</a>
-              <a href="#faqs" className="footer-link">FAQs</a>
-              <a href="#contact" className="footer-link">Contact</a>
-            </div>
-          </div>
-        </div>
-        <div className="copyright">@yannstechhub2025</div>
-      </footer>
+      
     </div>
   );
 };

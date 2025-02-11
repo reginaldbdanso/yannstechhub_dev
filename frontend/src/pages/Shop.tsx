@@ -99,26 +99,7 @@ export const Shop = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header Section */}
-      <header className="fixed rounded-[20px] bg-[#f2f2f2] flex w-[70%] overflow-hidden gap-5 justify-between px-[68px] py-[21px] shadow-md z-[1000]">
-        <img src="/src/assets/Logo.png" alt="Logo" className="aspect-[4.13] object-contain w-[132px] max-w-full" />
-        
-        <nav className="flex items-center gap-[30px] text-black justify-start my-auto font-medium text-sm font-['Open_Sans']">
-          <Link to="/" className="self-stretch my-auto cursor-pointer">Home</Link>
-          <Link to="/shop" className="self-stretch my-auto cursor-pointer">Shop</Link>
-          <Link to="/daily-deals" className="self-stretch my-auto cursor-pointer">Daily Deals</Link>
-          <Link to="/bundle-deals" className="self-stretch my-auto cursor-pointer">Bundle Deals</Link>
-        </nav>
-
-        <div className="self-start flex mt-1 items-start gap-[30px]">
-          <img src="/src/assets/Search - 7.png" alt="Search" className="aspect-square object-contain w-6" />
-          <img src="/src/assets/Profile - 3.png" alt="Profile" className="aspect-square object-contain w-6" />
-          <div className="relative">
-            <img src="/src/assets/Buy - 6.png" alt="Cart" className="aspect-square object-contain w-6" />
-            <span className="cart-badge absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full text-center leading-5 hidden">0</span>
-          </div>
-        </div>
-      </header>
+     
 
       <div className="main-content bg-[#eef2f4] flex w-full flex-col items-center py-[21px] pb-[179px]">
         <div className="divider-top self-stretch min-h-0 mt-[100px] w-[99.9%] border border-[#d5d5d5]"></div>
