@@ -4,9 +4,10 @@ import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
 import { Shop } from './pages/Shop';
 import { DailyDeals } from './pages/DailyDeals';
-import { BundleDeals } from './pages/BundleDeals';
+import BundleDeals from './pages/BundleDeals';
 import { ProductDetails } from './pages/ProductDetails';
 import './index.css';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/daily-deals" element={<DailyDeals />} />
           <Route path="/bundle-deals" element={<BundleDeals />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
       </div>
