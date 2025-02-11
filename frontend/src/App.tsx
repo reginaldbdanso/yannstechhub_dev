@@ -16,6 +16,7 @@ import Careers from './pages/Careers';
 import Legal from './pages/Legal';
 import FAQs from './pages/FAQs';
 import Contact from './pages/Contact';
+import Auth from './pages/Auth';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/legal" element={<Legal />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
         <Footer />
       </div>

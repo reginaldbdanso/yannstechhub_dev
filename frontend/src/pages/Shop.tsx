@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ProductCard } from '../components/ProductCard';
 
 interface Product {
   id: number;
@@ -231,54 +232,12 @@ export const Shop = () => {
             <div className="flex-1 pl-8">
               <div className="products-grid">
                 {products.map((product) => (
-                  <div 
-                    key={product.id} 
-                    className="product-card"
-                    onClick={() => handleProductClick(product)}
-                  >
-                    <div className="product-image-container">
-                      <img 
-                        src={product.image} 
-                        alt={product.title}
-                        className="product-image"
-                      />
-                      <button 
-                        className="favorite-icon"
-                        onClick={(e) => handleToggleFavorite(e, product.id)}
-                      >
-                        <img
-                          src="/src/assets/favorie 1.png"
-                          alt="Favorite"
-                          className="w-full h-full"
-                        />
-                      </button>
-                      {product.badge && (
-                        <div className="product-badge">
-                          {product.badge}
-                        </div>
-                      )}
-                    </div>
-                    
-                    <h3 className="product-title">{product.title}</h3>
-                    
-                    <div className="product-details">
-                      <div className="rating-price">
-                        <div className="rating">
-                          <img src="/src/assets/star 1.png" alt="Rating" className="rating-icon" />
-                          <span>{product.rating} ({product.reviews} reviews)</span>
-                        </div>
-                        <span className="price">
-                          ${product.price.toFixed(2)}
-                        </span>
-                      </div>
-                      <button 
-                        className="cart-button"
-                        onClick={(e) => handleAddToCart(e, product)}
-                      >
-                        <img src="/src/assets/Buy - 6.png" alt="Add to cart" className="cart-icon" />
-                      </button>
-                    </div>
-                  </div>
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={handleAddToCart}
+                    onToggleFavorite={handleToggleFavorite}
+                  />
                 ))}
               </div>
             </div>
