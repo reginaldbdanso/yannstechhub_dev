@@ -14,7 +14,7 @@ export const LatestItems = () => {
 
           <div className="flex flex-col w-[32%] ml-5">
             <a href="#latest-arrivals" className="text-black no-underline">Latest Arrivals</a>
-            <div className="rounded-[20px] bg-[#d9d9d9] flex flex-col m-0 gap-2 p-4">
+            <div className="rounded-[20px] bg-[#d9d9d9] flex flex-col m-0 gap-2 p-10">
               <div className="flex gap-2.5">
                 <img src="/src/assets/Rectangle 51.png" alt="Item 1" className="aspect-[0.68] object-contain w-[136px] rounded-lg" />
                 <img src="/src/assets/Rectangle 52.png" alt="Item 2" className="aspect-[0.68] object-contain w-[136px] rounded-lg" />

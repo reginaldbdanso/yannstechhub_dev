@@ -12,7 +12,7 @@ export const CategorySection = () => {
   ];
 
   return (
-    <section className="flex w-full max-w-[80%] mx-[10%] flex-col mt-5 self-center justify-center">
+    <section className="flex w-full max-w-[100%] mx-[10%] flex-col mt-5 self-center justify-center">
       <div className="self-stretch flex flex-wrap gap-3.5">
         <div className="flex flex-col flex-1">
           <h3 className="text-black mt-[109px] font-bold text-2xl font-sans">

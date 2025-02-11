@@ -56,11 +56,13 @@ export const Home = () => {
           </div>
         </section>
 
-        <CategorySection />
-        <LatestItems />
-        <ProductGrid />
-        <PromoBanner />
-        <Features />
+        <div className="flex flex-col w-[60%] ml-5">
+          <CategorySection />
+          <LatestItems />
+          <ProductGrid />
+          <PromoBanner />
+          <Features />
+        </div>
         <Newsletter />
       </main>
     </div>
