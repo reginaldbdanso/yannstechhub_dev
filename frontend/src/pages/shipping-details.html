@@ -1,0 +1,656 @@
+<style>
+    .checkout-container {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .main-wrapper {
+      background-color: #eef2f4;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      padding: 21px 0 73px;
+    }
+    
+    @media (max-width: 991px) {
+      .main-wrapper {
+        max-width: 100%;
+      }
+    }
+    
+    .header-nav {
+      border-radius: 20px;
+      background-color: #f2f2f2;
+      align-self: center;
+      display: flex;
+      width: 1203px;
+      max-width: 100%;
+      gap: 20px;
+      justify-content: space-between;
+      padding: 21px 68px;
+    }
+    
+    @media (max-width: 991px) {
+      .header-nav {
+        padding: 0 20px;
+      }
+    }
+    
+    .logo {
+      aspect-ratio: 4.13;
+      object-fit: contain;
+      object-position: center;
+      width: 132px;
+      max-width: 100%;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #000;
+      justify-content: start;
+      margin: auto 0;
+      font: 500 14px Open Sans, sans-serif;
+    }
+    
+    .nav-link {
+      align-self: stretch;
+      margin: auto 0;
+    }
+    
+    .user-actions {
+      align-self: start;
+      display: flex;
+      margin-top: 4px;
+      align-items: start;
+      gap: 30px;
+    }
+    
+    .action-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+    }
+    
+    .cart-icon {
+      align-self: stretch;
+      display: flex;
+      width: 27px;
+      height: 27px;
+    }
+    
+    .divider {
+      min-height: 1px;
+      margin-top: 26px;
+      width: 100%;
+      border: 1px solid #d5d5d5;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      width: 507px;
+      max-width: 100%;
+      gap: 12px;
+      color: #000;
+      flex-wrap: wrap;
+      margin: 9px 0 0 139px;
+      font: 500 15px Open Sans, sans-serif;
+    }
+    
+    .breadcrumb-item {
+      align-self: stretch;
+      border-radius: 10px;
+      background-color: #fff;
+      min-height: 28px;
+      padding: 4px 14px;
+    }
+    
+    .breadcrumb-home {
+      font-weight: 700;
+    }
+    
+    .checkout-content {
+      display: flex;
+      margin-top: 38px;
+      width: 100%;
+      flex-direction: column;
+      padding: 0 39px 0 80px;
+    }
+    
+    @media (max-width: 991px) {
+      .checkout-content {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    
+    .content-grid {
+      gap: 20px;
+      display: flex;
+    }
+    
+    @media (max-width: 991px) {
+      .content-grid {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+    }
+    
+    .shipping-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 64%;
+      margin-left: 0;
+    }
+    
+    @media (max-width: 991px) {
+      .shipping-column {
+        width: 100%;
+      }
+    }
+    
+    .shipping-details {
+      display: flex;
+      margin-top: 5px;
+      width: 100%;
+      flex-direction: column;
+      align-items: start;
+      color: #000;
+      font: 20px Open Sans, sans-serif;
+    }
+    
+    .section-title {
+      font-weight: 700;
+    }
+    
+    .address-card {
+      border-radius: 20px;
+      background-color: #fff;
+      align-self: stretch;
+      display: flex;
+      margin-top: 18px;
+      width: 100%;
+      align-items: start;
+      gap: 20px;
+      font-size: 15px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px 26px 52px;
+      border: 1px solid #e4e4e4;
+    }
+    
+    .address-info {
+      display: flex;
+      margin-top: 5px;
+      flex-direction: column;
+      align-items: start;
+      font-weight: 500;
+    }
+    
+    .info-item {
+      margin-top: 9px;
+    }
+    
+    .edit-button {
+      display: flex;
+      gap: 5px;
+      font-weight: 700;
+    }
+    
+    .edit-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 19px;
+      align-self: start;
+    }
+    
+    .shipping-method {
+      font-weight: 700;
+      margin-top: 38px;
+    }
+    
+    .method-card {
+      border-radius: 20px;
+      background-color: #fff;
+      align-self: stretch;
+      display: flex;
+      margin-top: 18px;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      flex-wrap: wrap;
+      padding: 30px;
+      border: 1px solid #e4e4e4;
+    }
+    
+    .method-description {
+      flex-grow: 1;
+      flex-basis: auto;
+    }
+    
+    .payment-method {
+      font-weight: 700;
+      margin-top: 35px;
+    }
+    
+    .order-column {
+      display: flex;
+      flex-direction: column;
+      line-height: normal;
+      width: 36%;
+      margin-left: 20px;
+    }
+    
+    @media (max-width: 991px) {
+      .order-column {
+        width: 100%;
+      }
+    }
+    
+    .order-summary {
+      border-radius: 10px;
+      background-color: #fff;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      color: #000;
+      margin: 0 auto;
+      padding: 30px 22px 57px;
+      font: 500 15px Open Sans, sans-serif;
+      border: 1px solid #e4e4e4;
+    }
+    
+    .summary-header {
+      align-self: center;
+      display: flex;
+      width: 336px;
+      max-width: 100%;
+      gap: 20px;
+      font-weight: 700;
+      justify-content: space-between;
+    }
+    
+    .product-item {
+      align-self: start;
+      display: flex;
+      gap: 15px;
+      margin: 30px 0 0 11px;
+    }
+    
+    .product-image {
+      aspect-ratio: 1.06;
+      object-fit: contain;
+      object-position: center;
+      width: 89px;
+      border-radius: 10px;
+    }
+    
+    .product-details {
+      align-self: start;
+      display: flex;
+      margin-top: 5px;
+      flex-direction: column;
+      align-items: start;
+    }
+    
+    .product-name {
+      font-weight: 700;
+      align-self: stretch;
+    }
+    
+    .product-quantity {
+      margin-top: 9px;
+    }
+    
+    .product-price {
+      margin-top: 11px;
+    }
+    
+    .item-divider {
+      margin-top: 17px;
+      height: 1px;
+      border: 1px solid #d5d5d5;
+    }
+    
+    .payment-options {
+      margin-top: 7px;
+      width: 100%;
+    }
+    
+    .options-grid {
+      gap: 20px;
+      display: flex;
+    }
+    
+    .payment-column {
+      border-radius: 20px;
+      background-color: #fff;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: start;
+      color: #000;
+      margin: 0 auto;
+      padding: 49px 80px 77px 22px;
+      font: 700 15px Open Sans, sans-serif;
+      border: 1px solid #e4e4e4;
+    }
+    
+    .payment-option {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .radio-button {
+      border-radius: 50%;
+      align-self: start;
+      display: flex;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #d9d9d9;
+    }
+    
+    .option-label {
+      flex-basis: auto;
+      flex-grow: 1;
+    }
+    
+    .mobile-money-section {
+      margin-top: 45px;
+    }
+    
+    .mobile-option {
+      display: flex;
+      margin-top: 20px;
+      gap: 6px;
+    }
+    
+    .checkout-button {
+      align-self: start;
+      border-radius: 30px;
+      background-color: #0055b6;
+      min-height: 57px;
+      gap: 10px;
+      color: #fff;
+      margin: 36px 0 0 149px;
+      padding: 19px 150px;
+      font: 700 15px Open Sans, sans-serif;
+    }
+    
+    .footer {
+      background-color: #000;
+      display: flex;
+      width: 100%;
+      padding-top: 10px;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
+    .footer-content {
+      background-color: #000;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding: 73px 70px 40px;
+    }
+    
+    .footer-grid {
+      display: flex;
+      width: 655px;
+      max-width: 100%;
+      align-items: start;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    
+    .footer-logo {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .social-icons {
+      display: flex;
+      margin-top: 19px;
+      align-items: start;
+      gap: 33px;
+      justify-content: start;
+    }
+    
+    .social-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 18px;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      color: #fff;
+      font: 300 12px Inter, sans-serif;
+    }
+    
+    .footer-heading {
+      color: #dedede;
+      font-size: 17px;
+      font-weight: 700;
+      align-self: stretch;
+    }
+    
+    .footer-link {
+      margin-top: 25px;
+    }
+    
+    .copyright {
+      background-color: #191919;
+      margin-top: 18px;
+      width: 100%;
+      color: #fff;
+      text-align: center;
+      padding: 7px 70px 13px;
+      font: 400 10px Inter, sans-serif;
+    }
+    
+    @media (max-width: 991px) {
+      .copyright {
+        max-width: 100%;
+        padding: 0 20px;
+      }
+    }
+    </style>
+    
+    <div class="checkout-container">
+      <div class="main-wrapper">
+        <nav class="header-nav" role="navigation">
+          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d962a5648b3a827e7de2589460eeb8b55b5668612978d504a8f5b359527d69c?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="logo" alt="Company Logo"/>
+          <div class="nav-links">
+            <a href="#" class="nav-link">Daily deals</a>
+            <a href="#" class="nav-link">Shop</a>
+            <a href="#" class="nav-link">Bundle Deals</a>
+            <a href="#" class="nav-link">Support</a>
+          </div>
+          <div class="user-actions">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/caffc333dea08fa9c2427ed2edb1e5f99041c7457e91b72534f7410dabf8dc0f?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="action-icon" alt="Search"/>
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/27240010be2edc760824df85c53ca5f2605cf593bb319977564282959336dc16?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="action-icon" alt="User Account"/>
+            <div class="cart-icon" role="button" aria-label="Shopping Cart"></div>
+          </div>
+        </nav>
+        
+        <div class="divider" role="separator"></div>
+        
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#" class="breadcrumb-item breadcrumb-home">yannstechub</a>
+          <a href="#" class="breadcrumb-item">Daily deals</a>
+          <a href="#" class="breadcrumb-item">Cart</a>
+          <span class="breadcrumb-item" aria-current="page">Secure Checkout</span>
+        </nav>
+        
+        <div class="divider" role="separator"></div>
+        
+        <main class="checkout-content">
+          <div class="content-grid">
+            <div class="shipping-column">
+              <section class="shipping-details">
+                <h2 class="section-title">Shipping Address</h2>
+                <div class="address-card">
+                  <div class="address-info">
+                    <p><strong>Name:</strong> Adusah Poku Kofi Nkansah</p>
+                    <p class="info-item"><strong>Email:</strong> adusahpoku@gmail.com</p>
+                    <p class="info-item"><strong>Phone:</strong> 05989812365</p>
+                    <p class="info-item"><strong>Ship to:</strong> GA-021-6548 Spintex Shell Signboard</p>
+                  </div>
+                  <button class="edit-button">
+                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/0aa7b523f67476462c15e215411ad35ce54c27c56b10da9c112c2649704ee83a?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="edit-icon" alt="Edit"/>
+                    Edit
+                  </button>
+                </div>
+                
+                <h2 class="shipping-method">Shipping Method</h2>
+                <div class="method-card">
+                  <p class="method-description">Standard Shipping (1-3 business days in Accra, 3-7 business days in other areas)</p>
+                  <p>$5.00</p>
+                </div>
+                
+                <h2 class="payment-method">Payment Method</h2>
+              </section>
+            </div>
+            
+            <aside class="order-column">
+              <div class="order-summary">
+                <div class="summary-header">
+                  <h3>My Order Summary</h3>
+                  <button>Edit</button>
+                </div>
+                
+                <div class="product-item">
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a3d2d15b23f08d6a7e4a2e6a232f16067819ffa196f0281f853b8b8b5396d9b4?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="product-image" alt="Product 1"/>
+                  <div class="product-details">
+                    <h4 class="product-name">Lorem ipsum dolor</h4>
+                    <p class="product-quantity">Qty: 1</p>
+                    <p class="product-price">$50.00</p>
+                  </div>
+                </div>
+                
+                <div class="item-divider"></div>
+                
+                <div class="product-item">
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a9d8eab4fe28a73835d78dacacb812768449843e65448f1aa79482ad7a0d5e41?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="product-image" alt="Product 2"/>
+                  <div class="product-details">
+                    <h4 class="product-name">Lorem ipsum dolor</h4>
+                    <p class="product-quantity">Qty: 1</p>
+                    <p class="product-price">$99.99</p>
+                  </div>
+                </div>
+                
+                <div class="item-divider"></div>
+                
+                <div class="product-item">
+                  <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/4dec0a85ae305f77f0be2bbd7994f06e59650e4d5ff4602c193c0386f8e57c48?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="product-image" alt="Product 3"/>
+                  <div class="product-details">
+                    <h4 class="product-name">Lorem ipsum dolor</h4>
+                    <p class="product-quantity">Qty: 1</p>
+                    <p class="product-price">$99.99</p>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+          
+          <div class="payment-options">
+            <div class="options-grid">
+              <div class="payment-column">
+                <div class="payment-option">
+                  <div class="radio-button" role="radio" aria-checked="false"></div>
+                  <p class="option-label">Pay on Delivery<br><span>Pay Mobile Money or in cash on Delivery/Pickup</span></p>
+                </div>
+                
+                <h3 class="mobile-money-section">Mobile Money</h3>
+                
+                <div class="mobile-option">
+                  <div class="radio-button" role="radio" aria-checked="false"></div>
+                  <p>MTN Mobile Money</p>
+                </div>
+                
+                <div class="mobile-option">
+                  <div class="radio-button" role="radio" aria-checked="false"></div>
+                  <p>Telecel Mobile Money</p>
+                </div>
+                
+                <div class="mobile-option">
+                  <div class="radio-button" role="radio" aria-checked="false"></div>
+                  <p>AirtelTigo Mobile Money</p>
+                </div>
+                
+                <h3>Pre-pay Now</h3>
+                
+                <div class="payment-option">
+                  <div class="radio-button" role="radio" aria-checked="false"></div>
+                  <p>Pay with Card<br><span>Pay Now with No E-levy</span></p>
+                </div>
+              </div>
+              
+              <div class="order-column">
+                <div class="order-summary">
+                  <div class="summary-header">
+                    <div>
+                      <h3>Cart Summary</h3>
+                      <p>Shipping</p>
+                      <p class="total">Total</p>
+                    </div>
+                    <div>
+                      <p>$349.99</p>
+                      <p>$5.00</p>
+                      <p>$354.99</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <button class="checkout-button">Proceed to checkout</button>
+        </main>
+      </div>
+      
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-grid">
+            <div class="footer-logo">
+              <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/14337a3bc9ce6f3064aae76392d3b0f701480105855e134a69e4b1d708968d96?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="logo" alt="Footer Logo"/>
+              <div class="social-icons">
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/e4e6c71b5500d63b74c3937dba786fe60e6af53bf2248f1ba7904ce7ceb5a214?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="social-icon" alt="Facebook"/>
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f40816b46499d250d4225f62a3ee7f1136149c95228d96495d89a44fd07e30f2?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="social-icon" alt="Twitter"/>
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/63e94aab1c641e4487dbd9e440c025fb74da667b8921c0467643f1447b281ffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="social-icon" alt="Instagram"/>
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e7481c8793977677f152529b654a02cb36be78ef8aafdeb1f14777818c39ad0?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="social-icon" alt="LinkedIn"/>
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/aac656be81d660e7d6cca7bdfb5c5461e46594bc7f0226c4853fe56cdf8a221d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="social-icon" alt="YouTube"/>
+                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/157e8cb4f49f13aad45a2914dc10f3a7a6bbf237006db244150b722669730d32?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" class="social-icon" alt="Pinterest"/>
+              </div>
+            </div>
+            
+            <div class="footer-links">
+              <h4 class="footer-heading">Company</h4>
+              <a href="#" class="footer-link">About Us</a>
+              <a href="#" class="footer-link">Careers</a>
+            </div>
+            
+            <div class="footer-links">
+              <h4 class="footer-heading">Help</h4>
+              <a href="#" class="footer-link">Legal</a>
+              <a href="#" class="footer-link">FAQs</a>
+              <a href="#" class="footer-link">Contact</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="copyright">@yannstechhub2025</div>
+      </footer>
+    </div>

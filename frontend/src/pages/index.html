@@ -1,0 +1,1578 @@
+<style>
+  a{
+    text-decoration: none;
+  }
+  .landing-container {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  
+  .main-content {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-section{
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100vh;
+      font-family: Inter, sans-serif;
+      padding-top: 21px;
+    }
+    .hero-slide {
+      background-color: #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-section {
+      max-width: 100%;
+    }
+  }
+  .hero-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+ 
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+  
+  .hero-content {
+    display: flex;
+    gap: -60px;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-content {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+  
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 50%;
+    margin-left: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-left {
+      width: 100%;
+    }
+  }
+  
+  .hero-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 675px;
+    margin-top: 8px;
+    width: 100%;
+    padding: 16px 0 20px 26px;
+    align-items: center;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-image-wrapper {
+      max-width: 100%;
+    }
+  }
+  
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    object-position: left;
+  }
+  
+  .header-section {
+    position: fixed;
+    border-radius: 20px;
+    background-color: #f2f2f2;
+    display: flex;
+    /* width: 1203px; */
+    width: 70%;
+    overflow: hidden;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 21px 68px;
+    box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.147);
+    z-index: 1000;
+    } 
+    
+    .logo {
+      aspect-ratio: 4.13;
+      object-fit: contain;
+      object-position: center;
+      width: 132px;
+      max-width: 100%;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #000;
+      justify-content: start;
+      margin: auto 0;
+      font: 500 14px Open Sans, sans-serif;
+    }
+    
+    .nav-link {
+      align-self: stretch;
+      margin: auto 0;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .user-actions {
+      align-self: start;
+      display: flex;
+      margin-top: 4px;
+      align-items: start;
+      gap: 30px;
+    }
+    
+    .action-icon {
+      aspect-ratio: 1;
+      object-fit: contain;
+      object-position: center;
+      width: 24px;
+    }
+    .cart-badge{
+      position: absolute;
+      top: 15px;
+      right: 60px;
+      background: red;
+      color: white;
+      font-size: 14px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 20px;
+      display: none;
+      z-index: 100;
+    }
+  
+  .thumbnail-container {
+    position: relative;
+    align-self: center;
+    display: flex;
+    width: 316px;
+    max-width: 100%;
+    gap: 5px;
+    margin: 550px 0 0 21px;
+  }
+  
+  @media (max-width: 991px) {
+    .thumbnail-container {
+      margin-top: 40px;
+    }
+  }
+  
+  .thumbnail {
+    aspect-ratio: 1.25;
+    object-fit: contain;
+    object-position: center;
+    width: 129px;
+    border-radius: 10px;
+    max-width: 100%;
+  }
+  
+  .thumbnail-small {
+    aspect-ratio: 0.85;
+    object-fit: contain;
+    object-position: center;
+    width: 88px;
+    border-radius: 10px;
+  }
+  
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 50%;
+    padding-right: 90px;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-right {
+      width: 100%;
+      padding-right: 0px;
+    }
+  }
+  
+  .hero-content-right {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-content-right {
+      max-width: 100%;
+    }
+  }
+  
+  .hero-title-container {
+    display: flex;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-title-container {
+      max-width: 100%;
+    }
+  }
+  
+  .hero-title-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-title-wrapper {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+  
+  .hero-title-left {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 55%;
+    margin-left: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-title-left {
+      width: 100%;
+    }
+  }
+  
+  .hero-title {
+    color: #fff;
+    z-index: 10;
+    margin: 290px 0px 0 0;
+    font: 700 70px Open Sans, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-title {
+      margin-top: 40px;
+      font-size: 40px;
+    }
+  }
+  
+  .hero-title-right {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 45%;
+    margin-left: 20px;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-title-right {
+      width: 100%;
+    }
+  }
+  
+  .hero-image-right {
+    aspect-ratio: 0.83;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    flex-grow: 1;
+  }
+  
+  .hero-description {
+    color: #fff;
+    align-self: flex-start;
+    font: 400 20px Open Sans, sans-serif;
+    width: 80%;
+  }
+  
+  @media (max-width: 991px) {
+    .hero-description {
+      max-width: 100%;
+    }
+  }
+  .categories-section {
+  
+    display: flex;
+    width: 100%;
+    max-width: 80%;
+    margin: 0% 10%;
+    flex-direction: column;
+    margin-top: 20px;
+    align-self: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: 991px) {
+    .categories-section {
+      max-width: 100%;
+      margin: 0% 5%;
+    }
+  }
+  
+  .categories-grid {
+    align-self: stretch;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .category-title{
+  color: #000;
+  margin-top: 109px;
+  font: 700 25px Open Sans, sans-serif;
+  }
+  .hero-controls{
+    align-self: flex-end;
+    display: flex;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    gap: 13px;
+  }
+  .control-icon{
+    cursor: pointer;
+    background-color: #eee;
+    aspect-ratio: 1.31;
+    object-fit: contain;
+    object-position: center;
+    width: 47px;
+    border-radius: 15px;
+  }
+  .hero-controls img{
+    width: 10%;
+    padding: 13px;
+  }
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .categories-products{
+    display: flex;
+    gap: 1rem;
+  }
+
+  .categories-products-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .category-icon-wrapper {
+    border-radius: 10px;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    width: 124px;
+    flex-direction: column;
+    justify-content: center;
+    padding: 13px 0px;
+  }
+  
+  .category-icon {
+    aspect-ratio: 1.16;
+    object-fit: contain;
+    object-position: center;
+    width: 94px;
+    border-radius: 10px;
+  }
+  
+  .category-label {
+    color: #000;
+    align-self: center;
+    margin-top: 9px;
+    font: 700 14px Open Sans, sans-serif;
+  }
+  
+
+/* -------------------------------------------------------- */
+
+
+.items-section {
+  color: #000;
+  margin-top: 109px;
+  font: 700 25px Open Sans, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  justify-content: space-between;
+
+}
+
+@media (max-width: 991px) {
+  .items-section {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+}
+
+.items-nav {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  
+  gap: 20px;
+  color: #000;
+  justify-content: space-between;
+  margin: 58px 0 0 15px;
+  font: 700 25px Open Sans, sans-serif;
+}
+.items-nav a{
+  text-decoration: none;
+  color: #000;
+}
+
+@media (max-width: 991px) {
+  .items-nav {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+}
+
+.items-grid {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.items-row {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  /* gap: 20px; */
+}
+.items-row a{
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+@media (max-width: 991px) {
+  .items-row {
+    align-items: stretch;
+    gap: 0;
+  }
+}
+
+.items-column {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 40%;
+}
+
+.items-image {
+  aspect-ratio: 0.87;
+  object-fit: contain;
+  width: 100%;
+  border-radius: 20px;
+  flex-grow: 1;
+}
+
+.items-grid-column {
+  display: flex;
+  flex-direction: column;
+  width: 32%;
+  margin-left: 20px;
+}
+
+.items-grid-container {
+  border-radius: 20px;
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 8px;
+  padding: 15px 14px;
+}
+
+.items-grid-row {
+  display: flex;
+  gap: 10px;
+}
+
+.items-grid-item {
+  aspect-ratio: 0.68;
+  object-fit: contain;
+  width: 136px;
+  border-radius: 10px;
+}
+
+.items-column-small {
+  display: flex;
+  flex-direction: column;
+  width: 29%;
+  margin-left: 20px;
+}
+
+.items-images-small {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.items-image-small {
+  aspect-ratio: 1.33;
+  object-fit: contain;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.items-image-small-2 {
+  aspect-ratio: 1.32;
+  object-fit: contain;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 16px;
+}
+     /* ---------------------Product Grid Styles-------------------------- */
+  .product-txt{
+  width: 50%;
+  margin-top: 80px;
+  font: 700 25px Open Sans, sans-serif;
+  }
+  .products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 20px;
+  align-self: center;
+  align-items: start;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  }
+
+  @media (max-width: 991px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        margin-top: 20px;
+        max-width: 100%;
+    }
+}
+
+.product-card-1 {
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+    display: flex;
+    flex-direction: column;
+    background-color: #0055b6;
+    }
+    @media (max-width: 991px) {
+      .img-gallery-column {
+        width: 100%;
+      }
+    }
+    .sales-banner {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      color: #fff;
+      padding: 15px 16px 15px;
+      border-radius: 10px;
+      white-space: nowrap;
+      font: 30px/35px Open Sans, sans-serif;
+      font-weight: 700;
+    }
+    @media (max-width: 991px) {
+      .sales-banner {
+        white-space: normal;
+        margin-top: 100px;
+        padding: 80px 30px;
+        }
+    }
+    .highlight-circle {
+      background-color: #fff;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-self: end;
+      align-items: center;
+      justify-content: center;
+      margin-right: 50px;
+      margin-top: 119px;
+      margin-bottom: 35px;
+      width: 52px;
+      height: 52px;
+    }
+  
+    .arrow-vector{
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 15px;
+    margin: 3px 0px;
+    }
+  
+  .product-card {
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 15px 16px 26px;
+    /* box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.024); */
+    /* border: 1px solid #e4e4e4; */
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: 991px) {
+    .product-card {
+      padding: 5px 5px 10px;
+    }
+  }
+  
+  .product-image-container {
+    position: relative;
+    border-radius: 10px;
+    aspect-ratio: 1.06;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    
+  }
+  
+  .favorite-icon {
+    position: absolute;
+    top: 14px;
+    left: 15px;
+    width: 19px;
+    aspect-ratio: 1;
+    cursor: pointer;
+  }
+  @media (max-width: 991px) {
+    .favorite-icon{
+      width: 13px;
+      top: 11px;
+      left: 12px;
+    }
+  }
+  .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 13px;
+      border-radius: 20px;
+      background: #ffc107;
+      padding: 6px 22px;
+      font: 700 12px 'Open Sans', sans-serif;
+      color: #000;
+    }
+
+  
+  .product-title {
+    color: #000;
+    /* margin-top: 28px; */
+    font: 700 14px Open Sans, sans-serif;
+  }
+  @media (max-width: 991px) {
+    .product-title{
+      margin-top: 0px;
+      font-size: 25px;
+      text-align: center;
+    }
+  }
+
+  
+  .product-details {
+    display: flex;
+    margin-top: 7px;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  @media (max-width: 991px) {
+    .product-details {
+      margin: 5% 15%;
+    }
+  }
+  .rating-price {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .rating {
+    display: flex;
+    gap: 10px;
+    font-size: 12px;
+    color: #a5a5a5;
+    align-items: center;
+  }
+  
+  .rating-icon {
+    width: 20px;
+    aspect-ratio: 1;
+  }
+  
+  .price {
+    color: #000;
+    font-size: 25px;
+    font-weight: 700;
+    margin-top: 7px;
+    font-family: Inter, sans-serif;
+  }
+  .cart-button{
+    background-color: #000;
+    border-radius: 50%;
+    margin-top: 8%;
+    cursor: pointer;
+  }
+  .cart-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 25px;
+    margin: 3px 0px;
+  }
+
+  /* -----------Promo-banner Style----------------- */
+  
+  .promo-banner {
+    border-radius: 20px;
+    background-color: #c0ddff;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 57px 0px 0 0;
+    padding: 15px 70px 25px;
+  }
+  
+  @media (max-width: 991px) {
+    .promo-banner {
+      max-width: 100%;
+      margin: 40px 10px 0 0;
+      padding: 0 20px;
+    }
+  }
+  
+  .promo-content {
+    width: 755px;
+    max-width: 100%;
+  }
+  
+  .promo-row {
+    gap: 20px;
+    display: flex;
+  }
+  
+  @media (max-width: 991px) {
+    .promo-row {
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+  
+  .promo-col {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 41%;
+    margin-left: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .promo-col {
+      width: 100%;
+    }
+  }
+  
+  .promo-image {
+    aspect-ratio: 0.92;
+    object-fit: contain;
+    object-position: center;
+    width: 100%;
+    flex-grow: 1;
+  }
+  
+  @media (max-width: 991px) {
+    .promo-image {
+      margin-top: 40px;
+    }
+  }
+  
+  .promo-text-col {
+    align-self: center;
+    line-height: normal;
+    width: 100%;
+    margin-left: 20px;
+  }
+  
+  @media (max-width: 991px) {
+    .promo-text-col {
+      width: 100%;
+    }
+  }
+  
+  .promo-title {
+    color: #000;
+    align-self: stretch;
+    margin: auto 0;
+    font: 700 80px Open Sans, sans-serif;
+  }
+  .promo-description{
+    color: #000;
+    align-self: stretch;
+    margin: auto 0;
+    font: 700 40px Open Sans, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .promo-title {
+      margin-top: 40px;
+      font-size: 40px;
+    }
+  }
+  
+  .features-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* max-width: 947px; */
+    margin: 76px 0 0 0px;
+    align-items: center;
+  }
+  
+  @media (max-width: 991px) {
+    .features-section {
+      max-width: 100%;
+      margin-top: 40px;
+    }
+  }
+  
+  .features-grid {
+    gap: 50px;
+    width: 80%;
+    align-self: center;
+    align-items: center;
+    display: flex;
+  }
+  
+  @media (max-width: 991px) {
+    .features-grid {
+      /* flex-direction: column; */
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+  
+  .feature-col {
+    display: flex;
+    flex-direction: column;
+    line-height: normal;
+    width: 33%;
+    margin-left: 0;
+  }
+  
+  @media (max-width: 991px) {
+    .feature-col {
+      width: 100%;
+    }
+  }
+  
+  .feature-card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    color: #000;
+    justify-content: start;
+    font: 15px Inter, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .feature-card {
+      margin-top: 40px;
+    }
+  }
+  
+  .feature-content {
+    display: flex;
+    max-width: 100%;
+    /* width: 295px; */
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feature-icon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 81px;
+  }
+  
+  .feature-title {
+    font-weight: 600;
+    text-align: center;
+    margin-top: 11px;
+  }
+  
+  .feature-description {
+    font-weight: 400;
+    text-align: center;
+    align-self: stretch;
+    margin-top: -7px;
+  }
+  
+  .newsletter-section {
+    background-color: #191919;
+    display: flex;
+    margin-top: 107px;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    font-family: Inter, sans-serif;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
+    padding: 78px 0px;
+  }
+  
+  @media (max-width: 991px) {
+    .newsletter-section {
+      max-width: 100%;
+      margin-top: 40px;
+      padding: 60px 0px;
+    }
+  }
+  
+  .newsletter-content {
+    display: flex;
+    width: 542px;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .newsletter-title {
+    font-size: 20px;
+  }
+  
+  .newsletter-description {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  
+  .newsletter-form {
+    background-color: #fff;
+    align-self: stretch;
+    display: flex;
+    margin-top: 14px;
+    align-items: end;
+    font-size: 15px;
+    color: #000;
+    white-space: nowrap;
+  }
+  .email{
+    align-self: stretch;
+    padding: 0 10px;
+    width: 542px;
+    display: flex;
+    border: none;
+    font-size: 15px;
+    color: #000;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 991px) {
+    .newsletter-form {
+      max-width: 100%;
+      padding-left: 20px;
+      white-space: initial;
+    }
+  }
+  
+  .newsletter-button {
+    align-self: end;
+    background-color: #c0ddff;
+    padding: 11px 39px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 991px) {
+    .newsletter-button {
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+  
+ /* ---------------------Footer Styles-------------------------- */
+  
+ .footer {
+    background-color: #000;
+    padding-top: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .footer-content {
+    padding: 73px 70px 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-sections {
+    display: flex;
+    flex-direction: row;
+    width: 655px;
+    max-width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .footer-logo-social {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .social-icons {
+    display: flex;
+    margin-top: 19px;
+    gap: 33px;
+  }
+  
+  .social-icon {
+    width: 18px;
+    aspect-ratio: 1;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .footer-heading {
+    color: #dedede;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: Inter, sans-serif;
+  }
+  
+  .footer-link {
+    color: #fff;
+    font: 300 12px Inter, sans-serif;
+    text-decoration: none;
+  }
+  
+  .footer-link:hover,
+  .footer-link:focus {
+    text-decoration: underline;
+  }
+  
+  .copyright {
+    background-color: #191919;
+    color: #fff;
+    text-align: center;
+    padding: 7px 70px 13px;
+    font: 400 10px Inter, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .main-content {
+      max-width: 100%;
+    }
+  
+    .header-section {
+      padding: 0 20px;
+    }
+  
+    .breadcrumb-sort {
+      max-width: 100%;
+    }
+  
+    .footer-content {
+      padding: 40px 20px;
+    }
+  
+    .footer-sections {
+      flex-wrap: wrap;
+      align-items: start;
+      text-align: start;
+      gap: 5rem;
+      justify-content: center;
+    }
+  
+    .social-icons {
+      justify-content: center;
+    }
+  
+    .copyright {
+      padding: 7px 20px;
+    }
+  }
+  </style>
+  
+  <div class="landing-container">
+    <section class="hero-section">
+      <header class="header-section">
+        <a href="index.html">
+          <img src="imgs/Logo.png" alt="YannsTechHub Logo" class="logo" />
+        </a>
+        <nav class="nav-buttons">
+          <a href="daily-deals-section.html" class="nav-link">Daily deals</a>
+          <a href="shop-section.html" class="nav-link">Shop</a>
+          <a href="bundle-deals.html" class="nav-link">Bundle Deals</a>
+          <a href="support.html" class="nav-link">Support</a>
+        </nav>
+        <div class="user-actions">
+          <img src="imgs/Search - 7.png" alt="Search" class="action-icon" />
+         <a href="logIn.html">
+          <img src="imgs/Profile - 3.png" alt="User Account" class="action-icon" />
+         </a>
+          <a href="cart.html">
+            <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" class="action-icon" />
+          </a>
+        </div>
+      </header>
+      
+      <div class="hero-slide active" style="background-image: url('imgs/Banner\ 1.png');">
+      </div>
+      <div class="hero-slide" style="background-image: url('imgs/Banner\ 2.png');">  
+      </div>
+      <div class="hero-slide" style="background-image: url('imgs/Banner\ 3.png');">
+      </div>
+      <div class="hero-slide" style="background-image: url('imgs/Banner\ 4.png');">
+      </div>
+      <div class="hero-slide" style="background-image: url('imgs/Banner\ 5.png');">
+      </div>
+    </section>
+    <div class="main-content">
+      <section class="categories-section">
+        <div class="categories-grid">
+          <div class="category-item">
+            <h3 class="category-title">Browse by Category <br>Shop.<span style="color: #bbbbbb">the best way to buy the products you love.</span></h3>
+            <!-- <p class="hero-text">Shop. <span class="gray-text">the best way to buy the products you love.</span></p> -->
+            <div class="hero-controls">
+                <img loading="lazy" src="imgs/Vector (1).png" class="control-icon" alt="Previous" />
+              <img loading="lazy" src="imgs/Vector (2).png" class="control-icon" alt="Next" />
+            </div>
+            <div class="categories-products">
+              <a href="phone.html">
+                <div class="categories-products-icon">
+                  <div class="category-icon-wrapper">
+                    <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                  </div>
+                  <h2 class="category-label">Phones</h2>
+                </div>
+              </a>
+              <div class="categories-products-icon">
+                <div class="category-icon-wrapper">
+                  <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                </div>
+                <h2 class="category-label">Phones</h2>
+              </div>
+              <div class="categories-products-icon">
+                <div class="category-icon-wrapper">
+                  <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                </div>
+                <h2 class="category-label">Phones</h2>
+              </div>
+      
+              <div class="categories-products-icon">
+                <div class="category-icon-wrapper">
+                  <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                </div>
+                <h2 class="category-label">Phones</h2>
+              </div>
+              <div class="categories-products-icon">
+                <div class="category-icon-wrapper">
+                  <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                </div>
+                <h2 class="category-label">Phones</h2>
+              </div>
+              <div class="categories-products-icon">
+                <div class="category-icon-wrapper">
+                  <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                </div>
+                <h2 class="category-label">Phones</h2>
+              </div>
+              <div class="categories-products-icon">
+                <div class="category-icon-wrapper">
+                  <img loading="lazy" src="imgs/Rectangle 9.png" class="category-icon" alt="Phones category" />
+                </div>
+                <h2 class="category-label">Phones</h2>
+              </div>
+              
+            </div>
+          </div>
+          <!-- Repeat similar structure for other categories -->
+        </div>
+        
+        <section class="items-section">
+          <h3>Our Latest Items. <span style="color: #bbbbbb">Have A Look At What's New, Now.</span></h3>
+          <nav class="items-nav"> </nav>
+          <div class="items-grid">
+            <div class="items-row">
+              <div class="items-column">
+                <a href="#top-rated">Top Rated</a>
+                <img loading="lazy" src="imgs/Rectangle 17.png" class="items-image" alt="Featured Item" />
+              </div>
+              <div class="items-grid-column">
+                <a href="#latest-arrivals">Latest Arrivals</a>
+                <div class="items-grid-container">
+                  <div class="items-grid-row">
+                    <img loading="lazy" src="imgs/Rectangle 51.png" class="items-grid-item" alt="Item 1" />
+                    <img loading="lazy" src="imgs/Rectangle 52.png" class="items-grid-item" alt="Item 2" />
+                  </div>
+                  <div class="items-grid-row">
+                    <img loading="lazy" src="imgs/Rectangle 53.png" class="items-grid-item" alt="Item 3" />
+                    <img loading="lazy" src="imgs/Rectangle 54.png" class="items-grid-item" alt="Item 4" />
+                  </div>
+                </div>
+              </div>
+              <div class="items-column-small">
+                <a href="#best-deals">Best Deals</a>
+                <div class="items-images-small">
+                  <img loading="lazy" src="imgs/Rectangle 49.png" class="items-image-small" alt="Item 5" />
+                  <img loading="lazy" src="imgs/Rectangle 50.png" class="items-image-small-2" alt="Item 6" />
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+          
+            
+        <section>        
+          <h2 class="product-txt">On Sale. <span style="color: #bbbbbb">Your favorite gadgets, delivered right to your doorstep in no time.</span></h2>
+        <div class="products-grid" id="product-list">
+          
+          <div class="product-card-1">
+            <div class="sales-banner">
+              <p>Trend<br />Products</p>
+              <div class="highlight-circle">
+                <img src="imgs/Vector.png" class="arrow-vector" alt="" >
+              </div>
+            </div>
+          </div>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <a href="product-details-2.html">
+              <div class="product-image-container">
+                <img src="imgs/Rectangle 62.png" alt="Product 1" class="product-image" />
+                <img src="imgs/favorie 1.png" alt="Add to wishlist" class="favorite-icon" />
+              </div>
+            </a>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div class="rating-price">
+                <div class="rating">
+                  <img src="imgs/star 1.png" class="rating-icon" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <span class="price">$ 50.00</span>
+              </div>
+              <button class="cart-button" aria-label="Add to cart">
+                <img src="imgs/Buy - 6.png" alt="" class="cart-icon">
+              </button>
+            </div>
+          </article>
+            <!-- Repeat for other products -->
+         </div>
+             
+        </section>
+  
+        <section class="promo-banner">
+          <div class="promo-content">
+            <div class="promo-row">
+              <div class="promo-col">
+                <img loading="lazy" src="imgs/Watch.png" class="promo-image" alt="Fast Sales promotion" />
+              </div>
+              <div class="promo-text-col">
+                <h2 class="promo-title">Fast Sales</h2>
+                <h3 class="promo-description">Yanns tech Hub Sales. </h3>
+              </div>
+            </div>
+          </div>
+        </section>
+  
+        <section class="features-section">
+          <div class="features-grid">
+            <div class="feature-col">
+              <div class="feature-card">
+                <div class="feature-content">
+                  <img loading="lazy" src="imgs/delivery.png" class="feature-icon" alt="" />
+                  <h3 class="feature-title">Free Delivery</h3>
+                  <p class="feature-description">And free returns. See checkout for delivery dates.</p>
+                </div>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="feature-card">
+                <div class="feature-content">
+                  <img loading="lazy" src="imgs/0-percent.png" class="feature-icon" alt="" />
+                  <h3 class="feature-title">Pay 0% interest for up to 24months</h3>
+                  <p class="feature-description">Choose any items of your choice without paying any interest.</p>
+                </div>
+              </div>
+            </div>
+            <div class="feature-col">
+              <div class="feature-card">
+                <div class="feature-content">
+                  <img loading="lazy" src="imgs/support.png" class="feature-icon" alt="" />
+                  <h3 class="feature-title">Customer Support</h3>
+                  <p class="feature-description">Helping customers resolve issues with products or services.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Repeat for other features -->
+          </div>
+        </section>
+      </section>
+  
+      
+    </div>
+    <section class="newsletter-section">
+      <div class="newsletter-content">
+        <h2 class="newsletter-title">Subscribe for Newsletter</h2>
+        <p class="newsletter-description">Subscribe to get latest updates and information.</p>
+        <form class="newsletter-form">
+          <input type="email" id="email" name="email" class="email" placeholder="Enter your email" required />
+          <button type="submit" class="newsletter-button">Send</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-logo-social">
+            <img src="imgs/Logo (1).png" alt="YannsTechHub Footer Logo" class="logo" />
+            <div class="social-icons">
+              <a href="#" aria-label="Facebook">
+                <img src="imgs/Facebook.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="Twitter">
+                <img src="imgs/Twitter.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="Instagram">
+                <img src="imgs/Instagram.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <img src="imgs/LinkedIn.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="YouTube">
+                <img src="imgs/YouTube.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="TickTok">
+                <img src="imgs/TikTok.png" alt="" class="social-icon" />
+              </a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3 class="footer-heading">Company</h3>
+            <a href="about-us.html" class="footer-link">About Us</a>
+            <a href="careers.html" class="footer-link">Careers</a>
+          </div>
+          <div class="footer-links">
+            <h3 class="footer-heading">Help</h3>
+            <a href="legal.html" class="footer-link">Legal</a>
+            <a href="faqs.html" class="footer-link">FAQs</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">@yannstechhub2025</div>
+    </footer>
+  </div>
+  <script >
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+
+    function showNextSlide() {
+        // Remove active class from the current slide
+        slides[currentSlide].classList.remove('active');
+
+        // Increment slide index
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        // Add active class to the next slide
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Change slide every 5 seconds
+    setInterval(showNextSlide, 5000);
+  </script>
+
+    <!-- <script src="daily-deals-section.js"></script>
+    <script>
+      function viewProduct(name, price, image) {
+          // Save product details to localStorage
+          localStorage.setItem('productName', name);
+          localStorage.setItem('productPrice', price);
+          localStorage.setItem('productImage', image);
+  
+          // Redirect to product details page
+          window.location.href = 'product-details.html';
+      }
+  </script> -->

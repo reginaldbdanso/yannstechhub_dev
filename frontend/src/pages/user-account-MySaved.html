@@ -1,0 +1,543 @@
+<style>
+    .saved {
+  background-color: #fff;
+}
+
+.main-container {
+  background-color: #eef2f4;
+  display: flex;
+  width: 100%;
+  padding: 21px 0 39px;
+  flex-direction: column;
+}
+
+.top-header {
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  align-self: center;
+  width: 1203px;
+  max-width: 100%;
+  padding: 23px 70px;
+}
+
+.nav-container {
+  display: flex;
+  width: 601px;
+  max-width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #d5d5d5;
+  margin: 26px 0 9px;
+  width: 100%;
+}
+
+.breadcrumb {
+  display: flex;
+  margin-left: 139px;
+  gap: 12px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+}
+
+.username,
+.dashboard-text {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 4px 14px;
+}
+
+.username {
+  font-weight: 700;
+}
+
+.content-grid {
+  display: flex;
+  margin: 38px 34px 0;
+  gap: 20px;
+}
+
+.sidebar {
+  width: 28%;
+}
+
+.sidebar-nav {
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 24px 49px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-heading {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  color: #010101;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sidebar-link {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  color: #010101;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sidebar-link.active {
+  font-weight: 700;
+}
+
+.product-grid {
+  width: 72%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 15px 16px 26px;
+  width: 244px;
+}
+
+.product-image-container {
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 1.06;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  width: 19px;
+}
+
+.product-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #000;
+  font-weight: 700;
+  margin: 28px 0 7px;
+}
+
+.product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.star-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.review-count {
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  color: #010101;
+  font-weight: 700;
+}
+
+.price {
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  color: #000;
+  font-weight: 700;
+}
+
+.cart-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cart-button img {
+  width: 38px;
+  height: 38px;
+}
+
+.site-footer {
+  background-color: #000;
+  padding-top: 10px;
+}
+
+.footer-content {
+  padding: 73px 70px 40px;
+}
+
+.footer-grid {
+  display: flex;
+  width: 655px;
+  max-width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.social-links {
+  display: flex;
+  gap: 33px;
+  align-items: center;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.footer-heading {
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  color: #010101;
+  font-weight: 700;
+  margin: 0;
+}
+
+.footer-link {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: #010101;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.copyright {
+  background-color: #191919;
+  padding: 7px 70px 13px;
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  color: #010101;
+  font-weight: 400;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .main-container {
+    max-width: 100%;
+  }
+
+  .top-header {
+    padding: 23px 20px;
+  }
+
+  .breadcrumb {
+    margin-left: 10px;
+  }
+
+  .content-grid {
+    flex-direction: column;
+  }
+
+  .sidebar,
+  .product-grid {
+    width: 100%;
+  }
+
+  .sidebar-nav {
+    padding: 24px 20px;
+  }
+
+  .footer-content {
+    padding: 73px 20px 40px;
+  }
+
+  .copyright {
+    padding: 7px 20px 13px;
+  }
+}
+
+</style>
+<div class="saved">
+    <div class="main-container">
+      <header class="top-header">
+        <nav class="nav-container">
+          <ul class="nav-links">
+            <li><a href="#" class="nav-link">Daily deals</a></li>
+            <li><a href="#" class="nav-link">Shop</a></li>
+            <li><a href="#" class="nav-link">Bundle Deals</a></li>
+            <li><a href="#" class="nav-link">Support</a></li>
+          </ul>
+          <div class="header-icons">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/8d997cf83a664548a8a40b54f9297f50e4f6820ee832aa815fac7f3f16dab0c2?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              class="icon"
+              alt="Search"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/b27507e5540d15e644d2e9af55f40a754a369c080c16805c83617b06c1fa789b?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              class="icon"
+              alt="Profile"
+            />
+          </div>
+        </nav>
+      </header>
+  
+      <hr class="divider" />
+  
+      <nav class="breadcrumb">
+        <span class="username">yannstechub</span>
+        <span class="dashboard-text">/ Personal Dashboard</span>
+      </nav>
+  
+      <hr class="divider" />
+  
+      <main class="content-grid">
+        <aside class="sidebar">
+          <nav class="sidebar-nav">
+            <h2 class="sidebar-heading">My Account</h2>
+            <a href="#" class="sidebar-link">My Chart</a>
+            <a href="#" class="sidebar-link active">My Saved</a>
+            <a href="#" class="sidebar-link">Address Management</a>
+          </nav>
+        </aside>
+  
+        <section class="product-grid">
+          <article class="product-card">
+            <div class="product-image-container">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0b3b1ce937519c0eef31d884d3625f70059fca2d1ef820ae60a6bc203176c42e?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="product-image"
+                alt="Product"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f70c794d2a85c5bbd8a70702a44e2f7c701ff6ba41c58ca79104242811a2cfdc?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="favorite-icon"
+                alt="Favorite"
+              />
+            </div>
+            <h3 class="product-title">Lorem ipsum dolor</h3>
+            <div class="product-details">
+              <div class="product-info">
+                <div class="rating">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/f85450dc1bc6fc96fc7f0ee906dcccba4da7ed68d1943d2c50326adc91014d92?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                    class="star-icon"
+                    alt="Rating"
+                  />
+                  <span class="review-count">5.0 (10 reviews)</span>
+                </div>
+                <span class="price">$ 15.00</span>
+              </div>
+              <button class="cart-button">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/c43bdfc9867ae9542bca2280f1c4a4dc6732f33c6dec104df21157c51b4d8c69?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                  alt="Add to cart"
+                />
+              </button>
+            </div>
+          </article>
+  
+          <article class="product-card">
+            <div class="product-image-container">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f7a8d39750ae04851cd8c69650190155f57c41fccec71bc905234f3d0ca94d85?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="product-image"
+                alt="Product"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f70c794d2a85c5bbd8a70702a44e2f7c701ff6ba41c58ca79104242811a2cfdc?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="favorite-icon"
+                alt="Favorite"
+              />
+            </div>
+            <h3 class="product-title">Lorem ipsum dolor</h3>
+            <div class="product-details">
+              <div class="product-info">
+                <div class="rating">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/66af99174f70be86492dc1bce9cff7341abaca431f54abae0131302fa6165e0f?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                    class="star-icon"
+                    alt="Rating"
+                  />
+                  <span class="review-count">5.0 (100 reviews)</span>
+                </div>
+                <span class="price">$ 99.99</span>
+              </div>
+              <button class="cart-button">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/c43bdfc9867ae9542bca2280f1c4a4dc6732f33c6dec104df21157c51b4d8c69?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                  alt="Add to cart"
+                />
+              </button>
+            </div>
+          </article>
+  
+          <article class="product-card">
+            <div class="product-image-container">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/8511c704123a2b80178666857a6551b0541112b5bdc548e6b6e0991ad0fc22a2?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="product-image"
+                alt="Product"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/f70c794d2a85c5bbd8a70702a44e2f7c701ff6ba41c58ca79104242811a2cfdc?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="favorite-icon"
+                alt="Favorite"
+              />
+            </div>
+            <h3 class="product-title">Lorem ipsum dolor</h3>
+            <div class="product-details">
+              <div class="product-info">
+                <div class="rating">
+                  <img
+                    loading="lazy"
+                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/2a17174a0f63d45ea0b689a77cf321a90570e853e0b05341aba8c57ac085eb1c?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                    class="star-icon"
+                    alt="Rating"
+                  />
+                  <span class="review-count">5.0 (20 reviews)</span>
+                </div>
+                <span class="price">$ 10.00</span>
+              </div>
+              <button class="cart-button">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/c43bdfc9867ae9542bca2280f1c4a4dc6732f33c6dec104df21157c51b4d8c69?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                  alt="Add to cart"
+                />
+              </button>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-grid">
+          <div class="social-links">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac39ad7e21eba0cf01035dd9281a31458080b8ca8e71c2e59fa86885d7447ead?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/08e73579226da78aac05ff1cd63cd0cc3f11b939d3166529393923275edb7ab5?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/52225828abd7e044d88aeecca4334e5686cf837dc0906ade2d36aa952be5f59e?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/1f835234d7cb596eb7f50dac7ffc0cfa017ea3e69c9027488f5df51e29fff810?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/97c518d729b97dcba3556a6ab406a7e8f4b14bfdab064f1786bd8f9e353582c4?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/157e8cb4f49f13aad45a2914dc10f3a7a6bbf237006db244150b722669730d32?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              alt="Social"
+              class="social-icon"
+            />
+          </div>
+  
+          <nav class="footer-nav company">
+            <h3 class="footer-heading">Company</h3>
+            <a href="#" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Careers</a>
+          </nav>
+  
+          <nav class="footer-nav help">
+            <h3 class="footer-heading">Help</h3>
+            <a href="#" class="footer-link">Legal</a>
+            <a href="#" class="footer-link">FAQs</a>
+            <a href="#" class="footer-link">Contact</a>
+          </nav>
+        </div>
+      </div>
+      <div class="copyright">@yannstechhub2025</div>
+    </footer>
+  </div>
+  
