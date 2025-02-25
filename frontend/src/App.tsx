@@ -16,7 +16,15 @@ import Careers from './pages/Careers';
 import Legal from './pages/Legal';
 import FAQs from './pages/FAQs';
 import Contact from './pages/Contact';
-import Auth from './pages/Auth';
+// import Auth from './pages/Auth';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+import UserAccount from './pages/UserAccount';
+import AccountInfo from './components/account/AccountInfo';
+import AddressManagement from './components/account/AddressManagement';
+import MyChart from './components/account/MyChart';
+import MySaved from './components/account/MySaved';
 
 function App() {
   return (
@@ -38,7 +46,15 @@ function App() {
           <Route path="/legal" element={<Legal />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          <Route path="/account" element={<UserAccount />}>
+            <Route index element={<AccountInfo />} />
+            <Route path="chart" element={<MyChart />} />
+            <Route path="saved" element={<MySaved />} />
+            <Route path="address" element={<AddressManagement />} />
+          </Route>
         </Routes>
         <Footer />
       </div>
@@ -47,3 +63,26 @@ function App() {
 }
 
 export default App;
+
+// import { Routes, Route } from 'react-router-dom';
+// import UserAccount from './pages/UserAccount';
+// import AccountInfo from './components/account/AccountInfo';
+// import AddressManagement from './components/account/AddressManagement';
+// import MyChart from './components/account/MyChart';
+// import MySaved from './components/account/MySaved';
+
+// function App() {
+//   return (
+//     <Routes>
+//       <Route path="/account" element={<UserAccount />}>
+//         <Route index element={<AccountInfo />} />
+//         <Route path="chart" element={<MyChart />} />
+//         <Route path="saved" element={<MySaved />} />
+//         <Route path="address" element={<AddressManagement />} />
+//       </Route>
+//       {/* Other routes */}
+//     </Routes>
+//   );
+// }
+
+// export default App;

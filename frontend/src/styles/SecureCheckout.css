@@ -1,0 +1,281 @@
+.checkout-container {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: #f2f2f2;
+  border-radius: 20px;
+  padding: 21px 68px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1203px;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 132px;
+  height: auto;
+}
+
+.main-nav {
+  margin: 0 20px;
+}
+
+.nav-list {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  color: #000;
+  font: 500 14px 'Open Sans', sans-serif;
+  text-decoration: none;
+}
+
+.user-actions {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.cart-icon {
+  width: 27px;
+  height: 27px;
+  display: block;
+}
+
+.breadcrumb {
+  margin: 9px 139px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  color: #000;
+  font: 500 15px 'Open Sans', sans-serif;
+}
+
+.breadcrumb-link {
+  color: inherit;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 10px;
+  padding: 4px 14px;
+}
+
+.checkout-content {
+  display: flex;
+  gap: 20px;
+  max-width: 1110px;
+  margin: 38px auto;
+  padding: 0 39px;
+}
+
+.checkout-form {
+  flex: 0 0 62%;
+}
+
+.form-title {
+  font: 700 20px 'Open Sans', sans-serif;
+  margin: 0 0 23px;
+}
+
+.form-row {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 18px;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.form-input {
+  width: 100%;
+  height: 49px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 0 15px;
+  margin-top: 10px;
+}
+
+.helper-text {
+  color: #828282;
+  font-size: 14px;
+  margin-top: 11px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #828282;
+  cursor: pointer;
+}
+
+.submit-button {
+  width: 100%;
+  max-width: 469px;
+  height: 57px;
+  background: #0055b6;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font: 700 15px 'Open Sans', sans-serif;
+  cursor: pointer;
+  margin-top: 38px;
+}
+
+.order-summary {
+  flex: 0 0 38%;
+}
+
+.summary-section {
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 30px 22px;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.summary-title {
+  font: 700 15px 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #000;
+  font: 700 15px 'Open Sans', sans-serif;
+  cursor: pointer;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-item {
+  display: flex;
+  gap: 15px;
+  padding: 20px 11px;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.product-image {
+  width: 89px;
+  height: 84px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-name {
+  font: 700 15px 'Open Sans', sans-serif;
+  margin: 0 0 9px;
+}
+
+.product-quantity {
+  margin: 0 0 11px;
+}
+
+.product-price {
+  margin: 0;
+}
+
+.total-section {
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  margin-top: 28px;
+  padding: 28px 41px;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 23px;
+  font: 500 15px 'Open Sans', sans-serif;
+}
+
+.total-final {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 35px;
+  margin-bottom: 0;
+}
+
+.footer {
+  background: #000;
+  color: #fff;
+  padding-top: 10px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 73px 70px 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  width: 132px;
+  height: auto;
+}
+
+.social-links {
+  display: flex;
+  gap: 33px;
+  margin-top: 19px;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 100px;
+}
+
+/* .footer-nav-title {
+  color: #dedede;
+  font: 700 17px 'Inter', sans-serif;
+  margin: 0 0 25 */

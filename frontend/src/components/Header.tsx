@@ -19,7 +19,7 @@ export const Header = () => {
         <button aria-label="Search" className="cursor-pointer">
           <Search className="w-6 h-6" />
         </button>
-        <Link to="/auth" 
+        <Link to="/login" 
         aria-label="User Account" className="cursor-pointer">
           <User className="w-6 h-6" />
         </Link>

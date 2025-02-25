@@ -1,10 +1,28 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/ProductDetails.css';
+
+interface Review {
+  title: string;
+  rating: number;
+  content: string;
+  author: string;
+}
+
+interface SimilarProduct {
+  id: number;
+  name: string;
+  price: number;
+  rating: number;
+  reviews: number;
+  imageUrl: string;
+}
 
 export const ProductDetails = () => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productImage, setProductImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
 
   useEffect(() => {
     const name = localStorage.getItem('productName');
@@ -15,18 +33,58 @@ export const ProductDetails = () => {
       setProductName(name);
       setProductPrice(price);
       setProductImage(image);
+      setSelectedImage(image);
     }
   }, []);
 
   const handleThumbnailClick = (src: string) => {
-    setProductImage(src);
+    setSelectedImage(src);
   };
+
+  const handleAddToCart = () => {
+    // Add cart logic here
+  };
+
+  const handleBuyNow = () => {
+    // Add buy now logic here
+  };
+
+  const ratingData = {
+    average: 5.0,
+    total: 5489,
+    distribution: [
+      { stars: 5, count: 3321, width: 320 },
+      { stars: 4, count: 3321, width: 100 },
+      { stars: 3, count: 3321, width: 280 },
+      { stars: 2, count: 3321, width: 250 },
+      { stars: 1, count: 3321, width: 20 },
+    ]
+  };
+
+  const reviews: Review[] = [
+    {
+      title: "Super impressive",
+      rating: 5,
+      content: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
+      author: "Sweetie Baiden"
+    }
+  ];
+
+  const similarProducts: SimilarProduct[] = [
+    {
+      id: 1,
+      name: "Lorem ipsum dolor",
+      price: 50.00,
+      rating: 5.0,
+      reviews: 58,
+      imageUrl: "/imgs/Rectangle 62.png"
+    }
+    // Add more similar products as needed
+  ];
 
   return (
     <section className="daily-deals-container">
       <div className="main-content">
-      
-
         <div className="divider-top"></div>
 
         <div className="breadcrumb-sort">
@@ -53,24 +111,34 @@ export const ProductDetails = () => {
             <div className="product-content">
               <div className="product-gallery">
                 <div className="main-image-wrapper">
-                  <img id="product-image" src={productImage} alt="Main Product" className="main-product-image" />
+                  <img 
+                    src={selectedImage || productImage} 
+                    alt={productName} 
+                    className="main-product-image" 
+                  />
                   <div className="thumbnail-gallery">
-                    <img src="/src/assets/Rectangle 11.png" alt="Thumbnail 1" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 11.png')} />
-                    <img src="/src/assets/Rectangle 17.png" alt="Thumbnail 2" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 17.png')} />
-                    <img src="/src/assets/Rectangle 15.png" alt="Thumbnail 3" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 15.png')} />
-                    <img src="/src/assets/Rectangle 10.png" alt="Thumbnail 4" className="thumbnail" onClick={() => handleThumbnailClick('/src/assets/Rectangle 10.png')} />
+                    {[1, 2, 3, 4].map((num) => (
+                      <img
+                        key={num}
+                        src={`/imgs/product-thumb-${num}.jpg`}
+                        alt={`${productName} view ${num}`}
+                        className="thumbnail"
+                        onClick={() => handleThumbnailClick(`/imgs/product-thumb-${num}.jpg`)}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
+
               <div className="product-info">
                 <div className="info-container">
                   <div className="product-detail">
-                    <h1 className="product-title" id="product-name">{productName}</h1>
+                    <h1 className="product-title">{productName}</h1>
                     <div className="rating-wrapper">
-                      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/5d05389f4cec6dd226fa4948dd7647b8772ce41b4391b6dd9579b8d8c1bc0c2c?apiKey=2c9d54f744c4489ca7176332d686675c&" alt="Rating stars" className="rating-icon" loading="lazy"/>
+                      <img src="/imgs/star.png" alt="Rating" className="rating-icon" />
                       <span>5.0 (58 reviews)</span>
                     </div>
-                    <div className="price" id="product-price">${productPrice}</div>
+                    <div className="price">${productPrice}</div>
                     <div className="quantity-label">Quantity</div>
                     <div className="feature-list">
                       <div className="feature-item">Powerful Bass</div>
@@ -80,8 +148,12 @@ export const ProductDetails = () => {
                     </div>
                   </div>
                   <div className="action-buttons">
-                    <button className="btn btn-primary"><a href="bundle-deals.html">Continue Shopping</a></button>
-                    <button className="btn btn-secondary">Buy Now</button>
+                    <button className="btn btn-primary" onClick={handleAddToCart}>
+                      Add to Cart
+                    </button>
+                    <button className="btn btn-secondary" onClick={handleBuyNow}>
+                      Buy Now
+                    </button>
                   </div>
                 </div>
               </div>
@@ -97,112 +169,86 @@ export const ProductDetails = () => {
               Playtime: Up to 60 hours<br/>
               Charging Time: 1.5 hours<br/>
               Supported Format: Mic support / Aux in Mode / Type-C<br/>
-              Model:OHP-610
+              Model: OHP-610
             </div>
 
             <div className="feature-description">
-              <strong>Powerful Deep Bass <br/>
+              <strong>
+                Powerful Deep Bass<br/>
                 Hits You in Waves
-              </strong><br/>
-              Powered by advanced 40mm drivers and exclusive HavyBassTM technology, BoomPop2 is meticulously designed to offer music enthusiasts an unparalleled sound experience, characterized by incredibly deep and dynamic bass.
-            </div>
-
-            <div className="feature-description">
-              <strong>Powerful Deep Bass <br/>
-                Hits You in Waves
-              </strong><br/>
-              Powered by advanced 40mm drivers and exclusive HavyBassTM technology, BoomPop2 is meticulously designed to offer music enthusiasts an unparalleled sound experience, characterized by incredibly deep and dynamic bass.
+              </strong>
+              <p>
+                Powered by advanced 40mm drivers and exclusive HavyBassTM technology, 
+                BoomPop2 is meticulously designed to offer music enthusiasts an 
+                unparalleled sound experience, characterized by incredibly deep and 
+                dynamic bass.
+              </p>
             </div>
 
             <h2 className="section-title">Ratings and Reviews</h2>
             <div className="reviews-container">
               <div className="rating-summary">
                 <div className="rating-score">
-                  <span>5.0</span>
-                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2acca7b2873113969da49e35288df2e45a46f330b7c030c51f068b05a5b8a557?apiKey=2c9d54f744c4489ca7176332d686675c&" alt="Rating stars" loading="lazy"/>
+                  <span>{ratingData.average}</span>
+                  <img src="/imgs/star.png" alt="Rating" />
                 </div>
-                <span>5489 ratings</span>
+                <span>{ratingData.total} ratings</span>
               </div>
 
               <div className="rating-bars">
-                <div className="rating-bar">
-                  <span>5</span>
-                  <div className="bar-container">
-                    <div className="bar-fill" style={{ width: '320px' }}></div>
+                {ratingData.distribution.map((item) => (
+                  <div key={item.stars} className="rating-bar">
+                    <span>{item.stars}</span>
+                    <div className="bar-container">
+                      <div 
+                        className="bar-fill" 
+                        style={{ width: `${item.width}px` }}
+                      ></div>
+                    </div>
+                    <span>{item.count}</span>
                   </div>
-                  <span>3321</span>
-                </div>
-                <div className="rating-bar">
-                  <span>4</span>
-                  <div className="bar-container">
-                    <div className="bar-fill" style={{ width: '100px' }}></div>
-                  </div>
-                  <span>3321</span>
-                </div>
-                <div className="rating-bar">
-                  <span>3</span>
-                  <div className="bar-container">
-                    <div className="bar-fill" style={{ width: '280px' }}></div>
-                  </div>
-                  <span>3321</span>
-                </div>
-                <div className="rating-bar">
-                  <span>2</span>
-                  <div className="bar-container">
-                    <div className="bar-fill" style={{ width: '250px' }}></div>
-                  </div>
-                  <span>3321</span>
-                </div>
-                <div className="rating-bar">
-                  <span>1</span>
-                  <div className="bar-container">
-                    <div className="bar-fill" style={{ width: '20px' }}></div>
-                  </div>
-                  <span>3321</span>
-                </div>
-              </div>
-              <div>
-                <h2>Rating This Product</h2>
-                <p>Lorem ipsum dolor sit amet </p>
+                ))}
               </div>
             </div>
 
-            <div className="review-card">
-              <div className="review-rating">
-                <h3 className="review-title">Super impressive</h3>
-                <div className="review-stars">
-                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2acca7b2873113969da49e35288df2e45a46f330b7c030c51f068b05a5b8a557?apiKey=2c9d54f744c4489ca7176332d686675c&" alt="Rating stars" loading="lazy"/>
-                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2acca7b2873113969da49e35288df2e45a46f330b7c030c51f068b05a5b8a557?apiKey=2c9d54f744c4489ca7176332d686675c&" alt="Rating stars" loading="lazy"/>
-                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2acca7b2873113969da49e35288df2e45a46f330b7c030c51f068b05a5b8a557?apiKey=2c9d54f744c4489ca7176332d686675c&" alt="Rating stars" loading="lazy"/>
-                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2acca7b2873113969da49e35288df2e45a46f330b7c030c51f068b05a5b8a557?apiKey=2c9d54f744c4489ca7176332d686675c&" alt="Rating stars" loading="lazy"/>
+            {reviews.map((review, index) => (
+              <div key={index} className="review-card">
+                <div className="review-rating">
+                  <h3 className="review-title">{review.title}</h3>
+                  <div className="review-stars">
+                    {[...Array(review.rating)].map((_, i) => (
+                      <img key={i} src="/imgs/star.png" alt="star" />
+                    ))}
+                  </div>
                 </div>
+                <p>{review.content}</p>
+                <p>Reviewed by {review.author}</p>
               </div>
-              <p>The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.</p>
-              <p>Reviewed by Sweetie Baiden</p>
-            </div>
-            {/* Additional review cards follow same structure */}
+            ))}
+
             <h2 className="section-title">You May Also Like</h2>
             <div className="products-grid">
-              <article className="product-card">
-                <div className="product-image-container">
-                  <img src="imgs/Rectangle 62.png" alt="Product 1" className="product-image" />
-                  <img src="imgs/favorie 1.png" alt="Add to wishlist" className="wishlist-icon" />
-                </div>
-                <h2 className="product-title">Lorem ipsum dolor</h2>
-                <div className="product-details">
-                  <div className="rating-price">
-                    <div className="rating">
-                      <img src="imgs/star 1.png" className="rating-icon" />
-                      <span>5.0 (58 reviews)</span>
-                    </div>
-                    <span className="price">$ 50.00</span>
+              {similarProducts.map((product) => (
+                <article key={product.id} className="product-card">
+                  <div className="product-image-container">
+                    <img src={product.imageUrl} alt={product.name} className="product-image" />
+                    <img src="/imgs/heart.png" alt="Add to wishlist" className="wishlist-icon" />
                   </div>
-                  <button className="cart-button" aria-label="Add to cart">
-                    <img src="imgs/Buy - 6.png" alt="" className="cart-icon" />
-                  </button>
-                </div>
-              </article>
-              {/* Additional product cards follow same structure */}
+                  <h2 className="product-title">{product.name}</h2>
+                  <div className="product-details">
+                    <div className="rating-price">
+                      <div className="rating">
+                        <img src="/imgs/star.png" className="rating-icon" alt="" />
+                        <span>{product.rating} ({product.reviews} reviews)</span>
+                      </div>
+                      <span className="price">$ {product.price.toFixed(2)}</span>
+                    </div>
+                    <button className="cart-button" aria-label="Add to cart">
+                      <img src="/imgs/cart.png" alt="" className="cart-icon" />
+                    </button>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>
@@ -210,4 +256,6 @@ export const ProductDetails = () => {
     </section>
   );
 };
+
+export default ProductDetails;
 
