@@ -1,0 +1,484 @@
+<style>
+    .faqs {
+      background-color: #fff;
+  padding-top: 21px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.faqs-container {
+  display: flex;
+  width: 80%;
+  /* padding: 0 38px; */
+  flex-direction: column;
+  align-items: start;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 15px;
+  color: #000;
+  font-weight: 300;
+}
+
+.main-content {
+  align-self: center;
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+
+/*------------------Header Style-------------------  */
+
+.header-section {
+  position: fixed;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  /* width: 1203px; */
+  width: 70%;
+  overflow: hidden;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 21px 68px;
+  box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.147);
+  z-index: 1000;
+} 
+
+.logo {
+  aspect-ratio: 4.13;
+  object-fit: contain;
+  object-position: center;
+  width: 132px;
+  max-width: 100%;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: #000;
+  justify-content: start;
+  margin: auto 0;
+  font: 500 14px Open Sans, sans-serif;
+}
+
+.nav-link {
+  align-self: stretch;
+  margin: auto 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-actions {
+  align-self: start;
+  display: flex;
+  margin-top: 4px;
+  align-items: start;
+  gap: 30px;
+}
+
+.action-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width:
+   24px;
+}
+.faq-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-title {
+  margin: 0%;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 2;
+  font-family: "Inter", sans-serif;
+}
+
+.faq-description {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 23px;
+  margin-left: 77px;
+  font-family: "Inter", sans-serif;
+}
+
+.faq-content {
+  background-color: #fff;
+  margin-top: 10px;
+  padding: 0 70px 94px;
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: #000;
+  font-weight: 300;
+  line-height: 23px;
+}
+
+.section-title {
+  font-weight: 500;
+  margin-bottom: 1em;
+}
+
+
+.faq-list {
+  list-style-type: none;
+  padding-left: 25px;
+}
+.faq-list p{
+  padding-bottom: 1rem;
+  margin: 0%;
+}
+
+.faq-list li {
+  list-style: disc;
+}
+
+
+
+  /* ---------------------Footer Styles-------------------------- */
+  
+  .footer {
+    background-color: #000;
+    padding-top: 10px;
+    width: 100%;
+    margin-bottom: 0%;
+  }
+  
+  .footer-content {
+    padding: 73px 70px 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-sections {
+    display: flex;
+    flex-direction: row;
+    width: 655px;
+    max-width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .footer-logo-social {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .social-icons {
+    display: flex;
+    margin-top: 19px;
+    gap: 33px;
+  }
+  
+  .social-icon {
+    width: 18px;
+    aspect-ratio: 1;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .footer-heading {
+    color: #dedede;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: Inter, sans-serif;
+  }
+  
+  .footer-link {
+    color: #fff;
+    font: 300 12px Inter, sans-serif;
+    text-decoration: none;
+  }
+  
+  .footer-link:hover,
+  .footer-link:focus {
+    text-decoration: underline;
+  }
+  
+  .copyright {
+    background-color: #191919;
+    color: #fff;
+    text-align: center;
+    padding: 7px 70px 13px;
+    font: 400 10px Inter, sans-serif;
+  }
+
+@media (max-width: 991px) {
+  .faqs-container {
+    
+    width: 100%;
+  }
+
+  .main-content {
+      max-width: 100%;
+      align-items: start;
+      padding-bottom: 40px;
+    }
+  
+    .header-section {
+      padding: 0 20px;
+    }
+
+  .faq-title {
+    text-align: center;
+    margin: 40px 0 0 0px;
+  }
+
+  .faq-content {
+    margin-top: 40px;
+    padding: 0 20px 110px;
+  }
+
+  .footer-content {
+    padding: 40px 20px;
+  }
+
+  .footer-sections {
+    flex-wrap: wrap;
+    align-items: start;
+    text-align: start;
+    gap: 5rem;
+    justify-content: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .copyright {
+    padding: 7px 20px;
+  }
+}
+
+</style>
+
+<div class="faqs">
+    <div class="faqs-container">
+      <header class="header-section">
+        <a href="index.html">
+          <img src="imgs/Logo.png" alt="YannsTechHub Logo" class="logo" />
+        </a>
+        <nav class="nav-buttons">
+          <a href="daily-deals-section.html" class="nav-link">Daily deals</a>
+          <a href="shop-section.html" class="nav-link">Shop</a>
+          <a href="bundle-deals.html" class="nav-link">Bundle Deals</a>
+          <a href="support.html" class="nav-link">Support</a>
+        </nav>
+        <div class="user-actions">
+          <img src="imgs/Search - 7.png" alt="Search" class="action-icon" />
+         <a href="logIn.html">
+          <img src="imgs/Profile - 3.png" alt="User Account" class="action-icon" />
+         </a>
+          <a href="cart.html">
+            <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" class="action-icon" />
+          </a>
+        </div>
+      </header>
+     </div> 
+
+      <div class="main-content"> 
+        <h1 class="faq-title">Purpose of FAQs</h1>
+    <p class="faq-description">
+      The FAQs section serves as a comprehensive resource to address common
+      queries customers might have about your platform, products, policies, and
+      processes. It's designed to provide quick answers, reduce customer service
+      workload, and improve the overall shopping experience.
+    </p>
+  
+    <section class="faq-content">
+      <h2 class="section-title">Key Topics to Include in FAQs</h2>
+      <p>
+        Below are the main categories and examples of questions that could appear
+        in the FAQ section, along with elaboration:
+      </p>
+  
+      <article class="faq-section">
+        <h3 class="topic-title">1. About Yannstech Hub</h3>
+        <ul class="faq-list">
+            <li>What is Yannstech Hub?</li>
+            <p>Yannstech Hub is an e-commerce platform specializing in gadgets and devices, offering customers a wide range of tech products at competitive prices.</p>
+            <li>Where is Yannstech Hub located?</li>
+            <p>Yannstech Hub operates globally with headquarters in [Your City, Country]. All orders are processed and shipped from our regional warehouses.</p>
+            <li>What makes Yannstech Hub unique?</li>
+            <p>We focus on offering high-quality tech products, fast delivery, and exceptional customer service. Additionally, we provide a secure and user-friendly online shopping experience.</p>
+        </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">2. Account Management</h3>
+          <ul class="faq-list">
+              <li>How do I create an account?</li>
+              <p>To create an account, click on the "Sign Up" button on our homepage, fill in your details, and verify your email address.</p>
+              <li>I forgot my password. What should I do?</li>
+              <p>Click on the "Forgot Password?" link on the login page. Enter your registered email, and you will receive instructions to reset your password.</p>
+              <li>Can I place an order without creating an account?</li>
+              <p>Yes, we offer a guest checkout option, but creating an account allows you to track orders, save shipping details, and enjoy faster checkouts in the future.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">3. Product Information</h3>
+          <ul class="faq-list">
+              <li>Are all products genuine and original?</li>
+              <p>Yes, Yannstech Hub only offers 100% authentic products from trusted manufacturers and distributors.</p>
+              <li>Do the gadgets come with warranties?</li>
+              <p>Most of our gadgets come with a manufacturer's warranty. Warranty details can be found on the product page or in the packaging.</p>
+              <li>How can I find detailed specifications for a product?</li>
+              <p>Each product page includes detailed specifications, features, and images to help you make an informed decision.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">4. Ordering Process</h3>
+          <ul class="faq-list">
+              <li>How do I place an order?</li>
+              <p>Browse our catalog, add your desired products to the cart, and proceed to checkout. Follow the on-screen instructions to complete your purchase.</p>
+              <li>Can I modify or cancel my order after placing it?</li>
+              <p>Orders can be modified or canceled within [X] hours of placement. Contact our customer support team for assistance.</p>
+              <li>What payment methods are accepted?</li>
+              <p>Yannstech Hub accepts credit/debit cards, PayPal, bank transfers, and other local payment methods, depending on your location.</p>
+              <li>Will I receive an order confirmation?</li>
+              <p>Yes, you will receive a confirmation email and/or SMS with your order details once your payment is successful.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">5. Shipping and Delivery</h3>
+          <ul class="faq-list">
+              <li>How long will it take to receive my order?</li>
+              <p>Delivery times vary based on your location and the chosen shipping method. Estimated delivery timelines are provided at checkout.</p>
+              <li>Do you ship internationally?</li>
+              <p>Yes, Yannstech Hub ships to most countries worldwide. Shipping fees and delivery times will vary depending on your location.</p>
+              <li>How can I track my order?</li>
+              <p>Once your order is shipped, you will receive a tracking number via email. You can use this number to track your package on our website or the courier's site.</p>
+              <li>What happens if my order is delayed?</li>
+              <p>If your order is delayed, contact our support team, and we will investigate the issue with the courier service.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">6. Returns and Refunds</h3>
+          <ul class="faq-list">
+              <li>What is your return policy?</li>
+              <p>We accept returns for eligible products within [X] days of delivery. Items must be unused, in their original packaging, and accompanied by a receipt.</p>
+              <li>How do I request a return?</li>
+              <p>To request a return, log in to your account, go to "My Orders," select the order you want to return, and follow the return process.</p>
+              <li>When will I receive my refund?</li>
+              <p>Refunds are processed within [X] business days of receiving and inspecting the returned item. The refund will be issued to the original payment method.</p>
+              <li>What should I do if I receive a defective product?</li>
+              <p>Contact our customer support team immediately with your order details and photos of the defective product. We will arrange for a replacement or refund.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">7. Payment and Security</h3>
+          <ul class="faq-list">
+              <li>Is it safe to shop on Yannstech Hub?</li>
+              <p>Yes, our platform uses SSL encryption to protect your personal and payment information.</p>
+              <li>What currencies can I pay in?</li>
+              <p>Yannstech Hub accepts multiple currencies. Your currency options will depend on your location and payment method.</p>
+              <li>Why was my payment declined?</li>
+              <p>Payments may be declined due to incorrect details, insufficient funds, or technical issues. Double-check your information or contact your bank for assistance.</p>
+              <li>Are there additional charges for international orders?</li>
+              <p>International orders may be subject to customs duties or taxes, which are the responsibility of the customer.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">8. Promotions and Discounts</h3>
+          <ul class="faq-list">
+              <li>How can I find current promotions?</li>
+              <p>Check our "Offers" page or subscribe to our newsletter for updates on discounts and special deals.</p>
+              <li>Can I use multiple discount codes on a single order?</li>
+              <p>Only one discount code can be applied per order unless stated otherwise.</p>
+              <li>Do you offer student or military discounts?</li>
+              <p>Yes, we offer special discounts for students and military personnel. Contact our support team for verification.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">9. Customer Support</h3>
+          <ul class="faq-list">
+              <li>How can I contact customer support?</li>
+              <p>You can reach us via email, live chat, or by calling our customer support hotline. Contact details are available on our "Contact Us" page.</p>
+              <li>What are your customer support hours?</li>
+              <p>Our support team is available [X] days a week, from [X AM] to [X PM].</p>
+              <li>Do you offer technical support for gadgets?</li>
+              <p>Yes, we provide basic technical support. For advanced issues, please refer to the manufacturer's support service.</p>
+          </ul>
+      </article>
+      
+      <article class="faq-section">
+          <h3 class="topic-title">10. Legal and Policies</h3>
+          <ul class="faq-list">
+              <li>Where can I find your terms and conditions?</li>
+              <p>Our Terms and Conditions, Privacy Policy, and other legal documents are available in the footer of our website.</p>
+              <li>Do you comply with international privacy laws?</li>
+              <p>Yes, we comply with privacy laws such as GDPR (Europe) and CCPA (California).</p>
+              <li>How are disputes resolved?</li>
+              <p>Disputes are resolved through arbitration or as per the governing laws of [Your Region].</p>
+          </ul>
+      </article>
+    </section>
+  </div> 
+    
+    
+  
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-sections">
+        <div class="footer-logo-social">
+          <img src="imgs/Logo (1).png" alt="YannsTechHub Footer Logo" class="logo" />
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook">
+              <img src="imgs/Facebook.png" alt="" class="social-icon" />
+            </a>
+            <a href="#" aria-label="Twitter">
+              <img src="imgs/Twitter.png" alt="" class="social-icon" />
+            </a>
+            <a href="#" aria-label="Instagram">
+              <img src="imgs/Instagram.png" alt="" class="social-icon" />
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <img src="imgs/LinkedIn.png" alt="" class="social-icon" />
+            </a>
+            <a href="#" aria-label="YouTube">
+              <img src="imgs/YouTube.png" alt="" class="social-icon" />
+            </a>
+            <a href="#" aria-label="TickTok">
+              <img src="imgs/TikTok.png" alt="" class="social-icon" />
+            </a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h3 class="footer-heading">Company</h3>
+          <a href="about-us.html" class="footer-link">About Us</a>
+          <a href="careers.html" class="footer-link">Careers</a>
+        </div>
+        <div class="footer-links">
+          <h3 class="footer-heading">Help</h3>
+          <a href="legal.html" class="footer-link">Legal</a>
+          <a href="faqs.html" class="footer-link">FAQs</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">@yannstechhub2025</div>
+  </footer>
+  </div>
+  

@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .container {
+    @apply w-[90%] max-w-[1200px] mx-auto;
+  }
+
+  .button {
+    @apply inline-block bg-[#007bff] text-white px-5 py-2.5 rounded hover:bg-[#0056b3] transition-colors cursor-pointer;
+  }
+}

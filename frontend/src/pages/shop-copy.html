@@ -1,0 +1,560 @@
+<style>
+    .price-range {
+      border-radius: 10px;
+      background-color: #eef2f4;
+      padding: 10px;
+    }
+    
+    .price-range-high {
+      border-radius: 10px;
+      background-color: #eef2f4;
+      padding: 10px 16px;
+    }
+    
+    .shop-container {
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .main-content {
+      background-color: #eef2f4;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      padding: 21px 0 119px;
+    }
+    
+    @media (max-width: 991px) {
+      .main-content {
+        max-width: 100%;
+        padding-bottom: 100px;
+      }
+    }
+    
+    .header-section {
+      border-radius: 20px;
+      background-color: #f2f2f2;
+      display: flex;
+      width: 1203px;
+      max-width: 100%;
+      gap: 20px;
+      justify-content: space-between;
+      padding: 21px 68px;
+    }
+    
+    @media (max-width: 991px) {
+      .header-section {
+        padding: 0 20px;
+      }
+    }
+    
+    .logo {
+      aspect-ratio: 4.13;
+      object-fit: contain;
+      object-position: center;
+      width: 132px;
+      max-width: 100%;
+    }
+    
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #000;
+      justify-content: start;
+      margin: auto 0;
+      font: 500 14px Open Sans, sans-serif;
+    }
+    
+    .nav-link {
+      align-self: stretch;
+      margin: auto 0;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .nav-link:hover,
+    .nav-link:focus {
+      text-decoration: underline;
+    }
+    
+    .user-actions {
+      align-self: start;
+      display: flex;
+      margin-top: 4px;
+      align-items: start;
+      gap: 30px;
+    }
+    
+    .icon-button {
+      aspect-ratio: 1;
+      width: 24px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    
+    .icon-button:hover,
+    .icon-button:focus {
+      opacity: 0.8;
+    }
+    
+    .icon-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .divider {
+      align-self: stretch;
+      min-height: 1px;
+      margin-top: 26px;
+      width: 100%;
+      border: 1px solid #d5d5d5;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      width: 100%;
+      max-width: 1036px;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 9px 0 0 17px;
+    }
+    
+    .breadcrumb-links {
+      align-self: start;
+      display: flex;
+      gap: 12px;
+      color: #000;
+      font: 15px Open Sans, sans-serif;
+    }
+    
+    .breadcrumb-item {
+      align-self: stretch;
+      border-radius: 10px;
+      background-color: #fff;
+      min-height: 28px;
+      padding: 4px 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .breadcrumb-item.active {
+      font-weight: 700;
+    }
+    
+    .sort-container {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    
+    .sort-label {
+      color: #000;
+      margin: auto 0;
+      font: 500 15px Open Sans, sans-serif;
+    }
+    
+    .sort-button {
+      border-radius: 10px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 48px;
+      border: 1px solid #e4e4e4;
+      cursor: pointer;
+    }
+    
+    .sort-button:hover,
+    .sort-button:focus {
+      background-color: #f5f5f5;
+    }
+    
+    .sort-button img {
+      width: 18px;
+      height: 18px;
+    }
+    
+    /* Product Grid Styles */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    
+    .product-card {
+      border-radius: 10px;
+      background-color: #fff;
+      padding: 15px;
+      border: 1px solid #e4e4e4;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-image-container {
+      position: relative;
+      border-radius: 10px;
+      aspect-ratio: 1;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .product-favorite {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+    }
+    
+    .product-title {
+      color: #000;
+      font-weight: 700;
+      font-size: 14px;
+      margin: 15px 0;
+      font-family: Open Sans, sans-serif;
+    }
+    
+    .product-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #a5a5a5;
+      font-size: 12px;
+    }
+    
+    .product-price {
+      color: #000;
+      font-weight: 700;
+      font-size: 20px;
+      margin-top: 5px;
+    }
+    
+    .add-to-cart {
+      background: none;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    /* Footer Styles */
+    .footer {
+      background-color: #000;
+      padding: 10px 0 0;
+      color: #fff;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 73px 70px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+    
+    .footer-logo-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 33px;
+    }
+    
+    .social-icon {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .footer-heading {
+      color: #dedede;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .footer-link {
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 300;
+    }
+    
+    .footer-link:hover,
+    .footer-link:focus {
+      text-decoration: underline;
+    }
+    
+    .copyright {
+      background-color: #191919;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      font-size: 10px;
+    }
+    
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    
+    @media (max-width: 991px) {
+      .footer-content {
+        padding: 40px 20px;
+      }
+      
+      .social-links {
+        gap: 20px;
+      }
+    }
+    </style>
+    
+    <main class="shop-container">
+      <div class="main-content">
+        <header class="header-section">
+          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/031afc0f8e6262f853b1668e2c0e6e0681fc4cdd11e4c2adbda8f1a01b3da1c3?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Yanns Tech Hub Logo" class="logo" />
+          <nav class="nav-buttons" aria-label="Main navigation">
+            <a href="#daily-deals" class="nav-link">Daily deals</a>
+            <a href="#shop" class="nav-link">Shop</a>
+            <a href="#bundle-deals" class="nav-link">Bundle Deals</a>
+            <a href="#support" class="nav-link">Support</a>
+          </nav>
+          <div class="user-actions">
+            <button class="icon-button" aria-label="Search">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3157db3c3acc131028433f928f574893f95268ed6d580dca0d2056519bbe5b9d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+            </button>
+            <button class="icon-button" aria-label="Shopping cart">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/27240010be2edc760824df85c53ca5f2605cf593bb319977564282959336dc16?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+            </button>
+            <button class="icon-button" aria-label="User account">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f05198cfccdf26f657d80e441ddfdc116f5dc09c2c06aef60ef3eb2be8510a67?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+            </button>
+          </div>
+        </header>
+    
+        <div class="divider" role="separator"></div>
+    
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <div class="breadcrumb-links">
+            <a href="/" class="breadcrumb-item active">yannstechub</a>
+            <a href="/daily-deals" class="breadcrumb-item">Daily deals</a>
+          </div>
+          <div class="sort-container">
+            <label for="sort-select" class="sort-label">Sort by</label>
+            <button class="sort-button" aria-expanded="false" aria-haspopup="listbox">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c32063b439701393fcb25a2af8d4d780164c8a6fe69ce2cc22ccea1ba33d95a1?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+            </button>
+          </div>
+        </nav>
+    
+        <div class="divider" role="separator"></div>
+    
+        <section class="product-grid" aria-label="Product grid">
+          <!-- Product cards here - repeated structure -->
+          <article class="product-card">
+            <div class="product-image-container">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80d63d883f81bfed3770d50c85cabfd61486bf94e5944fa8fa04723cc9cadffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Product name" class="product-image" />
+              <button class="product-favorite" aria-label="Add to favorites">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cdc0fdf834116a52638700f9dd05f7417ff9c4b4995327e76fb7f83b1d1d6c6d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div>
+                <div class="product-rating">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4068941a7a9c4ceb0ca5303fd35dfd2e62c592c662e38db222bbcb60b49d0ebe?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <div class="product-price">$ 50.00</div>
+              </div>
+              <button class="add-to-cart" aria-label="Add to cart">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/680151ab68c75e1d15f1f76800655515f1200644f25260a08e1d9a3d43794442?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="product-image-container">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80d63d883f81bfed3770d50c85cabfd61486bf94e5944fa8fa04723cc9cadffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Product name" class="product-image" />
+              <button class="product-favorite" aria-label="Add to favorites">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cdc0fdf834116a52638700f9dd05f7417ff9c4b4995327e76fb7f83b1d1d6c6d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div>
+                <div class="product-rating">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4068941a7a9c4ceb0ca5303fd35dfd2e62c592c662e38db222bbcb60b49d0ebe?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <div class="product-price">$ 50.00</div>
+              </div>
+              <button class="add-to-cart" aria-label="Add to cart">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/680151ab68c75e1d15f1f76800655515f1200644f25260a08e1d9a3d43794442?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+          </article><article class="product-card">
+            <div class="product-image-container">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80d63d883f81bfed3770d50c85cabfd61486bf94e5944fa8fa04723cc9cadffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Product name" class="product-image" />
+              <button class="product-favorite" aria-label="Add to favorites">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cdc0fdf834116a52638700f9dd05f7417ff9c4b4995327e76fb7f83b1d1d6c6d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div>
+                <div class="product-rating">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4068941a7a9c4ceb0ca5303fd35dfd2e62c592c662e38db222bbcb60b49d0ebe?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <div class="product-price">$ 50.00</div>
+              </div>
+              <button class="add-to-cart" aria-label="Add to cart">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/680151ab68c75e1d15f1f76800655515f1200644f25260a08e1d9a3d43794442?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+          </article><article class="product-card">
+            <div class="product-image-container">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80d63d883f81bfed3770d50c85cabfd61486bf94e5944fa8fa04723cc9cadffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Product name" class="product-image" />
+              <button class="product-favorite" aria-label="Add to favorites">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cdc0fdf834116a52638700f9dd05f7417ff9c4b4995327e76fb7f83b1d1d6c6d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div>
+                <div class="product-rating">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4068941a7a9c4ceb0ca5303fd35dfd2e62c592c662e38db222bbcb60b49d0ebe?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <div class="product-price">$ 50.00</div>
+              </div>
+              <button class="add-to-cart" aria-label="Add to cart">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/680151ab68c75e1d15f1f76800655515f1200644f25260a08e1d9a3d43794442?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+          </article><article class="product-card">
+            <div class="product-image-container">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80d63d883f81bfed3770d50c85cabfd61486bf94e5944fa8fa04723cc9cadffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Product name" class="product-image" />
+              <button class="product-favorite" aria-label="Add to favorites">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cdc0fdf834116a52638700f9dd05f7417ff9c4b4995327e76fb7f83b1d1d6c6d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div>
+                <div class="product-rating">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4068941a7a9c4ceb0ca5303fd35dfd2e62c592c662e38db222bbcb60b49d0ebe?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <div class="product-price">$ 50.00</div>
+              </div>
+              <button class="add-to-cart" aria-label="Add to cart">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/680151ab68c75e1d15f1f76800655515f1200644f25260a08e1d9a3d43794442?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+          </article><article class="product-card">
+            <div class="product-image-container">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/80d63d883f81bfed3770d50c85cabfd61486bf94e5944fa8fa04723cc9cadffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Product name" class="product-image" />
+              <button class="product-favorite" aria-label="Add to favorites">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/cdc0fdf834116a52638700f9dd05f7417ff9c4b4995327e76fb7f83b1d1d6c6d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+            <h2 class="product-title">Lorem ipsum dolor</h2>
+            <div class="product-details">
+              <div>
+                <div class="product-rating">
+                  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4068941a7a9c4ceb0ca5303fd35dfd2e62c592c662e38db222bbcb60b49d0ebe?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+                  <span>5.0 (58 reviews)</span>
+                </div>
+                <div class="product-price">$ 50.00</div>
+              </div>
+              <button class="add-to-cart" aria-label="Add to cart">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/680151ab68c75e1d15f1f76800655515f1200644f25260a08e1d9a3d43794442?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </button>
+            </div>
+          </article>
+          <!-- Repeat product card structure for all products -->
+        </section>
+      </div>
+    
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-logo-section">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9cc4d827d8a3264b9ec5d654e6d77f19b6c0133417d09d19393d3a47f7c345b0?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="Yanns Tech Hub Logo" class="logo" />
+            <div class="social-links">
+              <a href="#" class="social-icon" aria-label="Facebook">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e4e6c71b5500d63b74c3937dba786fe60e6af53bf2248f1ba7904ce7ceb5a214?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </a>
+              <a href="#" class="social-icon" aria-label="Twitter">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/fa920fa154b79d7293a371c4bf86280b6ed2ebd2e9431e68e6c5283096589a1e?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </a>
+              <a href="#" class="social-icon" aria-label="Instagram">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/63e94aab1c641e4487dbd9e440c025fb74da667b8921c0467643f1447b281ffb?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </a>
+              <a href="#" class="social-icon" aria-label="LinkedIn">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9c3ba5ccd6a9875d14e1b1e37e3561f8eff6dc5e01c77813d77f1d4582bd860f?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </a>
+              <a href="#" class="social-icon" aria-label="YouTube">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/aac656be81d660e7d6cca7bdfb5c5461e46594bc7f0226c4853fe56cdf8a221d?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </a>
+              <a href="#" class="social-icon" aria-label="Pinterest">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/157e8cb4f49f13aad45a2914dc10f3a7a6bbf237006db244150b722669730d32?placeholderIfAbsent=true&apiKey=2c9d54f744c4489ca7176332d686675c" alt="" />
+              </a>
+            </div>
+          </div>
+    
+          <div class="footer-links">
+            <h3 class="footer-heading">Company</h3>
+            <a href="#about" class="footer-link">About Us</a>
+            <a href="#careers" class="footer-link">Careers</a>
+          </div>
+    
+          <div class="footer-links">
+            <h3 class="footer-heading">Help</h3>
+            <a href="#legal" class="footer-link">Legal</a>
+            <a href="#faqs" class="footer-link">FAQs</a>
+            <a href="#contact" class="footer-link">Contact</a>
+          </div>
+        </div>
+        <div class="copyright">@yannstechhub2025</div>
+      </footer>
+    </main>

@@ -1,0 +1,486 @@
+<style>
+    .legal {
+  background-color: #fff;
+  padding-top: 21px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.legal-container {
+  display: flex;
+  width: 80%;
+  /* padding: 0 38px; */
+  flex-direction: column;
+  align-items: start;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 15px;
+  color: #000;
+  font-weight: 300;
+}
+
+
+/*------------------Header Style-------------------  */
+
+.header-section {
+  position: fixed;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  /* width: 1203px; */
+  width: 70%;
+  overflow: hidden;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 21px 68px;
+  box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.147);
+  z-index: 1000;
+} 
+
+.logo {
+  aspect-ratio: 4.13;
+  object-fit: contain;
+  object-position: center;
+  width: 132px;
+  max-width: 100%;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: #000;
+  justify-content: start;
+  margin: auto 0;
+  font: 500 14px Open Sans, sans-serif;
+}
+
+.nav-link {
+  align-self: stretch;
+  margin: auto 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-actions {
+  align-self: start;
+  display: flex;
+  margin-top: 4px;
+  align-items: start;
+  gap: 30px;
+}
+
+.action-icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 24px;
+}
+
+
+/* -------------Main Style---------------- */
+
+.main-content {
+  align-self: center;
+display: flex;
+width: 100%;
+flex-direction: column;
+align-items: center;
+padding: 50px 0 179px;
+}
+
+.legal-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 2;
+  margin: 61px 0 0 77px;
+}
+
+.legal-intro {
+  line-height: 23px;
+  text-align: start;
+  margin-top: 9px;
+}
+
+.legal-highlights {
+  line-height: 23px;
+  display: flex;
+  align-self: start;
+  flex-direction: column;
+  align-items: start;
+}
+
+.highlight-item {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-title {
+  font-weight: 500;
+  display: inline;
+  font-size: inherit;
+  margin: 0%;
+  font: 600 16px Open Sans, sans-serif;
+}
+
+.highlight-text {
+  display: inline;
+  margin-left: 5px;
+}
+
+.legal-content {
+  background-color: #fff;
+  width: 100%;
+  line-height: 23px;
+}
+
+.policy-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-weight: 500 Open Sans, sans-serif;
+  font-size: inherit;
+  margin-bottom: 10px;
+}
+
+.policy-list {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+
+  /* ---------------------Footer Styles-------------------------- */
+  
+  .footer {
+    background-color: #000;
+    padding-top: 10px;
+    width: 100%;
+    margin-bottom: 0%;
+  }
+  
+  .footer-content {
+    padding: 73px 70px 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-sections {
+    display: flex;
+    flex-direction: row;
+    width: 655px;
+    max-width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .footer-logo-social {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .social-icons {
+    display: flex;
+    margin-top: 19px;
+    gap: 33px;
+  }
+  
+  .social-icon {
+    width: 18px;
+    aspect-ratio: 1;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .footer-heading {
+    color: #dedede;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: Inter, sans-serif;
+  }
+  
+  .footer-link {
+    color: #fff;
+    font: 300 12px Inter, sans-serif;
+    text-decoration: none;
+  }
+  
+  .footer-link:hover,
+  .footer-link:focus {
+    text-decoration: underline;
+  }
+  
+  .copyright {
+    background-color: #191919;
+    color: #fff;
+    text-align: center;
+    padding: 7px 70px 13px;
+    font: 400 10px Inter, sans-serif;
+  }
+
+
+@media (max-width: 991px) {
+  .legal-container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .search-bar {
+    max-width: 100%;
+    padding: 23px 20px;
+  }
+
+  .legal-title {
+    margin-left: 10px;
+    margin-top: 40px;
+  }
+
+  .legal-highlights {
+    margin-left: 10px;
+  }
+
+  .legal-content {
+    max-width: 100%;
+    padding: 0 20px 110px;
+    margin-top: 40px;
+  }
+  .main-content {
+      max-width: 100%;
+      padding-bottom: 40px;
+    }
+  
+    .header-section {
+      padding: 0 20px;
+    }
+  
+  
+    .footer-content {
+      padding: 40px 20px;
+    }
+  
+    .footer-sections {
+      flex-wrap: wrap;
+      align-items: start;
+      text-align: start;
+      gap: 5rem;
+      justify-content: center;
+    }
+  
+    .social-icons {
+      justify-content: center;
+    }
+  
+    .copyright {
+      padding: 7px 20px;
+    }
+}
+
+</style>
+<div class="legal">
+    <div class="legal-container">
+      <header class="header-section">
+        <a href="index.html">
+          <img src="imgs/Logo.png" alt="YannsTechHub Logo" class="logo" />
+        </a>
+        <nav class="nav-buttons">
+          <a href="daily-deals-section.html" class="nav-link">Daily deals</a>
+          <a href="shop-section.html" class="nav-link">Shop</a>
+          <a href="bundle-deals.html" class="nav-link">Bundle Deals</a>
+          <a href="support.html" class="nav-link">Support</a>
+        </nav>
+        <div class="user-actions">
+          <img src="imgs/Search - 7.png" alt="Search" class="action-icon" />
+         <a href="logIn.html">
+          <img src="imgs/Profile - 3.png" alt="User Account" class="action-icon" />
+         </a>
+          <a href="cart.html">
+            <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" class="action-icon" />
+          </a>
+        </div>
+      </header>
+
+      <div class="main-content">
+        <h1 class="legal-title">Legal Overview</h1>
+        <p class="legal-intro">
+          Legal information serves as the foundation for the relationship between
+          Yannstech Hub and its users. These policies are essential to outline the
+          rights, obligations, and protections for both the platform and its
+          customers. Here's an in-depth breakdown of the key legal points:
+        </p>
+        <section class="legal-highlights">
+          <article class="highlight-item">
+            <h2 class="highlight-title">Privacy Policy:</h2>
+            <p class="highlight-text">
+              "Learn how we collect, use, and protect your personal information when
+              you use Yannstech Hub."
+            </p>
+          </article>
+          <article class="highlight-item">
+            <h2 class="highlight-title">Cookie Policy:</h2>
+            <p class="highlight-text">
+              "Understand how we use cookies to enhance your shopping experience and
+              manage your preferences."
+            </p>
+          </article>
+          <article class="highlight-item">
+            <h2 class="highlight-title">Compliance & Security:</h2>
+            <p class="highlight-text">
+              "Discover the steps we take to ensure your data and transactions are
+              secure."
+            </p>
+          </article>
+        </section>
+        <section class="legal-content">
+          <article class="policy-section">
+            <h2 class="section-title">1. Privacy Policy</h2>
+              <p>The Privacy Policy outlines how Yannstech Hub collects, uses, stores, and protects customer data.</p>
+              <ul class="policy-list">
+                <li>Data Collection: We collect personal information such as your name, email address, shipping details, and payment methods to process orders and enhance your shopping experience.</li>
+                <li>Usage of Data: Your data may be used for order processing, customer support, marketing communications (with your consent), and improving our website's functionality.</li>
+                <li>Third-Party Sharing: Yannstech Hub may share data with third-party partners, such as payment processors or delivery services, to fulfill your order. We ensure these partners adhere to strict confidentiality standards.</li>
+                <li>Customer Rights: You have the right to access, correct, or delete your data. You may also request to opt out of marketing communications at any time.</li>
+                <li>Compliance: We comply with data protection laws, such as GDPR (for EU customers) and CCPA (for California residents).</li>
+                <li>Cookies and Tracking: Yannstech Hub uses cookies to enhance user experience, personalize content, and analyze traffic. Users can manage cookie preferences in their browser settings.</li>
+              </ul>
+
+              <h2 class="section-title">2. Terms of Service</h2>
+              <p>The Terms of Service govern your use of Yannstech Hub’s platform. By accessing or purchasing through the website, you agree to abide by these terms.</p>
+              <ul class="policy-list">
+                <li>User Responsibilities: You must provide accurate information when creating an account or placing an order. Misuse of the platform, such as providing false information or engaging in fraudulent activity, is prohibited.</li>
+                <li>Product Descriptions: While we strive for accuracy, product images and descriptions are for illustrative purposes only. Variations may occur.</li>
+                <li>Account Suspension: Yannstech Hub reserves the right to suspend or terminate accounts found violating these terms.</li>
+                <li>Prohibited Actions: Activities like hacking, data scraping, or the unauthorized resale of purchased products are strictly forbidden.</li>
+              </ul>
+
+              <h2 class="section-title">3. Refund and Returns Policy</h2>
+              <p>The Refund and Returns Policy defines the process for handling returns, exchanges, and refunds.</p>
+              <ul class="policy-list">
+                <li>Return Window: Customers have 30 days from the date of delivery to request a return.</li>
+                <li>Eligibility: Products must be unused, undamaged, and in their original packaging to qualify for a return.</li>
+                <li>Non-Refundable Items: Certain items, such as software licenses or personalized gadgets, may not be eligible for returns.</li>
+                <li>Refund Processing: Refunds are issued to the original payment method and may take up to 7 business days to process.</li>
+                <li>Defective Products: If an item is defective, customers must notify us within 14 days of delivery to receive a replacement or full refund.</li>
+              </ul>
+
+              <h2 class="section-title">4. Intellectual Property</h2>
+              <p>All content on Yannstech Hub, including logos, images, and product descriptions, is protected under copyright and trademark laws.</p>
+              <ul class="policy-list">
+                <li>Ownership: Yannstech Hub owns or licenses all intellectual property displayed on the platform.</li>
+                <li>Restrictions: Users are prohibited from reproducing, distributing, or using content without explicit permission.</li>
+                <li>Trademarks: Third-party trademarks, such as product logos, are the property of their respective owners. Use of these trademarks does not imply endorsement or affiliation.</li>
+              </ul>
+
+              <h2 class="section-title">5. Security</h2>
+              <p>Security measures are implemented to protect customer data and ensure safe transactions.</p>
+              <ul class="policy-list">
+                <li>Encryption: Yannstech Hub uses advanced SSL (Secure Socket Layer) encryption to safeguard sensitive information, such as payment details.</li>
+                <li>User Responsibility: Customers are responsible for maintaining the confidentiality of their account credentials.</li>
+                <li>Incident Reporting: If you suspect unauthorized access to your account, notify us immediately so we can secure your information.</li>
+                <li>Two-Factor Authentication: We encourage users to enable two-factor authentication (2FA) for added security.</li>
+              </ul>
+
+              <h2 class="section-title">6. Shipping and Delivery</h2>
+              <p>The Shipping Policy ensures transparency about how products are delivered.</p>
+              <ul class="policy-list">
+                <li>Delivery Timeline: Estimated delivery dates are provided at checkout but are subject to delays caused by shipping partners or external factors.</li>
+                <li>Shipping Costs: These are calculated based on the shipping method, location, and package weight.</li>
+                <li>Lost or Damaged Goods: Customers must report lost or damaged goods within [X] days of delivery to initiate a claim.</li>
+              </ul>
+
+              <h2 class="section-title">7. Dispute Resolution</h2>
+              <p>The Dispute Resolution Policy outlines the process for resolving conflicts between Yannstech Hub and its customers.</p>
+              <ul class="policy-list">
+                <li>Arbitration: Disputes must first be addressed through arbitration rather than formal lawsuits.</li>
+                <li>Jurisdiction: Legal claims are governed by the laws of [Your Country/Region], and disputes must be filed in the designated jurisdiction.</li>
+                <li>Mediation: Both parties are encouraged to resolve disputes amicably through mediation before pursuing legal action.</li>
+              </ul>
+
+              <h2 class="section-title">8. Limitation of Liability</h2>
+              <p>Yannstech Hub limits its liability for certain issues to ensure fair accountability.</p>
+              <ul class="policy-list">
+                <li>No Guarantee: We do not guarantee uninterrupted access to the platform due to potential technical errors or maintenance.</li>
+                <li>Product Warranties: Manufacturer warranties apply to most products, but Yannstech Hub is not liable for defects caused by improper use.</li>
+                <li>Indirect Damages: We are not responsible for indirect damages, such as lost profits or business interruptions, arising from the use of our services.</li>
+              </ul>
+
+              <h2 class="section-title">9. Force Majeure</h2>
+              <p>Yannstech Hub is not liable for delays or failures caused by events beyond its control.</p>
+              <ul class="policy-list">
+                <li>Examples: These include natural disasters, strikes, internet outages, or governmental actions.</li>
+                <li>Customer Notification: In such cases, we will notify affected customers and work to resolve issues promptly.</li>
+              </ul>
+
+              <h2 class="section-title">10. Anti-Fraud Measures</h2>
+              <p>Anti-fraud measures protect both customers and the platform.</p>
+              <ul class="policy-list">
+                <li>Order Verification: High-value or suspicious orders may be subject to additional verification steps.</li>
+                <li>Account Monitoring: Yannstech Hub monitors user accounts for unusual activity and reserves the right to suspend accounts involved in fraudulent activity.</li>
+              </ul>
+
+              <h2 class="section-title">11. Governing Law</h2>
+              <p>All legal agreements are governed by the laws of [Your Country/Region].</p>
+              <ul class="policy-list">
+                <li>Tax Compliance: Prices include applicable taxes, and international buyers are responsible for customs duties.</li>
+                <li>Legal Updates: Changes to governing laws may result in updates to our policies, which will be communicated to customers.</li>
+              </ul>
+
+
+          </article>
+        </div>
+      </section>
+    </div>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-logo-social">
+            <img src="imgs/Logo (1).png" alt="YannsTechHub Footer Logo" class="logo" />
+            <div class="social-icons">
+              <a href="#" aria-label="Facebook">
+                <img src="imgs/Facebook.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="Twitter">
+                <img src="imgs/Twitter.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="Instagram">
+                <img src="imgs/Instagram.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <img src="imgs/LinkedIn.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="YouTube">
+                <img src="imgs/YouTube.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="TickTok">
+                <img src="imgs/TikTok.png" alt="" class="social-icon" />
+              </a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3 class="footer-heading">Company</h3>
+            <a href="about-us.html" class="footer-link">About Us</a>
+            <a href="careers.html" class="footer-link">Careers</a>
+          </div>
+          <div class="footer-links">
+            <h3 class="footer-heading">Help</h3>
+            <a href="legal.html" class="footer-link">Legal</a>
+            <a href="faqs.html" class="footer-link">FAQs</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">@yannstechhub2025</div>
+    </footer>
+  </div>
+  

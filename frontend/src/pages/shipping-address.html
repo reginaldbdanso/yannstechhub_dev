@@ -1,0 +1,628 @@
+<style>
+    .secure-checkout {
+  background-color: #fff;
+}
+
+.checkout-container {
+  background-color: #eef2f4;
+  padding: 21px 0 77px;
+}
+
+.top-nav {
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  margin: 0 auto;
+  width: 1203px;
+  max-width: 100%;
+  padding: 23px 70px;
+}
+
+.nav-content {
+  display: flex;
+  width: 601px;
+  max-width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.cart-icon {
+  width: 27px;
+  height: 27px;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #d5d5d5;
+  margin: 26px 0;
+}
+
+.breadcrumb {
+  margin: 9px 139px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.breadcrumb-link {
+  color: #000;
+  text-decoration: none;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 4px 14px;
+}
+
+.breadcrumb-current {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 4px 11px;
+}
+
+.checkout-content {
+  display: flex;
+  margin: 38px 39px;
+  gap: 20px;
+}
+
+.shipping-section {
+  width: 62%;
+  padding: 15px 0;
+}
+
+.section-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 23px 25px;
+}
+
+.shipping-form {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.form-row {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 18px;
+}
+
+.form-group {
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.form-input {
+  width: 100%;
+  height: 49px;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  background-color: #fff;
+  margin-top: 10px;
+  padding: 0 15px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 11px 0;
+  font-weight: 400;
+}
+
+.helper-text {
+  color: #010101;
+  margin: 11px 0 0;
+  font-size: 14px;
+}
+
+.checkout-button {
+  background-color: #0055b6;
+  color: #010101;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  width: 469px;
+  max-width: 100%;
+  height: 57px;
+  margin-top: 38px;
+  cursor: pointer;
+}
+
+.order-summary {
+  width: 38%;
+}
+
+.summary-container {
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 30px 22px 57px;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 336px;
+  max-width: 100%;
+  margin: 0 auto;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.order-items {
+  margin-top: 30px;
+}
+
+.order-item {
+  display: flex;
+  gap: 15px;
+  margin: 20px 11px;
+}
+
+.item-image {
+  width: 89px;
+  height: 84px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.item-details {
+  margin-top: 5px;
+}
+
+.item-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.item-quantity {
+  margin: 8px 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.item-price {
+  margin: 11px 0 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.item-divider {
+  border: 0;
+  border-top: 1px solid #d5d5d5;
+  margin: 17px 0;
+}
+
+.total-summary {
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  margin-top: 28px;
+  padding: 28px 41px 49px;
+}
+
+.summary-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.summary-labels,
+.summary-values {
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+}
+
+.summary-labels {
+  width: 68%;
+  font-weight: 500;
+}
+
+.summary-values {
+  width: 32%;
+  font-weight: 700;
+  text-align: right;
+}
+
+.total-label,
+.total-value {
+  font-size: 25px;
+  font-weight: 700;
+  margin-top: 35px;
+}
+
+.site-footer {
+  background-color: #000;
+  padding-top: 10px;
+}
+
+.footer-content {
+  padding: 73px 70px 40px;
+}
+
+.footer-sections {
+  display: flex;
+  width: 655px;
+  max-width: 100%;
+  margin: 0 auto;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 33px;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: "Inter", sans-serif;
+}
+
+.footer-links h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #010101;
+  margin: 0 0 25px;
+}
+
+.footer-links a {
+  color: #010101;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.copyright {
+  background-color: #191919;
+  color: #010101;
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+  padding: 7px 70px 13px;
+  margin-top: 18px;
+}
+
+@media (max-width: 991px) {
+  .top-nav {
+    padding: 23px 20px;
+  }
+
+  .checkout-content {
+    flex-direction: column;
+    margin: 40px 10px;
+  }
+
+  .shipping-section,
+  .order-summary {
+    width: 100%;
+  }
+
+  .section-title {
+    margin-left: 10px;
+  }
+
+  .checkout-button {
+    padding: 19px 20px;
+  }
+
+  .total-summary {
+    padding: 28px 20px 49px;
+  }
+
+  .footer-content {
+    padding: 73px 20px 40px;
+  }
+
+  .copyright {
+    padding: 7px 20px 13px;
+  }
+}
+
+</style>
+<div class="secure-checkout">
+    <div class="checkout-container">
+      <nav class="top-nav">
+        <div class="nav-content">
+          <ul class="nav-links">
+            <li><a href="#" class="nav-link">Daily deals</a></li>
+            <li><a href="#" class="nav-link">Shop</a></li>
+            <li><a href="#" class="nav-link">Bundle Deals</a></li>
+            <li><a href="#" class="nav-link">Support</a></li>
+          </ul>
+          <div class="nav-icons">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/caffc333dea08fa9c2427ed2edb1e5f99041c7457e91b72534f7410dabf8dc0f"
+              alt="Search"
+              class="nav-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a47330ec73f0cc3e97ee131cdeee21684ab6485d894140dad60891c896d0aeb"
+              alt="Cart"
+              class="nav-icon cart-icon"
+            />
+          </div>
+        </div>
+      </nav>
+      <hr class="divider" />
+  
+      <nav class="breadcrumb">
+        <ul class="breadcrumb-list">
+          <li><a href="#" class="breadcrumb-link">yannstechub</a></li>
+          <li><a href="#" class="breadcrumb-link">Daily deals</a></li>
+          <li><a href="#" class="breadcrumb-link">Cart</a></li>
+          <li><span class="breadcrumb-current">Secure Checkout</span></li>
+        </ul>
+      </nav>
+  
+      <hr class="divider" />
+  
+      <main class="checkout-content">
+        <section class="shipping-section">
+          <h1 class="section-title">Shipping Address</h1>
+          <form class="shipping-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-input" />
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-input" />
+            </div>
+  
+            <div class="form-checkbox">
+              <input type="checkbox" id="default-address" />
+              <label for="default-address">Set as default</label>
+            </div>
+  
+            <div class="form-group">
+              <label>State/Province</label>
+              <input type="text" class="form-input" />
+            </div>
+  
+            <div class="form-row">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label>District</label>
+                <input type="text" class="form-input" />
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label>Address</label>
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Street, Apartment , Suite, etc."
+              />
+              <p class="helper-text">
+                Detailed street address can help our rider find you quickly.
+              </p>
+            </div>
+  
+            <div class="form-group">
+              <label>Address 2</label>
+              <input type="text" class="form-input" />
+            </div>
+  
+            <div class="form-group">
+              <label>Phone number</label>
+              <input type="tel" class="form-input" />
+            </div>
+  
+            <button type="submit" class="checkout-button">
+              Proceed to checkout
+            </button>
+          </form>
+        </section>
+  
+        <section class="order-summary">
+          <div class="summary-container">
+            <header class="summary-header">
+              <h2>My Order Summary</h2>
+              <button class="edit-button">Edit</button>
+            </header>
+  
+            <div class="order-items">
+              <article class="order-item">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a3d2d15b23f08d6a7e4a2e6a232f16067819ffa196f0281f853b8b8b5396d9b4"
+                  alt="Product"
+                  class="item-image"
+                />
+                <div class="item-details">
+                  <h3 class="item-title">Lorem ipsum dolor</h3>
+                  <p class="item-quantity">Qty: 1</p>
+                  <p class="item-price">$50.00</p>
+                </div>
+              </article>
+  
+              <hr class="item-divider" />
+  
+              <article class="order-item">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a9d8eab4fe28a73835d78dacacb812768449843e65448f1aa79482ad7a0d5e41"
+                  alt="Product"
+                  class="item-image"
+                />
+                <div class="item-details">
+                  <h3 class="item-title">Lorem ipsum dolor</h3>
+                  <p class="item-quantity">Qty: 1</p>
+                  <p class="item-price">$99.99</p>
+                </div>
+              </article>
+  
+              <hr class="item-divider" />
+  
+              <article class="order-item">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/4dec0a85ae305f77f0be2bbd7994f06e59650e4d5ff4602c193c0386f8e57c48"
+                  alt="Product"
+                  class="item-image"
+                />
+                <div class="item-details">
+                  <h3 class="item-title">Lorem ipsum dolor</h3>
+                  <p class="item-quantity">Qty: 1</p>
+                  <p class="item-price">$99.99</p>
+                </div>
+              </article>
+            </div>
+          </div>
+  
+          <div class="total-summary">
+            <div class="summary-grid">
+              <div class="summary-labels">
+                <p>Cart Summmary</p>
+                <p>Shipping</p>
+                <p class="total-label">Total</p>
+              </div>
+              <div class="summary-values">
+                <p>$349.99</p>
+                <p>$5.00</p>
+                <p class="total-value">$354.99</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="social-links">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/e4e6c71b5500d63b74c3937dba786fe60e6af53bf2248f1ba7904ce7ceb5a214"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/f40816b46499d250d4225f62a3ee7f1136149c95228d96495d89a44fd07e30f2"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/af10cbd31488f4753a3eb4ffb98863bde97877aef3bd2248ddcf290dc0d4a904"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e7481c8793977677f152529b654a02cb36be78ef8aafdeb1f14777818c39ad0"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/bebc7882911dc3cffc1aee36018695a0f06a4e295ccc6d2a2cfb4ae74974dcaa"
+              alt="Social"
+              class="social-icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/157e8cb4f49f13aad45a2914dc10f3a7a6bbf237006db244150b722669730d32"
+              alt="Social"
+              class="social-icon"
+            />
+          </div>
+  
+          <div class="footer-links">
+            <h3>Company</h3>
+            <a href="#">About Us</a>
+            <a href="#">Careers</a>
+          </div>
+  
+          <div class="footer-links">
+            <h3>Help</h3>
+            <a href="#">Legal</a>
+            <a href="#">FAQs</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">@yannstechhub2025</div>
+    </footer>
+  </div>
+  

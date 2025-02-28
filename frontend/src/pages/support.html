@@ -1,0 +1,461 @@
+<style>
+    .track-order {
+  background-color: #fff;
+}
+
+.main-content {
+        background-color: #eef2f4;
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: stretch;
+        padding: 21px 0 179px;
+      }
+
+
+      /*------------------Header Style-------------------  */
+      
+      .header-section {
+        position: fixed;
+        border-radius: 20px;
+        background-color: #f2f2f2;
+        display: flex;
+        /* width: 1203px; */
+        width: 70%;
+        overflow: hidden;
+        gap: 20px;
+        justify-content: space-between;
+        padding: 21px 68px;
+        box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.147);
+        z-index: 1000;
+      } 
+      
+      .logo {
+        aspect-ratio: 4.13;
+        object-fit: contain;
+        object-position: center;
+        width: 132px;
+        max-width: 100%;
+      }
+      
+      .nav-buttons {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        color: #000;
+        justify-content: start;
+        margin: auto 0;
+        font: 500 14px Open Sans, sans-serif;
+      }
+      
+      .nav-link {
+        align-self: stretch;
+        margin: auto 0;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+      }
+      
+      .user-actions {
+        align-self: start;
+        display: flex;
+        margin-top: 4px;
+        align-items: start;
+        gap: 30px;
+      }
+      
+      .action-icon {
+        aspect-ratio: 1;
+        object-fit: contain;
+        object-position: center;
+        width: 24px;
+      }
+      
+      .divider-top {
+        align-self: stretch;
+        min-height: 0px;
+        margin-top: 100px;
+        width: 99.9%;
+        border: 1px solid #d5d5d5;
+      }
+      .divider {
+        align-self: stretch;
+        min-height: 0px;
+        margin-top: 10px;
+        width: 99.9%;
+        border: 1px solid #d5d5d5;
+      }
+      
+      .breadcrumb-sort {
+        display: flex;
+        width: 100%;
+        max-width: 70%;
+        gap: 2px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 9px 0 0 0px;
+      }
+      @media (max-width: 991px) {
+      .breadcrumb-sort {
+        width: 70%;
+        justify-content: center;
+        gap: 2rem;
+    }
+    }
+      
+      .breadcrumb {
+        align-self: start;
+        display: flex;
+        gap: 12px;
+        color: #000;
+        font: 15px Open Sans, sans-serif;
+      }
+      
+      .breadcrumb-item {
+        align-self: stretch;
+        border-radius: 10px;
+        background-color: #fff;
+        /* min-height: 28px; */
+        gap: 10px;
+        padding: 4px 14px;
+      }
+      .breadcrumb-item.y{
+        font: 700 15px Open Sans, sans-serif;
+      }
+      
+      .sort-container {
+    display: flex;
+    gap: 5px;
+    }
+
+    .sort-label {
+    color: #000;
+    flex-grow: 1;
+    margin: auto 0;
+    font: 500 15px Open Sans, sans-serif;
+    }
+
+    .sort-Select {
+      border-radius: 10px;
+      background-color: #fff;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5px 50px;
+      border: 1px solid #e4e4e4;
+    }
+    select{
+    padding: 4px 30px;
+    border: none;
+    cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+    .sort-select {
+      padding-left: 20px;
+    }
+    }
+
+.order-section {
+  text-align: center;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+@media (max-width: 991px) {
+     .order-section {
+      margin-top: 80px;
+    }
+    }
+.section-title {
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+
+.order-image {
+  aspect-ratio: 3.13;
+  width: 100%;
+  max-width: 998px;
+  margin-bottom: 26px;
+}
+.order-form {
+  align-self: center;
+    background-color: #fff;
+    align-self: stretch;
+    display: flex;
+    width: 50%;
+    margin-top: -60px;
+    align-items: end;
+    font-size: 15px;
+    color: #000;
+    white-space: nowrap;
+  }
+  .order-number{
+    align-self: stretch;
+    padding: 0 10px;
+    width: 542px;
+    display: flex;
+    border: none;
+    font-size: 15px;
+    color: #000;
+    white-space: nowrap;
+  }
+  
+  @media (max-width: 991px) {
+    .order-form {
+      max-width: 100%;
+      padding-left: 20px;
+      white-space: initial;
+    }
+  }
+  
+  .order-button {
+    align-self: end;
+    background-color: #c0ddff;
+    padding: 11px 39px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 991px) {
+    .order-button {
+      white-space: initial;
+      padding: 0 20px;
+    }
+  }
+
+
+.order-info {
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 991px) {
+  .order-image{
+    aspect-ratio: 2.5;
+  }
+  .order-info {
+    margin-bottom:30%;
+  }
+}  
+
+ /* ---------------------Footer Styles-------------------------- */
+  
+ .footer {
+    background-color: #000;
+    padding-top: 10px;
+    width: 100%;
+    margin-bottom: 0%;
+  }
+  
+  .footer-content {
+    padding: 73px 70px 40px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-sections {
+    display: flex;
+    flex-direction: row;
+    width: 655px;
+    max-width: 100%;
+    gap: 20px;
+    justify-content: space-between;
+  }
+
+  .footer-logo-social {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .social-icons {
+    display: flex;
+    margin-top: 19px;
+    gap: 33px;
+  }
+  
+  .social-icon {
+    width: 18px;
+    aspect-ratio: 1;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .footer-heading {
+    color: #dedede;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: Inter, sans-serif;
+  }
+  
+  .footer-link {
+    color: #fff;
+    font: 300 12px Inter, sans-serif;
+    text-decoration: none;
+  }
+  
+  .footer-link:hover,
+  .footer-link:focus {
+    text-decoration: underline;
+  }
+  
+  .copyright {
+    background-color: #191919;
+    color: #fff;
+    text-align: center;
+    padding: 7px 70px 13px;
+    font: 400 10px Inter, sans-serif;
+  }
+  
+  @media (max-width: 991px) {
+    .main-content {
+      max-width: 100%;
+      padding-bottom: 40px;
+    }
+  
+    .header-section {
+      padding: 0 20px;
+    }
+  
+    .breadcrumb-sort {
+      max-width: 100%;
+    }
+  
+    .footer-content {
+      padding: 40px 20px;
+    }
+  
+    .footer-sections {
+      flex-wrap: wrap;
+      align-items: start;
+      text-align: start;
+      gap: 5rem;
+      justify-content: center;
+    }
+  
+    .social-icons {
+      justify-content: center;
+    }
+  
+    .copyright {
+      padding: 7px 20px;
+    }
+  }
+  </style>
+
+
+<div class="track-order">
+  <div class="main-content">
+    <header class="header-section">
+      <a href="index.html">
+        <img src="imgs/Logo.png" alt="YannsTechHub Logo" class="logo" />
+      </a>
+      <nav class="nav-buttons">
+        <a href="daily-deals-section.html" class="nav-link">Daily deals</a>
+        <a href="shop-section.html" class="nav-link">Shop</a>
+        <a href="bundle-deals.html" class="nav-link">Bundle Deals</a>
+        <a href="support.html" class="nav-link">Support</a>
+      </nav>
+      <div class="user-actions">
+        <img src="imgs/Search - 7.png" alt="Search" class="action-icon" />
+       <a href="logIn.html">
+        <img src="imgs/Profile - 3.png" alt="User Account" class="action-icon" />
+       </a>
+        <a href="cart.html">
+          <img src="imgs/Buy - 6 (1).png" alt="Shopping Cart" class="action-icon" />
+        </a>
+      </div>
+    </header>
+
+    <div class="divider-top"></div>
+
+    <div class="breadcrumb-sort">
+      <div class="breadcrumb">
+        <span class="breadcrumb-item y">yannstechub</span>
+        <span class="breadcrumb-item">/ Track Order</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+  
+      <section class="order-section">
+        <h1 class="section-title">Your Order</h1>
+        <img
+          loading="lazy"
+          src="imgs/order-track.png"
+          class="order-image"
+          alt="Order tracking information"
+        />
+        <form class="order-form">
+          <input type="text" id="order-number" name="order-number" class="order-number" placeholder="Enter your number" required />
+          <button type="submit" class="order-button">Track</button>
+        </form>
+        <p class="order-info">
+          Normally your package will arrive within 2-5 working days after placing
+          your order. In case of weather disasters, and holidays there may be
+          delays. For any questions please contact Care.gh@oraimo.com. Thank you
+          for your support and patience.
+        </p>
+      </section>
+    </div>
+  
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-sections">
+          <div class="footer-logo-social">
+            <img src="imgs/Logo (1).png" alt="YannsTechHub Footer Logo" class="logo" />
+            <div class="social-icons">
+              <a href="#" aria-label="Facebook">
+                <img src="imgs/Facebook.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="Twitter">
+                <img src="imgs/Twitter.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="Instagram">
+                <img src="imgs/Instagram.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <img src="imgs/LinkedIn.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="YouTube">
+                <img src="imgs/YouTube.png" alt="" class="social-icon" />
+              </a>
+              <a href="#" aria-label="TickTok">
+                <img src="imgs/TikTok.png" alt="" class="social-icon" />
+              </a>
+            </div>
+          </div>
+          <div class="footer-links">
+            <h3 class="footer-heading">Company</h3>
+            <a href="about-us.html" class="footer-link">About Us</a>
+            <a href="careers.html" class="footer-link">Careers</a>
+          </div>
+          <div class="footer-links">
+            <h3 class="footer-heading">Help</h3>
+            <a href="legal.html" class="footer-link">Legal</a>
+            <a href="faqs.html" class="footer-link">FAQs</a>
+            <a href="contact.html" class="footer-link">Contact</a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">@yannstechhub2025</div>
+    </footer>
+  </div>
+  

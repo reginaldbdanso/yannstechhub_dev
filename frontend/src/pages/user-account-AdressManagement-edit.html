@@ -1,0 +1,445 @@
+<style>
+    .edit-info {
+  background-color: #fff;
+}
+
+.main-container {
+  background-color: #eef2f4;
+  display: flex;
+  width: 100%;
+  padding: 21px 0 77px;
+  flex-direction: column;
+  font-family:
+    Open Sans,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 15px;
+}
+
+.top-header {
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  align-self: center;
+  display: flex;
+  width: 1203px;
+  max-width: 100%;
+  padding: 23px 70px;
+}
+
+.nav-container {
+  display: flex;
+  width: 601px;
+  max-width: 100%;
+  align-items: stretch;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.nav-links {
+  display: flex;
+  margin: auto 0;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-link {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.divider {
+  border: 1px solid #d5d5d5;
+  margin: 26px 0 9px;
+  width: 100%;
+}
+
+.breadcrumb {
+  display: flex;
+  margin-left: 139px;
+  width: 332px;
+  max-width: 100%;
+  align-items: stretch;
+  gap: 12px;
+  color: #000;
+}
+
+.breadcrumb-item {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 4px 14px;
+  font-weight: 500;
+}
+
+.breadcrumb-item:first-child {
+  font-weight: 700;
+}
+
+.form-container {
+  align-self: center;
+  width: 662px;
+  max-width: 100%;
+  margin-top: 53px;
+}
+
+.form-title {
+  color: #000;
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 25px;
+  margin-bottom: 23px;
+}
+
+.shipping-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: flex;
+  gap: 25px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  color: #000;
+  font-weight: 500;
+}
+
+.form-input {
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #e4e4e4;
+  min-height: 49px;
+  padding: 0 15px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #010101;
+  font-weight: 400;
+}
+
+.checkbox-input {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #b0adad;
+}
+
+.address-group {
+  position: relative;
+}
+
+.helper-text {
+  color: #010101;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.submit-button {
+  align-self: center;
+  border-radius: 30px;
+  background-color: #0055b6;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 19px;
+  width: 469px;
+  max-width: 100%;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.footer {
+  background-color: #000;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.footer-content {
+  padding: 73px 70px 40px;
+}
+
+.footer-sections {
+  display: flex;
+  width: 655px;
+  max-width: 100%;
+  align-items: stretch;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.social-links {
+  display: flex;
+  margin: auto 0;
+  gap: 33px;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+}
+
+.footer-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #010101;
+}
+
+.footer-link {
+  color: #010101;
+  font-size: 12px;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.copyright {
+  background-color: #191919;
+  padding: 7px 70px 13px;
+  font-family:
+    Inter,
+    -apple-system,
+    Roboto,
+    Helvetica,
+    sans-serif;
+  font-size: 10px;
+  color: #010101;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .main-container {
+    max-width: 100%;
+  }
+
+  .top-header {
+    padding: 23px 20px;
+  }
+
+  .breadcrumb {
+    margin-left: 10px;
+  }
+
+  .form-container {
+    margin-top: 40px;
+  }
+
+  .form-title {
+    margin-left: 10px;
+  }
+
+  .submit-button {
+    padding: 19px 20px;
+  }
+
+  .footer-content {
+    padding: 73px 20px 40px;
+  }
+
+  .copyright {
+    padding: 7px 20px 13px;
+  }
+}
+
+</style>
+<div class="edit-info">
+    <div class="main-container">
+      <header class="top-header">
+        <nav class="nav-container">
+          <div class="nav-links">
+            <a href="#" class="nav-link">Daily deals</a>
+            <a href="#" class="nav-link">Shop</a>
+            <a href="#" class="nav-link">Bundle Deals</a>
+            <a href="#" class="nav-link">Support</a>
+          </div>
+          <div class="nav-icons">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/3c7c1fe576c31e74144145a3d79bf0e1a76a40e82d80711926c3694c156dcd41?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              class="nav-icon"
+              alt="Navigation icon"
+            />
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/6a47330ec73f0cc3e97ee131cdeee21684ab6485d894140dad60891c896d0aeb?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+              class="nav-icon"
+              alt="Navigation icon"
+            />
+          </div>
+        </nav>
+      </header>
+  
+      <hr class="divider" />
+  
+      <nav class="breadcrumb">
+        <span class="breadcrumb-item">yannstechub</span>
+        <span class="breadcrumb-item">/ Personal Dashboard</span>
+      </nav>
+  
+      <hr class="divider" />
+  
+      <main class="form-container">
+        <h1 class="form-title">Shipping Address</h1>
+  
+        <form class="shipping-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" class="form-input" />
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-input" />
+          </div>
+  
+          <div class="form-checkbox">
+            <input type="checkbox" id="default" class="checkbox-input" />
+            <label for="default" class="checkbox-label">Set as default</label>
+          </div>
+  
+          <div class="form-group">
+            <label>State/Province</label>
+            <input type="text" class="form-input" />
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label>District</label>
+              <input type="text" class="form-input" />
+            </div>
+          </div>
+  
+          <div class="form-group address-group">
+            <label>Address</label>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="Street, Apartment , Suite, etc."
+            />
+            <p class="helper-text">
+              Detailed street address can help our rider find you quickly.
+            </p>
+          </div>
+  
+          <div class="form-group">
+            <label>Address 2</label>
+            <input type="text" class="form-input" />
+          </div>
+  
+          <div class="form-group">
+            <label>Phone number</label>
+            <input type="tel" class="form-input" />
+          </div>
+  
+          <button type="submit" class="submit-button">Save Edit</button>
+        </form>
+      </main>
+  
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-sections">
+            <div class="social-links">
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac39ad7e21eba0cf01035dd9281a31458080b8ca8e71c2e59fa86885d7447ead?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="social-icon"
+                alt="Social media icon"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/acdc677df2f2fc3cfaa6b5c894a5abd3054ac4a10d4b8ded6a759df127fec27d?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="social-icon"
+                alt="Social media icon"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/467d1b0c52b84531aa53954e77f407f0cefeab0588608a1356fe905114f4f203?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="social-icon"
+                alt="Social media icon"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/7a20ac9202452350897db37fed39c51c37fbae21292c10a747fc8e0983295b09?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="social-icon"
+                alt="Social media icon"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/97c518d729b97dcba3556a6ab406a7e8f4b14bfdab064f1786bd8f9e353582c4?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="social-icon"
+                alt="Social media icon"
+              />
+              <img
+                loading="lazy"
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/157e8cb4f49f13aad45a2914dc10f3a7a6bbf237006db244150b722669730d32?placeholderIfAbsent=true&apiKey=e13307e2352343dd9e1a467ee55b8e09"
+                class="social-icon"
+                alt="Social media icon"
+              />
+            </div>
+  
+            <div class="footer-links">
+              <h2 class="footer-title">Company</h2>
+              <a href="#" class="footer-link">About Us</a>
+              <a href="#" class="footer-link">Careers</a>
+            </div>
+  
+            <div class="footer-links">
+              <h2 class="footer-title">Help</h2>
+              <a href="#" class="footer-link">Legal</a>
+              <a href="#" class="footer-link">FAQs</a>
+              <a href="#" class="footer-link">Contact</a>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">@yannstechhub2025</div>
+      </footer>
+    </div>
+  </div>
+  
