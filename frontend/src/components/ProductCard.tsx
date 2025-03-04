@@ -17,6 +17,24 @@ interface ProductCardProps {
   onToggleFavorite: (e: React.MouseEvent, productId: number) => void;
 }
 
+// Add to cart function
+const onAddToCart = (e: React.MouseEvent, product: Product) => {
+  e.preventDefault(); // Prevent navigation since we're inside a Link component
+  // Add the product to cart
+
+  console.log(`Adding ${product.title} to cart`);
+  // Additional cart logic can be implemented here
+};
+
+// Toggle favorite function
+const onToggleFavorite = (e: React.MouseEvent, productId: number) => {
+  e.preventDefault(); // Prevent navigation since we're inside a Link component
+  // Toggle the favorite status of the product
+
+  console.log(`Toggling favorite status of product ${productId}`);
+  // Additional favorite logic can be implemented here
+};
+
 export const ProductCard = ({ product, onAddToCart, onToggleFavorite }: ProductCardProps) => {
   return (
     <Link 
