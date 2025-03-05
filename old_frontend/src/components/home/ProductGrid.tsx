@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Heart, ShoppingCart } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const ProductGrid = () => {
+  const navigate = useNavigate();
   const [cart, setCart] = useState<any[]>([]);
 
   const products = [
@@ -38,7 +40,11 @@ export const ProductGrid = () => {
         </div>
 
         {products.map((product, index) => (
-          <article key={index} className="rounded-lg bg-white p-4 border border-gray-200 flex flex-col">
+          <article 
+            key={index} 
+            className="rounded-lg bg-white p-4 border border-gray-200 flex flex-col cursor-pointer" 
+            onClick={() => navigate(`/product/${index + 1}`, { state: { product } })}
+          >
             <div className="relative rounded-lg aspect-[1.06] w-full cursor-pointer">
               <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover rounded-lg" />
               <button className="absolute top-3.5 left-3.5 w-5 aspect-square cursor-pointer">

@@ -89,38 +89,7 @@ const Divider = styled.div`
   border: 1px solid #d5d5d5;
 `;
 
-const BreadcrumbSort = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 70%;
-  gap: 2px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 9px 0 0 0px;
 
-  @media (max-width: 991px) {
-    width: 70%;
-    justify-content: center;
-    gap: 2rem;
-  }
-`;
-
-const Breadcrumb = styled.div`
-  align-self: start;
-  display: flex;
-  gap: 12px;
-  color: #000;
-  font: 15px Open Sans, sans-serif;
-`;
-
-const BreadcrumbItem = styled.span<{ active?: boolean }>`
-  align-self: stretch;
-  border-radius: 10px;
-  background-color: #fff;
-  gap: 10px;
-  padding: 4px 14px;
-  font: ${props => props.active ? '700 15px' : '400 15px'} Open Sans, sans-serif;
-`;
 
 const CheckoutContent = styled.main`
   display: flex;

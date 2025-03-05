@@ -826,7 +826,7 @@ const Index: React.FC = () => {
         <ItemsSection>
           <h3>
             Our Latest Items. 
-            <span style={{ color: '#bbbbbb' }}>Have A Look At What's New, Now.</span>
+            <span style={{ color: '#bbbbbb' }}>Have A Look At What&apos;s New, Now.</span>
           </h3>
           
           <ImageSection>
@@ -876,7 +876,7 @@ const Index: React.FC = () => {
 
           {Array(6).fill(null).map((_, index) => (
             <ProductCard key={index}>
-              <Link to="/product-details-2">
+              <Link to="/product-details">
                 <ProductImageContainer>
                   <ProductImage src="/imgs/Rectangle 62.png" alt="Product 1" />
                   <FavoriteIcon src="/imgs/favorie 1.png" alt="Add to wishlist" />
@@ -976,4 +976,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index; 
+export default Index;

@@ -18,7 +18,7 @@ const Overlay = styled.div<{ isOpen: boolean }>`
   justify-content: center;
   align-items: flex-start;
   padding-top: 100px;
-  z-index: 1100;
+  z-index: 1500;
 `;
 
 const SearchContainer = styled.div`

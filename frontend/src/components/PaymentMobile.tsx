@@ -911,7 +911,7 @@ const PaymentMobile: React.FC = () => {
                 </PaymentSecurity>
               </PaymentDetails>
 
-              <Link to="/shipping-address">
+              <Link to="/payment-approval">
                 <PaymentButton>Make Payment</PaymentButton>
               </Link>
             </PaymentForm>
