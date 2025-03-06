@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -394,29 +395,7 @@ const ShippingAddress: React.FC = () => {
     setAsDefault: false,
   });
 
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      quantity: 1
-    },
-    {
-      id: 2,
-      image: '/imgs/Rectangle 62 (4).png',
-      title: 'Lorem ipsum dolor',
-      price: 99.99,
-      quantity: 1
-    },
-    {
-      id: 3,
-      image: '/imgs/asi.png',
-      title: 'Lorem ipsum dolor',
-      price: 100.00,
-      quantity: 2
-    }
-  ]);
+  const { cart, removeFromCart, updateQuantity, subtotal } = useCart();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -426,31 +405,8 @@ const ShippingAddress: React.FC = () => {
     }));
   };
 
-  const handleQuantityChange = (itemId: number, change: number) => {
-    setCartItems(prev => prev.map(item => {
-      if (item.id === itemId) {
-        const newQuantity = item.quantity + change;
-        return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
-      }
-      return item;
-    }));
-  };
-
-  const handleRemoveItem = (itemId: number) => {
-    setCartItems(prev => prev.filter(item => item.id !== itemId));
-  };
-
-  const calculateTotal = () => {
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = 5.00;
-    return {
-      subtotal,
-      shipping,
-      total: subtotal + shipping
-    };
-  };
-
-  const totals = calculateTotal();
+  const shipping = 5.00;
+  const total = subtotal + shipping;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -599,18 +555,18 @@ const ShippingAddress: React.FC = () => {
           <OrderSummary>
             <SummaryContainer>
               <SummaryHeader>
-                <h2>My Order Summary</h2>
-                <EditButton>Edit</EditButton>
+                <span>Order Summary</span>
+                <span>{cart.length} items</span>
               </SummaryHeader>
 
               <OrderItems>
-                {cartItems.map((item) => (
+                {cart.map((item) => (
                   <React.Fragment key={item.id}>
                     <OrderItem>
                       <RemoveIcon
                         src="/imgs/close.png"
-                        alt="Remove item icon"
-                        onClick={() => handleRemoveItem(item.id)}
+                        alt="Remove"
+                        onClick={() => removeFromCart(item.id)}
                       />
                       <ItemImage
                         src={item.image}
@@ -620,9 +576,9 @@ const ShippingAddress: React.FC = () => {
                       <ItemDetails>
                         <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
                         <QuantityControl>
-                          <QuantityButton onClick={() => handleQuantityChange(item.id, -1)}>-</QuantityButton>
+                          <QuantityButton onClick={() => updateQuantity(item.id, -1)}>-</QuantityButton>
                           <span>{item.quantity}</span>
-                          <QuantityButton onClick={() => handleQuantityChange(item.id, 1)}>+</QuantityButton>
+                          <QuantityButton onClick={() => updateQuantity(item.id, 1)}>+</QuantityButton>
                         </QuantityControl>
                         <ItemTotalPrice>${(item.price * item.quantity).toFixed(2)}</ItemTotalPrice>
                       </ItemDetails>
@@ -641,9 +597,9 @@ const ShippingAddress: React.FC = () => {
                   <TotalLabel>Total</TotalLabel>
                 </SummaryLabels>
                 <SummaryValues>
-                  <p>${totals.subtotal.toFixed(2)}</p>
-                  <p>${totals.shipping.toFixed(2)}</p>
-                  <TotalValue>${totals.total.toFixed(2)}</TotalValue>
+                  <p>${subtotal.toFixed(2)}</p>
+                  <p>${shipping.toFixed(2)}</p>
+                  <TotalValue>${total.toFixed(2)}</TotalValue>
                 </SummaryValues>
               </SummaryGrid>
             </TotalSummary>
@@ -655,4 +611,4 @@ const ShippingAddress: React.FC = () => {
   );
 };
 
-export default ShippingAddress; 
+export default ShippingAddress;

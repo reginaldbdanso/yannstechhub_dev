@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
   image: string;
@@ -160,6 +161,16 @@ const CartIcon = styled.img`
 `;
 
 const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews, price }) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: Math.random(), // Temporary ID solution
+      image,
+      title,
+      price
+    });
+  };
   return (
     <Card>
       <ImageContainer>
@@ -176,7 +187,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews
           </Rating>
           <Price>$ {price.toFixed(2)}</Price>
         </RatingPrice>
-        <CartButton aria-label="Add to cart">
+        <CartButton aria-label="Add to cart" onClick={handleAddToCart}>
           <CartIcon src="/imgs/Buy - 6.png" alt="" />
         </CartButton>
       </Details>
@@ -184,4 +195,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews
   );
 };
 
-export default ProductCard; 
+export default ProductCard;

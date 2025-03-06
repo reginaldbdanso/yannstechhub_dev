@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useCart } from '../context/CartContext';
 
 // Styled Components
 const CheckoutContainer = styled.div`
@@ -88,8 +89,6 @@ const Divider = styled.div`
   width: 99.9%;
   border: 1px solid #d5d5d5;
 `;
-
-
 
 const CheckoutContent = styled.main`
   display: flex;
@@ -389,48 +388,28 @@ const ItemDivider = styled.hr`
   margin: 17px 0;
 `;
 
-const TotalSummary = styled.div`
-  background-color: #fff;
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
-  margin-top: 28px;
-  padding: 28px 41px 49px;
-
-  @media (max-width: 991px) {
-    padding: 28px 20px 49px;
-  }
+const TotalSection = styled.div`
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e4e4e4;
 `;
 
-const SummaryGrid = styled.div`
+const TotalRow = styled.div`
   display: flex;
-  gap: 20px;
-`;
-
-const SummaryLabels = styled.div`
-  width: 68%;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-`;
-
-const SummaryValues = styled.div`
-  width: 32%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 700;
-  text-align: right;
 `;
 
-const TotalLabel = styled.p`
-  font-size: 25px;
-  font-weight: 700;
-  margin-top: 35px;
-`;
-
-const TotalValue = styled.p`
-  font-size: 25px;
-  font-weight: 700;
-  margin-top: 35px;
+const ShippingInfo = styled.p`
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  color: #666;
+  margin: 10px 0;
+  text-align: center;
 `;
 
 const Footer = styled.footer`
@@ -519,70 +498,15 @@ const Copyright = styled.div`
   }
 `;
 
-interface CartItem {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  quantity: number;
-}
-
 const ShippingDetails: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      quantity: 1
-    },
-    {
-      id: 2,
-      image: '/imgs/Rectangle 62 (4).png',
-      title: 'Lorem ipsum dolor',
-      price: 99.99,
-      quantity: 1
-    },
-    {
-      id: 3,
-      image: '/imgs/asi.png',
-      title: 'Lorem ipsum dolor',
-      price: 100.00,
-      quantity: 2
-    }
-  ]);
-
-  const calculateTotal = () => {
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = 5.00;
-    return {
-      subtotal,
-      shipping,
-      total: subtotal + shipping
-    };
-  };
-
-  const totals = calculateTotal();
-
-  const handleRemoveItem = (id: number) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  };
-
-  const handleQuantityChange = (id: number, change: number) => {
-    setCartItems(prevItems => prevItems.map(item => {
-      if (item.id === id) {
-        const newQuantity = item.quantity + change;
-        return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
-      }
-      return item;
-    }));
-  };
-
+  const { cart, updateQuantity, subtotal } = useCart();
   return (
     <CheckoutContainer>
       <MainContent>
         <HeaderSection>
-          <Logo src="/imgs/Logo.png" alt="YannsTechHub Logo" />
+          <Link to="/">
+            <Logo src="/imgs/Logo.png" alt="YannsTechHub Logo" />
+          </Link>
           <NavButtons>
             <NavLink to="/daily-deals">Daily deals</NavLink>
             <NavLink to="/shop">Shop</NavLink>
@@ -590,10 +514,12 @@ const ShippingDetails: React.FC = () => {
             <NavLink to="/support">Support</NavLink>
           </NavButtons>
           <UserActions>
-            <ActionIcon src="/imgs/Search - 7.png" alt="Search" />
-            <ActionIcon src="/imgs/Profile - 3.png" alt="User Account" />
+            <ActionIcon src="/imgs/Search.png" alt="Search" />
+            <Link to="/login">
+              <ActionIcon src="/imgs/Profile.png" alt="User Account" />
+            </Link>
             <Link to="/cart">
-              <ActionIcon src="/imgs/Buy - 6 (1).png" alt="Shopping Cart" />
+              <ActionIcon src="/imgs/Cart.png" alt="Shopping Cart" />
             </Link>
           </UserActions>
         </HeaderSection>
@@ -605,97 +531,68 @@ const ShippingDetails: React.FC = () => {
           <ContentGrid>
             <ShippingColumn>
               <ShippingDetailsSection>
-                <SectionTitle>Shipping Address</SectionTitle>
+                <SectionTitle>Shipping Details</SectionTitle>
                 <AddressCard>
                   <AddressInfo>
-                    <p><strong>Name:</strong> Adusah Poku Kofi Nkansah</p>
-                    <InfoItem><strong>Email:</strong> adusahpoku@gmail.com</InfoItem>
-                    <InfoItem><strong>Phone:</strong> 05989812365</InfoItem>
-                    <InfoItem><strong>Ship to:</strong> GA-021-6548 Spintex Shell Signboard</InfoItem>
+                    <InfoItem>John Doe</InfoItem>
+                    <InfoItem>123 Main Street</InfoItem>
+                    <InfoItem>Apt 4B</InfoItem>
+                    <InfoItem>New York, NY 10001</InfoItem>
+                    <InfoItem>+1 (555) 123-4567</InfoItem>
                   </AddressInfo>
                   <EditButton>
                     <EditIcon src="/imgs/edit.png" alt="Edit" />
                     Edit
                   </EditButton>
                 </AddressCard>
-
-                <SectionTitle>Shipping Method</SectionTitle>
-                <MethodCard>
-                  <MethodDescription>Standard Shipping (1-3 business days in Accra, 3-7 business days in other areas)</MethodDescription>
-                  <p>$5.00</p>
-                </MethodCard>
-
-                <SectionTitle>Payment Method</SectionTitle>
-                <PaymentColumn>
-                  <PaymentOption>
-                    <RadioButton type="radio" name="payment" />
-                    <OptionLabel>
-                      Pay on Delivery<br />
-                      <span>Pay Mobile Money or in cash on Delivery/Pickup</span>
-                    </OptionLabel>
-                  </PaymentOption>
-
-                  <MobileMoneySection>Mobile Money</MobileMoneySection>
-
-                  <MobileOption>
-                    <RadioButton type="radio" name="mobile" />
-                    <p>MTN Mobile Money</p>
-                  </MobileOption>
-
-                  <MobileOption>
-                    <RadioButton type="radio" name="mobile" />
-                    <p>Telecel Mobile Money</p>
-                  </MobileOption>
-
-                  <MobileOption>
-                    <RadioButton type="radio" name="mobile" />
-                    <p>AirtelTigo Mobile Money</p>
-                  </MobileOption>
-
-                  <h3>Pre-pay Now</h3>
-
-                  <PaymentOption>
-                    <RadioButton type="radio" name="payment" />
-                    <OptionLabel>
-                      Pay with Card<br />
-                      <span>Pay Now with No E-levy</span>
-                    </OptionLabel>
-                  </PaymentOption>
-                </PaymentColumn>
-
-                <Link to="/payment-mobile">
-                  <CheckoutButton>Proceed to checkout</CheckoutButton>
-                </Link>
               </ShippingDetailsSection>
+
+              <MethodCard>
+                <SectionTitle>Shipping Method</SectionTitle>
+                <MethodDescription>Standard Shipping (5-7 business days)</MethodDescription>
+              </MethodCard>
+
+              <PaymentColumn>
+                <SectionTitle>Payment Method</SectionTitle>
+                <PaymentOption>
+                  <RadioButton type="radio" name="payment" value="card" />
+                  <OptionLabel>Credit/Debit Card</OptionLabel>
+                </PaymentOption>
+
+                <MobileMoneySection>Mobile Money</MobileMoneySection>
+                <MobileOption>
+                  <RadioButton type="radio" name="payment" value="momo" />
+                  <OptionLabel>Mobile Money</OptionLabel>
+                </MobileOption>
+                
+                <CheckoutButton>Proceed to Payment</CheckoutButton>
+              </PaymentColumn>
             </ShippingColumn>
 
             <OrderSummary>
               <SummaryContainer>
                 <SummaryHeader>
-                  <h2>My Order Summary</h2>
-                  <EditButton>Edit</EditButton>
+                  <h2>Order Summary</h2>
+                  <span>{cart.length} items</span>
                 </SummaryHeader>
 
                 <OrderItems>
-                  {cartItems.map((item) => (
+                  {cart.map((item) => (
                     <React.Fragment key={item.id}>
                       <OrderItem>
                         <RemoveIcon
                           src="/imgs/close.png"
-                          alt="Remove item icon"
-                          onClick={() => handleRemoveItem(item.id)}
+                          alt="Remove"
+                          onClick={() => updateQuantity(item.id, 0)}
                         />
-                        <ItemImage
-                          src={item.image}
-                          alt={item.title}
-                        />
-                        <ItemTitle>{item.title}</ItemTitle>
+                        <ItemImage src={item.image} alt={item.title} />
                         <ItemDetails>
+                          <ItemTitle>{item.title}</ItemTitle>
                           <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
                           <QuantityControl>
-                            <QuantityButton onClick={() => handleQuantityChange(item.id, -1)}>-</QuantityButton>
+                            <QuantityButton onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</QuantityButton>
                             <span>{item.quantity}</span>
-                            <QuantityButton onClick={() => handleQuantityChange(item.id, 1)}>+</QuantityButton>
+                            <QuantityButton onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</QuantityButton>
                           </QuantityControl>
                           <ItemTotalPrice>${(item.price * item.quantity).toFixed(2)}</ItemTotalPrice>
                         </ItemDetails>
@@ -704,22 +601,25 @@ const ShippingDetails: React.FC = () => {
                     </React.Fragment>
                   ))}
                 </OrderItems>
-              </SummaryContainer>
 
-              <TotalSummary>
-                <SummaryGrid>
-                  <SummaryLabels>
-                    <p>Cart Summary</p>
-                    <p>Shipping</p>
-                    <TotalLabel>Total</TotalLabel>
-                  </SummaryLabels>
-                  <SummaryValues>
-                    <p>${totals.subtotal.toFixed(2)}</p>
-                    <p>${totals.shipping.toFixed(2)}</p>
-                    <TotalValue>${totals.total.toFixed(2)}</TotalValue>
-                  </SummaryValues>
-                </SummaryGrid>
-              </TotalSummary>
+                <TotalSection>
+                  <TotalRow>
+                    <span>Subtotal</span>
+                    <span>${subtotal.toFixed(2)}</span>
+                  </TotalRow>
+                  <TotalRow>
+                    <span>Shipping</span>
+                    <span>$5.00</span>
+                  </TotalRow>
+                  <TotalRow>
+                    <span>Total</span>
+                    <span>${(subtotal + 5).toFixed(2)}</span>
+                  </TotalRow>
+                  <ShippingInfo>
+                    Shipping costs are calculated based on your location
+                  </ShippingInfo>
+                </TotalSection>
+              </SummaryContainer>
             </OrderSummary>
           </ContentGrid>
         </CheckoutContent>
@@ -729,42 +629,25 @@ const ShippingDetails: React.FC = () => {
         <FooterContent>
           <FooterSections>
             <FooterLogoSocial>
-              <Logo src="/imgs/Logo (1).png" alt="YannsTechHub Footer Logo" />
+              <Logo src="/imgs/Logo.png" alt="YannsTechHub Footer Logo" />
               <SocialIcons>
-                <a href="#" aria-label="Facebook">
-                  <SocialIcon src="/imgs/Facebook.png" alt="" />
-                </a>
-                <a href="#" aria-label="Twitter">
-                  <SocialIcon src="/imgs/Twitter.png" alt="" />
-                </a>
-                <a href="#" aria-label="Instagram">
-                  <SocialIcon src="/imgs/Instagram.png" alt="" />
-                </a>
-                <a href="#" aria-label="LinkedIn">
-                  <SocialIcon src="/imgs/LinkedIn.png" alt="" />
-                </a>
-                <a href="#" aria-label="YouTube">
-                  <SocialIcon src="/imgs/YouTube.png" alt="" />
-                </a>
-                <a href="#" aria-label="TickTok">
-                  <SocialIcon src="/imgs/TikTok.png" alt="" />
-                </a>
+                <SocialIcon src="/imgs/facebook.png" alt="Facebook" />
+                <SocialIcon src="/imgs/twitter.png" alt="Twitter" />
+                <SocialIcon src="/imgs/instagram.png" alt="Instagram" />
               </SocialIcons>
             </FooterLogoSocial>
+
             <FooterLinks>
-              <FooterHeading>Company</FooterHeading>
+              <FooterHeading>Quick Links</FooterHeading>
               <FooterLink to="/about">About Us</FooterLink>
-              <FooterLink to="/careers">Careers</FooterLink>
-            </FooterLinks>
-            <FooterLinks>
-              <FooterHeading>Help</FooterHeading>
-              <FooterLink to="/legal">Legal</FooterLink>
-              <FooterLink to="/faqs">FAQs</FooterLink>
               <FooterLink to="/contact">Contact</FooterLink>
+              <FooterLink to="/faq">FAQ</FooterLink>
             </FooterLinks>
           </FooterSections>
         </FooterContent>
-        <Copyright>@yannstechhub2025</Copyright>
+        <Copyright>
+          © 2024 YannsTechHub. All rights reserved.
+        </Copyright>
       </Footer>
     </CheckoutContainer>
   );

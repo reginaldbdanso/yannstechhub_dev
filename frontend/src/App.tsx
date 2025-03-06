@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
+import { CartProvider } from './context/CartContext';
 import DailyDeals from './components/DailyDeals';
 import Shop from './components/Shop';
 import Cart from './components/Cart';
@@ -29,46 +30,69 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
   body {
     font-family: 'Open Sans', sans-serif;
+    background-color: #fff;
+    line-height: 1.5;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   a {
     text-decoration: none;
     color: inherit;
   }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 `;
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/daily-deals" element={<DailyDeals />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/shop/:category" element={<Shop />} />
-        <Route path="/bundle-deals" element={<BundleDeals />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/user-account" element={<Dashboard />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/legal" element={<Legal />} />
-        <Route path="/faqs" element={<FAQs />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/checkout" element={<SecureCheckout />} />
-        <Route path="/shipping-address" element={<ShippingAddress />} />
-        <Route path="/shipping-details" element={<ShippingDetails />} />
-        <Route path="/payment-mobile" element={<PaymentMobile />} />
-        <Route path="/payment-approval" element={<PaymentApproval />} />
-        <Route path="/product-details" element={<ProductDetails />} />
-      </Routes>
-    </Router>
+    <CartProvider>
+      <Router>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/daily-deals" element={<DailyDeals />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/:category" element={<Shop />} />
+          <Route path="/bundle-deals" element={<BundleDeals />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/user-account" element={<Dashboard />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/legal" element={<Legal />} />
+          <Route path="/faqs" element={<FAQs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/checkout" element={<SecureCheckout />} />
+          <Route path="/shipping-address" element={<ShippingAddress />} />
+          <Route path="/shipping-details" element={<ShippingDetails />} />
+          <Route path="/payment-mobile" element={<PaymentMobile />} />
+          <Route path="/payment-approval" element={<PaymentApproval />} />
+          <Route path="/product-details" element={<ProductDetails />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 };
 
-export default App; 
+export default App;

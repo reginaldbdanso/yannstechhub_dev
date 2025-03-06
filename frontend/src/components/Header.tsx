@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useClickOutside } from '../utils/useClickOutside';
+import { useCart } from '../context/CartContext';
 
 const HeaderContainer = styled.header`
   position: fixed;
@@ -160,31 +162,52 @@ const ActionIcon = styled.img`
   cursor: pointer;
 `;
 
+const CartIconWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+
+const CartNotification = styled.div<{ show: boolean }>`
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: ${props => props.show ? 1 : 0};
+  transform: ${props => props.show ? 'scale(1)' : 'scale(0.5)'};
+  transition: all 0.15s ease-out;
+  will-change: transform, opacity;
+  pointer-events: none;
+`;
+
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
+
 const Header: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Product[]>([]);
   const searchContainerRef = useRef<HTMLFormElement>(null);
-
+  useClickOutside(searchContainerRef, () => setIsSearching(false));
+  const { cartCount } = useCart();
   // Mock data - replace with actual API call in production
-  const mockProducts = [
+  const mockProducts: Product[] = [
     { id: 1, title: 'Wireless Earbuds', price: 99.99, image: '/imgs/Rectangle 62.png' },
     { id: 2, title: 'Smart Watch', price: 199.99, image: '/imgs/Rectangle 62 (4).png' },
     { id: 3, title: 'Bluetooth Speaker', price: 79.99, image: '/imgs/asi.png' },
   ];
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-        setIsSearching(false);
-        setSearchTerm('');
-        setResults([]);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,7 +216,6 @@ const Header: React.FC = () => {
     );
     setResults(filtered);
   };
-
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     // Real-time search results
@@ -202,7 +224,6 @@ const Header: React.FC = () => {
     );
     setResults(filtered);
   };
-
   return (
     <HeaderContainer>
       <Link to="/">
@@ -244,11 +265,14 @@ const Header: React.FC = () => {
           <ActionIcon src="/imgs/Profile - 3.png" alt="User Account" />
         </Link>
         <Link to="/cart">
-          <ActionIcon src="/imgs/Buy - 6 (1).png" alt="Shopping Cart" />
+          <CartIconWrapper>
+            <ActionIcon src="/imgs/Buy - 6 (1).png" alt="Shopping Cart" />
+            <CartNotification show={cartCount > 0}>{cartCount}</CartNotification>
+          </CartIconWrapper>
         </Link>
       </UserActions>
     </HeaderContainer>
   );
 };
 
-export default Header; 
+export default Header;
