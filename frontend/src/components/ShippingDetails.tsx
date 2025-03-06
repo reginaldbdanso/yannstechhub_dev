@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useCart } from '../context/CartContext';
 
@@ -500,6 +500,11 @@ const Copyright = styled.div`
 
 const ShippingDetails: React.FC = () => {
   const { cart, updateQuantity, subtotal } = useCart();
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    navigate('/payment-mobile');
+  }
   return (
     <CheckoutContainer>
       <MainContent>
@@ -565,7 +570,7 @@ const ShippingDetails: React.FC = () => {
                   <OptionLabel>Mobile Money</OptionLabel>
                 </MobileOption>
                 
-                <CheckoutButton>Proceed to Payment</CheckoutButton>
+                <CheckoutButton onClick={handleCheckout}>Proceed to Payment</CheckoutButton>
               </PaymentColumn>
             </ShippingColumn>
 
