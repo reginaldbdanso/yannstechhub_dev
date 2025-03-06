@@ -13,7 +13,8 @@ const HeaderContainer = styled.header`
   background-color: #f2f2f2;
   display: flex;
   width: 80%;
-  overflow: hidden;
+  /* Remove overflow: hidden which was cutting off the dropdown */
+  overflow: visible;
   gap: 20px;
   justify-content: space-between;
   padding: 21px 68px;
@@ -53,7 +54,8 @@ const SearchContainer = styled.form<{ isSearching: boolean }>`
   top: 50%;
   transform: translateY(-50%);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
   opacity: ${props => props.isSearching ? '1' : '0'};
   visibility: ${props => props.isSearching ? 'visible' : 'hidden'};
@@ -86,8 +88,9 @@ const SearchInput = styled.input`
 
 const SearchResults = styled.div<{ show: boolean }>`
   position: absolute;
-  top: calc(100% + 5px);
+  top: 100%;
   left: 0;
+  margin-top: 10px;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -95,7 +98,7 @@ const SearchResults = styled.div<{ show: boolean }>`
   width: 250px;
   overflow-y: auto;
   display: ${props => props.show ? 'block' : 'none'};
-  z-index: 10001;
+  z-index: 1003;
 `;
 
 const ResultItem = styled.div`
