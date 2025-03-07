@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useCart } from '../context/CartContext';
 
@@ -54,8 +55,8 @@ const WishlistIcon = styled.img`
 
 const ProductBadge = styled.span`
   position: absolute;
-  top: 10px;
-  right: 13px;
+  top: 0px;
+  right: 0px;
   border-radius: 20px;
   background: #ffc107;
   padding: 6px 22px;
@@ -173,11 +174,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews
   };
   return (
     <Card>
+      <Link to="/product-details">
       <ImageContainer>
         <ProductImage src={image} alt={title} />
         <WishlistIcon src="/imgs/favorie 2.png" alt="Add to wishlist" />
         <ProductBadge>LIMITED OFFER</ProductBadge>
       </ImageContainer>
+      </Link>
+      
       <Title>{title}</Title>
       <Details>
         <RatingPrice>

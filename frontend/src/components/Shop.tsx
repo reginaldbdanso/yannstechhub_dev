@@ -2,11 +2,14 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
 import styled from "styled-components"
-import Header from "./Header"
-import Footer from "./Footer"
+// Fix import paths to use relative paths
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import ProductCard from "../components/ProductCard"
+import { mockProducts } from "../data/mockProducts"
 
+// Define our Product interface to match the component's needs
 interface Product {
   id: number
   image: string
@@ -18,6 +21,10 @@ interface Product {
   condition: "New" | "Second" | "Refurbished"
   category: string
 }
+
+// Cast mockProducts to our Product interface
+// This ensures type safety while using the external data
+const typedMockProducts = mockProducts as unknown as Product[]
 
 const Container = styled.section`
   background-color: #eef2f4;
@@ -365,137 +372,6 @@ const ProductsGrid = styled.div`
   }
 `
 
-const ProductCard = styled.article`
-  border-radius: 10px;
-  background-color: #fff;
-  padding: 15px 16px 26px;
-  border: 1px solid #e4e4e4;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 991px) {
-    padding: 5px 5px 10px;
-  }
-`
-
-const ProductImageContainer = styled.div`
-  position: relative;
-  border-radius: 10px;
-  aspect-ratio: 1.06;
-  width: 100%;
-`
-
-const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-`
-
-const WishlistIcon = styled.img`
-  position: absolute;
-  top: 14px;
-  left: 15px;
-  width: 19px;
-  aspect-ratio: 1;
-  cursor: pointer;
-
-  @media (max-width: 991px) {
-    width: 13px;
-    top: 11px;
-    left: 12px;
-  }
-`
-
-const ProductTitle = styled.h2`
-  color: #000;
-  margin-top: 28px;
-  font: 700 14px Open Sans, sans-serif;
-
-  @media (max-width: 991px) {
-    margin-top: 0px;
-    text-align: center;
-    font: 700 12px Open Sans, sans-serif;
-  }
-`
-
-const ProductDetails = styled.div`
-  display: flex;
-  margin-top: 7px;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  @media (max-width: 991px) {
-    flex-direction: column;
-    margin-top: 0%;
-  }
-`
-
-const RatingPrice = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const Rating = styled.div`
-  display: flex;
-  gap: 10px;
-  font-size: 12px;
-  color: #a5a5a5;
-  align-items: center;
-
-  @media (max-width: 991px) {
-    gap: 5px;
-  }
-`
-
-const RatingIcon = styled.img`
-  width: 16px;
-  aspect-ratio: 1;
-
-  @media (max-width: 991px) {
-    width: 12px;
-    margin: 4px 0px;
-  }
-`
-
-const Price = styled.span`
-  color: #000;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 7px;
-  font-family: Inter, sans-serif;
-
-  @media (max-width: 991px) {
-    font-size: 12px;
-  }
-`
-
-const CartButton = styled.button`
-  background-color: #ffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-
-  @media (max-width: 991px) {
-    align-self: flex-end;
-    margin-top: -20px;
-  }
-`
-
-const CartIcon = styled.img`
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
-  width: 25px;
-  margin: 3px 0px;
-
-  @media (max-width: 991px) {
-    width: 13px;
-  }
-`
-
 const NoProductsMessage = styled.div`
   grid-column: 1 / -1;
   text-align: center;
@@ -504,8 +380,8 @@ const NoProductsMessage = styled.div`
   color: #666;
 `
 
-const ApplyFilterButton = styled.button`
-  background-color: #000;
+const ResetFiltersButton = styled.button`
+  background-color: #333;
   color: white;
   border-radius: 10px;
   padding: 10px 20px;
@@ -517,7 +393,7 @@ const ApplyFilterButton = styled.button`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: #333;
+    background-color: #000;
   }
 `
 
@@ -553,222 +429,11 @@ const ClearFiltersButton = styled.button`
 `
 
 const Shop: React.FC = () => {
-  const allProducts: Product[] = [
-    {
-      id: 1,
-      image: "/imgs/phone 1.png",
-      title: "Samsung Galaxy S23 Ultra",
-      rating: 4.8,
-      reviews: 320,
-      price: 1199.99,
-      brand: "Samsung",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 2,
-      image: "/imgs/phone 2.png",
-      title: "Apple iPhone 14 Pro Max",
-      rating: 4.9,
-      reviews: 450,
-      price: 1299.99,
-      brand: "Apple",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 3,
-      image: "/imgs/phone 3.png",
-      title: "Google Pixel 7 Pro",
-      rating: 4.7,
-      reviews: 280,
-      price: 899.99,
-      brand: "Google",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 4,
-      image: "/imgs/phone 4.png",
-      title: "OnePlus 11 5G",
-      rating: 4.6,
-      reviews: 210,
-      price: 799.99,
-      brand: "OnePlus",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 5,
-      image: "/imgs/phone 5.png",
-      title: "Xiaomi 13 Pro",
-      rating: 4.5,
-      reviews: 150,
-      price: 749.99,
-      brand: "Xiaomi",
-      condition: "Second",
-      category: "Phones",
-    },
-    {
-      id: 6,
-      image: "/imgs/phone 6.png",
-      title: "Samsung Galaxy Z Flip 4",
-      rating: 4.4,
-      reviews: 190,
-      price: 999.99,
-      brand: "Samsung",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 7,
-      image: "/imgs/phone 7.png",
-      title: "Apple iPhone 13",
-      rating: 4.7,
-      reviews: 340,
-      price: 799.99,
-      brand: "Apple",
-      condition: "Refurbished",
-      category: "Phones",
-    },
-    {
-      id: 8,
-      image: "/imgs/phone 8.png",
-      title: "Google Pixel 6a",
-      rating: 4.3,
-      reviews: 130,
-      price: 449.99,
-      brand: "Google",
-      condition: "Second",
-      category: "Phones",
-    },
-    {
-      id: 9,
-      image: "/imgs/phone 9.png",
-      title: "Realme GT 3",
-      rating: 4.2,
-      reviews: 120,
-      price: 599.99,
-      brand: "Realme",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 10,
-      image: "/imgs/phone 10.png",
-      title: "Nothing Phone (1)",
-      rating: 4.1,
-      reviews: 100,
-      price: 499.99,
-      brand: "Nothing",
-      condition: "New",
-      category: "Phones",
-    },
-    {
-      id: 11,
-      image: "/imgs/phone 11.png",
-      title: "Samsung Galaxy A54",
-      rating: 4.0,
-      reviews: 220,
-      price: 449.99,
-      brand: "Samsung",
-      condition: "Refurbished",
-      category: "Phones",
-    },
-    {
-      id: 12,
-      image: "/imgs/phone 12.png",
-      title: "Motorola Edge 30 Ultra",
-      rating: 4.3,
-      reviews: 140,
-      price: 699.99,
-      brand: "Motorola",
-      condition: "Second",
-      category: "Phones",
-    },
-    // Adding products for other categories
-    {
-      id: 13,
-      image: "/placeholder.svg",
-      title: "Dell XPS 15",
-      rating: 4.7,
-      reviews: 280,
-      price: 1499.99,
-      brand: "Dell",
-      condition: "New",
-      category: "Laptops",
-    },
-    {
-      id: 14,
-      image: "/placeholder.svg",
-      title: 'MacBook Pro 16"',
-      rating: 4.8,
-      reviews: 350,
-      price: 2499.99,
-      brand: "Apple",
-      condition: "New",
-      category: "Laptops",
-    },
-    {
-      id: 15,
-      image: "/placeholder.svg",
-      title: "Logitech MX Master 3",
-      rating: 4.6,
-      reviews: 420,
-      price: 99.99,
-      brand: "Logitech",
-      condition: "New",
-      category: "Accessories",
-    },
-    {
-      id: 16,
-      image: "/placeholder.svg",
-      title: 'Samsung 32" Curved Monitor',
-      rating: 4.5,
-      reviews: 180,
-      price: 349.99,
-      brand: "Samsung",
-      condition: "New",
-      category: "Monitors",
-    },
-    {
-      id: 17,
-      image: "/placeholder.svg",
-      title: "TP-Link Archer AX6000",
-      rating: 4.3,
-      reviews: 150,
-      price: 299.99,
-      brand: "TP-Link",
-      condition: "New",
-      category: "Network",
-    },
-    {
-      id: 18,
-      image: "/placeholder.svg",
-      title: "Cyberpunk 2077",
-      rating: 4.0,
-      reviews: 520,
-      price: 59.99,
-      brand: "CD Projekt",
-      condition: "New",
-      category: "PC Games",
-    },
-  ]
+  // Extract unique categories from mockProducts
+  const categories = ["All Categories", ...Array.from(new Set(typedMockProducts.map((product) => product.category)))]
 
-  const categories = [
-    "All Categories",
-    "Phones",
-    "Computer",
-    "Accessories",
-    "Laptops",
-    "Monitors",
-    "Network",
-    "PC Games",
-    "Fashion",
-  ]
-
-  // Extract unique brands from products
-  const brands = ["All Brands", ...Array.from(new Set(allProducts.map((product) => product.brand)))]
+  // Extract unique brands from mockProducts
+  const brands = ["All Brands", ...Array.from(new Set(typedMockProducts.map((product) => product.brand)))]
 
   // State for filters
   const [minPrice, setMinPrice] = useState<string>("100")
@@ -783,8 +448,8 @@ const Shop: React.FC = () => {
   const [sortOption, setSortOption] = useState<string>("recommended")
   const [mainSortOption, setMainSortOption] = useState<string>("recommended")
 
-  // State for filtered products
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(allProducts)
+  // State for filtered products - use our typed version
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(typedMockProducts)
 
   // Handle condition checkbox changes
   const handleConditionChange = (condition: keyof typeof conditions) => {
@@ -797,7 +462,6 @@ const Shop: React.FC = () => {
   // Handle category selection
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category)
-    applyFilters(category, selectedBrand, minPrice, maxPrice, conditions, sortOption || mainSortOption)
   }
 
   // Count active filters
@@ -822,47 +486,42 @@ const Shop: React.FC = () => {
       refurbish: false,
     })
     setSortOption("recommended")
-    setFilteredProducts(allProducts)
+    setFilteredProducts(typedMockProducts)
   }
 
   // Apply filters and sorting
-  const applyFilters = (
-    category = selectedCategory,
-    brand = selectedBrand,
-    min = minPrice,
-    max = maxPrice,
-    conditionState = conditions,
-    sort = sortOption || mainSortOption,
-  ) => {
-    let filtered = [...allProducts]
+  const applyFilters = () => {
+    let filtered = [...typedMockProducts]
 
     // Filter by category
-    if (category !== "All Categories") {
-      filtered = filtered.filter((product) => product.category === category)
+    if (selectedCategory !== "All Categories") {
+      filtered = filtered.filter((product) => product.category === selectedCategory)
     }
 
     // Filter by price
-    const minPriceValue = Number.parseFloat(min) || 0
-    const maxPriceValue = Number.parseFloat(max) || Number.POSITIVE_INFINITY
+    const minPriceValue = Number.parseFloat(minPrice) || 0
+    const maxPriceValue = Number.parseFloat(maxPrice) || Number.POSITIVE_INFINITY
     filtered = filtered.filter((product) => product.price >= minPriceValue && product.price <= maxPriceValue)
 
     // Filter by brand
-    if (brand !== "All Brands") {
-      filtered = filtered.filter((product) => product.brand === brand)
+    if (selectedBrand !== "All Brands") {
+      filtered = filtered.filter((product) => product.brand === selectedBrand)
     }
 
     // Filter by condition
     const selectedConditions: string[] = []
-    if (conditionState.new) selectedConditions.push("New")
-    if (conditionState.second) selectedConditions.push("Second")
-    if (conditionState.refurbish) selectedConditions.push("Refurbished")
+    if (conditions.new) selectedConditions.push("New")
+    if (conditions.second) selectedConditions.push("Second")
+    if (conditions.refurbish) selectedConditions.push("Refurbished")
 
     if (selectedConditions.length > 0) {
       filtered = filtered.filter((product) => selectedConditions.includes(product.condition))
     }
 
     // Apply sorting
-    switch (sort) {
+    const sortingOption = sortOption === "recommended" ? mainSortOption : sortOption
+
+    switch (sortingOption) {
       case "reviews":
         filtered.sort((a, b) => b.reviews - a.reviews)
         break
@@ -881,18 +540,10 @@ const Shop: React.FC = () => {
     setFilteredProducts(filtered)
   }
 
-  // Apply filters when component mounts and when main sort changes
+  // Apply filters when component mounts and when filter values change
   useEffect(() => {
-    applyFilters(selectedCategory, selectedBrand, minPrice, maxPrice, conditions, sortOption || mainSortOption)
+    applyFilters()
   }, [selectedCategory, selectedBrand, minPrice, maxPrice, conditions, sortOption, mainSortOption])
-
-  const ResetFiltersButton = styled(ApplyFilterButton)`
-  background-color: #333;
-  
-  &:hover {
-    background-color: #000;
-  }
-`
 
   return (
     <Container>
@@ -1013,29 +664,14 @@ const Shop: React.FC = () => {
             <ProductsGrid>
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
-                  <ProductCard key={product.id}>
-                    <Link to={`/product/${product.id}`}>
-                      <ProductImageContainer>
-                        <ProductImage src={product.image} alt={product.title} />
-                        <WishlistIcon src="/imgs/favorie 1.png" alt="Add to wishlist" />
-                      </ProductImageContainer>
-                    </Link>
-                    <ProductTitle>{product.title}</ProductTitle>
-                    <ProductDetails>
-                      <RatingPrice>
-                        <Rating>
-                          <RatingIcon src="/imgs/star 1.png" alt="Rating" />
-                          <span>
-                            {product.rating} ({product.reviews} reviews)
-                          </span>
-                        </Rating>
-                        <Price>${product.price.toFixed(2)}</Price>
-                      </RatingPrice>
-                      <CartButton aria-label="Add to cart">
-                        <CartIcon src="/imgs/Buy - 6 (1).png" alt="" />
-                      </CartButton>
-                    </ProductDetails>
-                  </ProductCard>
+                  <ProductCard
+                    key={product.id}
+                    image={product.image}
+                    title={product.title}
+                    rating={product.rating}
+                    reviews={product.reviews}
+                    price={product.price}
+                  />
                 ))
               ) : (
                 <NoProductsMessage>
