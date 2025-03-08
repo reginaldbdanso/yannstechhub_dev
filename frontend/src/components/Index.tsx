@@ -1196,6 +1196,7 @@ const Index: React.FC = () => {
           {mockProducts.slice().map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               image={product.image}
               title={product.title}
               rating={product.rating}
@@ -1271,4 +1272,3 @@ const Index: React.FC = () => {
 }
 
 export default Index
-

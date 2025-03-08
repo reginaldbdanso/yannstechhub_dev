@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
+  id: number;
   image: string;
   title: string;
   rating: number;
@@ -161,12 +162,12 @@ const CartIcon = styled.img`
   }
 `;
 
-const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews, price }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, rating, reviews, price }) => {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
     addToCart({
-      id: Math.random(), // Temporary ID solution
+      id,
       image,
       title,
       price

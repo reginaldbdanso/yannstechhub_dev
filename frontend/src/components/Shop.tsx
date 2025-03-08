@@ -666,6 +666,7 @@ const Shop: React.FC = () => {
                 filteredProducts.map((product) => (
                   <ProductCard
                     key={product.id}
+                    id={product.id}
                     image={product.image}
                     title={product.title}
                     rating={product.rating}
@@ -688,4 +689,3 @@ const Shop: React.FC = () => {
 }
 
 export default Shop
-
