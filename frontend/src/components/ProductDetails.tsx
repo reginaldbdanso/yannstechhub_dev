@@ -2,8 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import styled from "styled-components"
-import { useParams } from "react-router-dom"
-import { mockProducts, mockReviews } from "../data/mockProducts"
 
 // Types
 interface ProductData {
@@ -17,11 +15,15 @@ interface ProductData {
     title: string
     content: string
   }>
-  image: string
-  thumbnails?: string[]
-  brand?: string
-  condition?: string
-  category?: string
+}
+
+interface ReviewData {
+  title: string
+  rating: number
+  content: string
+  author: string
+}
+
 interface ProductCardData {
   id: number
   title: string

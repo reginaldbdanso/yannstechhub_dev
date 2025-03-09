@@ -13,7 +13,6 @@ const HeaderContainer = styled.header`
   background-color: #f2f2f2;
   display: flex;
   width: 80%;
-  /* Remove overflow: hidden which was cutting off the dropdown */
   overflow: visible;
   gap: 20px;
   justify-content: space-between;
@@ -21,11 +20,11 @@ const HeaderContainer = styled.header`
   box-shadow: 1px 5px 9px 3px rgba(0, 0, 0, 0.147);
   z-index: 1000;
   margin: 0 auto;
-
   @media (max-width: 991px) {
-    width: 90%;
+    width: 100%;
     padding: 15px 20px;
     top: 10px;
+    border-radius: 0;
   }
 `;
 
@@ -37,20 +36,99 @@ const Logo = styled.img`
   max-width: 100%;
 `;
 
-const NavButtons = styled.nav`
+const UserActions = styled.div`
+  align-self: center;
+  display: flex;
+  margin-top: 4px;
+  align-items: center;
+  gap: 30px;
+  order: 2;
+  @media (max-width: 991px) {
+    order: 0;
+    margin-right: -10px;
+  }
+`;
+const ActionIcon = styled.img`
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 24px;
+  cursor: pointer;
+`;
+const CartIconWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+`;
+const CartNotification = styled.span<{ show: boolean }>`
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: ${props => props.show ? 'flex' : 'none'};
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+`;
+const NavButtons = styled.nav<{ isOpen: boolean }>`
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: 30px;
   color: #000;
   justify-content: start;
   margin: auto 0;
   font: 500 14px Open Sans, sans-serif;
   position: relative;
-`;
 
+  @media (max-width: 991px) {
+    position: fixed;
+    top: 0;
+    right: ${props => props.isOpen ? '0' : '-100%'};
+    flex-direction: column;
+    background-color: #f2f2f2;
+    height: 100vh;
+    width: 250px;
+    padding: 80px 20px;
+    gap: 50px;
+    transition: right 0.3s ease-in-out;
+    box-shadow: ${props => props.isOpen ? '-5px 0 15px rgba(0, 0, 0, 0.1)' : 'none'};
+
+    ${UserActions} {
+      display: flex;
+      background-color: #000;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      ${ActionIcon} {
+        filter: invert(1);
+        width: 24px;
+        height: 24px;
+        display: block;
+      }
+
+      ${CartIconWrapper} {
+        display: inline-block;
+      }
+
+      ${CartNotification} {
+        background-color: #ff4444;
+        color: white;
+      }
+    }
+  }
+`;
 const SearchContainer = styled.form<{ isSearching: boolean }>`
   position: absolute;
-  left: 400px;
+  left: 375px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -147,49 +225,12 @@ const NavLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+
+   @media (max-width: 991px) {
+    margin: 0;
+  }
 `;
 
-const UserActions = styled.div`
-  align-self: start;
-  display: flex;
-  margin-top: 4px;
-  align-items: start;
-  gap: 30px;
-`;
-
-const ActionIcon = styled.img`
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
-  width: 24px;
-  cursor: pointer;
-`;
-
-const CartIconWrapper = styled.div`
-  position: relative;
-  display: inline-block;
-`;
-
-const CartNotification = styled.div<{ show: boolean }>`
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #ff4444;
-  color: white;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: bold;
-  opacity: ${props => props.show ? 1 : 0};
-  transform: ${props => props.show ? 'scale(1)' : 'scale(0.5)'};
-  transition: all 0.15s ease-out;
-  will-change: transform, opacity;
-  pointer-events: none;
-`;
 
 interface Product {
   id: number;
@@ -198,30 +239,63 @@ interface Product {
   image: string;
 }
 
+const HamburgerButton = styled.button<{ isOpen: boolean }>`
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  z-index: 1001;
+  @media (max-width: 991px) {
+    display: block;
+    order: 1;
+  }
+  div {
+    width: 25px;
+    height: 3px;
+    background-color: #000;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+
+    &:first-child {
+      transform: ${props => props.isOpen ? 'rotate(45deg) translate(8px, 8px)' : 'rotate(0)'};
+    }
+
+    &:nth-child(2) {
+      opacity: ${props => props.isOpen ? '0' : '1'};
+    }
+
+    &:last-child {
+      transform: ${props => props.isOpen ? 'rotate(-45deg) translate(7px, -7px)' : 'rotate(0)'};
+    }
+  }
+`;
+
+
 const Header: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<Product[]>([]);
   const searchContainerRef = useRef<HTMLFormElement>(null);
-  useClickOutside(searchContainerRef, () => setIsSearching(false));
   const { cartCount } = useCart();
-  // Mock data - replace with actual API call in production
-  const mockProducts: Product[] = [
-    { id: 1, title: 'Wireless Earbuds', price: 99.99, image: '/imgs/Rectangle 62.png' },
-    { id: 2, title: 'Smart Watch', price: 199.99, image: '/imgs/Rectangle 62 (4).png' },
-    { id: 3, title: 'Bluetooth Speaker', price: 79.99, image: '/imgs/asi.png' },
-  ];
+
+  useClickOutside(searchContainerRef, () => setIsSearching(false));
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const filtered = mockProducts.filter(product =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setResults(filtered);
+    // Implement search logic here
   };
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
-    // Real-time search results
+    // Filter mock products based on search term
+    const mockProducts = [
+      { id: 1, title: 'Wireless Earbuds', price: 99.99, image: '/imgs/Rectangle 62.png' },
+      { id: 2, title: 'Smart Watch', price: 199.99, image: '/imgs/Rectangle 62 (4).png' },
+      { id: 3, title: 'Bluetooth Speaker', price: 79.99, image: '/imgs/asi.png' },
+    ];
+    
     const filtered = mockProducts.filter(product =>
       product.title.toLowerCase().includes(e.target.value.toLowerCase())
     );
@@ -232,11 +306,11 @@ const Header: React.FC = () => {
       <Link to="/">
         <Logo src="/imgs/Logo.png" alt="YannsTechHub Logo" />
       </Link>
-      <NavButtons>
-        <NavLink to="/daily-deals">Daily deals</NavLink>
-        <NavLink to="/shop">Shop</NavLink>
-        <NavLink to="/bundle-deals">Bundle Deals</NavLink>
-        <NavLink to="/support">Support</NavLink>
+      <NavButtons isOpen={isMenuOpen}>
+        <NavLink to="/daily-deals" onClick={() => setIsMenuOpen(false)}>Daily deals</NavLink>
+        <NavLink to="/shop" onClick={() => setIsMenuOpen(false)}>Shop</NavLink>
+        <NavLink to="/bundle-deals" onClick={() => setIsMenuOpen(false)}>Bundle Deals</NavLink>
+        <NavLink to="/support" onClick={() => setIsMenuOpen(false)}>Support</NavLink>
         <SearchContainer isSearching={isSearching} onSubmit={handleSearch} ref={searchContainerRef}>
           <SearchInput
             type="text"
@@ -257,7 +331,9 @@ const Header: React.FC = () => {
             ))}
           </SearchResults>
         </SearchContainer>
+
       </NavButtons>
+     
       <UserActions>
         <ActionIcon 
           src="/imgs/Search - 7.png" 
@@ -273,6 +349,11 @@ const Header: React.FC = () => {
             <CartNotification show={cartCount > 0}>{cartCount}</CartNotification>
           </CartIconWrapper>
         </Link>
+        <HamburgerButton isOpen={isMenuOpen} onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <div />
+        <div />
+        <div />
+      </HamburgerButton>
       </UserActions>
     </HeaderContainer>
   );
