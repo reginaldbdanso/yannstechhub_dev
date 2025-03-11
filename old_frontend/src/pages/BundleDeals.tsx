@@ -17,7 +17,8 @@ interface Product {
 const BundleDeals: React.FC = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useState<Product[]>([]);
-  const [products] = useState<Product[]>([
+  const [sortOption, setSortOption] = useState<string>('recommended');
+  const [products, setProducts] = useState<Product[]>([
     {
       id: 1,
       title: "Smart Watch Bundle",
@@ -39,12 +40,18 @@ const BundleDeals: React.FC = () => {
       badge: "SAVE 20%"
     }
   ]);
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
+  }, []);
+
+  useEffect(() => {
+    // Initialize sortedProducts with products when component mounts
+    setSortedProducts([...products]);
   }, []);
 
   const handleAddToCart = (e: React.MouseEvent, product: Product) => {
@@ -59,6 +66,34 @@ const BundleDeals: React.FC = () => {
     // Handle favorite toggling logic here
   };
 
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOption(e.target.value);
+  };
+
+  useEffect(() => {
+    if (products.length === 0) return;
+
+    const sortProducts = () => {
+      const productsCopy = [...products];
+
+      switch (sortOption) {
+        case 'bestSellers':
+          return productsCopy.sort((a, b) => b.reviews - a.reviews);
+        case 'lowPrice':
+          return productsCopy.sort((a, b) => a.price - b.price);
+        case 'highPrice':
+          return productsCopy.sort((a, b) => b.price - a.price);
+        case 'reviews':
+          return productsCopy.sort((a, b) => b.rating - a.rating);
+        case 'recommended':
+        default:
+          return productsCopy.sort((a, b) => b.rating * b.reviews - a.rating * a.reviews);
+      }
+    };
+
+    setSortedProducts(sortProducts());
+  }, [sortOption, products]);
+
   return (
     <section className="bundle-deals-container">
       <div className="main-content">
@@ -71,12 +106,18 @@ const BundleDeals: React.FC = () => {
           </div>
           <div className="sort-container">
             <label htmlFor="sortSelect" className="sort-label">Sort by</label>
-            <select className="sort-Select" id="sortSelect" aria-label="Sort products">
-              <option value="">Recommended</option>
-              <option value="">Best Sellers</option>
-              <option value="">Low Price</option>
-              <option value="">High Price</option>
-              <option value="">Reviews</option>
+            <select 
+              className="sort-Select" 
+              id="sortSelect" 
+              aria-label="Sort products"
+              value={sortOption}
+              onChange={handleSortChange}
+            >
+              <option value="recommended">Recommended</option>
+              <option value="bestSellers">Best Sellers</option>
+              <option value="lowPrice">Low Price</option>
+              <option value="highPrice">High Price</option>
+              <option value="reviews">Reviews</option>
             </select>
           </div>
         </div>
@@ -84,14 +125,14 @@ const BundleDeals: React.FC = () => {
         <div className="divider"></div>
 
         <div className="products-grid">
-          {products.map((product) => (
+          {sortedProducts.map((product) => (
             <ProductCard
               key={product.id}
               product={product}
               onAddToCart={handleAddToCart}
               onToggleFavorite={handleToggleFavorite}
             />
-          ))}
+          ))}        
         </div>
       </div>
     </section>

@@ -1080,6 +1080,10 @@ const Index: React.FC = () => {
 
           <ImageSection>
             <Card>
+             
+              <CardContent>
+                <img src="/imgs/Rectangle 17.png" alt="Nature Image" />
+              </CardContent>
               <a
                 href="#top-rated"
                 onClick={(e) => {
@@ -1090,12 +1094,16 @@ const Index: React.FC = () => {
               >
                 Top Rated
               </a>
-              <CardContent>
-                <img src="/imgs/Rectangle 17.png" alt="Nature Image" />
-              </CardContent>
             </Card>
 
             <Card>
+              
+              <GridContainer>
+                <img src="/imgs/Rectangle 51.png" alt="Forest" />
+                <img src="/imgs/Rectangle 52.png" alt="Ocean" />
+                <img src="/imgs/Rectangle 53.png" alt="Mountain" />
+                <img src="/imgs/Rectangle 54.png" alt="City" />
+              </GridContainer>
               <a
                 href="#latest-arrivals"
                 onClick={(e) => {
@@ -1106,15 +1114,14 @@ const Index: React.FC = () => {
               >
                 Latest Arrivals
               </a>
-              <GridContainer>
-                <img src="/imgs/Rectangle 51.png" alt="Forest" />
-                <img src="/imgs/Rectangle 52.png" alt="Ocean" />
-                <img src="/imgs/Rectangle 53.png" alt="Mountain" />
-                <img src="/imgs/Rectangle 54.png" alt="City" />
-              </GridContainer>
             </Card>
 
             <Card>
+              
+              <DoubleImageContainer>
+                <img src="/imgs/Rectangle 49.png" alt="Tech Image" />
+                <img src="/imgs/Rectangle 50.png" alt="Business Image" />
+              </DoubleImageContainer>
               <a
                 href="#best-deals"
                 onClick={(e) => {
@@ -1125,10 +1132,6 @@ const Index: React.FC = () => {
               >
                 Best Deals
               </a>
-              <DoubleImageContainer>
-                <img src="/imgs/Rectangle 49.png" alt="Tech Image" />
-                <img src="/imgs/Rectangle 50.png" alt="Business Image" />
-              </DoubleImageContainer>
             </Card>
           </ImageSection>
 
@@ -1202,6 +1205,7 @@ const Index: React.FC = () => {
               rating={product.rating}
               reviews={product.reviews}
               price={product.price}
+              noBorder
             />
           ))}
         </ProductsGrid>

@@ -428,6 +428,51 @@ const ClearFiltersButton = styled.button`
   }
 `
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+`
+
+const PageButton = styled.button<{ active?: boolean }>`
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid ${(props) => (props.active ? "#080808" : "#d5d5d5")};
+  background-color: ${(props) => (props.active ? "#080808" : "#fff")};
+  color: ${(props) => (props.active ? "#fff" : "#000")};
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${(props) => (props.active ? "#080808" : "#f0f0f0")};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`
+const ItemsPerPageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+`
+
+const ItemsPerPageLabel = styled.label`
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+`
+
+const ItemsPerPageSelect = styled.select`
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #d5d5d5;
+`
+
+// Add a styled component for the load more button
 const Shop: React.FC = () => {
   // Extract unique categories from mockProducts
   const categories = ["All Categories", ...Array.from(new Set(typedMockProducts.map((product) => product.category)))]
@@ -450,6 +495,10 @@ const Shop: React.FC = () => {
 
   // State for filtered products - use our typed version
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(typedMockProducts)
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(12)
+  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
 
   // Handle condition checkbox changes
   const handleConditionChange = (condition: keyof typeof conditions) => {
@@ -544,6 +593,19 @@ const Shop: React.FC = () => {
   useEffect(() => {
     applyFilters()
   }, [selectedCategory, selectedBrand, minPrice, maxPrice, conditions, sortOption, mainSortOption])
+
+  // Update displayed products when filtered products or itemsPerPage changes
+  useEffect(() => {
+    const indexOfLastProduct = currentPage * itemsPerPage
+    const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
+    setDisplayedProducts(filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct))
+  }, [filteredProducts, itemsPerPage, currentPage])
+
+  // Handle items per page change
+  const handleItemsPerPageChange = (newValue: number) => {
+    setItemsPerPage(newValue)
+    setCurrentPage(1) // Reset to first page when changing items per page
+  }
 
   return (
     <Container>
@@ -663,17 +725,83 @@ const Shop: React.FC = () => {
             </Sidebar>
             <ProductsGrid>
               {filteredProducts.length > 0 ? (
-                filteredProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    id={product.id}
-                    image={product.image}
-                    title={product.title}
-                    rating={product.rating}
-                    reviews={product.reviews}
-                    price={product.price}
-                  />
-                ))
+                <>
+                  {displayedProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      id={product.id}
+                      image={product.image}
+                      title={product.title}
+                      rating={product.rating}
+                      reviews={product.reviews}
+                      price={product.price}
+                    />
+                  ))}
+
+                  {filteredProducts.length > itemsPerPage && (
+                    <div style={{ gridColumn: "1 / -1", margin: "20px 0" }}>
+                      <PaginationContainer>
+                        <PageButton
+                          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                          disabled={currentPage === 1}
+                          aria-label="Previous page"
+                        >
+                          &laquo;
+                        </PageButton>
+
+                        {Array.from({ length: Math.ceil(filteredProducts.length / itemsPerPage) }, (_, i) => i + 1).map(
+                          (number) => (
+                            <PageButton
+                              key={number}
+                              active={currentPage === number}
+                              onClick={() => setCurrentPage(number)}
+                              aria-label={`Page ${number}`}
+                              aria-current={currentPage === number ? "page" : undefined}
+                            >
+                              {number}
+                            </PageButton>
+                          ),
+                        )}
+
+                        <PageButton
+                          onClick={() =>
+                            setCurrentPage((prev) =>
+                              Math.min(prev + 1, Math.ceil(filteredProducts.length / itemsPerPage)),
+                            )
+                          }
+                          disabled={currentPage === Math.ceil(filteredProducts.length / itemsPerPage)}
+                          aria-label="Next page"
+                        >
+                          &raquo;
+                        </PageButton>
+                      </PaginationContainer>
+                    </div>
+                  )}
+
+                  <div
+                    style={{
+                      gridColumn: "1 / -1",
+                      display: "flex",
+                      justifyContent: "center",
+                      margin: "20px 0",
+                      gap: "10px",
+                    }}
+                  >
+                    <ItemsPerPageContainer>
+                  <ItemsPerPageLabel htmlFor="itemsPerPage">Items per page:</ItemsPerPageLabel>
+                  <ItemsPerPageSelect
+                    id="itemsPerPage"
+                    value={itemsPerPage}
+                    onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
+                    aria-label="Number of items per page"
+                  >
+                    <option value="12">12</option>
+                    <option value="24">24</option>
+                    <option value="36">36</option>
+                  </ItemsPerPageSelect>
+                </ItemsPerPageContainer>
+                  </div>
+                </>
               ) : (
                 <NoProductsMessage>
                   No products match your filter criteria. Try adjusting your filters.
@@ -689,3 +817,4 @@ const Shop: React.FC = () => {
 }
 
 export default Shop
+

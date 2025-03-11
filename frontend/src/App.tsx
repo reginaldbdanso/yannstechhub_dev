@@ -21,7 +21,9 @@ import ShippingDetails from './components/ShippingDetails';
 import ShippingAddress from './components/ShippingAddress';
 import PaymentMobile from './components/PaymentMobile';
 import PaymentApproval from './components/PaymentApproval';
-import ProductDetails from './components/ProductDetails';
+import ProductView  from './components/ProductView';
+
+
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -88,7 +90,8 @@ const App: React.FC = () => {
           <Route path="/shipping-details" element={<ShippingDetails />} />
           <Route path="/payment-mobile" element={<PaymentMobile />} />
           <Route path="/payment-approval" element={<PaymentApproval />} />
-          <Route path="/product-details" element={<ProductDetails />} />
+          <Route path="/product/:id" element={<ProductView />} />
+
         </Routes>
       </Router>
     </CartProvider>

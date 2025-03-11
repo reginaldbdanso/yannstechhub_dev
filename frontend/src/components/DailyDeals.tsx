@@ -122,15 +122,15 @@ const PaginationContainer = styled.div`
 const PageButton = styled.button<{ active?: boolean }>`
   padding: 8px 16px;
   border-radius: 8px;
-  border: 1px solid ${(props) => (props.active ? "#0066cc" : "#d5d5d5")};
-  background-color: ${(props) => (props.active ? "#0066cc" : "#fff")};
+  border: 1px solid ${(props) => (props.active ? "#080808" : "#d5d5d5")};
+  background-color: ${(props) => (props.active ? "#080808" : "#fff")};
   color: ${(props) => (props.active ? "#fff" : "#000")};
   cursor: pointer;
   font-family: 'Open Sans', sans-serif;
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: ${(props) => (props.active ? "#0066cc" : "#f0f0f0")};
+    background-color: ${(props) => (props.active ? "#080808" : "#f0f0f0")};
   }
 
   &:disabled {
@@ -181,7 +181,7 @@ const DailyDeals: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [sortOption, setSortOption] = useState<SortOption>("recommended")
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(12)
+  const [itemsPerPage, setItemsPerPage] = useState(15)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -242,6 +242,11 @@ const DailyDeals: React.FC = () => {
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setItemsPerPage(Number(e.target.value))
     setCurrentPage(1) // Reset to first page when items per page changes
+  }
+
+  // Function to load more products
+  const loadMoreProducts = () => {
+    setItemsPerPage((prev) => prev + 10)
   }
 
   // Calculate pagination
@@ -310,6 +315,23 @@ const DailyDeals: React.FC = () => {
                 />
               ))}
             </ProductsGrid>
+            {indexOfLastProduct < products.length && (
+              <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
+                <button
+                  onClick={loadMoreProducts}
+                  style={{
+                    padding: "10px 20px",
+                    backgroundColor: "#080808",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Load More Products....
+                </button>
+              </div>
+            )}
 
             {totalPages > 1 && (
               <PaginationContainer>
@@ -343,10 +365,9 @@ const DailyDeals: React.FC = () => {
                 onChange={handleItemsPerPageChange}
                 aria-label="Number of items per page"
               >
-                <option value="6">6</option>
-                <option value="12">12</option>
-                <option value="24">24</option>
-                <option value="48">48</option>
+                <option value="15">15</option>
+                <option value="25">25</option>
+                <option value="35">35</option>
               </ItemsPerPageSelect>
             </ItemsPerPageContainer>
           </>
