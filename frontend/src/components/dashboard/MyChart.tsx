@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useCart, CartItem } from '../../context/CartContext';
 
 const CartSummary = styled.div`
   display: flex;
@@ -28,7 +29,7 @@ const CartSummaryColumn = styled.div`
   }
 `;
 
-const CartItem = styled.div`
+const CartItemWrapper = styled.div`
   border-radius: 10px;
   background-color: #fff;
   display: flex;
@@ -129,7 +130,6 @@ const RemoveIcon = styled.img`
   object-position: center;
   width: 19px;
   align-self: stretch;
-  // margin: auto 0;
   margin-right: 5%;
   cursor: pointer;
 `;
@@ -216,56 +216,57 @@ const CheckoutButton = styled(Link)`
   }
 `;
 
-
-
-interface CartItemType {
-  id: number;
-  image: string;
-  description: string;
-  price: number;
-  quantity: number;
-}
-
 const MyChart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItemType[]>([
-    {
-      id: 1,
-      image: '/imgs/Rectangle 62.png',
-      description: 'Lorem ipsum dolor',
-      price: 50.00,
-      quantity: 1
-    },
-    {
-      id: 2,
-      image: '/imgs/Rectangle 62 (4).png',
-      description: 'Lorem ipsum dolor',
-      price: 99.99,
-      quantity: 1
-    },
-    {
-      id: 3,
-      image: '/imgs/asi.png',
-      description: 'Lorem ipsum dolor',
-      price: 100.00,
-      quantity: 2
-    }
-  ]);
+  const { cart, updateQuantity, removeFromCart } = useCart();
 
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
+  const subtotal = cart.reduce((sum: number, item: CartItem) => sum + item.price * item.quantity, 0);
+
+  if (cart.length === 0) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '50px 20px',
+        textAlign: 'center'
+      }}>
+        <img 
+          src="/imgs/empty-cart.png" 
+          alt="Empty cart" 
+          style={{ 
+            width: '200px', 
+            marginBottom: '20px' 
+          }} 
+        />
+        <h2 style={{ 
+          fontSize: '24px', 
+          marginBottom: '10px' 
+        }}>
+          Your cart is empty
+        </h2>
+        <p style={{ 
+          color: '#666', 
+          marginBottom: '20px' 
+        }}>
+          Looks like you haven&apos;t added anything to your cart yet
+        </p>
+        <Link 
+          to="/" 
+          style={{ 
+            backgroundColor: '#0055B6',
+            color: '#fff',
+            padding: '15px 30px',
+            borderRadius: '30px',
+            textDecoration: 'none',
+            fontWeight: 'bold'
+          }}
+        >
+          Continue Shopping
+        </Link>
+      </div>
     );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
 
   return (
     <>
@@ -278,11 +279,11 @@ const MyChart: React.FC = () => {
         </CartSummaryColumn>
       </CartSummary>
 
-      {cartItems.map(item => (
-        <CartItem key={item.id}>
+      {cart.map((item: CartItem) => (
+        <CartItemWrapper key={item.id}>
           <CartItemContent>
-            <ProductImage src={item.image} alt={item.description} loading="lazy" />
-            <ProductDescription>{item.description}</ProductDescription>
+            <ProductImage src={item.image} alt={item.title} loading="lazy" />
+            <ProductDescription>{item.title}</ProductDescription>
           </CartItemContent>
           <ProductDetails>
             <ProductPrice>${item.price.toFixed(2)}</ProductPrice>
@@ -296,10 +297,10 @@ const MyChart: React.FC = () => {
           <RemoveIcon
             src="/imgs/close.png"
             alt="Remove item"
-            onClick={() => removeItem(item.id)}
+            onClick={() => removeFromCart(item.id)}
             loading="lazy"
           />
-        </CartItem>
+        </CartItemWrapper>
       ))}
 
       <SubTotal>
@@ -320,4 +321,4 @@ const MyChart: React.FC = () => {
   );
 };
 
-export default MyChart; 
+export default MyChart;

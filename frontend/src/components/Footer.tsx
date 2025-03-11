@@ -84,6 +84,17 @@ const FooterLink = styled(Link)`
 const SocialLink = styled.a`
   color: #fff;
   text-decoration: none;
+  background-color: #000;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Copyright = styled.div`
@@ -152,4 +163,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

@@ -1,7 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
+  id: number;
   image: string;
   title: string;
   rating: number;
@@ -53,8 +56,8 @@ const WishlistIcon = styled.img`
 
 const ProductBadge = styled.span`
   position: absolute;
-  top: 10px;
-  right: 13px;
+  top: 0px;
+  right: 0px;
   border-radius: 20px;
   background: #ffc107;
   padding: 6px 22px;
@@ -159,14 +162,27 @@ const CartIcon = styled.img`
   }
 `;
 
-const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews, price }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, rating, reviews, price }) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart({
+      id,
+      image,
+      title,
+      price
+    });
+  };
   return (
     <Card>
+      <Link to="/product-details">
       <ImageContainer>
         <ProductImage src={image} alt={title} />
         <WishlistIcon src="/imgs/favorie 2.png" alt="Add to wishlist" />
         <ProductBadge>LIMITED OFFER</ProductBadge>
       </ImageContainer>
+      </Link>
+      
       <Title>{title}</Title>
       <Details>
         <RatingPrice>
@@ -176,7 +192,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews
           </Rating>
           <Price>$ {price.toFixed(2)}</Price>
         </RatingPrice>
-        <CartButton aria-label="Add to cart">
+        <CartButton aria-label="Add to cart" onClick={handleAddToCart}>
           <CartIcon src="/imgs/Buy - 6.png" alt="" />
         </CartButton>
       </Details>
@@ -184,4 +200,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ image, title, rating, reviews
   );
 };
 
-export default ProductCard; 
+export default ProductCard;

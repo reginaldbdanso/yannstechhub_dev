@@ -136,6 +136,7 @@ const BundleDeals: React.FC = () => {
           {mockProducts.map(product => (
             <ProductCard
               key={product.id}
+              id={product.id}
               image={product.image}
               title={product.title}
               rating={product.rating}
@@ -150,4 +151,4 @@ const BundleDeals: React.FC = () => {
   );
 };
 
-export default BundleDeals; 
+export default BundleDeals;

@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Header from './Header';
-import Footer from './Footer';
+"use client"
 
+import type React from "react"
+import { useState, useEffect } from "react"
+import styled from "styled-components"
+// Fix import paths to use relative paths
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import ProductCard from "../components/ProductCard"
+import { mockProducts } from "../data/mockProducts"
+
+// Define our Product interface to match the component's needs
 interface Product {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  rating: number;
-  reviews: number;
+  id: number
+  image: string
+  title: string
+  price: number
+  rating: number
+  reviews: number
+  brand: string
+  condition: "New" | "Second" | "Refurbished"
+  category: string
 }
+
+// Cast mockProducts to our Product interface
+// This ensures type safety while using the external data
+const typedMockProducts = mockProducts as unknown as Product[]
 
 const Container = styled.section`
   background-color: #eef2f4;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-`;
+`
 
 const MainContent = styled.div`
   display: flex;
@@ -26,15 +39,15 @@ const MainContent = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 21px 0 179px;
-`;
+`
 
 const Divider = styled.div<{ top?: boolean }>`
   align-self: stretch;
   min-height: 0px;
-  margin-top: ${props => props.top ? '100px' : '10px'};
+  margin-top: ${(props) => (props.top ? "100px" : "10px")};
   width: 99.9%;
   border: 1px solid #d5d5d5;
-`;
+`
 
 const BreadcrumbSort = styled.div`
   display: flex;
@@ -50,7 +63,7 @@ const BreadcrumbSort = styled.div`
     justify-content: center;
     gap: 2rem;
   }
-`;
+`
 
 const Breadcrumb = styled.div`
   align-self: start;
@@ -58,27 +71,27 @@ const Breadcrumb = styled.div`
   gap: 12px;
   color: #000;
   font: 15px Open Sans, sans-serif;
-`;
+`
 
 const BreadcrumbItem = styled.span<{ bold?: boolean }>`
   align-self: stretch;
   border-radius: 10px;
   background-color: #fff;
   padding: 4px 14px;
-  font-weight: ${props => props.bold ? '700' : '400'};
-`;
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
+`
 
 const SortContainer = styled.div`
   display: flex;
   gap: 5px;
-`;
+`
 
 const SortLabel = styled.label`
   color: #000;
   flex-grow: 1;
   margin: auto 0;
   font: 500 15px Open Sans, sans-serif;
-`;
+`
 
 const SortSelect = styled.select`
   border-radius: 10px;
@@ -86,7 +99,7 @@ const SortSelect = styled.select`
   padding: 4px 30px;
   border: 1px solid #e4e4e4;
   cursor: pointer;
-`;
+`
 
 const MainGrid = styled.main`
   width: 100%;
@@ -97,7 +110,7 @@ const MainGrid = styled.main`
     max-width: 100%;
     margin-bottom: 10px;
   }
-`;
+`
 
 const GridContainer = styled.div`
   display: flex;
@@ -108,7 +121,7 @@ const GridContainer = styled.div`
     flex-direction: column;
     align-items: stretch;
   }
-`;
+`
 
 const Sidebar = styled.aside`
   display: flex;
@@ -120,7 +133,7 @@ const Sidebar = styled.aside`
   @media (max-width: 991px) {
     width: 100%;
   }
-`;
+`
 
 const SidebarContent = styled.div`
   display: flex;
@@ -134,7 +147,7 @@ const SidebarContent = styled.div`
     justify-content: center;
     gap: 15px;
   }
-`;
+`
 
 const CategoriesSection = styled.div`
   border-radius: 20px;
@@ -150,7 +163,7 @@ const CategoriesSection = styled.div`
     padding-right: 20px;
     width: 100%;
   }
-`;
+`
 
 const CategoryTitle = styled.h2`
   font: 700 15px Open Sans, sans-serif;
@@ -161,14 +174,14 @@ const CategoryTitle = styled.h2`
   @media (max-width: 991px) {
     margin-left: 10px;
   }
-`;
+`
 
 const CategoryDivider = styled.div`
   align-self: stretch;
   margin-top: 0px;
   height: 0px;
   border: 1px solid #d5d5d5;
-`;
+`
 
 const CategoryNav = styled.nav`
   ul {
@@ -183,20 +196,29 @@ const CategoryNav = styled.nav`
   li {
     list-style: none;
   }
-`;
+`
 
-const CategoryLink = styled(Link)`
-  color: #000;
+const CategoryLink = styled.button<{ active?: boolean }>`
+  color: ${(props) => (props.active ? "#000" : "#666")};
   text-decoration: none;
   font-family: Inter, sans-serif;
   margin: 5px 0 0 24px;
   padding-top: 0.5rem;
   display: block;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  font-weight: ${(props) => (props.active ? "700" : "400")};
 
   &:hover {
     text-decoration: underline;
   }
-`;
+
+  @media (max-width: 991px) {
+    margin-left: 10px;
+  }
+`
 
 const PriceSection = styled.div`
   border-radius: 20px;
@@ -212,12 +234,12 @@ const PriceSection = styled.div`
     width: 100%;
     padding: 18px 20px 38px;
   }
-`;
+`
 
 const FilterTitle = styled.h3`
   font: 700 15px Open Sans, sans-serif;
   margin-bottom: 20px;
-`;
+`
 
 const PriceRangeContainer = styled.div`
   align-self: stretch;
@@ -229,21 +251,29 @@ const PriceRangeContainer = styled.div`
   justify-content: space-between;
   font: 500 15px Open Sans, sans-serif;
   width: 100%;
-`;
+`
 
-const PriceRange = styled.span`
+const PriceRange = styled.input`
   border-radius: 10px;
   background-color: #eef2f4;
-  padding: 10px 25px;
+  padding: 10px 15px;
   flex: 1;
   text-align: center;
-`;
+  border: none;
+  width: 80px;
+`
+
+const PriceRangeText = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 
 const BrandName = styled.h3`
   color: #000;
   margin-top: 24px;
   font: 700 15px Open Sans, sans-serif;
-`;
+`
 
 const BrandSelect = styled.select`
   border-radius: 10px;
@@ -264,13 +294,13 @@ const BrandSelect = styled.select`
   @media (max-width: 991px) {
     padding-left: 20px;
   }
-`;
+`
 
 const SortTitle = styled.h3`
   color: #000;
   margin-top: 20px;
   font: 700 15px Open Sans, sans-serif;
-`;
+`
 
 const SortOptions = styled.select`
   border-radius: 10px;
@@ -286,14 +316,14 @@ const SortOptions = styled.select`
   width: 100%;
   border: none;
   cursor: pointer;
-`;
+`
 
 const ConditionsTitle = styled.h3`
   color: #000;
   margin-top: 25px;
   margin-bottom: -5px;
   font: 700 15px Open Sans, sans-serif;
-`;
+`
 
 const ConditionOption = styled.div`
   display: flex;
@@ -308,7 +338,7 @@ const ConditionOption = styled.div`
   @media (max-width: 991px) {
     white-space: initial;
   }
-`;
+`
 
 const Checkbox = styled.input`
   border-radius: 5px;
@@ -318,13 +348,13 @@ const Checkbox = styled.input`
   margin: auto 0;
   border: 1px solid #afafaf;
   cursor: pointer;
-`;
+`
 
 const ConditionLabel = styled.label`
   align-self: stretch;
   margin: auto 0;
   cursor: pointer;
-`;
+`
 
 const ProductsGrid = styled.div`
   display: grid;
@@ -340,257 +370,180 @@ const ProductsGrid = styled.div`
     margin-top: 20px;
     max-width: 95%;
   }
-`;
+`
 
-const ProductCard = styled.article`
+const NoProductsMessage = styled.div`
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+  color: #666;
+`
+
+const ResetFiltersButton = styled.button`
+  background-color: #333;
+  color: white;
   border-radius: 10px;
-  background-color: #fff;
-  padding: 15px 16px 26px;
-  border: 1px solid #e4e4e4;
-  display: flex;
-  flex-direction: column;
-
-  @media (max-width: 991px) {
-    padding: 5px 5px 10px;
-  }
-`;
-
-const ProductImageContainer = styled.div`
-  position: relative;
-  border-radius: 10px;
-  aspect-ratio: 1.06;
-  width: 100%;
-`;
-
-const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
-`;
-
-const WishlistIcon = styled.img`
-  position: absolute;
-  top: 14px;
-  left: 15px;
-  width: 19px;
-  aspect-ratio: 1;
-  cursor: pointer;
-
-  @media (max-width: 991px) {
-    width: 13px;
-    top: 11px;
-    left: 12px;
-  }
-`;
-
-const ProductTitle = styled.h2`
-  color: #000;
-  margin-top: 28px;
-  font: 700 14px Open Sans, sans-serif;
-
-  @media (max-width: 991px) {
-    margin-top: 0px;
-    text-align: center;
-    font: 700 12px Open Sans, sans-serif;
-  }
-`;
-
-const ProductDetails = styled.div`
-  display: flex;
-  margin-top: 7px;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  @media (max-width: 991px) {
-    flex-direction: column;
-    margin-top: 0%;
-  }
-`;
-
-const RatingPrice = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Rating = styled.div`
-  display: flex;
-  gap: 10px;
-  font-size: 12px;
-  color: #a5a5a5;
-  align-items: center;
-
-  @media (max-width: 991px) {
-    gap: 5px;
-  }
-`;
-
-const RatingIcon = styled.img`
-  width: 16px;
-  aspect-ratio: 1;
-
-  @media (max-width: 991px) {
-    width: 12px;
-    margin: 4px 0px;
-  }
-`;
-
-const Price = styled.span`
-  color: #000;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 7px;
-  font-family: Inter, sans-serif;
-
-  @media (max-width: 991px) {
-    font-size: 12px;
-  }
-`;
-
-const CartButton = styled.button`
-  background-color: #ffff;
-  // border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 10px 20px;
+  margin-top: 20px;
   border: none;
+  font-weight: 600;
   cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s;
 
-  @media (max-width: 991px) {
-    align-self: flex-end;
-    margin-top: -20px;
+  &:hover {
+    background-color: #000;
   }
-`;
+`
 
-const CartIcon = styled.img`
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
-  width: 25px;
-  margin: 3px 0px;
+const FilterCount = styled.span`
+  display: inline-block;
+  background-color: #000;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  margin-left: 8px;
+`
 
-  @media (max-width: 991px) {
-    width: 13px;
+const ClearFiltersButton = styled.button`
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 8px 15px;
+  margin-top: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #f5f5f5;
+    color: #333;
   }
-`;
+`
 
 const Shop: React.FC = () => {
-  const [products] = useState<Product[]>([
-    {
-      id: 1,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 2,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 3,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 4,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 5,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 6,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 7,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 8,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 9,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 10,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 11,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    },
-    {
-      id: 12,
-      image: '/imgs/Rectangle 62.png',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      rating: 5.0,
-      reviews: 58
-    }
-  ]);
+  // Extract unique categories from mockProducts
+  const categories = ["All Categories", ...Array.from(new Set(typedMockProducts.map((product) => product.category)))]
 
-  const categories = [
-    'Phones', 'Computer', 'Accessories', 'Laptops',
-    'Monitors', 'Network', 'PC Games', 'Fashion'
-  ];
+  // Extract unique brands from mockProducts
+  const brands = ["All Brands", ...Array.from(new Set(typedMockProducts.map((product) => product.brand)))]
 
+  // State for filters
+  const [minPrice, setMinPrice] = useState<string>("100")
+  const [maxPrice, setMaxPrice] = useState<string>("1500")
+  const [selectedBrand, setSelectedBrand] = useState<string>("All Brands")
+  const [selectedCategory, setSelectedCategory] = useState<string>("All Categories")
   const [conditions, setConditions] = useState({
     new: false,
     second: false,
-    refurbish: false
-  });
+    refurbish: false,
+  })
+  const [sortOption, setSortOption] = useState<string>("recommended")
+  const [mainSortOption, setMainSortOption] = useState<string>("recommended")
 
+  // State for filtered products - use our typed version
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(typedMockProducts)
+
+  // Handle condition checkbox changes
   const handleConditionChange = (condition: keyof typeof conditions) => {
-    setConditions(prev => ({
+    setConditions((prev) => ({
       ...prev,
-      [condition]: !prev[condition]
-    }));
-  };
+      [condition]: !prev[condition],
+    }))
+  }
+
+  // Handle category selection
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category)
+  }
+
+  // Count active filters
+  const getActiveFilterCount = () => {
+    let count = 0
+    if (selectedCategory !== "All Categories") count++
+    if (selectedBrand !== "All Brands") count++
+    if (conditions.new || conditions.second || conditions.refurbish) count++
+    if (minPrice !== "100" || maxPrice !== "1500") count++
+    return count
+  }
+
+  // Clear all filters
+  const clearAllFilters = () => {
+    setMinPrice("100")
+    setMaxPrice("1500")
+    setSelectedBrand("All Brands")
+    setSelectedCategory("All Categories")
+    setConditions({
+      new: false,
+      second: false,
+      refurbish: false,
+    })
+    setSortOption("recommended")
+    setFilteredProducts(typedMockProducts)
+  }
+
+  // Apply filters and sorting
+  const applyFilters = () => {
+    let filtered = [...typedMockProducts]
+
+    // Filter by category
+    if (selectedCategory !== "All Categories") {
+      filtered = filtered.filter((product) => product.category === selectedCategory)
+    }
+
+    // Filter by price
+    const minPriceValue = Number.parseFloat(minPrice) || 0
+    const maxPriceValue = Number.parseFloat(maxPrice) || Number.POSITIVE_INFINITY
+    filtered = filtered.filter((product) => product.price >= minPriceValue && product.price <= maxPriceValue)
+
+    // Filter by brand
+    if (selectedBrand !== "All Brands") {
+      filtered = filtered.filter((product) => product.brand === selectedBrand)
+    }
+
+    // Filter by condition
+    const selectedConditions: string[] = []
+    if (conditions.new) selectedConditions.push("New")
+    if (conditions.second) selectedConditions.push("Second")
+    if (conditions.refurbish) selectedConditions.push("Refurbished")
+
+    if (selectedConditions.length > 0) {
+      filtered = filtered.filter((product) => selectedConditions.includes(product.condition))
+    }
+
+    // Apply sorting
+    const sortingOption = sortOption === "recommended" ? mainSortOption : sortOption
+
+    switch (sortingOption) {
+      case "reviews":
+        filtered.sort((a, b) => b.reviews - a.reviews)
+        break
+      case "low":
+        filtered.sort((a, b) => a.price - b.price)
+        break
+      case "high":
+        filtered.sort((a, b) => b.price - a.price)
+        break
+      case "rating":
+        filtered.sort((a, b) => b.rating - a.rating)
+        break
+      // Default is recommended (no sorting)
+    }
+
+    setFilteredProducts(filtered)
+  }
+
+  // Apply filters when component mounts and when filter values change
+  useEffect(() => {
+    applyFilters()
+  }, [selectedCategory, selectedBrand, minPrice, maxPrice, conditions, sortOption, mainSortOption])
 
   return (
     <Container>
@@ -600,16 +553,16 @@ const Shop: React.FC = () => {
         <BreadcrumbSort>
           <Breadcrumb>
             <BreadcrumbItem bold>yannstechub</BreadcrumbItem>
-            <BreadcrumbItem>/ Shop</BreadcrumbItem>
+            <BreadcrumbItem>/ Shop {selectedCategory !== "All Categories" && `/ ${selectedCategory}`}</BreadcrumbItem>
           </Breadcrumb>
           <SortContainer>
             <SortLabel htmlFor="sortSelect">Sort by</SortLabel>
-            <SortSelect id="sortSelect">
-              <option value="">Recommended</option>
-              <option value="">Best Sellers</option>
-              <option value="">Low Price</option>
-              <option value="">High Price</option>
-              <option value="">Reviews</option>
+            <SortSelect id="sortSelect" value={mainSortOption} onChange={(e) => setMainSortOption(e.target.value)}>
+              <option value="recommended">Recommended</option>
+              <option value="reviews">Best Reviews</option>
+              <option value="low">Low Price</option>
+              <option value="high">High Price</option>
+              <option value="rating">Top Rated</option>
             </SortSelect>
           </SortContainer>
         </BreadcrumbSort>
@@ -625,7 +578,10 @@ const Shop: React.FC = () => {
                     <ul>
                       {categories.map((category, index) => (
                         <li key={index}>
-                          <CategoryLink to={`/shop/${category.toLowerCase()}`}>
+                          <CategoryLink
+                            onClick={() => handleCategorySelect(category)}
+                            active={selectedCategory === category}
+                          >
                             {category}
                           </CategoryLink>
                         </li>
@@ -634,29 +590,47 @@ const Shop: React.FC = () => {
                   </CategoryNav>
                 </CategoriesSection>
                 <PriceSection>
+                  <FilterTitle>
+                    Filters
+                    {getActiveFilterCount() > 0 && <FilterCount>{getActiveFilterCount()}</FilterCount>}
+                  </FilterTitle>
+
                   <FilterTitle>Price Range</FilterTitle>
                   <PriceRangeContainer>
-                    <PriceRange>100</PriceRange>
-                    <PriceRange>900</PriceRange>
+                    <PriceRange type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} min="0" />
+                    <PriceRangeText>to</PriceRangeText>
+                    <PriceRange type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} min="0" />
                   </PriceRangeContainer>
-                  
+
                   <BrandName>Brand Name</BrandName>
-                  <BrandSelect aria-label="Select brand">
-                    <option value="">All Brands</option>
+                  <BrandSelect
+                    aria-label="Select brand"
+                    value={selectedBrand}
+                    onChange={(e) => setSelectedBrand(e.target.value)}
+                  >
+                    {brands.map((brand, index) => (
+                      <option key={index} value={brand}>
+                        {brand}
+                      </option>
+                    ))}
                   </BrandSelect>
-                  
+
                   <SortTitle>Sort by</SortTitle>
-                  <SortOptions>
-                    <option value="">Reviews</option>
+                  <SortOptions value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+                    <option value="recommended">Recommended</option>
+                    <option value="reviews">Reviews</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                    <option value="rating">Rating</option>
                   </SortOptions>
-                  
+
                   <ConditionsTitle>Conditions</ConditionsTitle>
                   <ConditionOption>
                     <Checkbox
                       type="checkbox"
                       id="new"
                       checked={conditions.new}
-                      onChange={() => handleConditionChange('new')}
+                      onChange={() => handleConditionChange("new")}
                     />
                     <ConditionLabel htmlFor="new">New</ConditionLabel>
                   </ConditionOption>
@@ -665,7 +639,7 @@ const Shop: React.FC = () => {
                       type="checkbox"
                       id="second"
                       checked={conditions.second}
-                      onChange={() => handleConditionChange('second')}
+                      onChange={() => handleConditionChange("second")}
                     />
                     <ConditionLabel htmlFor="second">Second</ConditionLabel>
                   </ConditionOption>
@@ -674,44 +648,44 @@ const Shop: React.FC = () => {
                       type="checkbox"
                       id="refurbish"
                       checked={conditions.refurbish}
-                      onChange={() => handleConditionChange('refurbish')}
+                      onChange={() => handleConditionChange("refurbish")}
                     />
-                    <ConditionLabel htmlFor="refurbish">Refurbish</ConditionLabel>
+                    <ConditionLabel htmlFor="refurbish">Refurbished</ConditionLabel>
                   </ConditionOption>
+
+                  <ResetFiltersButton onClick={clearAllFilters}>Reset Filters</ResetFiltersButton>
+
+                  {getActiveFilterCount() > 0 && (
+                    <ClearFiltersButton onClick={clearAllFilters}>Clear All Filters</ClearFiltersButton>
+                  )}
                 </PriceSection>
               </SidebarContent>
             </Sidebar>
             <ProductsGrid>
-              {products.map((product) => (
-                <ProductCard key={product.id}>
-                  <Link to={`/product/${product.id}`}>
-                    <ProductImageContainer>
-                      <ProductImage src={product.image} alt={product.title} />
-                      <WishlistIcon src="/imgs/favorie 1.png" alt="Add to wishlist" />
-                    </ProductImageContainer>
-                  </Link>
-                  <ProductTitle>{product.title}</ProductTitle>
-                  <ProductDetails>
-                    <RatingPrice>
-                      <Rating>
-                        <RatingIcon src="/imgs/star 1.png" alt="Rating" />
-                        <span>{product.rating} ({product.reviews} reviews)</span>
-                      </Rating>
-                      <Price>${product.price.toFixed(2)}</Price>
-                    </RatingPrice>
-                    <CartButton aria-label="Add to cart">
-                      <CartIcon src="/imgs/Buy - 6 (1).png" alt="" />
-                    </CartButton>
-                  </ProductDetails>
-                </ProductCard>
-              ))}
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    id={product.id}
+                    image={product.image}
+                    title={product.title}
+                    rating={product.rating}
+                    reviews={product.reviews}
+                    price={product.price}
+                  />
+                ))
+              ) : (
+                <NoProductsMessage>
+                  No products match your filter criteria. Try adjusting your filters.
+                </NoProductsMessage>
+              )}
             </ProductsGrid>
           </GridContainer>
         </MainGrid>
       </MainContent>
       <Footer />
     </Container>
-  );
-};
+  )
+}
 
-export default Shop; 
+export default Shop

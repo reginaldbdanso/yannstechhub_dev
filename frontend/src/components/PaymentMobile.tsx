@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useCart } from '../context/CartContext';
 
 // Styled Components
 const PaymentMobileContainer = styled.section`
@@ -432,6 +433,51 @@ const OrderSummary = styled.div`
   }
 `;
 
+const QuantityControl = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+`;
+
+const QuantityButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 5px;
+  color: #000;
+
+  &:hover {
+    color: #0055b6;
+  }
+`;
+
+const TotalSection = styled.div`
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e4e4e4;
+`;
+
+const TotalRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+`;
+
+const ShippingInfo = styled.p`
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  color: #919191;
+  margin: 8px 0;
+  text-align: center;
+`;
+
 const SummaryHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -448,15 +494,15 @@ const SummaryTitle = styled.h2`
   margin: 0;
 `;
 
-const EditButton = styled.button`
-  background: none;
-  border: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-  font-size: 10px;
-  color: #919191;
-`;
+// const EditButton = styled.button`
+//   background: none;
+//   border: none;
+//   color: inherit;
+//   font: inherit;
+//   cursor: pointer;
+//   font-size: 10px;
+//   color: #919191;
+// `;
 
 const OrderItems = styled.div`
   margin-top: 30px;
@@ -493,13 +539,13 @@ const ItemTitle = styled.h3`
   margin: 0;
 `;
 
-const ItemQuantity = styled.p`
-  font-family: "Open Sans", sans-serif;
-  font-size: 12px;
-  color: #919191;
-  font-weight: 500;
-  margin: 0;
-`;
+// const ItemQuantity = styled.p`
+//   font-family: "Open Sans", sans-serif;
+//   font-size: 12px;
+//   color: #919191;
+//   font-weight: 500;
+//   margin: 0;
+// `;
 
 const ItemPrice = styled.p`
   font-family: "Open Sans", sans-serif;
@@ -509,11 +555,11 @@ const ItemPrice = styled.p`
   margin: 0;
 `;
 
-const ItemDivider = styled.hr`
-  border: 0;
-  border-top: 1px solid #e4e4e4;
-  margin: 17px 0;
-`;
+// const ItemDivider = styled.hr`
+//   border: 0;
+//   border-top: 1px solid #e4e4e4;
+//   margin: 17px 0;
+// `;
 
 const CartSummary = styled.div`
   background-color: #fff;
@@ -694,15 +740,8 @@ const FormRow = styled.div`
   gap: 5px;
 `;
 
-interface CartItem {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  quantity: number;
-}
-
 const PaymentMobile: React.FC = () => {
+  const { cart, updateQuantity, subtotal } = useCart();
   const [activeTab, setActiveTab] = useState('momo');
   const [showOptions, setShowOptions] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState({
@@ -715,43 +754,16 @@ const PaymentMobile: React.FC = () => {
     { name: 'Telecel Cash', icon: '/imgs/T-Cash Red.png' },
     { name: 'AirtelTigo Money', icon: '/imgs/airtel-tigo.png' }
   ];
-
-  const [cartItems] = useState<CartItem[]>([
-    {
-      id: 1,
-      image: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a3d2d15b23f08d6a7e4a2e6a232f16067819ffa196f0281f853b8b8b5396d9b4',
-      title: 'Lorem ipsum dolor',
-      price: 50.00,
-      quantity: 1
-    },
-    {
-      id: 2,
-      image: 'https://cdn.builder.io/api/v1/image/assets/TEMP/a9d8eab4fe28a73835d78dacacb812768449843e65448f1aa79482ad7a0d5e41',
-      title: 'Lorem ipsum dolor',
-      price: 99.99,
-      quantity: 1
-    },
-    {
-      id: 3,
-      image: 'https://cdn.builder.io/api/v1/image/assets/TEMP/4dec0a85ae305f77f0be2bbd7994f06e59650e4d5ff4602c193c0386f8e57c48',
-      title: 'Lorem ipsum dolor',
-      price: 99.99,
-      quantity: 1
-    }
-  ]);
-
   const calculateTotal = () => {
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const cartSubtotal = subtotal;
     const shipping = 5.00;
     return {
-      subtotal,
+      subtotal: cartSubtotal,
       shipping,
-      total: subtotal + shipping
+      total: cartSubtotal + shipping
     };
   };
-
   const totals = calculateTotal();
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -759,11 +771,9 @@ const PaymentMobile: React.FC = () => {
         setShowOptions(false);
       }
     };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+  document.addEventListener('click', handleClickOutside);
+  return () => document.removeEventListener('click', handleClickOutside);
   }, []);
-
   return (
     <PaymentMobileContainer>
       <MainContainer>
@@ -911,7 +921,7 @@ const PaymentMobile: React.FC = () => {
                 </PaymentSecurity>
               </PaymentDetails>
 
-              <Link to="/shipping-address">
+              <Link to="/payment-approval">
                 <PaymentButton>Make Payment</PaymentButton>
               </Link>
             </PaymentForm>
@@ -920,25 +930,32 @@ const PaymentMobile: React.FC = () => {
           <OrderSection>
             <OrderSummary>
               <SummaryHeader>
-                <SummaryTitle>My Order Summary</SummaryTitle>
-                <EditButton>Edit</EditButton>
+                <SummaryTitle>Order Summary</SummaryTitle>
+                <span>{cart.length} items</span>
               </SummaryHeader>
-
               <OrderItems>
-                {cartItems.map((item) => (
-                  <React.Fragment key={item.id}>
-                    <OrderItem>
-                      <ItemImage src={item.image} alt={item.title} />
-                      <ItemDetails>
-                        <ItemTitle>{item.title}</ItemTitle>
-                        <ItemQuantity>Qty: {item.quantity}</ItemQuantity>
-                        <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
-                      </ItemDetails>
-                    </OrderItem>
-                    <ItemDivider />
-                  </React.Fragment>
+                {cart.map((item) => (
+                  <OrderItem key={item.id}>
+                    <ItemImage src={item.image} alt={item.title} />
+                    <ItemDetails>
+                      <ItemTitle>{item.title}</ItemTitle>
+                      <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
+                      <QuantityControl>
+                        <QuantityButton onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</QuantityButton>
+                        <span>{item.quantity}</span>
+                        <QuantityButton onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</QuantityButton>
+                      </QuantityControl>
+                    </ItemDetails>
+                  </OrderItem>
                 ))}
               </OrderItems>
+              <TotalSection>
+                <TotalRow>
+                  <span>Subtotal</span>
+                  <span>${subtotal.toFixed(2)}</span>
+                </TotalRow>
+                <ShippingInfo>Shipping & taxes calculated at checkout</ShippingInfo>
+              </TotalSection>
             </OrderSummary>
 
             <CartSummary>
@@ -1004,4 +1021,4 @@ const PaymentMobile: React.FC = () => {
   );
 };
 
-export default PaymentMobile; 
+export default PaymentMobile;

@@ -22,6 +22,7 @@
   border: 1px solid #e4e4e4;
   display: flex;
   flex-direction: column;
+  width: 195px;
 }
 
 .product-image-container {
@@ -63,6 +64,9 @@
   color: #000;
   margin-top: 28px;
   font: 700 14px Open Sans, sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .product-details {
