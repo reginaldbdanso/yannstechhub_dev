@@ -1,23 +1,23 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { mockProducts, mockReviews } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
+import ProductCard from "./ProductCard"
 import Footer from "./Footer"
 
 // Styled components (most of these remain the same as in the example)
 const Container = styled.section`
-  background-color: #fff;
+  background-color: #eef2f4;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 `
 
 const MainContent = styled.div`
-  background-color: #eef2f4;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -74,8 +74,6 @@ const ProductContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #fff;
-  border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 991px) {
@@ -111,6 +109,7 @@ const ProductGallery = styled.div`
   line-height: normal;
   width: 50%;
   margin-left: 0;
+  position: relative;
 
   @media (max-width: 991px) {
     width: 100%;
@@ -186,6 +185,13 @@ const ProductDetail = styled.div`
   font: 700 15px 'Open Sans', sans-serif;
 `
 
+const TitleContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`
+
 const ProductTitle = styled.h1`
   font-size: 25px;
   align-self: stretch;
@@ -213,6 +219,10 @@ const Price = styled.div`
 
 const QuantityLabel = styled.div`
   margin-top: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 `
 
 const FeatureList = styled.div`
@@ -311,11 +321,18 @@ const RatingSummary = styled.div`
   color: #000;
 `
 
+// Update RatingScore styles
 const RatingScore = styled.div`
   display: flex;
+  align-items: center;
   gap: 8px;
   font-size: 50px;
   font-weight: 800;
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
 
   @media (max-width: 991px) {
     font-size: 40px;
@@ -364,6 +381,11 @@ const ReviewCard = styled.div`
   font: 500 15px 'Open Sans', sans-serif;
   border: 1px solid #E4E4E4;
 
+  p:last-child {
+    padding-top: 15px;
+    font-weight: 700;
+  }
+
   @media (max-width: 991px) {
     padding: 0 20px;
     max-width: 95%;
@@ -376,120 +398,83 @@ const ReviewRating = styled.div`
   gap: 15px;
 `
 
-const ReviewStars = styled.div`
-  display: flex;
-  gap: 5px;
-`
-
 const ReviewTitle = styled.h3`
   font-size: 25px;
   font-weight: 700;
 `
 
+// New styled components for the slider
 const SliderContainer = styled.div`
   position: relative;
   width: 100%;
-  margin: 0 auto;
+  margin: 20px 0;
   overflow: hidden;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
+  padding: 20px 0;
 `
 
-const ProductsGrid = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-  width: 100%;
-  transition: transform 0.5s ease;
-  
-  &:hover {
-    animation-play-state: paused;
-  }
-
-  @media (max-width: 991px) {
-    width: 80%;
-  }
-`
-
-const ProductCard = styled.article`
-  border-radius: 10px;
-  background-color: #fff;
-  padding: 15px;
-  border: 1px solid #e4e4e4;
-  display: flex;
-  flex-direction: column;
-  width: 244px;
-  transition: transform 0.3s ease;
-  
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  }
-`
-
-const ProductImageContainer = styled.div`
+const SliderWrapper = styled.div`
   position: relative;
-  border-radius: 10px;
-  aspect-ratio: 1.06;
+  overflow: hidden;
   width: 100%;
 `
 
-const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
+const ProductsSlider = styled.div`
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 20px;
 `
 
-const WishlistIcon = styled.img`
+const ProductSlide = styled.div`
+  flex: 0 0 auto;
+  width: calc(25% - 15px);
+  
+  @media (max-width: 1200px) {
+    width: calc(33.333% - 15px);
+  }
+  
+  @media (max-width: 768px) {
+    width: calc(50% - 15px);
+  }
+  
+  @media (max-width: 480px) {
+    width: calc(100% - 15px);
+  }
+`
+
+const SliderNavButton = styled.button`
   position: absolute;
-  top: 14px;
-  left: 15px;
-  width: 19px;
-  aspect-ratio: 1;
-  cursor: pointer;
-`
-
-const ProductCardTitle = styled.h2`
-  color: #000;
-  margin-top: 28px;
-  font: 700 14px 'Open Sans', sans-serif;
-`
-
-const ProductDetails = styled.div`
-  display: flex;
-  margin-top: 7px;
-  justify-content: space-between;
-  align-items: flex-start;
-`
-
-const RatingPrice = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const Rating = styled.div`
-  display: flex;
-  gap: 10px;
-  font-size: 12px;
-  color: #a5a5a5;
-  align-items: center;
-`
-
-const CartButton = styled.button`
-  background-color: #000;
-  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  z-index: 10;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
 `
 
-const CartIcon = styled.img`
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
-  width: 25px;
-  margin: 3px 0px;
+const PrevButton = styled(SliderNavButton)`
+  left: 10px;
+`
+
+const NextButton = styled(SliderNavButton)`
+  right: 10px;
 `
 
 const RateProductSection = styled.div`
@@ -498,7 +483,6 @@ const RateProductSection = styled.div`
   align-items: center;
   gap: 10px;
   padding: 20px;
-  background-color: #fff;
   border-radius: 8px;
   
   h2 {
@@ -542,6 +526,65 @@ const StarIcon = styled.img`
   }
 `
 
+// Add new styled components for quantity controls
+const QuantityControl = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
+
+// Update the QuantityButton styling to handle text content
+const QuantityButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  
+  &:hover {
+    background: #f5f5f5;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`
+
+const QuantityInput = styled.input`
+  width: 50px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+`
+
+// Update the WishlistButton to use the image
+const WishlistButton = styled.button`
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s;
+  }
+  
+  &:hover img {
+    transform: scale(1.1);
+  }
+`
+
 const ProductView: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -555,6 +598,15 @@ const ProductView: React.FC = () => {
 
   const [userRating, setUserRating] = useState<number>(0)
   const [isRatingHovered, setIsRatingHovered] = useState<number>(0)
+
+  // New state for slider
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [maxSlide, setMaxSlide] = useState(0)
+  const sliderRef = useRef<HTMLDivElement>(null)
+
+  // Add state for wishlist
+  const [isWishlisted, setIsWishlisted] = useState(false)
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     if (id) {
@@ -583,18 +635,66 @@ const ProductView: React.FC = () => {
     }
   }, [product, reviews])
 
+  // New effect for slider functionality
+  useEffect(() => {
+    // Get related products (excluding current product)
+    const relatedProducts = mockProducts.filter((p) => p.id !== Number(id))
+
+    // Calculate max slide based on number of products and visible items
+    const calculateMaxSlide = () => {
+      let visibleItems = 4 // Default for desktop
+
+      if (window.innerWidth <= 480) {
+        visibleItems = 1
+      } else if (window.innerWidth <= 768) {
+        visibleItems = 2
+      } else if (window.innerWidth <= 1200) {
+        visibleItems = 3
+      }
+
+      return Math.max(0, relatedProducts.length - visibleItems)
+    }
+
+    setMaxSlide(calculateMaxSlide())
+
+    const handleResize = () => {
+      setMaxSlide(calculateMaxSlide())
+      // Reset to first slide when resizing to avoid empty slides
+      setCurrentSlide(0)
+    }
+
+    window.addEventListener("resize", handleResize)
+
+    // Auto-slide functionality
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev >= maxSlide ? 0 : prev + 1))
+    }, 3000)
+
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [id, maxSlide])
+
   const handleThumbnailClick = (image: string) => {
     setMainImage(image)
   }
 
   const handleAddToCart = () => {
     if (product) {
-      addToCart({
+      const cartItem = {
         id: product.id,
         title: product.title,
         price: product.price,
         image: product.image,
-      })
+      }
+
+      addToCart(cartItem)
+
+      // Store the quantity in localStorage
+      const cartQuantities = JSON.parse(localStorage.getItem("cartQuantities") || "{}")
+      cartQuantities[product.id] = (cartQuantities[product.id] || 0) + quantity
+      localStorage.setItem("cartQuantities", JSON.stringify(cartQuantities))
     }
   }
 
@@ -607,12 +707,63 @@ const ProductView: React.FC = () => {
     // Here you would typically make an API call to submit the rating
   }
 
+  // New slider navigation functions
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => Math.max(0, prev - 1))
+  }
+
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => Math.min(maxSlide, prev + 1))
+  }
+
+  // Add quantity control functions
+  const handleIncrement = () => {
+    setQuantity((prev) => prev + 1)
+  }
+
+  const handleDecrement = () => {
+    setQuantity((prev) => Math.max(1, prev - 1))
+  }
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number.parseInt(e.target.value)
+    if (!isNaN(value) && value > 0) {
+      setQuantity(value)
+    }
+  }
+
   if (!product) {
     return <div>Product not found</div>
   }
 
   // Create an array of thumbnail images, including the main image
   const thumbnails = [product.image, ...product.thumbnails.slice(0, 3)]
+
+  // Get related products (excluding current product)
+  const relatedProducts = mockProducts.filter((p) => p.id !== product.id)
+
+  // Add a new function to handle product click in the "You May Also Like" section
+  const handleRelatedProductClick = (relatedProduct: (typeof mockProducts)[0]) => {
+    // Update the current product with the clicked product
+    setProduct(relatedProduct)
+    setMainImage(relatedProduct.image)
+
+    // Get product reviews for the new product
+    const productReviews = mockReviews.filter((r) => r.productId === relatedProduct.id)
+    setReviews(productReviews)
+
+    // Scroll to the top of the product container
+    const productContainerElement = document.querySelector(".product-container")
+    if (productContainerElement) {
+      productContainerElement.scrollIntoView({ behavior: "smooth" })
+    } else {
+      // Fallback to scrolling to top of page
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      })
+    }
+  }
 
   return (
     <Container>
@@ -629,7 +780,7 @@ const ProductView: React.FC = () => {
 
         <Divider />
 
-        <ProductContainer>
+        <ProductContainer className="product-container">
           <ProductWrapper>
             <ProductContent>
               <ProductGallery>
@@ -651,7 +802,16 @@ const ProductView: React.FC = () => {
               <ProductInfo>
                 <InfoContainer>
                   <ProductDetail>
-                    <ProductTitle>{product.title}</ProductTitle>
+                    <TitleContainer>
+                      <ProductTitle>{product.title}</ProductTitle>
+                      <WishlistButton onClick={() => setIsWishlisted(!isWishlisted)}>
+                        <img
+                          src="/imgs/favorie 2.png"
+                          alt="Add to wishlist"
+                          style={{ filter: isWishlisted ? "none" : "grayscale(100%)" }}
+                        />
+                      </WishlistButton>
+                    </TitleContainer>
                     <RatingWrapper>
                       <RatingIcon src="/imgs/star 1.png" alt="Rating stars" />
                       <span>
@@ -659,7 +819,16 @@ const ProductView: React.FC = () => {
                       </span>
                     </RatingWrapper>
                     <Price>${product.price.toFixed(2)}</Price>
-                    <QuantityLabel>Quantity</QuantityLabel>
+                    <QuantityLabel>
+                      Quantity
+                      <QuantityControl>
+                        <QuantityButton onClick={handleDecrement} disabled={quantity <= 1}>
+                          -
+                        </QuantityButton>
+                        <QuantityInput type="number" min="1" value={quantity} onChange={handleQuantityChange} />
+                        <QuantityButton onClick={handleIncrement}>+</QuantityButton>
+                      </QuantityControl>
+                    </QuantityLabel>
                     <FeatureList>
                       {product.features.map((feature, index) => (
                         <FeatureItem key={index}>{feature}</FeatureItem>
@@ -667,7 +836,7 @@ const ProductView: React.FC = () => {
                     </FeatureList>
                   </ProductDetail>
                   <ActionButtons>
-                    <PrimaryButton onClick={() => navigate("/shop")}>Continue Shopping</PrimaryButton>
+                    <PrimaryButton onClick={() => navigate(-1)}>Continue Shopping</PrimaryButton>
                     <SecondaryButton onClick={handleAddToCart}>Add to Cart</SecondaryButton>
                   </ActionButtons>
                 </InfoContainer>
@@ -696,60 +865,58 @@ const ProductView: React.FC = () => {
 
             <SectionTitle>Ratings and Reviews</SectionTitle>
             <ReviewsContainer>
-              <div className="ratings-summary">
-                <RatingSummary>
-                  <RatingScore>
-                    <span>{averageRating.toFixed(1)}</span>
-                    <img src="/imgs/star 1.png" alt="Rating stars" />
-                  </RatingScore>
-                  <span>{reviews.length} ratings</span>
-                </RatingSummary>
+              <RatingSummary>
+                <RatingScore>
+                  <span>{averageRating.toFixed(1)}</span>
+                  <img src="/imgs/star 1.png" alt="Rating stars" />
+                </RatingScore>
+                <span>{reviews.length} ratings</span>
+              </RatingSummary>
 
-                <RatingBars>
-                  {[5, 4, 3, 2, 1].map((rating) => (
-                    <RatingBar key={rating}>
-                      <span>{rating}</span>
-                      <BarContainer>
-                        <BarFill width={`${((ratingDistribution[rating] || 0) / reviews.length) * 100}%`} />
-                      </BarContainer>
-                      <span>{ratingDistribution[rating] || 0}</span>
-                    </RatingBar>
+              <RatingBars>
+                {[5, 4, 3, 2, 1].map((rating) => (
+                  <RatingBar key={rating}>
+                    <span>{rating}</span>
+                    <BarContainer>
+                      <BarFill width={`${((ratingDistribution[rating] || 0) / reviews.length) * 100}%`} />
+                    </BarContainer>
+                    <span>{ratingDistribution[rating] || 0}</span>
+                  </RatingBar>
+                ))}
+              </RatingBars>
+
+              <RateProductSection>
+                <h2>Rate This Product</h2>
+                <StarRating>
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <StarIcon
+                      key={star}
+                      src={isRatingHovered >= star || userRating >= star ? "/imgs/star 1.png" : "/imgs/star-empty.png"}
+                      alt={`Rate ${star} stars`}
+                      className="star-icon"
+                      onMouseEnter={() => handleStarHover(star)}
+                      onMouseLeave={() => handleStarHover(0)}
+                      onClick={() => handleStarClick(star)}
+                    />
                   ))}
-                </RatingBars>
-
-                <RateProductSection>
-                  <h2>Rate This Product</h2>
-                  <StarRating>
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <StarIcon
-                        key={star}
-                        src={
-                          isRatingHovered >= star || userRating >= star ? "/imgs/star 1.png" : "/imgs/star-empty.png"
-                        }
-                        alt={`Rate ${star} stars`}
-                        className="star-icon"
-                        onMouseEnter={() => handleStarHover(star)}
-                        onMouseLeave={() => handleStarHover(0)}
-                        onClick={() => handleStarClick(star)}
-                      />
-                    ))}
-                  </StarRating>
-                  <VerificationText>Adding a review requires a valid email for verification</VerificationText>
-                </RateProductSection>
-              </div>
+                </StarRating>
+                <VerificationText>Adding a review requires a valid email for verification</VerificationText>
+              </RateProductSection>
             </ReviewsContainer>
 
             {reviews.map((review, index) => (
               <ReviewCard key={index}>
                 <ReviewRating>
                   <ReviewTitle>{review.title}</ReviewTitle>
-                  <ReviewStars>
-                    {Array(review.rating)
-                      .fill(0)
-                      .map((_, i) => (
-                        <img key={i} src="/imgs/star 1.png" alt="Rating star" />
-                      ))}
-                  </ReviewStars>
+                  <StarRating>
+                    {[...Array(5)].map((_, i) => (
+                      <img
+                        key={i}
+                        src={i < review.rating ? "/imgs/star 1.png" : "/imgs/star-empty.png"}
+                        alt="Rating star"
+                      />
+                    ))}
+                  </StarRating>
                 </ReviewRating>
                 <p>{review.content}</p>
                 <p>Reviewed by {review.author}</p>
@@ -758,44 +925,33 @@ const ProductView: React.FC = () => {
 
             <SectionTitle>You May Also Like</SectionTitle>
             <SliderContainer>
-              <ProductsGrid>
-                {mockProducts
-                  .filter((p) => p.id !== product.id)
-                  .map((similarProduct, index) => (
-                    <ProductCard key={index} onClick={() => navigate(`/product/${similarProduct.id}`)}>
-                      <ProductImageContainer>
-                        <ProductImage src={similarProduct.image} alt={similarProduct.title} />
-                        <WishlistIcon src="/imgs/favorie 1.png" alt="Add to wishlist" />
-                      </ProductImageContainer>
-                      <ProductCardTitle>{similarProduct.title}</ProductCardTitle>
-                      <ProductDetails>
-                        <RatingPrice>
-                          <Rating>
-                            <RatingIcon src="/imgs/star 1.png" alt="Rating star" />
-                            <span>
-                              {similarProduct.rating} ({similarProduct.reviews} reviews)
-                            </span>
-                          </Rating>
-                          <Price>${similarProduct.price.toFixed(2)}</Price>
-                        </RatingPrice>
-                        <CartButton
-                          aria-label="Add to cart"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            addToCart({
-                              id: similarProduct.id,
-                              title: similarProduct.title,
-                              price: similarProduct.price,
-                              image: similarProduct.image,
-                            })
-                          }}
-                        >
-                          <CartIcon src="/imgs/Buy - 6.png" alt="Cart icon" />
-                        </CartButton>
-                      </ProductDetails>
-                    </ProductCard>
+              <SliderWrapper ref={sliderRef}>
+                <PrevButton onClick={handlePrevSlide} disabled={currentSlide === 0}>
+                  ←
+                </PrevButton>
+                <ProductsSlider style={{ transform: `translateX(-${currentSlide * (100 / (4 - 0.25))}%)` }}>
+                  {relatedProducts.map((relatedProduct) => (
+                    <ProductSlide
+                      key={relatedProduct.id}
+                      onClick={() => handleRelatedProductClick(relatedProduct)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <ProductCard
+                        key={relatedProduct.id}
+                        id={relatedProduct.id}
+                        image={relatedProduct.image}
+                        title={relatedProduct.title}
+                        rating={relatedProduct.rating}
+                        reviews={relatedProduct.reviews}
+                        price={relatedProduct.price}
+                      />
+                    </ProductSlide>
                   ))}
-              </ProductsGrid>
+                </ProductsSlider>
+                <NextButton onClick={handleNextSlide} disabled={currentSlide >= maxSlide}>
+                  →
+                </NextButton>
+              </SliderWrapper>
             </SliderContainer>
           </ContentSection>
         </ProductContainer>
