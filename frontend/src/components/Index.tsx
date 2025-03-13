@@ -3,11 +3,10 @@
 import type React from "react"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
-import ProductCard from "./ProductCard" 
-import { useCart } from '../context/CartContext';// Import the original ProductCard
+import ProductCard from "./ProductCard"
 import { mockProducts } from "../data/mockProducts"
 
 // Styled Components
@@ -200,7 +199,7 @@ const Card = styled.div`
 
   a {
     margin-bottom: 20px;
-    color: #000;
+    color: #9a9494;
     text-decoration: none;
     font-weight: 600;
     padding: 10px 0;
@@ -209,7 +208,7 @@ const Card = styled.div`
     
     &.active {
       font-weight: 700;
-      color: #0055b6;
+      color:rgb(6, 6, 6);
       
       &:after {
         content: '';
@@ -218,12 +217,12 @@ const Card = styled.div`
         left: 0;
         width: 100%;
         height: 2px;
-        background-color: #0055b6;
+        background-color:rgb(6, 6, 6);
       }
     }
 
     &:hover {
-      color: #0055b6;
+      color:rgb(6, 6, 6);
     }
   }
 
@@ -321,19 +320,21 @@ const ProductsGrid = styled.div`
   }
 `
 
-// Updated to be a horizontal slider with reduced height
+// Update the SmallProductsGrid to have consistent card sizing with FullProductsGrid
+// and improve the scrolling functionality
 const SmallProductsGrid = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 15px;
   width: 100%;
   overflow-x: auto;
   padding: 0;
   margin: 0;
-  height: 160px; // Adjusted height for better consistency
+  height: auto; // Remove fixed height to allow cards to determine the height
   scrollbar-width: thin;
+  padding: 20px 0;
   
   &::-webkit-scrollbar {
-    height: 3px;
+    height: 5px;
   }
   
   &::-webkit-scrollbar-track {
@@ -351,8 +352,7 @@ const SmallProductsGrid = styled.div`
   }
   
   @media (max-width: 991px) {
-    gap: 6px;
-    height: 130px; // Adjusted for better mobile view
+    gap: 10px;
   }
 `
 
@@ -376,9 +376,13 @@ const ProductSectionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 8px;
+  margin-top: -60px;
   padding-bottom: 8px;
   border-bottom: 1px solid #e5e5e5;
+  
+  @media (max-width: 991px) {
+    margin-top: 0px;
+  }
 `
 
 const ViewAllLink = styled.a`
@@ -669,7 +673,7 @@ const TrendCard = styled.div`
     font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
-    margin-top: 10px;
+    margin-top: 20px;
     position: relative;
     z-index: 2;
   }
@@ -688,20 +692,18 @@ const HighlightCircle = styled.div`
   right: 30px;
 
   img {
-    width: 24px;
-    height: 24px;
+    width: 15px;
   }
 `
 
-// Simplified Product Card Component (renamed to avoid conflicts)
+// Update the SimpleProductCardStyled to have consistent sizing in both grid types
 const SimpleProductCardStyled = styled.div`
-  border-radius: 8px;
+  border-radius: 1rem;
   overflow: hidden;
+  text-align: center;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 160px;
-  flex-shrink: 0;
   position: relative;
   
   &:hover {
@@ -709,18 +711,15 @@ const SimpleProductCardStyled = styled.div`
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
   
-  @media (max-width: 991px) {
-    min-width: 130px;
-  }
-  
-  // Make cards in SmallProductsGrid much smaller
+  // Make cards in SmallProductsGrid match FullProductsGrid
   ${SmallProductsGrid} & {
-    min-width: 120px; // Increased minimum width for better consistency
-    height: 100%;
-    margin-right: 0; // Removed negative margin
+    min-width: 160px; // Match the minmax width from FullProductsGrid
+    width: 160px; // Fixed width for consistency
+    flex-shrink: 0; // Prevent shrinking in flex container
     
     @media (max-width: 991px) {
-      min-width: 100px; // Adjusted mobile width
+      min-width: 130px;
+      width: 130px;
     }
   }
   
@@ -728,7 +727,36 @@ const SimpleProductCardStyled = styled.div`
   ${FullProductsGrid} & {
     min-width: 0; // Allow the grid to control the width
     width: 100%;
-    height: auto;
+  }
+`
+
+// Update the ProductOverlay to cover the entire image with a gradient
+const ProductOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgb(0 0 0 / 62%) 50%, rgba(0, 0, 0, 0) 100%); 
+  padding: 10px;
+  color: white;
+  transition: opacity 0.3s ease;
+  
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+  
+  // ${SmallProductsGrid} & {
+  //   padding: 6px;
+    
+  //   h3 {
+  //     font-size: 12px;
+  //   }
   }
 `
 
@@ -736,123 +764,33 @@ const ProductImageWrapper = styled.div`
   position: relative;
   width: 100%;
   cursor: pointer;
+  overflow: hidden;
 `
 
+// Update the ProductImage to have consistent sizing
 const ProductImage = styled.img`
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
   
   ${SmallProductsGrid} & {
-    aspect-ratio: 1;
-    height: 110px; // Adjusted height to match container
+    height: 160px; // Match height with FullProductsGrid
     
     @media (max-width: 991px) {
-      height: 90px; // Adjusted mobile height
+      height: 130px;
     }
   }
   
   ${FullProductsGrid} & {
-    height: 140px;
+    height: 160px;
     
     @media (max-width: 991px) {
-      height: 120px;
+      height: 130px;
     }
   }
 `
 
-const ProductInfo = styled.div`
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  ${SmallProductsGrid} & {
-    padding: 4px;
-    height: 40px;
-  }
-  
-  ${FullProductsGrid} & {
-    padding: 8px;
-    height: auto;
-  }
-`
 
-const ProductDetails = styled.div`
-  flex: 1;
-  min-width: 0; // Needed for text-overflow to work
-`
-
-const ProductTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 10px 0;
-  color: #000;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  
-  ${SmallProductsGrid} & {
-    font-size: 11px;
-    margin: 0 0 2px 0;
-    line-height: 1.2;
-  }
-  
-  ${FullProductsGrid} & {
-    font-size: 14px;
-    margin: 0 0 6px 0;
-  }
-`
-
-const ProductPrice = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-  color: #000;
-  display: block;
-  
-  ${SmallProductsGrid} & {
-    font-size: 12px;
-  }
-  
-  ${FullProductsGrid} & {
-    font-size: 15px;
-  }
-`
-
-const AddToCartButton = styled.button`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
-  margin-left: 8px;
-  
-  &:hover {
-    background-color: #003d82;
-  }
-  
-  ${SmallProductsGrid} & {
-    width: 24px;
-    height: 24px;
-    margin-left: 4px;
-  }
-`
-
-const CartIcon = styled.img`
-  width: 16px;
-  height: 16px;
-  filter: invert(100%);
-  
-  ${SmallProductsGrid} & {
-    width: 12px;
-    height: 12px;
-  }
-`
 
 // Types
 interface Category {
@@ -865,37 +803,21 @@ interface Category {
 interface SimpleProductCardProps {
   image: string
   title: string
-  price: number
   id: number
 }
 
-const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, price }) => {
-  const { addToCart } = useCart();
-  const handleAddToCart = () => {
-    addToCart({
-      id: Math.random(), // Temporary ID solution
-      image,
-      title,
-      price
-    });
-  };
-
+// Now replace the SimpleProductCard component with this updated version
+const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id }) => {
   return (
     <SimpleProductCardStyled>
-      <Link to="/product-details">
+      <Link to={`/product/${id}`} state={{ product: { id, image, title } }}>
         <ProductImageWrapper>
           <ProductImage src={image || "/placeholder.svg"} alt={title} />
+          <ProductOverlay>
+            <h3>{title}</h3>
+          </ProductOverlay>
         </ProductImageWrapper>
       </Link>
-      <ProductInfo>
-        <ProductDetails>
-          <ProductTitle>{title}</ProductTitle>
-          <ProductPrice>${price.toFixed(2)}</ProductPrice>
-        </ProductDetails>
-        <AddToCartButton onClick={handleAddToCart}>
-          <CartIcon src="/imgs/Buy - 6.png" alt="Add to cart" />
-        </AddToCartButton>
-      </ProductInfo>
     </SimpleProductCardStyled>
   )
 }
@@ -924,8 +846,6 @@ const Index: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0)
   const [activeTab, setActiveTab] = useState("top-rated")
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [showAllCategoryProducts, setShowAllCategoryProducts] = useState(false)
   const [showAllTabProducts, setShowAllTabProducts] = useState(false)
 
   const slides = [
@@ -952,14 +872,6 @@ const Index: React.FC = () => {
     }
   }
 
-  // Get products for the selected category
-  const getCategoryProducts = () => {
-    if (!selectedCategory) return mockProducts.slice(0, showAllCategoryProducts ? undefined : 8)
-    return mockProducts
-      .filter((product) => product.category?.toLowerCase() === selectedCategory.toLowerCase())
-      .slice(0, showAllCategoryProducts ? undefined : 8)
-  }
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
@@ -975,12 +887,6 @@ const Index: React.FC = () => {
     setCurrentCategoryIndex((prev) => (prev > 0 ? prev - 1 : actualCategories.length - 4))
   }
 
-  const handleCategoryClick = (categoryName: string) => {
-    setSelectedCategory(categoryName)
-    setShowAllCategoryProducts(false)
-    // You could also navigate to a category page here
-    // history.push(`/category/${categoryName.toLowerCase()}`);
-  }
 
   useEffect(() => {
     const autoRotateInterval = setInterval(handleNextCategory, 3000)
@@ -1022,7 +928,7 @@ const Index: React.FC = () => {
               }}
             >
               {actualCategories.map((category) => (
-                <div key={category.id} onClick={() => handleCategoryClick(category.name)}>
+                <div key={category.id} onClick={() => (category.name)}>
                   <div className="categories-products-icon">
                     <CategoryIconWrapper>
                       <CategoryIcon src={category.image} alt={category.name} />
@@ -1033,43 +939,6 @@ const Index: React.FC = () => {
               ))}
             </CategoriesProducts>
           </SliderContainer>
-
-          {/* Display products for selected category - using SimpleProductCard */}
-          {selectedCategory && (
-            <div style={{ marginTop: "30px", width: "100%" }}>
-              <ProductSectionHeader>
-                <ViewAllLink onClick={() => setShowAllCategoryProducts(!showAllCategoryProducts)}>
-                  {showAllCategoryProducts ? "Show Less" : "View All " + selectedCategory}
-                </ViewAllLink>
-              </ProductSectionHeader>
-
-              {showAllCategoryProducts ? (
-                <FullProductsGrid>
-                  {getCategoryProducts().map((product) => (
-                    <SimpleProductCard
-                      key={product.id}
-                      id={product.id}
-                      image={product.image}
-                      title={product.title}
-                      price={product.price}
-                    />
-                  ))}
-                </FullProductsGrid>
-              ) : (
-                <SmallProductsGrid>
-                  {getCategoryProducts().map((product) => (
-                    <SimpleProductCard
-                      key={product.id}
-                      id={product.id}
-                      image={product.image}
-                      title={product.title}
-                      price={product.price}
-                    />
-                  ))}
-                </SmallProductsGrid>
-              )}
-            </div>
-          )}
         </CategoriesSection>
 
         <ItemsSection>
@@ -1080,7 +949,6 @@ const Index: React.FC = () => {
 
           <ImageSection>
             <Card>
-             
               <CardContent>
                 <img src="/imgs/Rectangle 17.png" alt="Nature Image" />
               </CardContent>
@@ -1097,7 +965,6 @@ const Index: React.FC = () => {
             </Card>
 
             <Card>
-              
               <GridContainer>
                 <img src="/imgs/Rectangle 51.png" alt="Forest" />
                 <img src="/imgs/Rectangle 52.png" alt="Ocean" />
@@ -1117,7 +984,6 @@ const Index: React.FC = () => {
             </Card>
 
             <Card>
-              
               <DoubleImageContainer>
                 <img src="/imgs/Rectangle 49.png" alt="Tech Image" />
                 <img src="/imgs/Rectangle 50.png" alt="Business Image" />
@@ -1139,39 +1005,20 @@ const Index: React.FC = () => {
           <div style={{ marginTop: "30px", width: "100%" }}>
             <ProductSectionHeader>
               <ViewAllLink onClick={() => setShowAllTabProducts(!showAllTabProducts)}>
-                {showAllTabProducts
-                  ? "Show Less"
-                  : "View All " +
-                    (activeTab === "top-rated"
-                      ? "Top Rated"
-                      : activeTab === "latest-arrivals"
-                        ? "Latest Arrivals"
-                        : "Best Deals")}
+                {showAllTabProducts ? "Show Less" : "View All"}
               </ViewAllLink>
             </ProductSectionHeader>
 
             {showAllTabProducts ? (
               <FullProductsGrid>
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard
-                    key={product.id}
-                    id={product.id}
-                    image={product.image}
-                    title={product.title}
-                    price={product.price}
-                  />
+                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
                 ))}
               </FullProductsGrid>
             ) : (
               <SmallProductsGrid>
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard
-                    key={product.id}
-                    id={product.id}
-                    image={product.image}
-                    title={product.title}
-                    price={product.price}
-                  />
+                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
                 ))}
               </SmallProductsGrid>
             )}
@@ -1276,3 +1123,4 @@ const Index: React.FC = () => {
 }
 
 export default Index
+
