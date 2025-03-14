@@ -1724,4 +1724,77 @@ export const mockProducts: Product[] = [
       }
     ]
   },
+  {
+    id: 35,
+    image: "/imgs/leather-handbag.jpeg",
+    thumbnails: [
+        "/imgs/leather-handbag-thumb1.png",
+        "/imgs/leather-handbag-thumb2.png",
+        "/imgs/leather-handbag-thumb3.png"
+    ],
+    badge: "NEW ARRIVAL",
+    title: "Luxury Leather Handbag",
+    rating: 4.8,
+    reviews: 120,
+    price: 149.99,
+    brand: "Elegance Paris",
+    condition: "New",
+    category: "Fashion",
+    features: [
+        "Genuine Leather Material",
+        "Handcrafted Design",
+        "Adjustable Shoulder Strap",
+        "Gold-Tone Hardware"
+    ],
+    specs: [
+        "Material: 100% Genuine Leather",
+        "Dimensions: 12” x 8” x 5”",
+        "Strap Length: Adjustable up to 45 inches",
+        "Lining: Premium Satin Fabric",
+        "Closure: Magnetic Snap & Zipper"
+    ],
+    descriptions: [
+        {
+            title: "Timeless Elegance",
+            content: "Crafted from premium genuine leather, this luxurious handbag embodies sophistication and style. With a spacious interior and gold-tone hardware, it's the perfect companion for any occasion."
+        }
+    ]
+  },
+  {
+    id: 36,
+    image: "/imgs/organic-fertilizer.jpeg",
+    thumbnails: [
+        "/imgs/organic-fertilizer-thumb1.png",
+        "/imgs/organic-fertilizer-thumb2.png",
+        "/imgs/organic-fertilizer-thumb3.png"
+    ],
+    badge: "BEST SELLER",
+    title: "Organic Fertilizer",
+    rating: 4.7,
+    reviews: 85,
+    price: 29.99,
+    brand: "GreenHarvest",
+    condition: "New",
+    category: "Agriculture",
+    features: [
+        "100% Organic & Eco-Friendly",
+        "Enhances Soil Fertility",
+        "Rich in Essential Nutrients",
+        "Suitable for All Crops"
+    ],
+    specs: [
+        "Type: Organic Compost",
+        "Weight: 10kg Bag",
+        "Nutrient Ratio: NPK 5-3-2",
+        "Application: Vegetables, Fruits, Flowers, Grains",
+        "Storage: Keep in a Cool, Dry Place"
+    ],
+    descriptions: [
+        {
+            title: "Boost Your Harvest Naturally",
+            content: "GreenHarvest Organic Fertilizer is a premium soil enhancer designed to improve plant health and increase yield. Made from all-natural ingredients, it ensures sustainable farming and rich, fertile soil."
+        }
+    ]
+},
+
 ];

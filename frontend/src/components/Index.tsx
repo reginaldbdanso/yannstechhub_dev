@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import Header from "./Header"
@@ -73,17 +73,12 @@ const CategoriesSection = styled.section`
   margin-top: 20px;
   align-self: center;
   justify-content: center;
+  overflow: hidden; /* Ensure overflow is hidden for the infinite loop effect */
 
   @media (max-width: 991px) {
     max-width: 100%;
     margin: 0% 0%;
   }
-`
-
-const CategoryTitle = styled.h3`
-  color: #000;
-  margin-top: 109px;
-  font: 700 25px Open Sans, sans-serif;
 `
 
 const HeroControls = styled.div`
@@ -117,6 +112,12 @@ const CategoriesProducts = styled.div`
   display: flex;
   gap: 1rem;
   transition: transform 0.5s ease;
+`
+
+const CategoryTitle = styled.h3`
+  color: #000;
+  margin-top: 109px;
+  font: 700 25px Open Sans, sans-serif;
 `
 
 const CategoryIconWrapper = styled.div`
@@ -790,8 +791,6 @@ const ProductImage = styled.img`
   }
 `
 
-
-
 // Types
 interface Category {
   id: number
@@ -823,30 +822,135 @@ const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id 
 }
 
 // Define the actual categories
-const actualCategories: Category[] = [
-  { id: 1, name: "Phones", image: "/imgs/Rectangle 9.png", link: "/phones" },
-  { id: 2, name: "Laptops", image: "/imgs/Rectangle 9.png", link: "/laptops" },
-  { id: 3, name: "Tablets", image: "/imgs/Rectangle 9.png", link: "/tablets" },
-  { id: 4, name: "Headphones", image: "/imgs/Rectangle 9.png", link: "/headphones" },
-  { id: 5, name: "Cameras", image: "/imgs/Rectangle 9.png", link: "/cameras" },
-  { id: 6, name: "TVs", image: "/imgs/Rectangle 9.png", link: "/tvs" },
-  { id: 7, name: "Speakers", image: "/imgs/Rectangle 9.png", link: "/speakers" },
-  { id: 8, name: "Wearables", image: "/imgs/Rectangle 9.png", link: "/wearables" },
-  { id: 9, name: "Gaming", image: "/imgs/Rectangle 9.png", link: "/gaming" },
-  { id: 10, name: "Accessories", image: "/imgs/Rectangle 9.png", link: "/accessories" },
-  { id: 11, name: "Smart Home", image: "/imgs/Rectangle 9.png", link: "/smart-home" },
-  { id: 12, name: "Office", image: "/imgs/Rectangle 9.png", link: "/office" },
-  { id: 13, name: "Audio", image: "/imgs/Rectangle 9.png", link: "/audio" },
-  { id: 14, name: "Storage", image: "/imgs/Rectangle 9.png", link: "/storage" },
-  { id: 15, name: "Networking", image: "/imgs/Rectangle 9.png", link: "/networking" },
-  { id: 16, name: "Components", image: "/imgs/Rectangle 9.png", link: "/components" },
-]
+// Extract unique categories from mockProducts
+const getUniqueCategories = () => {
+  const uniqueCategories: string[] = []
 
+  // Collect unique categories
+  mockProducts.forEach((product) => {
+    if (product.category && !uniqueCategories.includes(product.category)) {
+      uniqueCategories.push(product.category)
+    }
+  })
+
+  console.log("Unique categories found:", uniqueCategories)
+
+  // Map to Category objects
+  return uniqueCategories.map((category, index) => {
+    const categorySlug = category.toLowerCase().replace(/\s+/g, "-")
+    console.log(`Category: ${category}, Slug: ${categorySlug}`)
+
+    return {
+      id: index + 1,
+      name: category,
+      image: "/imgs/Rectangle 9.png", // Default image
+      link: `/category/${categorySlug}`,
+    }
+  })
+}
+
+// Get categories dynamically from products
+const actualCategories: Category[] = getUniqueCategories()
+
+// Update the Index component to include these changes
 const Index: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0)
   const [activeTab, setActiveTab] = useState("top-rated")
   const [showAllTabProducts, setShowAllTabProducts] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  // Create a reference to store the categories with clones for infinite loop
+  const categoriesWithClones = useMemo(() => {
+    if (actualCategories.length === 0) return []
+
+    // Clone the first few categories and append them to the end
+    // This creates the illusion of an infinite loop
+    const numClones = Math.min(4, actualCategories.length)
+    const clones = actualCategories.slice(0, numClones)
+    return [...actualCategories, ...clones]
+  }, [])
+
+  const totalCategories = actualCategories.length
+
+  const handleNextCategory = () => {
+    if (isTransitioning) return
+
+    setIsTransitioning(true)
+    setCurrentCategoryIndex((prev) => {
+      // If we're at the end of the original items, prepare to loop
+      if (prev >= totalCategories - 1) {
+        // We'll handle the reset in the transitionend effect
+        return prev + 1
+      }
+      return prev + 1
+    })
+  }
+
+  const handlePrevCategory = () => {
+    if (isTransitioning) return
+
+    setIsTransitioning(true)
+    setCurrentCategoryIndex((prev) => {
+      if (prev <= 0) {
+        // For backward movement, jump to the end
+        return totalCategories - 1
+      }
+      return prev - 1
+    })
+  }
+
+  // Handle the transition end and reset position if needed
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      setIsTransitioning(false)
+
+      // If we've scrolled past the original items to the clones
+      if (currentCategoryIndex >= totalCategories) {
+        // Immediately reset to the beginning without transition
+        setTimeout(() => {
+          const categoriesElement = document.querySelector(`.${CategoriesProducts.styledComponentId}`)
+          if (categoriesElement) {
+            categoriesElement.classList.add("no-transition")
+            setCurrentCategoryIndex(0)
+
+            // Force a reflow before removing the class
+            // void categoriesElement.offsetWidth
+
+            setTimeout(() => {
+              categoriesElement.classList.remove("no-transition")
+            }, 50)
+          }
+        }, 50)
+      }
+    }
+
+    const categoriesElement = document.querySelector(`.${CategoriesProducts.styledComponentId}`)
+    if (categoriesElement) {
+      categoriesElement.addEventListener("transitionend", handleTransitionEnd)
+      return () => {
+        categoriesElement.removeEventListener("transitionend", handleTransitionEnd)
+      }
+    }
+  }, [currentCategoryIndex, totalCategories])
+
+  // Auto-rotate categories
+  useEffect(() => {
+    const autoRotateInterval = setInterval(handleNextCategory, 3000)
+    return () => clearInterval(autoRotateInterval)
+  }, [isTransitioning])
+
+  // Add a global style for the no-transition class
+  useEffect(() => {
+    // Add a style tag for the no-transition class
+    const styleTag = document.createElement("style")
+    styleTag.innerHTML = `.no-transition { transition: none !important; }`
+    document.head.appendChild(styleTag)
+
+    return () => {
+      document.head.removeChild(styleTag)
+    }
+  }, [])
 
   const slides = [
     { id: 1, image: "/imgs/Banner 1.png" },
@@ -879,20 +983,6 @@ const Index: React.FC = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const handleNextCategory = () => {
-    setCurrentCategoryIndex((prev) => (prev < actualCategories.length - 4 ? prev + 1 : 0))
-  }
-
-  const handlePrevCategory = () => {
-    setCurrentCategoryIndex((prev) => (prev > 0 ? prev - 1 : actualCategories.length - 4))
-  }
-
-
-  useEffect(() => {
-    const autoRotateInterval = setInterval(handleNextCategory, 3000)
-    return () => clearInterval(autoRotateInterval)
-  }, [])
-
   // Reset view all state when tab changes
   useEffect(() => {
     setShowAllTabProducts(false)
@@ -922,22 +1012,32 @@ const Index: React.FC = () => {
           </HeroControls>
 
           <SliderContainer>
-            <CategoriesProducts
-              style={{
-                transform: `translateX(-${currentCategoryIndex * 144}px)`,
-              }}
-            >
-              {actualCategories.map((category) => (
-                <div key={category.id} onClick={() => (category.name)}>
-                  <div className="categories-products-icon">
-                    <CategoryIconWrapper>
-                      <CategoryIcon src={category.image} alt={category.name} />
-                    </CategoryIconWrapper>
-                    <CategoryLabel>{category.name}</CategoryLabel>
+            {categoriesWithClones.length > 0 ? (
+              <CategoriesProducts
+                style={{
+                  transform: `translateX(-${currentCategoryIndex * 144}px)`,
+                }}
+              >
+                {categoriesWithClones.map((category, index) => (
+                  <div key={`${category.id}-${index}`} style={{ cursor: "pointer" }}>
+                    <Link
+                      to={category.link}
+                      style={{ textDecoration: "none", display: "block" }}
+                      onClick={() => {
+                        console.log(`Clicked category: ${category.name}, navigating to: ${category.link}`)
+                      }}
+                    >
+                      <CategoryIconWrapper>
+                        <CategoryIcon src={category.image} alt={category.name} />
+                        <CategoryLabel>{category.name}</CategoryLabel>
+                      </CategoryIconWrapper>
+                    </Link>
                   </div>
-                </div>
-              ))}
-            </CategoriesProducts>
+                ))}
+              </CategoriesProducts>
+            ) : (
+              <div style={{ textAlign: "center", padding: "20px" }}>No categories found</div>
+            )}
           </SliderContainer>
         </CategoriesSection>
 
