@@ -73,9 +73,12 @@ const BreadcrumbItem = styled.span<{ bold?: boolean }>`
 const CheckoutContent = styled.main`
   display: flex;
   margin: 38px 39px;
+  width: 100%;
+  max-width: 75%;
   gap: 20px;
 
   @media (max-width: 991px) {
+    max-width: 100%;
     flex-direction: column;
     margin: 40px 10px;
   }
@@ -86,7 +89,8 @@ const ShippingSection = styled.section`
   padding: 15px 0;
 
   @media (max-width: 991px) {
-    width: 100%;
+    width: 95%;
+    align-self: center;
   }
 `;
 
@@ -177,7 +181,8 @@ const OrderSummary = styled.section`
   width: 38%;
 
   @media (max-width: 991px) {
-    width: 100%;
+    width: 95%;
+    align-self: center;
   }
 `;
 
@@ -200,13 +205,6 @@ const SummaryHeader = styled.header`
   font-weight: 700;
 `;
 
-const EditButton = styled.button`
-  background: none;
-  border: none;
-  color: #000;
-  cursor: pointer;
-  font-weight: 700;
-`;
 
 const OrderItems = styled.div`
   margin-top: 30px;
@@ -233,6 +231,12 @@ const RemoveIcon = styled.img`
     opacity: 0.8;
   }
 `;
+const FirstItem = styled.div`
+display: flex;
+width: 45%;
+flex-direction: column;
+`;
+
 
 const ItemImage = styled.img`
   width: 89px;
@@ -246,8 +250,8 @@ const ItemTitle = styled.h3`
   font-size: 15px;
   font-weight: 500;
   margin: 10px 0 0 0;
-  width: 89px;
-  text-align: center;
+  width: 140px;
+  text-align: start;
 `;
 
 const ItemDetails = styled.div`
@@ -286,12 +290,6 @@ const ItemTotalPrice = styled.p`
   order: 4;
 `;
 
-const ItemQuantity = styled.p`
-  margin: 8px 0;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-`;
 
 const ItemDivider = styled.hr`
   border: 0;
@@ -356,13 +354,6 @@ interface FormData {
   setAsDefault: boolean;
 }
 
-interface CartItem {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  quantity: number;
-}
 
 const QuantityButton = styled.button`
   padding: 5px 10px;
@@ -545,10 +536,6 @@ const ShippingAddress: React.FC = () => {
                   required
                 />
               </FormGroup>
-
-              <CheckoutButton to="/shipping-details">
-                Proceed to checkout
-              </CheckoutButton>
             </ShippingForm>
           </ShippingSection>
 
@@ -568,11 +555,13 @@ const ShippingAddress: React.FC = () => {
                         alt="Remove"
                         onClick={() => removeFromCart(item.id)}
                       />
+                      <FirstItem>
                       <ItemImage
                         src={item.image}
                         alt={item.title}
                       />
                       <ItemTitle>{item.title}</ItemTitle>
+                      </FirstItem>
                       <ItemDetails>
                         <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
                         <QuantityControl>
@@ -603,7 +592,11 @@ const ShippingAddress: React.FC = () => {
                 </SummaryValues>
               </SummaryGrid>
             </TotalSummary>
+            <CheckoutButton to="/shipping-details">
+                Proceed to checkout
+              </CheckoutButton>
           </OrderSummary>
+          
         </CheckoutContent>
       </MainContents>
       <Footer />

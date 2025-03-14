@@ -2,16 +2,15 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
+import { mockProducts } from "../data/mockProducts"
+import ProductCard from "./ProductCard"
 import Header from "./Header"
 import Footer from "./Footer"
-import ProductCard from "./ProductCard"
-import { mockProducts } from "../data/mockProducts"
 
-// Use the type from mockProducts directly
-type Product = (typeof mockProducts)[0]
-
-const Container = styled.section`
+// Styled Components
+const PageContainer = styled.div`
   background-color: #eef2f4;
   display: flex;
   flex-direction: column;
@@ -139,14 +138,6 @@ const PageButton = styled.button<{ active?: boolean }>`
   }
 `
 
-const StatusMessage = styled.div`
-  margin: 40px 0;
-  text-align: center;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  color: #555;
-`
-
 const ItemsPerPageContainer = styled.div`
   display: flex;
   align-items: center;
@@ -175,65 +166,127 @@ const ResultsInfo = styled.div`
   color: #555;
 `
 
-type SortOption = "recommended" | "bestSellers" | "lowPrice" | "highPrice" | "reviews"
+const CategoryDescription = styled.p`
+  width: 100%;
+  max-width: 70%;
+  text-align: left;
+  margin-top: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #333;
+`
 
-const DailyDeals: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([])
-  const [sortOption, setSortOption] = useState<SortOption>("recommended")
+const NoProductsMessage = styled.div`
+  text-align: center;
+  padding: 50px 0;
+  font-size: 18px;
+  color: #666;
+  width: 100%;
+  max-width: 70%;
+`
+
+const DebugInfo = styled.div`
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  display: none; /* Set to 'block' to show debug info */
+  width: 100%;
+  max-width: 70%;
+`
+
+type SortOption = "default" | "price-low-high" | "price-high-low" | "rating-high-low" | "name-a-z" | "name-z-a"
+
+const CategoryProducts: React.FC = () => {
+  const { category } = useParams<{ category: string }>()
+  const [filteredProducts, setFilteredProducts] = useState<typeof mockProducts>([])
+  const [sortOption, setSortOption] = useState<SortOption>("default")
+  const [debugInfo, setDebugInfo] = useState<string>("")
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(15)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
 
-  // Simulate data fetching with a delay
+  // Format the category name for display (convert from URL format to display format)
+  const formatCategoryName = (categorySlug: string) => {
+    return categorySlug
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  }
+
+  const displayCategory = category ? formatCategoryName(category) : ""
+
+  // Filter products by category
   useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true)
-      try {
-        // Simulate API call with timeout
-        await new Promise((resolve) => setTimeout(resolve, 800))
-        setProducts(mockProducts)
-        setError(null)
-      } catch (err) {
-        setError("Failed to load products. Please try again later.")
-        console.error("Error fetching products:", err)
-      } finally {
-        setIsLoading(false)
-      }
+    let debug = ""
+    debug += `Category param: ${category}\n`
+    debug += `All categories in mockProducts: ${mockProducts.map((p) => p.category).join(", ")}\n\n`
+
+    if (category) {
+      // Convert URL format to a comparable format
+      const categoryParam = category.toLowerCase()
+      debug += `Looking for products with category matching: ${categoryParam}\n\n`
+
+      const filtered = mockProducts.filter((product) => {
+        if (!product.category) return false
+
+        // Convert product category to URL-friendly format for comparison
+        const productCategory = product.category.toLowerCase().replace(/\s+/g, "-")
+
+        debug += `Product: ${product.title}, Category: ${product.category}, URL format: ${productCategory}, Match: ${productCategory === categoryParam}\n`
+
+        return productCategory === categoryParam
+      })
+
+      debug += `\nFound ${filtered.length} matching products`
+      setDebugInfo(debug)
+
+      console.log("Filtered products:", filtered)
+      setFilteredProducts(filtered)
+    } else {
+      debug += "No category parameter, showing all products"
+      setDebugInfo(debug)
+      setFilteredProducts(mockProducts)
     }
 
-    fetchProducts()
-  }, [])
+    // Reset to first page when category changes
+    setCurrentPage(1)
+  }, [category])
 
-  // Sort products when sort option changes
+  // Sort products based on selected option
   useEffect(() => {
-    if (products.length === 0) return
+    if (filteredProducts.length === 0) return
 
-    const sortProducts = () => {
-      const productsCopy = [...products]
+    const sortedProducts = [...filteredProducts]
 
-      switch (sortOption) {
-        case "bestSellers":
-          return productsCopy.sort((a, b) => b.reviews - a.reviews)
-        case "lowPrice":
-          return productsCopy.sort((a, b) => a.price - b.price)
-        case "highPrice":
-          return productsCopy.sort((a, b) => b.price - a.price)
-        case "reviews":
-          return productsCopy.sort((a, b) => b.rating - a.rating)
-        case "recommended":
-        default:
-          // For recommended, we could use a more complex algorithm
-          // Here we'll just mix rating and reviews
-          return productsCopy.sort((a, b) => b.rating * b.reviews - a.rating * a.reviews)
-      }
+    switch (sortOption) {
+      case "price-low-high":
+        sortedProducts.sort((a, b) => a.price - b.price)
+        break
+      case "price-high-low":
+        sortedProducts.sort((a, b) => b.price - a.price)
+        break
+      case "rating-high-low":
+        sortedProducts.sort((a, b) => b.rating - a.rating)
+        break
+      case "name-a-z":
+        sortedProducts.sort((a, b) => a.title.localeCompare(b.title))
+        break
+      case "name-z-a":
+        sortedProducts.sort((a, b) => b.title.localeCompare(a.title))
+        break
+      default:
+        // Keep default order
+        break
     }
 
-    setProducts(sortProducts())
+    setFilteredProducts(sortedProducts)
     setCurrentPage(1) // Reset to first page when sorting changes
   }, [sortOption])
 
-  // Handle sort change
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortOption(e.target.value as SortOption)
   }
@@ -245,10 +298,10 @@ const DailyDeals: React.FC = () => {
   }
 
   // Calculate pagination
-  const totalPages = Math.ceil(products.length / itemsPerPage)
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
   const indexOfLastProduct = currentPage * itemsPerPage
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct)
 
   // Generate page numbers
   const pageNumbers = []
@@ -262,7 +315,7 @@ const DailyDeals: React.FC = () => {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
 
   return (
-    <Container>
+    <PageContainer>
       <MainContent>
         <Header />
         <Divider top />
@@ -270,47 +323,53 @@ const DailyDeals: React.FC = () => {
         <BreadcrumbSort>
           <Breadcrumb>
             <BreadcrumbItem bold>yannstechub</BreadcrumbItem>
-            <BreadcrumbItem>/ Daily deals</BreadcrumbItem>
+            <BreadcrumbItem>/ {displayCategory || "All Products"}</BreadcrumbItem>
           </Breadcrumb>
           <SortContainer>
             <SortLabel htmlFor="sortSelect">Sort by</SortLabel>
             <SortSelect id="sortSelect" aria-label="Sort products" value={sortOption} onChange={handleSortChange}>
-              <option value="recommended">Recommended</option>
-              <option value="bestSellers">Best Sellers</option>
-              <option value="lowPrice">Low Price</option>
-              <option value="highPrice">High Price</option>
-              <option value="reviews">Top Rated</option>
+              <option value="default">Featured</option>
+              <option value="price-low-high">Price: Low to High</option>
+              <option value="price-high-low">Price: High to Low</option>
+              <option value="rating-high-low">Rating: High to Low</option>
+              <option value="name-a-z">Name: A to Z</option>
+              <option value="name-z-a">Name: Z to A</option>
             </SortSelect>
           </SortContainer>
         </BreadcrumbSort>
 
         <Divider />
 
-        {isLoading ? (
-          <StatusMessage>Loading products...</StatusMessage>
-        ) : error ? (
-          <StatusMessage>{error}</StatusMessage>
-        ) : (
-          <>
-            <ResultsInfo>
-              Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, products.length)} of {products.length}{" "}
-              products
-            </ResultsInfo>
+        {/* Debug information - set display to 'block' in styled component to show */}
+        <DebugInfo>{debugInfo}</DebugInfo>
 
+        {displayCategory && (
+          <CategoryDescription>
+            Browse our selection of {displayCategory.toLowerCase()} from top brands.
+          </CategoryDescription>
+        )}
+
+        <ResultsInfo>
+          Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
+          {filteredProducts.length} products
+        </ResultsInfo>
+
+        {currentProducts.length > 0 ? (
+          <>
             <ProductsGrid>
               {currentProducts.map((product) => (
                 <ProductCard
                   key={product.id}
-                  id={product.id} // Pass the product ID
+                  id={product.id}
                   image={product.image}
                   title={product.title}
                   rating={product.rating}
                   reviews={product.reviews}
                   price={product.price}
+                  badge={product.badge}
                 />
               ))}
             </ProductsGrid>
-           
 
             {totalPages > 1 && (
               <PaginationContainer>
@@ -350,12 +409,16 @@ const DailyDeals: React.FC = () => {
               </ItemsPerPageSelect>
             </ItemsPerPageContainer>
           </>
+        ) : (
+          <NoProductsMessage>
+            No products found in this category. Please check back later or browse other categories.
+          </NoProductsMessage>
         )}
       </MainContent>
       <Footer />
-    </Container>
+    </PageContainer>
   )
 }
 
-export default DailyDeals
+export default CategoryProducts
 

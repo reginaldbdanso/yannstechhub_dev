@@ -1,13 +1,12 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import styled from "styled-components"
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
-import ProductCard from "./ProductCard" 
-import { useCart } from '../context/CartContext';// Import the original ProductCard
+import ProductCard from "./ProductCard"
 import { mockProducts } from "../data/mockProducts"
 
 // Styled Components
@@ -74,17 +73,12 @@ const CategoriesSection = styled.section`
   margin-top: 20px;
   align-self: center;
   justify-content: center;
+  overflow: hidden; /* Ensure overflow is hidden for the infinite loop effect */
 
   @media (max-width: 991px) {
     max-width: 100%;
     margin: 0% 0%;
   }
-`
-
-const CategoryTitle = styled.h3`
-  color: #000;
-  margin-top: 109px;
-  font: 700 25px Open Sans, sans-serif;
 `
 
 const HeroControls = styled.div`
@@ -118,6 +112,12 @@ const CategoriesProducts = styled.div`
   display: flex;
   gap: 1rem;
   transition: transform 0.5s ease;
+`
+
+const CategoryTitle = styled.h3`
+  color: #000;
+  margin-top: 109px;
+  font: 700 25px Open Sans, sans-serif;
 `
 
 const CategoryIconWrapper = styled.div`
@@ -200,7 +200,7 @@ const Card = styled.div`
 
   a {
     margin-bottom: 20px;
-    color: #000;
+    color: #9a9494;
     text-decoration: none;
     font-weight: 600;
     padding: 10px 0;
@@ -209,7 +209,7 @@ const Card = styled.div`
     
     &.active {
       font-weight: 700;
-      color: #0055b6;
+      color:rgb(6, 6, 6);
       
       &:after {
         content: '';
@@ -218,12 +218,12 @@ const Card = styled.div`
         left: 0;
         width: 100%;
         height: 2px;
-        background-color: #0055b6;
+        background-color:rgb(6, 6, 6);
       }
     }
 
     &:hover {
-      color: #0055b6;
+      color:rgb(6, 6, 6);
     }
   }
 
@@ -321,19 +321,21 @@ const ProductsGrid = styled.div`
   }
 `
 
-// Updated to be a horizontal slider with reduced height
+// Update the SmallProductsGrid to have consistent card sizing with FullProductsGrid
+// and improve the scrolling functionality
 const SmallProductsGrid = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 15px;
   width: 100%;
   overflow-x: auto;
   padding: 0;
   margin: 0;
-  height: 160px; // Adjusted height for better consistency
+  height: auto; // Remove fixed height to allow cards to determine the height
   scrollbar-width: thin;
+  padding: 20px 0;
   
   &::-webkit-scrollbar {
-    height: 3px;
+    height: 5px;
   }
   
   &::-webkit-scrollbar-track {
@@ -351,8 +353,7 @@ const SmallProductsGrid = styled.div`
   }
   
   @media (max-width: 991px) {
-    gap: 6px;
-    height: 130px; // Adjusted for better mobile view
+    gap: 10px;
   }
 `
 
@@ -376,9 +377,13 @@ const ProductSectionHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-bottom: 8px;
+  margin-top: -60px;
   padding-bottom: 8px;
   border-bottom: 1px solid #e5e5e5;
+  
+  @media (max-width: 991px) {
+    margin-top: 0px;
+  }
 `
 
 const ViewAllLink = styled.a`
@@ -669,7 +674,7 @@ const TrendCard = styled.div`
     font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
-    margin-top: 10px;
+    margin-top: 20px;
     position: relative;
     z-index: 2;
   }
@@ -688,20 +693,18 @@ const HighlightCircle = styled.div`
   right: 30px;
 
   img {
-    width: 24px;
-    height: 24px;
+    width: 15px;
   }
 `
 
-// Simplified Product Card Component (renamed to avoid conflicts)
+// Update the SimpleProductCardStyled to have consistent sizing in both grid types
 const SimpleProductCardStyled = styled.div`
-  border-radius: 8px;
+  border-radius: 1rem;
   overflow: hidden;
+  text-align: center;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 160px;
-  flex-shrink: 0;
   position: relative;
   
   &:hover {
@@ -709,18 +712,15 @@ const SimpleProductCardStyled = styled.div`
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
   
-  @media (max-width: 991px) {
-    min-width: 130px;
-  }
-  
-  // Make cards in SmallProductsGrid much smaller
+  // Make cards in SmallProductsGrid match FullProductsGrid
   ${SmallProductsGrid} & {
-    min-width: 120px; // Increased minimum width for better consistency
-    height: 100%;
-    margin-right: 0; // Removed negative margin
+    min-width: 160px; // Match the minmax width from FullProductsGrid
+    width: 160px; // Fixed width for consistency
+    flex-shrink: 0; // Prevent shrinking in flex container
     
     @media (max-width: 991px) {
-      min-width: 100px; // Adjusted mobile width
+      min-width: 130px;
+      width: 130px;
     }
   }
   
@@ -728,7 +728,36 @@ const SimpleProductCardStyled = styled.div`
   ${FullProductsGrid} & {
     min-width: 0; // Allow the grid to control the width
     width: 100%;
-    height: auto;
+  }
+`
+
+// Update the ProductOverlay to cover the entire image with a gradient
+const ProductOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgb(0 0 0 / 62%) 50%, rgba(0, 0, 0, 0) 100%); 
+  padding: 10px;
+  color: white;
+  transition: opacity 0.3s ease;
+  
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;
+  }
+  
+  // ${SmallProductsGrid} & {
+  //   padding: 6px;
+    
+  //   h3 {
+  //     font-size: 12px;
+  //   }
   }
 `
 
@@ -736,121 +765,29 @@ const ProductImageWrapper = styled.div`
   position: relative;
   width: 100%;
   cursor: pointer;
+  overflow: hidden;
 `
 
+// Update the ProductImage to have consistent sizing
 const ProductImage = styled.img`
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
   
   ${SmallProductsGrid} & {
-    aspect-ratio: 1;
-    height: 110px; // Adjusted height to match container
+    height: 160px; // Match height with FullProductsGrid
     
     @media (max-width: 991px) {
-      height: 90px; // Adjusted mobile height
+      height: 130px;
     }
   }
   
   ${FullProductsGrid} & {
-    height: 140px;
+    height: 160px;
     
     @media (max-width: 991px) {
-      height: 120px;
+      height: 130px;
     }
-  }
-`
-
-const ProductInfo = styled.div`
-  padding: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  ${SmallProductsGrid} & {
-    padding: 4px;
-    height: 40px;
-  }
-  
-  ${FullProductsGrid} & {
-    padding: 8px;
-    height: auto;
-  }
-`
-
-const ProductDetails = styled.div`
-  flex: 1;
-  min-width: 0; // Needed for text-overflow to work
-`
-
-const ProductTitle = styled.h3`
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 10px 0;
-  color: #000;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  
-  ${SmallProductsGrid} & {
-    font-size: 11px;
-    margin: 0 0 2px 0;
-    line-height: 1.2;
-  }
-  
-  ${FullProductsGrid} & {
-    font-size: 14px;
-    margin: 0 0 6px 0;
-  }
-`
-
-const ProductPrice = styled.span`
-  font-size: 18px;
-  font-weight: 700;
-  color: #000;
-  display: block;
-  
-  ${SmallProductsGrid} & {
-    font-size: 12px;
-  }
-  
-  ${FullProductsGrid} & {
-    font-size: 15px;
-  }
-`
-
-const AddToCartButton = styled.button`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  flex-shrink: 0;
-  margin-left: 8px;
-  
-  &:hover {
-    background-color: #003d82;
-  }
-  
-  ${SmallProductsGrid} & {
-    width: 24px;
-    height: 24px;
-    margin-left: 4px;
-  }
-`
-
-const CartIcon = styled.img`
-  width: 16px;
-  height: 16px;
-  filter: invert(100%);
-  
-  ${SmallProductsGrid} & {
-    width: 12px;
-    height: 12px;
   }
 `
 
@@ -865,68 +802,155 @@ interface Category {
 interface SimpleProductCardProps {
   image: string
   title: string
-  price: number
   id: number
 }
 
-const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, price }) => {
-  const { addToCart } = useCart();
-  const handleAddToCart = () => {
-    addToCart({
-      id: Math.random(), // Temporary ID solution
-      image,
-      title,
-      price
-    });
-  };
-
+// Now replace the SimpleProductCard component with this updated version
+const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id }) => {
   return (
     <SimpleProductCardStyled>
-      <Link to="/product-details">
+      <Link to={`/product/${id}`} state={{ product: { id, image, title } }}>
         <ProductImageWrapper>
           <ProductImage src={image || "/placeholder.svg"} alt={title} />
+          <ProductOverlay>
+            <h3>{title}</h3>
+          </ProductOverlay>
         </ProductImageWrapper>
       </Link>
-      <ProductInfo>
-        <ProductDetails>
-          <ProductTitle>{title}</ProductTitle>
-          <ProductPrice>${price.toFixed(2)}</ProductPrice>
-        </ProductDetails>
-        <AddToCartButton onClick={handleAddToCart}>
-          <CartIcon src="/imgs/Buy - 6.png" alt="Add to cart" />
-        </AddToCartButton>
-      </ProductInfo>
     </SimpleProductCardStyled>
   )
 }
 
 // Define the actual categories
-const actualCategories: Category[] = [
-  { id: 1, name: "Phones", image: "/imgs/Rectangle 9.png", link: "/phones" },
-  { id: 2, name: "Laptops", image: "/imgs/Rectangle 9.png", link: "/laptops" },
-  { id: 3, name: "Tablets", image: "/imgs/Rectangle 9.png", link: "/tablets" },
-  { id: 4, name: "Headphones", image: "/imgs/Rectangle 9.png", link: "/headphones" },
-  { id: 5, name: "Cameras", image: "/imgs/Rectangle 9.png", link: "/cameras" },
-  { id: 6, name: "TVs", image: "/imgs/Rectangle 9.png", link: "/tvs" },
-  { id: 7, name: "Speakers", image: "/imgs/Rectangle 9.png", link: "/speakers" },
-  { id: 8, name: "Wearables", image: "/imgs/Rectangle 9.png", link: "/wearables" },
-  { id: 9, name: "Gaming", image: "/imgs/Rectangle 9.png", link: "/gaming" },
-  { id: 10, name: "Accessories", image: "/imgs/Rectangle 9.png", link: "/accessories" },
-  { id: 11, name: "Smart Home", image: "/imgs/Rectangle 9.png", link: "/smart-home" },
-  { id: 12, name: "Office", image: "/imgs/Rectangle 9.png", link: "/office" },
-  { id: 13, name: "Audio", image: "/imgs/Rectangle 9.png", link: "/audio" },
-  { id: 14, name: "Storage", image: "/imgs/Rectangle 9.png", link: "/storage" },
-  { id: 15, name: "Networking", image: "/imgs/Rectangle 9.png", link: "/networking" },
-  { id: 16, name: "Components", image: "/imgs/Rectangle 9.png", link: "/components" },
-]
+// Extract unique categories from mockProducts
+const getUniqueCategories = () => {
+  const uniqueCategories: string[] = []
 
+  // Collect unique categories
+  mockProducts.forEach((product) => {
+    if (product.category && !uniqueCategories.includes(product.category)) {
+      uniqueCategories.push(product.category)
+    }
+  })
+
+  console.log("Unique categories found:", uniqueCategories)
+
+  // Map to Category objects
+  return uniqueCategories.map((category, index) => {
+    const categorySlug = category.toLowerCase().replace(/\s+/g, "-")
+    console.log(`Category: ${category}, Slug: ${categorySlug}`)
+
+    return {
+      id: index + 1,
+      name: category,
+      image: "/imgs/Rectangle 9.png", // Default image
+      link: `/category/${categorySlug}`,
+    }
+  })
+}
+
+// Get categories dynamically from products
+const actualCategories: Category[] = getUniqueCategories()
+
+// Update the Index component to include these changes
 const Index: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0)
   const [activeTab, setActiveTab] = useState("top-rated")
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [showAllCategoryProducts, setShowAllCategoryProducts] = useState(false)
   const [showAllTabProducts, setShowAllTabProducts] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  // Create a reference to store the categories with clones for infinite loop
+  const categoriesWithClones = useMemo(() => {
+    if (actualCategories.length === 0) return []
+
+    // Clone the first few categories and append them to the end
+    // This creates the illusion of an infinite loop
+    const numClones = Math.min(4, actualCategories.length)
+    const clones = actualCategories.slice(0, numClones)
+    return [...actualCategories, ...clones]
+  }, [])
+
+  const totalCategories = actualCategories.length
+
+  const handleNextCategory = () => {
+    if (isTransitioning) return
+
+    setIsTransitioning(true)
+    setCurrentCategoryIndex((prev) => {
+      // If we're at the end of the original items, prepare to loop
+      if (prev >= totalCategories - 1) {
+        // We'll handle the reset in the transitionend effect
+        return prev + 1
+      }
+      return prev + 1
+    })
+  }
+
+  const handlePrevCategory = () => {
+    if (isTransitioning) return
+
+    setIsTransitioning(true)
+    setCurrentCategoryIndex((prev) => {
+      if (prev <= 0) {
+        // For backward movement, jump to the end
+        return totalCategories - 1
+      }
+      return prev - 1
+    })
+  }
+
+  // Handle the transition end and reset position if needed
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      setIsTransitioning(false)
+
+      // If we've scrolled past the original items to the clones
+      if (currentCategoryIndex >= totalCategories) {
+        // Immediately reset to the beginning without transition
+        setTimeout(() => {
+          const categoriesElement = document.querySelector(`.${CategoriesProducts.styledComponentId}`)
+          if (categoriesElement) {
+            categoriesElement.classList.add("no-transition")
+            setCurrentCategoryIndex(0)
+
+            // Force a reflow before removing the class
+            // void categoriesElement.offsetWidth
+
+            setTimeout(() => {
+              categoriesElement.classList.remove("no-transition")
+            }, 50)
+          }
+        }, 50)
+      }
+    }
+
+    const categoriesElement = document.querySelector(`.${CategoriesProducts.styledComponentId}`)
+    if (categoriesElement) {
+      categoriesElement.addEventListener("transitionend", handleTransitionEnd)
+      return () => {
+        categoriesElement.removeEventListener("transitionend", handleTransitionEnd)
+      }
+    }
+  }, [currentCategoryIndex, totalCategories])
+
+  // Auto-rotate categories
+  useEffect(() => {
+    const autoRotateInterval = setInterval(handleNextCategory, 3000)
+    return () => clearInterval(autoRotateInterval)
+  }, [isTransitioning])
+
+  // Add a global style for the no-transition class
+  useEffect(() => {
+    // Add a style tag for the no-transition class
+    const styleTag = document.createElement("style")
+    styleTag.innerHTML = `.no-transition { transition: none !important; }`
+    document.head.appendChild(styleTag)
+
+    return () => {
+      document.head.removeChild(styleTag)
+    }
+  }, [])
 
   const slides = [
     { id: 1, image: "/imgs/Banner 1.png" },
@@ -952,39 +976,11 @@ const Index: React.FC = () => {
     }
   }
 
-  // Get products for the selected category
-  const getCategoryProducts = () => {
-    if (!selectedCategory) return mockProducts.slice(0, showAllCategoryProducts ? undefined : 8)
-    return mockProducts
-      .filter((product) => product.category?.toLowerCase() === selectedCategory.toLowerCase())
-      .slice(0, showAllCategoryProducts ? undefined : 8)
-  }
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length)
     }, 5000)
     return () => clearInterval(interval)
-  }, [])
-
-  const handleNextCategory = () => {
-    setCurrentCategoryIndex((prev) => (prev < actualCategories.length - 4 ? prev + 1 : 0))
-  }
-
-  const handlePrevCategory = () => {
-    setCurrentCategoryIndex((prev) => (prev > 0 ? prev - 1 : actualCategories.length - 4))
-  }
-
-  const handleCategoryClick = (categoryName: string) => {
-    setSelectedCategory(categoryName)
-    setShowAllCategoryProducts(false)
-    // You could also navigate to a category page here
-    // history.push(`/category/${categoryName.toLowerCase()}`);
-  }
-
-  useEffect(() => {
-    const autoRotateInterval = setInterval(handleNextCategory, 3000)
-    return () => clearInterval(autoRotateInterval)
   }, [])
 
   // Reset view all state when tab changes
@@ -1016,60 +1012,33 @@ const Index: React.FC = () => {
           </HeroControls>
 
           <SliderContainer>
-            <CategoriesProducts
-              style={{
-                transform: `translateX(-${currentCategoryIndex * 144}px)`,
-              }}
-            >
-              {actualCategories.map((category) => (
-                <div key={category.id} onClick={() => handleCategoryClick(category.name)}>
-                  <div className="categories-products-icon">
-                    <CategoryIconWrapper>
-                      <CategoryIcon src={category.image} alt={category.name} />
-                    </CategoryIconWrapper>
-                    <CategoryLabel>{category.name}</CategoryLabel>
+            {categoriesWithClones.length > 0 ? (
+              <CategoriesProducts
+                style={{
+                  transform: `translateX(-${currentCategoryIndex * 144}px)`,
+                }}
+              >
+                {categoriesWithClones.map((category, index) => (
+                  <div key={`${category.id}-${index}`} style={{ cursor: "pointer" }}>
+                    <Link
+                      to={category.link}
+                      style={{ textDecoration: "none", display: "block" }}
+                      onClick={() => {
+                        console.log(`Clicked category: ${category.name}, navigating to: ${category.link}`)
+                      }}
+                    >
+                      <CategoryIconWrapper>
+                        <CategoryIcon src={category.image} alt={category.name} />
+                        <CategoryLabel>{category.name}</CategoryLabel>
+                      </CategoryIconWrapper>
+                    </Link>
                   </div>
-                </div>
-              ))}
-            </CategoriesProducts>
+                ))}
+              </CategoriesProducts>
+            ) : (
+              <div style={{ textAlign: "center", padding: "20px" }}>No categories found</div>
+            )}
           </SliderContainer>
-
-          {/* Display products for selected category - using SimpleProductCard */}
-          {selectedCategory && (
-            <div style={{ marginTop: "30px", width: "100%" }}>
-              <ProductSectionHeader>
-                <ViewAllLink onClick={() => setShowAllCategoryProducts(!showAllCategoryProducts)}>
-                  {showAllCategoryProducts ? "Show Less" : "View All " + selectedCategory}
-                </ViewAllLink>
-              </ProductSectionHeader>
-
-              {showAllCategoryProducts ? (
-                <FullProductsGrid>
-                  {getCategoryProducts().map((product) => (
-                    <SimpleProductCard
-                      key={product.id}
-                      id={product.id}
-                      image={product.image}
-                      title={product.title}
-                      price={product.price}
-                    />
-                  ))}
-                </FullProductsGrid>
-              ) : (
-                <SmallProductsGrid>
-                  {getCategoryProducts().map((product) => (
-                    <SimpleProductCard
-                      key={product.id}
-                      id={product.id}
-                      image={product.image}
-                      title={product.title}
-                      price={product.price}
-                    />
-                  ))}
-                </SmallProductsGrid>
-              )}
-            </div>
-          )}
         </CategoriesSection>
 
         <ItemsSection>
@@ -1080,6 +1049,9 @@ const Index: React.FC = () => {
 
           <ImageSection>
             <Card>
+              <CardContent>
+                <img src="/imgs/Rectangle 17.png" alt="Nature Image" />
+              </CardContent>
               <a
                 href="#top-rated"
                 onClick={(e) => {
@@ -1090,12 +1062,15 @@ const Index: React.FC = () => {
               >
                 Top Rated
               </a>
-              <CardContent>
-                <img src="/imgs/Rectangle 17.png" alt="Nature Image" />
-              </CardContent>
             </Card>
 
             <Card>
+              <GridContainer>
+                <img src="/imgs/Rectangle 51.png" alt="Forest" />
+                <img src="/imgs/Rectangle 52.png" alt="Ocean" />
+                <img src="/imgs/Rectangle 53.png" alt="Mountain" />
+                <img src="/imgs/Rectangle 54.png" alt="City" />
+              </GridContainer>
               <a
                 href="#latest-arrivals"
                 onClick={(e) => {
@@ -1106,15 +1081,13 @@ const Index: React.FC = () => {
               >
                 Latest Arrivals
               </a>
-              <GridContainer>
-                <img src="/imgs/Rectangle 51.png" alt="Forest" />
-                <img src="/imgs/Rectangle 52.png" alt="Ocean" />
-                <img src="/imgs/Rectangle 53.png" alt="Mountain" />
-                <img src="/imgs/Rectangle 54.png" alt="City" />
-              </GridContainer>
             </Card>
 
             <Card>
+              <DoubleImageContainer>
+                <img src="/imgs/Rectangle 49.png" alt="Tech Image" />
+                <img src="/imgs/Rectangle 50.png" alt="Business Image" />
+              </DoubleImageContainer>
               <a
                 href="#best-deals"
                 onClick={(e) => {
@@ -1125,10 +1098,6 @@ const Index: React.FC = () => {
               >
                 Best Deals
               </a>
-              <DoubleImageContainer>
-                <img src="/imgs/Rectangle 49.png" alt="Tech Image" />
-                <img src="/imgs/Rectangle 50.png" alt="Business Image" />
-              </DoubleImageContainer>
             </Card>
           </ImageSection>
 
@@ -1136,39 +1105,20 @@ const Index: React.FC = () => {
           <div style={{ marginTop: "30px", width: "100%" }}>
             <ProductSectionHeader>
               <ViewAllLink onClick={() => setShowAllTabProducts(!showAllTabProducts)}>
-                {showAllTabProducts
-                  ? "Show Less"
-                  : "View All " +
-                    (activeTab === "top-rated"
-                      ? "Top Rated"
-                      : activeTab === "latest-arrivals"
-                        ? "Latest Arrivals"
-                        : "Best Deals")}
+                {showAllTabProducts ? "Show Less" : "View All"}
               </ViewAllLink>
             </ProductSectionHeader>
 
             {showAllTabProducts ? (
               <FullProductsGrid>
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard
-                    key={product.id}
-                    id={product.id}
-                    image={product.image}
-                    title={product.title}
-                    price={product.price}
-                  />
+                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
                 ))}
               </FullProductsGrid>
             ) : (
               <SmallProductsGrid>
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard
-                    key={product.id}
-                    id={product.id}
-                    image={product.image}
-                    title={product.title}
-                    price={product.price}
-                  />
+                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
                 ))}
               </SmallProductsGrid>
             )}
@@ -1202,6 +1152,7 @@ const Index: React.FC = () => {
               rating={product.rating}
               reviews={product.reviews}
               price={product.price}
+              noBorder
             />
           ))}
         </ProductsGrid>
@@ -1272,3 +1223,4 @@ const Index: React.FC = () => {
 }
 
 export default Index
+

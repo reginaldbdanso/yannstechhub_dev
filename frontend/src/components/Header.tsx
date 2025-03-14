@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useClickOutside } from '../utils/useClickOutside';
 import { useCart } from '../context/CartContext';
 
+
 const HeaderContainer = styled.header`
   position: fixed;
   top: 20px;

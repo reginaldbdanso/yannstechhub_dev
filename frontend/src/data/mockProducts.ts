@@ -534,19 +534,19 @@ export const mockProducts: Product[] = [
       "/imgs/phone1-thumb2.png",
       "/imgs/phone1-thumb3.png"
     ],
-    badge: "LIMITED OFFER",
+    badge: "BEST SELLER",
     title: "OnePlus 11 5G",
     rating: 4.6,
     reviews: 210,
-    price: 799.99,
+    price: 699.99,
     brand: "OnePlus",
     condition: "New",
     category: "Phones",
     features: [
       "Snapdragon 8 Gen 2", 
-      "Hasselblad Camera", 
       "100W SUPERVOOC Charging", 
-      "120Hz AMOLED Display"
+      "50MP Triple Camera", 
+      "Hasselblad Camera"
     ],
     specs: [
       "Display: 6.7-inch AMOLED LTPO 3.0",
@@ -560,19 +560,19 @@ export const mockProducts: Product[] = [
     ],
     descriptions: [
       {
-        title: "Hasselblad Camera for Mobile",
+        title: "Hasselblad Camera",
         content:
-          "The OnePlus 11 5G features the 3rd Gen Hasselblad Camera for Mobile with a 50MP main sensor. Capture natural colors and amazing details in any lighting condition.",
+          "Experience the next generation of mobile photography with the OnePlus 11 5G's Hasselblad Camera. Natural colors and professional-grade image quality in every shot.",
       },
       {
-        title: "100W SUPERVOOC Fast Charging",
+        title: "100W SUPERVOOC Charging",
         content:
-          "The 5000mAh battery with 100W SUPERVOOC fast charging technology gives you a day's power in just 10 minutes, ensuring you're always ready to go.",
+          "Never wait long for a full charge. The 100W SUPERVOOC charging technology takes your battery from 1-100% in just 25 minutes.",
       },
       {
         title: "Snapdragon 8 Gen 2",
         content:
-          "Experience elite gaming performance with the Snapdragon 8 Gen 2 Mobile Platform. Enjoy faster CPU and GPU speeds with improved power efficiency for all-day gaming.",
+          "Powered by the latest Snapdragon 8 Gen 2, experience up to 35% faster CPU performance and 25% faster GPU performance compared to the previous generation.",
       }
     ],
   },
@@ -986,7 +986,7 @@ export const mockProducts: Product[] = [
       "/imgs/laptop-thumb2.png",
       "/imgs/laptop-thumb3.png"
     ],
-    badge: "LIMITED OFFER",
+    badge: "LIMITED OFFER ",
     title: "Dell XPS 15",
     rating: 4.7,
     reviews: 280,
@@ -1292,5 +1292,509 @@ export const mockProducts: Product[] = [
           "Create your own cyberpunk with a customizable cyberware, skillset, and playstyle. Upgrade your character with different perks and augmentations as you level up to become the ultimate mercenary outlaw.",
       }
     ],
-  }
+  },
+  {
+    id: 19,
+    image: "/imgs/AirPods Max.png",
+    thumbnails: ["/imgs/AirPods Max-thumb1.png", "/imgs/AirPods Max-thumb2.png", "/imgs/AirPods Max-thumb3.png"],
+    badge: "POPULAR",
+    title: "AirPods Max",
+    rating: 4.8,
+    reviews: 320,
+    price: 549.99,
+    brand: "Apple",
+    condition: "New",
+    category: "Audio",
+    features: ["High-Fidelity Audio", "Active Noise Cancellation", "Spatial Audio", "20-Hour Battery Life"],
+    specs: [
+      "Drivers: 40mm dynamic drivers",
+      "Connectivity: Bluetooth 5.0",
+      "Battery Life: Up to 20 hours",
+      "Weight: 384.8g",
+      "Sensors: Optical, position, case-detect, gyroscope, accelerometer"
+    ],
+    descriptions: [
+      {
+        title: "Exceptional Sound Quality",
+        content: "Custom-designed driver delivers rich, deep bass and crisp, clean high frequencies. The perfect balance for any type of music."
+      },
+      {
+        title: "Active Noise Cancellation",
+        content: "Block out the world and focus on what you're listening to with advanced active noise cancellation technology."
+      }
+    ]
+  },
+  {
+    id: 20,
+    image: "/imgs/Edifier Speakers.png",
+    thumbnails: ["/imgs/Edifier Speakers-thumb1.png", "/imgs/Edifier Speakers-thumb2.png", "/imgs/Edifier Speakers-thumb3.png"],
+    badge: "BEST VALUE",
+    title: "Edifier Speakers",
+    rating: 4.7,
+    reviews: 245,
+    price: 129.99,
+    brand: "Edifier",
+    condition: "New",
+    category: "Audio",
+    features: ["Bookshelf Speakers", "Bluetooth Connectivity", "Wood Enclosure", "Remote Control"],
+    specs: [
+      "Type: 2.0 Bookshelf Speakers",
+      "Output Power: 42W RMS",
+      "Frequency Response: 55Hz-20KHz",
+      "Input: Bluetooth, RCA, Optical"
+    ],
+    descriptions: [
+      {
+        title: "Studio Quality Sound",
+        content: "Experience rich, full sound with these compact bookshelf speakers. Perfect for desktop use or small room audio setups."
+      }
+    ]
+  },
+  {
+    id: 21,
+    image: "/imgs/USB-C Charger.png",
+    thumbnails: ["/imgs/USB-C Charger-thumb1.png", "/imgs/USB-C Charger-thumb2.png", "/imgs/USB-C Charger-thumb3.png"],
+    badge: "ESSENTIAL",
+    title: "USB-C Charger",
+    rating: 4.6,
+    reviews: 189,
+    price: 39.99,
+    brand: "Samsung",
+    condition: "New",
+    category: "Accessories",
+    features: ["Fast Charging", "25W Power Output", "Compact Design", "USB-C to C Cable Included"],
+    specs: [
+      "Input: 100-240V, 50/60Hz",
+      "Output: 5V/3A, 9V/2.77A, 15V/1.66A, PPS",
+      "Technology: USB Power Delivery 3.0",
+      "Cable Length: 1.5m"
+    ],
+    descriptions: [
+      {
+        title: "Super Fast Charging",
+        content: "Power up your devices in minutes with this 25W fast charger. Compatible with a wide range of USB-C devices."
+      }
+    ]
+  },
+  {
+    id: 22,
+    image: "/imgs/AirTag Cases.png",
+    thumbnails: ["/imgs/AirTag Cases-thumb1.png", "/imgs/AirTag Cases-thumb2.png", "/imgs/AirTag Cases-thumb3.png"],
+    badge: "NEW ARRIVAL",
+    title: "AirTag Cases",
+    rating: 4.5,
+    reviews: 120,
+    price: 29.99,
+    brand: "Apple",
+    condition: "New",
+    category: "Accessories",
+    features: ["Protective Design", "Multiple Colors", "Keyring Attachment", "Silicone Material"],
+    specs: [
+      "Material: Silicone",
+      "Compatibility: Apple AirTag",
+      "Colors: Blue, Gray, Pink",
+      "Attachment: Metal keyring"
+    ],
+    descriptions: [
+      {
+        title: "Stylish Protection",
+        content: "Keep your AirTag protected while adding a pop of color with these durable silicone cases. Available in multiple colors to match your style."
+      }
+    ]
+  },
+  {
+    id: 23,
+    image: "/imgs/Huawei MateBook.png",
+    thumbnails: ["/imgs/Huawei MateBook-thumb1.png", "/imgs/Huawei MateBook-thumb2.png", "/imgs/Huawei MateBook-thumb3.png"],
+    badge: "TOP RATED",
+    title: "Huawei MateBook",
+    rating: 4.6,
+    reviews: 210,
+    price: 999.99,
+    brand: "Huawei",
+    condition: "New",
+    category: "Laptops",
+    features: ["Ultra-thin Design", "11th Gen Intel Core", "13.3\" 3K Display", "Long Battery Life"],
+    specs: [
+      "Processor: 11th Gen Intel Core i7",
+      "RAM: 16GB LPDDR4x",
+      "Storage: 512GB NVMe SSD",
+      "Display: 13.3\" 3:2 3K (3000x2000) touchscreen",
+      "Battery: 56Wh, up to 13 hours"
+    ],
+    descriptions: [
+      {
+        title: "Ultra-Portable Powerhouse",
+        content: "The Huawei MateBook combines premium design with powerful performance in an ultra-thin package. Perfect for professionals on the go."
+      }
+    ]
+  },
+  {
+    id: 24,
+    image: "/imgs/USB Condenser Microphone.png",
+    thumbnails: ["/imgs/USB Microphone-thumb1.png", "/imgs/USB Microphone-thumb2.png", "/imgs/USB Microphone-thumb3.png"],
+    badge: "POPULAR",
+    title: "USB Condenser Microphone",
+    rating: 4.4,
+    reviews: 175,
+    price: 69.99,
+    brand: "FIFINE",
+    condition: "New",
+    category: "Audio",
+    features: ["Plug & Play USB", "Cardioid Pattern", "Gain Control", "Zero-Latency Monitoring"],
+    specs: [
+      "Type: Condenser microphone",
+      "Polar Pattern: Cardioid",
+      "Sample Rate: 24bit/192kHz",
+      "Frequency Response: 20Hz-20kHz",
+      "Connection: USB"
+    ],
+    descriptions: [
+      {
+        title: "Studio-Quality Recording",
+        content: "Capture professional-sounding audio for podcasts, streaming, voice-overs, and more with this easy-to-use USB condenser microphone."
+      }
+    ]
+  },
+  {
+    id: 25,
+    image: "/imgs/Wooden PC Case.png",
+    thumbnails: ["/imgs/Wooden PC Case-thumb1.png", "/imgs/Wooden PC Case-thumb2.png", "/imgs/Wooden PC Case-thumb3.png"],
+    badge: "EXCLUSIVE",
+    title: "Wooden PC Case",
+    rating: 4.7,
+    reviews: 85,
+    price: 299.99,
+    brand: "Volta",
+    condition: "New",
+    category: "PC Components",
+    features: ["Wooden Construction", "Minimalist Design", "USB-C Ports", "Quiet Cooling"],
+    specs: [
+      "Material: Natural wood with aluminum accents",
+      "Form Factor: Mini-ITX / Micro-ATX",
+      "Front I/O: 2x USB 3.0, 1x USB-C, Audio in/out",
+      "Dimensions: 350 x 250 x 100mm"
+    ],
+    descriptions: [
+      {
+        title: "Nature Meets Technology",
+        content: "This unique wooden PC case combines natural materials with modern computer design for a stunning desktop centerpiece that stands out from typical metal and plastic cases."
+      }
+    ]
+  },
+  {
+    id: 26,
+    image: "/imgs/Smart Watch.png",
+    thumbnails: ["/imgs/Smart Watch-thumb1.png", "/imgs/Smart Watch-thumb2.png", "/imgs/Smart Watch-thumb3.png"],
+    badge: "NEW ARRIVAL",
+    title: "Smart Watch",
+    rating: 4.3,
+    reviews: 150,
+    price: 199.99,
+    brand: "Amazfit",
+    condition: "New",
+    category: "Wearables",
+    features: ["AMOLED Display", "Heart Rate Monitoring", "Sleep Tracking", "5 ATM Water Resistance"],
+    specs: [
+      "Display: 1.65\" AMOLED",
+      "Battery: Up to 14 days",
+      "Sensors: Heart rate, accelerometer, gyroscope",
+      "Connectivity: Bluetooth 5.0, GPS",
+      "Compatibility: Android, iOS"
+    ],
+    descriptions: [
+      {
+        title: "Your Health Companion",
+        content: "Track your fitness goals, monitor your health metrics, and stay connected with notifications on your wrist with this feature-packed smart watch."
+      }
+    ]
+  },
+  {
+    id: 27,
+    image: "/imgs/Power Cable.png",
+    thumbnails: ["/imgs/Power Cable-thumb1.png", "/imgs/Power Cable-thumb2.png", "/imgs/Power Cable-thumb3.png"],
+    badge: "ESSENTIAL",
+    title: "Power Cable",
+    rating: 4.5,
+    reviews: 120,
+    price: 12.99,
+    brand: "Anker",
+    condition: "New",
+    category: "Accessories",
+    features: ["Universal AC Power", "6ft Length", "Heavy Duty", "Compatible with Most Devices"],
+    specs: [
+      "Type: 3-prong AC power cable",
+      "Length: 6 feet (1.8m)",
+      "Rating: 10A, 125V",
+      "Material: PVC insulation, copper conductors"
+    ],
+    descriptions: [
+      {
+        title: "Reliable Power Connection",
+        content: "This standard 3-prong power cable works with most computers, monitors, printers, and other electronic devices that use the common IEC C13 connector."
+      }
+    ]
+  },
+  {
+    id: 28,
+    image: "/imgs/USB-C Cable.png",
+    thumbnails: ["/imgs/USB-C Cable-thumb1.png", "/imgs/USB-C Cable-thumb2.png", "/imgs/USB-C Cable-thumb3.png"],
+    badge: "BEST SELLER",
+    title: "USB-C Cable",
+    rating: 4.7,
+    reviews: 230,
+    price: 19.99,
+    brand: "Satechi",
+    condition: "New",
+    category: "Accessories",
+    features: ["USB-C to USB-C", "100W Power Delivery", "10Gbps Data Transfer", "Durable Design"],
+    specs: [
+      "Type: USB-C to USB-C",
+      "Length: 6 inches (15cm)",
+      "Power: Up to 100W (20V/5A)",
+      "Data Transfer: 10Gbps",
+      "Material: Braided nylon"
+    ],
+    descriptions: [
+      {
+        title: "Compact & Powerful",
+        content: "This short but mighty USB-C cable supports fast charging and high-speed data transfer in a compact form factor, perfect for travel or reducing desktop clutter."
+      }
+    ]
+  },
+  {
+    id: 29,
+    image: "/imgs/USB Drive.png",
+    thumbnails: ["/imgs/USB Drive-thumb1.png", "/imgs/USB Drive-thumb2.png", "/imgs/USB Drive-thumb3.png"],
+    badge: "LIMITED EDITION",
+    title: "USB Drive",
+    rating: 4.2,
+    reviews: 95,
+    price: 24.99,
+    brand: "Spotify",
+    condition: "New",
+    category: "Storage",
+    features: ["32GB Capacity", "USB 3.0 Speed", "Swivel Design", "Branded Finish"],
+    specs: [
+      "Capacity: 32GB",
+      "Interface: USB 3.0",
+      "Read Speed: Up to 100MB/s",
+      "Write Speed: Up to 30MB/s",
+      "Dimensions: 21.3 x 12 x 4.6mm"
+    ],
+    descriptions: [
+      {
+        title: "Spotify Branded Storage",
+        content: "This limited edition USB flash drive featuring Spotify branding combines style with functionality, offering quick data transfers in a compact, swivel-protected design."
+      }
+    ]
+  },
+  {
+    id: 30,
+    image: "/imgs/Braided Cable.png",
+    thumbnails: ["/imgs/Braided Cable-thumb1.png", "/imgs/Braided Cable-thumb2.png", "/imgs/Braided Cable-thumb3.png"],
+    badge: "PREMIUM",
+    title: "Braided Cable",
+    rating: 4.9,
+    reviews: 320,
+    price: 34.99,
+    brand: "Nomad",
+    condition: "New",
+    category: "Accessories",
+    features: ["USB to Lightning", "MFi Certified", "Kevlar Reinforced", "Cable Management Strap"],
+    specs: [
+      "Type: USB-A to Lightning",
+      "Length: 1.5m (5ft)",
+      "Material: Braided ballistic nylon",
+      "Strength: Kevlar core reinforcement",
+      "Compatibility: All Lightning devices"
+    ],
+    descriptions: [
+      {
+        title: "Built to Last",
+        content: "This premium braided cable with Kevlar reinforcement is designed to withstand heavy daily use without fraying or breaking. The integrated cable management strap keeps things tidy when not in use."
+      }
+    ]
+  },
+  {
+    id: 31,
+    image: "/imgs/Travel Case.png",
+    thumbnails: ["/imgs/Travel Case-thumb1.png", "/imgs/Travel Case-thumb2.png", "/imgs/Travel Case-thumb3.png"],
+    badge: "TRAVEL ESSENTIAL",
+    title: "Travel Case",
+    rating: 4.8,
+    reviews: 175,
+    price: 29.99,
+    brand: "BAGSMART",
+    condition: "New",
+    category: "Accessories",
+    features: ["Electronics Organizer", "Water-Resistant", "Multiple Compartments", "Compact Design"],
+    specs: [
+      "Material: Carbon fiber PU leather exterior",
+      "Dimensions: 9.4 x 6.3 x 1.2 inches",
+      "Weight: 8.5oz",
+      "Compartments: Multiple elastic loops, mesh pockets, and pouches"
+    ],
+    descriptions: [
+      {
+        title: "Stay Organized On The Go",
+        content: "Keep your cables, chargers, earbuds, and small electronics neatly organized in this compact travel case. The water-resistant exterior protects your gadgets while the multiple compartments ensure everything has its place."
+      }
+    ]
+  },
+  {
+    id: 32,
+    image: "/imgs/S7 Headphone.png",
+    thumbnails: ["/imgs/Headphones-thumb1.png", "/imgs/Headphones-thumb2.png", "/imgs/Headphones-thumb3.png"],
+    badge: "PREMIUM AUDIO",
+    title: "S7 Headphones",
+    rating: 4.6,
+    reviews: 210,
+    price: 349.99,
+    brand: "Sennheiser",
+    condition: "New",
+    category: "Audio",
+    features: ["High-Resolution Audio", "Active Noise Cancellation", "Comfortable Design", "Bluetooth 5.2"],
+    specs: [
+      "Type: Over-ear, closed-back",
+      "Drivers: 40mm dynamic drivers",
+      "Frequency Response: 6Hz-22kHz",
+      "Battery Life: Up to 30 hours",
+      "Connectivity: Bluetooth 5.2, 3.5mm wired"
+    ],
+    descriptions: [
+      {
+        title: "Audiophile-Grade Sound",
+        content: "Experience exceptional sound quality with these premium headphones featuring custom-tuned drivers and advanced acoustic engineering for clear, detailed audio reproduction across all frequencies."
+      }
+    ]
+  },
+  {
+    id: 33,
+    image: "/imgs/USB Hub.png",
+    thumbnails: ["/imgs/USB Hub-thumb1.png", "/imgs/USB Hub-thumb2.png", "/imgs/USB Hub-thumb3.png"],
+    badge: "VERSATILE",
+    title: "USB Hub",
+    rating: 4.5,
+    reviews: 180,
+    price: 79.99,
+    brand: "Anker",
+    condition: "New",
+    category: "Accessories",
+    features: ["7-in-1 Hub", "4K HDMI Output", "100W Power Delivery", "SD Card Reader"],
+    specs: [
+      "Ports: USB-C PD, HDMI, 2x USB-A 3.0, SD card reader, microSD card reader",
+      "Video Output: 4K@60Hz",
+      "Power Delivery: Up to 100W pass-through",
+      "Data Transfer: Up to 5Gbps",
+      "Dimensions: 115 x 28 x 9mm"
+    ],
+    descriptions: [
+      {
+        title: "All-in-One Connectivity",
+        content: "Expand your laptop's capabilities with this sleek 7-in-1 USB-C hub. Connect to displays, transfer data, read memory cards, and charge your device—all through a single USB-C connection."
+      }
+    ]
+  },
+  {
+    id: 34,
+    image: "/imgs/Smart Watch Call.png",
+    thumbnails: ["/imgs/Smart Watch Call-thumb1.png", "/imgs/Smart Watch Call-thumb2.png", "/imgs/Smart Watch Call-thumb3.png"],
+    badge: "FAMILY FRIENDLY",
+    title: "Smart Watch Call",
+    rating: 4.4,
+    reviews: 135,
+    price: 159.99,
+    brand: "Xplora",
+    condition: "New",
+    category: "Wearables",
+    features: ["4G Calling", "GPS Tracking", "SOS Button", "Water Resistant"],
+    specs: [
+      "Display: 1.4\" touchscreen",
+      "Connectivity: 4G LTE, WiFi, Bluetooth",
+      "Battery: Up to 3 days standby",
+      "Camera: 2MP front-facing",
+      "Water Resistance: IP67",
+      "Compatibility: iOS, Android (via app)"
+    ],
+    descriptions: [
+      {
+        title: "Stay Connected with Family",
+        content: "This smart watch with calling features enables children to stay connected with parents while providing location tracking, SOS alerts, and safe communication features for peace of mind."
+      }
+    ]
+  },
+  {
+    id: 35,
+    image: "/imgs/leather-handbag.jpeg",
+    thumbnails: [
+        "/imgs/leather-handbag-thumb1.png",
+        "/imgs/leather-handbag-thumb2.png",
+        "/imgs/leather-handbag-thumb3.png"
+    ],
+    badge: "NEW ARRIVAL",
+    title: "Luxury Leather Handbag",
+    rating: 4.8,
+    reviews: 120,
+    price: 149.99,
+    brand: "Elegance Paris",
+    condition: "New",
+    category: "Fashion",
+    features: [
+        "Genuine Leather Material",
+        "Handcrafted Design",
+        "Adjustable Shoulder Strap",
+        "Gold-Tone Hardware"
+    ],
+    specs: [
+        "Material: 100% Genuine Leather",
+        "Dimensions: 12” x 8” x 5”",
+        "Strap Length: Adjustable up to 45 inches",
+        "Lining: Premium Satin Fabric",
+        "Closure: Magnetic Snap & Zipper"
+    ],
+    descriptions: [
+        {
+            title: "Timeless Elegance",
+            content: "Crafted from premium genuine leather, this luxurious handbag embodies sophistication and style. With a spacious interior and gold-tone hardware, it's the perfect companion for any occasion."
+        }
+    ]
+  },
+  {
+    id: 36,
+    image: "/imgs/organic-fertilizer.jpeg",
+    thumbnails: [
+        "/imgs/organic-fertilizer-thumb1.png",
+        "/imgs/organic-fertilizer-thumb2.png",
+        "/imgs/organic-fertilizer-thumb3.png"
+    ],
+    badge: "BEST SELLER",
+    title: "Organic Fertilizer",
+    rating: 4.7,
+    reviews: 85,
+    price: 29.99,
+    brand: "GreenHarvest",
+    condition: "New",
+    category: "Agriculture",
+    features: [
+        "100% Organic & Eco-Friendly",
+        "Enhances Soil Fertility",
+        "Rich in Essential Nutrients",
+        "Suitable for All Crops"
+    ],
+    specs: [
+        "Type: Organic Compost",
+        "Weight: 10kg Bag",
+        "Nutrient Ratio: NPK 5-3-2",
+        "Application: Vegetables, Fruits, Flowers, Grains",
+        "Storage: Keep in a Cool, Dry Place"
+    ],
+    descriptions: [
+        {
+            title: "Boost Your Harvest Naturally",
+            content: "GreenHarvest Organic Fertilizer is a premium soil enhancer designed to improve plant health and increase yield. Made from all-natural ingredients, it ensures sustainable farming and rich, fertile soil."
+        }
+    ]
+},
+
 ];
