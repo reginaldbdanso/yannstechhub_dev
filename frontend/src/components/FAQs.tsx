@@ -125,7 +125,7 @@ const FAQs: React.FC = () => {
         <FAQDescription>
           The FAQs section serves as a comprehensive resource to address common
           queries customers might have about your platform, products, policies, and
-          processes. It's designed to provide quick answers, reduce customer service
+          processes. It&apos;s designed to provide quick answers, reduce customer service
           workload, and improve the overall shopping experience.
         </FAQDescription>
 
@@ -143,7 +143,7 @@ const FAQs: React.FC = () => {
               <li>Are all products genuine and original?</li>
               <p>Yes, Yannstech Hub only offers 100% authentic products from trusted manufacturers and distributors.</p>
               <li>Do the gadgets come with warranties?</li>
-              <p>Most of our gadgets come with a manufacturer's warranty. Warranty details can be found on the product page or in the packaging.</p>
+              <p>Most of our gadgets come with a manufacturer&apos;s warranty. Warranty details can be found on the product page or in the packaging.</p>
               <li>How can I find detailed specifications for a product?</li>
               <p>Each product page includes detailed specifications, features, and images to help you make an informed decision.</p>
             </FAQList>
@@ -173,7 +173,7 @@ const FAQs: React.FC = () => {
               <li>Do you ship internationally?</li>
               <p>Yes, Yannstech Hub ships to most countries worldwide. Shipping fees and delivery times will vary depending on your location.</p>
               <li>How can I track my order?</li>
-              <p>Once your order is shipped, you will receive a tracking number via email. You can use this number to track your package on our website or the courier's site.</p>
+              <p>Once your order is shipped, you will receive a tracking number via email. You can use this number to track your package on our website or the courier&apos;s site.</p>
               <li>What happens if my order is delayed?</li>
               <p>If your order is delayed, contact our support team, and we will investigate the issue with the courier service.</p>
             </FAQList>
@@ -186,7 +186,7 @@ const FAQs: React.FC = () => {
               <li>What is your return policy?</li>
               <p>We accept returns for eligible products within [X] days of delivery. Items must be unused, in their original packaging, and accompanied by a receipt.</p>
               <li>How do I request a return?</li>
-              <p>To request a return, log in to your account, go to "My Orders," select the order you want to return, and follow the return process.</p>
+              <p>To request a return, log in to your account, go to &ldquo;My Orders,&rdquo; select the order you want to return, and follow the return process.</p>
               <li>When will I receive my refund?</li>
               <p>Refunds are processed within [X] business days of receiving and inspecting the returned item. The refund will be issued to the original payment method.</p>
               <li>What should I do if I receive a defective product?</li>
@@ -214,7 +214,7 @@ const FAQs: React.FC = () => {
             <TopicTitle>8. Promotions and Discounts</TopicTitle>
             <FAQList>
               <li>How can I find current promotions?</li>
-              <p>Check our "Offers" page or subscribe to our newsletter for updates on discounts and special deals.</p>
+              <p>Check our &ldquo;Offers&rdquo; page or subscribe to our newsletter for updates on discounts and special deals.</p>
               <li>Can I use multiple discount codes on a single order?</li>
               <p>Only one discount code can be applied per order unless stated otherwise.</p>
               <li>Do you offer student or military discounts?</li>
@@ -227,11 +227,11 @@ const FAQs: React.FC = () => {
             <TopicTitle>9. Customer Support</TopicTitle>
             <FAQList>
               <li>How can I contact customer support?</li>
-              <p>You can reach us via email, live chat, or by calling our customer support hotline. Contact details are available on our "Contact Us" page.</p>
+              <p>You can reach us via email, live chat, or by calling our customer support hotline. Contact details are available on our &ldquo;Contact Us&rdquo; page.</p>
               <li>What are your customer support hours?</li>
               <p>Our support team is available [X] days a week, from [X AM] to [X PM].</p>
               <li>Do you offer technical support for gadgets?</li>
-              <p>Yes, we provide basic technical support. For advanced issues, please refer to the manufacturer's support service.</p>
+              <p>Yes, we provide basic technical support. For advanced issues, please refer to the manufacturer&apos;s support service.</p>
             </FAQList>
           </FAQSection>
 

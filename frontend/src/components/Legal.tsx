@@ -125,7 +125,7 @@ const Legal: React.FC = () => {
           <p>The Privacy Policy outlines how Yannstech Hub collects, uses, stores, and protects customer data.</p>
           <PolicyList>
             <li>Data Collection: We collect personal information such as your name, email address, shipping details, and payment methods.</li>
-            <li>Usage of Data: Your data may be used for order processing, customer support, and improving our website's functionality.</li>
+            <li>Usage of Data: Your data may be used for order processing, customer support, and improving our website&apos;s functionality.</li>
             <li>Third-Party Sharing: We may share data with payment processors or delivery services to fulfill your order.</li>
             <li>Customer Rights: You have the right to access, correct, or delete your data.</li>
             <li>Compliance: We comply with data protection laws, such as GDPR and CCPA.</li>
@@ -134,7 +134,7 @@ const Legal: React.FC = () => {
 
         <PolicySection>
           <SectionTitle>2. Terms of Service</SectionTitle>
-          <p>The Terms of Service govern your use of Yannstech Hub's platform.</p>
+          <p>The Terms of Service govern your use of Yannstech Hub&apos;s platform.</p>
           <PolicyList>
             <li>User Responsibilities: You must provide accurate information when creating an account.</li>
             <li>Product Descriptions: Product images and descriptions are for illustrative purposes only.</li>
