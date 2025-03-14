@@ -460,6 +460,9 @@ const Shop: React.FC = () => {
   // Extract unique categories from mockProducts
   const categories = ["All Categories", ...Array.from(new Set(mockProducts.map((product) => product.category)))]
 
+  // Extract unique brands from mockProducts
+  const brands = ["All Brands", ...Array.from(new Set(mockProducts.map((product) => product.brand)))]
+
   // State for filters
   const [minPrice, setMinPrice] = useState<string>("100")
   const [maxPrice, setMaxPrice] = useState<string>("1500")
@@ -495,13 +498,6 @@ const Shop: React.FC = () => {
       console.log("Price range:", minPrice, maxPrice)
     }
   }, [selectedCategory, filteredProducts, conditions, selectedBrand, minPrice, maxPrice])
-
-  // Extract unique brands from mockProducts
-  const brands = ["All Brands", ...Array.from(new Set(mockProducts.map((product) => product.brand)))]
-
-  const [itemsPerPage, setItemsPerPage] = useState<number>(12)
-  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
 
   // Handle condition checkbox changes
   const handleConditionChange = (condition: keyof typeof conditions) => {
