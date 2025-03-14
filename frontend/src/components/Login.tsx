@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
-import { useAppContext } from '../context/AppContext'
+// import { useAppContext } from '../context/AppContext'
 
 const LoginContainer = styled.div`
   background-color: #eef2f4;
@@ -154,7 +154,7 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { dispatch } = useAppContext();
+  // const { dispatch } = useAppContext();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Logging in with:', { username });
@@ -209,7 +209,7 @@ const Login: React.FC = () => {
 
               <FormFooter>
                 <SignupText>
-                  Don't have an account?{' '}
+                  Don&apos;t have an account?{' '}
                   <SignupLink to="/signup">Sign up</SignupLink>
                 </SignupText>
                 <ForgotPassword to="/reset-password">
