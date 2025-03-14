@@ -250,7 +250,7 @@ const SignUp: React.FC = () => {
                   />
                   <InputIcon src="/imgs/User.png" alt="Username icon" loading="lazy" />
                 </InputGroup>
-                <UsernameNote>*Can't change username</UsernameNote>
+                <UsernameNote>*Can&apos;t change username</UsernameNote>
                 
                 <InputGroup>
                   <FormInput

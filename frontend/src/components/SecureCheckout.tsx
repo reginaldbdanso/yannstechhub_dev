@@ -267,16 +267,16 @@ const CheckoutButton = styled.button`
     padding: 19px 20px;
   }
 `;
-interface CartItem {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  quantity: number;
-}
+// interface CartItem {
+//   id: number;
+//   image: string;
+//   title: string;
+//   price: number;
+//   quantity: number;
+// } removeFromCart not used
 
 const SecureCheckout: React.FC = () => {
-  const { cart, removeFromCart, updateQuantity, subtotal } = useCart();
+  const { cart, updateQuantity, subtotal } = useCart();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
