@@ -7,24 +7,7 @@ import styled from "styled-components"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import ProductCard from "../components/ProductCard"
-import { mockProducts } from "../data/mockProducts"
-
-// Define our Product interface to match the component's needs
-interface Product {
-  id: number
-  image: string
-  title: string
-  price: number
-  rating: number
-  reviews: number
-  brand: string
-  condition: "New" | "Second" | "Refurbished"
-  category: string
-}
-
-// Cast mockProducts to our Product interface
-// This ensures type safety while using the external data
-const typedMockProducts = mockProducts as unknown as Product[]
+import { mockProducts, type Product } from "../data/mockProducts"
 
 const Container = styled.section`
   background-color: #eef2f4;
@@ -475,10 +458,7 @@ const ItemsPerPageSelect = styled.select`
 // Add a styled component for the load more button
 const Shop: React.FC = () => {
   // Extract unique categories from mockProducts
-  const categories = ["All Categories", ...Array.from(new Set(typedMockProducts.map((product) => product.category)))]
-
-  // Extract unique brands from mockProducts
-  const brands = ["All Brands", ...Array.from(new Set(typedMockProducts.map((product) => product.brand)))]
+  const categories = ["All Categories", ...Array.from(new Set(mockProducts.map((product) => product.category)))]
 
   // State for filters
   const [minPrice, setMinPrice] = useState<string>("100")
@@ -493,8 +473,31 @@ const Shop: React.FC = () => {
   const [sortOption, setSortOption] = useState<string>("recommended")
   const [mainSortOption, setMainSortOption] = useState<string>("recommended")
 
-  // State for filtered products - use our typed version
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(typedMockProducts)
+  // State for filtered products
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(mockProducts)
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(12)
+  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // Debug logging
+  useEffect(() => {
+    console.log("Available categories:", Array.from(new Set(mockProducts.map((p) => p.category))))
+    console.log(
+      "Accessories products:",
+      mockProducts.filter((p) => p.category === "Accessories"),
+    )
+
+    if (selectedCategory === "Accessories") {
+      console.log("Filtered products for Accessories:", filteredProducts)
+      console.log("Selected conditions:", conditions)
+      console.log("Selected brand:", selectedBrand)
+      console.log("Price range:", minPrice, maxPrice)
+    }
+  }, [selectedCategory, filteredProducts, conditions, selectedBrand, minPrice, maxPrice])
+
+  // Extract unique brands from mockProducts
+  const brands = ["All Brands", ...Array.from(new Set(mockProducts.map((product) => product.brand)))]
 
   const [itemsPerPage, setItemsPerPage] = useState<number>(12)
   const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
@@ -535,26 +538,62 @@ const Shop: React.FC = () => {
       refurbish: false,
     })
     setSortOption("recommended")
-    setFilteredProducts(typedMockProducts)
+    setFilteredProducts(mockProducts)
   }
 
   // Apply filters and sorting
   const applyFilters = () => {
-    let filtered = [...typedMockProducts]
+    // Start with all products
+    let filtered = [...mockProducts]
+
+    console.log("Starting filter with", filtered.length, "products")
 
     // Filter by category
     if (selectedCategory !== "All Categories") {
-      filtered = filtered.filter((product) => product.category === selectedCategory)
+      // Fix: Use direct string comparison but log each product for debugging
+      filtered = filtered.filter((product) => {
+        // Log each product's category when filtering for Accessories
+        if (selectedCategory === "Accessories") {
+          console.log(
+            `Product ${product.id} (${product.title}): category="${product.category}", selected="${selectedCategory}"`,
+          )
+        }
+        return product.category === selectedCategory
+      })
+      console.log(`After category filter (${selectedCategory}):`, filtered.length, "products")
     }
 
-    // Filter by price
+    // Filter by price - POTENTIAL ISSUE: Check if price filtering is excluding accessories
     const minPriceValue = Number.parseFloat(minPrice) || 0
     const maxPriceValue = Number.parseFloat(maxPrice) || Number.POSITIVE_INFINITY
+
+    // Log price range when filtering for Accessories
+    if (selectedCategory === "Accessories") {
+      console.log(`Price range: ${minPriceValue} to ${maxPriceValue}`)
+      filtered.forEach((product) => {
+        console.log(
+          `Product ${product.id} (${product.title}): price=${product.price}, in range? ${product.price >= minPriceValue && product.price <= maxPriceValue}`,
+        )
+      })
+    }
+
     filtered = filtered.filter((product) => product.price >= minPriceValue && product.price <= maxPriceValue)
+    console.log("After price filter:", filtered.length, "products")
 
     // Filter by brand
     if (selectedBrand !== "All Brands") {
+      // Log brand info when filtering for Accessories
+      if (selectedCategory === "Accessories") {
+        console.log(`Selected brand: "${selectedBrand}"`)
+        filtered.forEach((product) => {
+          console.log(
+            `Product ${product.id} (${product.title}): brand="${product.brand}", matches? ${product.brand === selectedBrand}`,
+          )
+        })
+      }
+
       filtered = filtered.filter((product) => product.brand === selectedBrand)
+      console.log("After brand filter:", filtered.length, "products")
     }
 
     // Filter by condition
@@ -563,8 +602,19 @@ const Shop: React.FC = () => {
     if (conditions.second) selectedConditions.push("Second")
     if (conditions.refurbish) selectedConditions.push("Refurbished")
 
+    // Log condition info when filtering for Accessories
+    if (selectedCategory === "Accessories" && selectedConditions.length > 0) {
+      console.log(`Selected conditions:`, selectedConditions)
+      filtered.forEach((product) => {
+        console.log(
+          `Product ${product.id} (${product.title}): condition="${product.condition}", matches? ${selectedConditions.includes(product.condition)}`,
+        )
+      })
+    }
+
     if (selectedConditions.length > 0) {
       filtered = filtered.filter((product) => selectedConditions.includes(product.condition))
+      console.log("After condition filter:", filtered.length, "products")
     }
 
     // Apply sorting
@@ -788,18 +838,19 @@ const Shop: React.FC = () => {
                     }}
                   >
                     <ItemsPerPageContainer>
-                  <ItemsPerPageLabel htmlFor="itemsPerPage">Items per page:</ItemsPerPageLabel>
-                  <ItemsPerPageSelect
-                    id="itemsPerPage"
-                    value={itemsPerPage}
-                    onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-                    aria-label="Number of items per page"
-                  >
-                    <option value="12">12</option>
-                    <option value="24">24</option>
-                    <option value="36">36</option>
-                  </ItemsPerPageSelect>
-                </ItemsPerPageContainer>
+                      <ItemsPerPageLabel htmlFor="itemsPerPage">Items per page:</ItemsPerPageLabel>
+                        <ItemsPerPageSelect
+                          id="itemsPerPage"
+                          value={itemsPerPage}
+                          onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
+                          aria-label="Number of items per page"
+                        >
+                        <option value="12">12</option>
+                        <option value="24">24</option>
+                        <option value="36">36</option>
+                      </ItemsPerPageSelect>
+                    </ItemsPerPageContainer>
+
                   </div>
                 </>
               ) : (

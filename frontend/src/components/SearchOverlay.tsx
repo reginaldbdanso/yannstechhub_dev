@@ -118,7 +118,7 @@ const ResultPrice = styled.div`
 
 const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<{id: number; title: string; price: number; image: string}[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
