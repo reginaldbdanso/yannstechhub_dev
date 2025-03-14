@@ -12,348 +12,393 @@ export const mockReviews: ReviewData[] = [
   {
     title: "Best smartphone camera ever",
     rating: 5,
-    content: "The 200MP camera on this phone is absolutely incredible. I've taken photos that look like they were shot with a professional DSLR. The S Pen is also super useful for taking notes and editing photos.",
+    content:
+      "The 200MP camera on this phone is absolutely incredible. I've taken photos that look like they were shot with a professional DSLR. The S Pen is also super useful for taking notes and editing photos.",
     author: "Michael Chen",
-    productId: 1
+    productId: 1,
   },
   {
     title: "Amazing display, battery could be better",
     rating: 4,
-    content: "The display is stunning with vibrant colors and deep blacks. Performance is top-notch, but I was expecting better battery life from a flagship phone. Still, it easily lasts a full day of heavy use.",
+    content:
+      "The display is stunning with vibrant colors and deep blacks. Performance is top-notch, but I was expecting better battery life from a flagship phone. Still, it easily lasts a full day of heavy use.",
     author: "Sarah Johnson",
-    productId: 1
+    productId: 1,
   },
   {
     title: "S Pen is a game changer",
     rating: 5,
-    content: "Coming from a Note user, the S Pen integration is seamless. The phone is blazing fast and the camera system is versatile for any shooting situation. Highly recommend!",
+    content:
+      "Coming from a Note user, the S Pen integration is seamless. The phone is blazing fast and the camera system is versatile for any shooting situation. Highly recommend!",
     author: "David Williams",
-    productId: 1
+    productId: 1,
   },
-  
+
   // Reviews for iPhone 14 Pro Max (id: 2)
   {
     title: "Dynamic Island is innovative",
     rating: 5,
-    content: "The Dynamic Island is such a clever way to handle the notch. Camera quality is exceptional, especially in low light. iOS 16 feels very polished and the always-on display is well implemented.",
+    content:
+      "The Dynamic Island is such a clever way to handle the notch. Camera quality is exceptional, especially in low light. iOS 16 feels very polished and the always-on display is well implemented.",
     author: "Emma Thompson",
-    productId: 2
+    productId: 2,
   },
   {
     title: "Best iPhone yet",
     rating: 5,
-    content: "The 48MP camera is a huge upgrade from previous iPhones. Battery life is impressive, easily lasting 1.5 days with moderate use. The build quality is premium as expected from Apple.",
+    content:
+      "The 48MP camera is a huge upgrade from previous iPhones. Battery life is impressive, easily lasting 1.5 days with moderate use. The build quality is premium as expected from Apple.",
     author: "James Wilson",
-    productId: 2
+    productId: 2,
   },
   {
     title: "Great but expensive",
     rating: 4,
-    content: "This is definitely the best smartphone I've ever used, but the price is hard to justify. The camera system and performance are outstanding, but I wish it had faster charging.",
+    content:
+      "This is definitely the best smartphone I've ever used, but the price is hard to justify. The camera system and performance are outstanding, but I wish it had faster charging.",
     author: "Olivia Martinez",
-    productId: 2
+    productId: 2,
   },
-  
+
   // Reviews for Google Pixel 7 Pro (id: 3)
   {
     title: "Computational photography at its best",
     rating: 5,
-    content: "The camera on the Pixel 7 Pro is simply amazing. Features like Magic Eraser and Photo Unblur are genuinely useful. Clean Android experience with timely updates is a big plus.",
+    content:
+      "The camera on the Pixel 7 Pro is simply amazing. Features like Magic Eraser and Photo Unblur are genuinely useful. Clean Android experience with timely updates is a big plus.",
     author: "Robert Garcia",
-    productId: 3
+    productId: 3,
   },
   {
     title: "Great software, average hardware",
     rating: 4,
-    content: "Google's software is what makes this phone shine. The camera processing is incredible, but the hardware feels a step behind Apple and Samsung in terms of build quality.",
+    content:
+      "Google's software is what makes this phone shine. The camera processing is incredible, but the hardware feels a step behind Apple and Samsung in terms of build quality.",
     author: "Jennifer Lee",
-    productId: 3
+    productId: 3,
   },
   {
     title: "Battery life could be better",
     rating: 4,
-    content: "The Pixel 7 Pro is a great phone with an exceptional camera, but the battery life is just average. The clean Android experience and quick updates make up for it though.",
+    content:
+      "The Pixel 7 Pro is a great phone with an exceptional camera, but the battery life is just average. The clean Android experience and quick updates make up for it though.",
     author: "Thomas Brown",
-    productId: 3
+    productId: 3,
   },
-  
+
   // Reviews for OnePlus 11 5G (id: 4)
   {
     title: "Incredible value flagship",
     rating: 5,
-    content: "The OnePlus 11 offers flagship performance at a more reasonable price. The Hasselblad camera tuning produces natural colors, and the 100W charging is incredibly fast.",
+    content:
+      "The OnePlus 11 offers flagship performance at a more reasonable price. The Hasselblad camera tuning produces natural colors, and the 100W charging is incredibly fast.",
     author: "Sophia Rodriguez",
-    productId: 4
+    productId: 4,
   },
   {
     title: "Fast and smooth",
     rating: 5,
-    content: "OxygenOS is still one of the best Android skins out there. The 120Hz display is buttery smooth, and the performance is top-notch. Battery life is excellent too.",
+    content:
+      "OxygenOS is still one of the best Android skins out there. The 120Hz display is buttery smooth, and the performance is top-notch. Battery life is excellent too.",
     author: "Daniel Kim",
-    productId: 4
+    productId: 4,
   },
   {
     title: "Missing wireless charging",
     rating: 4,
-    content: "This phone has almost everything I want, but the lack of wireless charging is disappointing. Otherwise, it's a fantastic device with great performance and cameras.",
+    content:
+      "This phone has almost everything I want, but the lack of wireless charging is disappointing. Otherwise, it's a fantastic device with great performance and cameras.",
     author: "Ava Johnson",
-    productId: 4
+    productId: 4,
   },
-  
+
   // Reviews for Xiaomi 13 Pro (id: 5)
   {
     title: "Leica cameras are impressive",
     rating: 5,
-    content: "The Leica camera system produces stunning photos with beautiful colors. The ceramic back feels premium, and the 120W charging is incredibly convenient.",
+    content:
+      "The Leica camera system produces stunning photos with beautiful colors. The ceramic back feels premium, and the 120W charging is incredibly convenient.",
     author: "William Davis",
-    productId: 5
+    productId: 5,
   },
   {
     title: "Great hardware, software needs work",
     rating: 4,
-    content: "The hardware is top-notch, but MIUI still has some quirks and occasional bugs. Camera performance is excellent, especially in portrait mode with the Leica tuning.",
+    content:
+      "The hardware is top-notch, but MIUI still has some quirks and occasional bugs. Camera performance is excellent, especially in portrait mode with the Leica tuning.",
     author: "Mia Wilson",
-    productId: 5
+    productId: 5,
   },
   {
     title: "Battery life champion",
     rating: 5,
-    content: "The combination of a large battery and efficient processor means this phone easily lasts all day. The 120W charging is a game-changer - just 19 minutes for a full charge!",
+    content:
+      "The combination of a large battery and efficient processor means this phone easily lasts all day. The 120W charging is a game-changer - just 19 minutes for a full charge!",
     author: "Noah Martinez",
-    productId: 5
+    productId: 5,
   },
-  
+
   // Continue with reviews for other products...
   // Reviews for Samsung Galaxy Z Flip 4 (id: 6)
   {
     title: "Compact and functional",
     rating: 5,
-    content: "The folding design is perfect for pockets. When unfolded, it feels like a normal phone. The cover screen is more useful than I expected for quick tasks.",
+    content:
+      "The folding design is perfect for pockets. When unfolded, it feels like a normal phone. The cover screen is more useful than I expected for quick tasks.",
     author: "Isabella Thomas",
-    productId: 6
+    productId: 6,
   },
   {
     title: "Innovative but has compromises",
     rating: 4,
-    content: "The folding concept is great, but the battery life is average and the cameras aren't as good as the S22 Ultra. Still, it's a conversation starter everywhere I go.",
+    content:
+      "The folding concept is great, but the battery life is average and the cameras aren't as good as the S22 Ultra. Still, it's a conversation starter everywhere I go.",
     author: "Ethan Clark",
-    productId: 6
+    productId: 6,
   },
   {
     title: "Durability concerns",
     rating: 4,
-    content: "I love the form factor, but I'm constantly worried about the screen durability. The crease is visible but you get used to it quickly. Great phone otherwise.",
+    content:
+      "I love the form factor, but I'm constantly worried about the screen durability. The crease is visible but you get used to it quickly. Great phone otherwise.",
     author: "Charlotte Lewis",
-    productId: 6
+    productId: 6,
   },
-  
+
   // Reviews for iPhone 13 (id: 7)
   {
     title: "Still a great phone in 2023",
     rating: 5,
-    content: "Even though it's not the latest model, the iPhone 13 offers excellent performance and camera quality. Battery life is impressive, easily lasting a full day of heavy use.",
+    content:
+      "Even though it's not the latest model, the iPhone 13 offers excellent performance and camera quality. Battery life is impressive, easily lasting a full day of heavy use.",
     author: "Benjamin Walker",
-    productId: 7
+    productId: 7,
   },
   {
     title: "Reliable and consistent",
     rating: 5,
-    content: "The iPhone 13 does everything well. Camera is great, performance is smooth, and iOS is polished. It may not have the latest features, but it's a dependable device.",
+    content:
+      "The iPhone 13 does everything well. Camera is great, performance is smooth, and iOS is polished. It may not have the latest features, but it's a dependable device.",
     author: "Amelia Scott",
-    productId: 7
+    productId: 7,
   },
   {
     title: "Good value for Apple ecosystem",
     rating: 4,
-    content: "Now that it's not the latest model, the price is more reasonable. If you don't need the Dynamic Island or always-on display, this is a great entry into the Apple ecosystem.",
+    content:
+      "Now that it's not the latest model, the price is more reasonable. If you don't need the Dynamic Island or always-on display, this is a great entry into the Apple ecosystem.",
     author: "Henry Green",
-    productId: 7
+    productId: 7,
   },
-  
+
   // Reviews for Google Pixel 6a (id: 8)
   {
     title: "Best mid-range camera",
     rating: 5,
-    content: "The camera performance on this mid-range phone is better than many flagships. Google's computational photography makes a huge difference. Great value for money.",
+    content:
+      "The camera performance on this mid-range phone is better than many flagships. Google's computational photography makes a huge difference. Great value for money.",
     author: "Lily Adams",
-    productId: 8
+    productId: 8,
   },
   {
     title: "Clean Android experience",
     rating: 4,
-    content: "The stock Android experience is refreshing compared to heavily skinned alternatives. Performance is good for the price, though the display is only 60Hz.",
+    content:
+      "The stock Android experience is refreshing compared to heavily skinned alternatives. Performance is good for the price, though the display is only 60Hz.",
     author: "Jack Nelson",
-    productId: 8
+    productId: 8,
   },
   {
     title: "Battery life could be better",
     rating: 4,
-    content: "The Tensor chip seems to drain the battery faster than expected. Otherwise, it's an excellent mid-range phone with flagship-level camera performance.",
+    content:
+      "The Tensor chip seems to drain the battery faster than expected. Otherwise, it's an excellent mid-range phone with flagship-level camera performance.",
     author: "Sofia Parker",
-    productId: 8
+    productId: 8,
   },
-  
+
   // Reviews for Realme GT 3 (id: 9)
   {
     title: "Charging speed is unbelievable",
     rating: 5,
-    content: "The 240W charging is not just a gimmick - it fully charges the phone in under 10 minutes! Performance is excellent and the display is smooth with 144Hz refresh rate.",
+    content:
+      "The 240W charging is not just a gimmick - it fully charges the phone in under 10 minutes! Performance is excellent and the display is smooth with 144Hz refresh rate.",
     author: "Lucas Mitchell",
-    productId: 9
+    productId: 9,
   },
   {
     title: "Great performance for the price",
     rating: 4,
-    content: "The Snapdragon 8+ Gen 1 delivers flagship performance at a more reasonable price. The RGB lighting on the back is a fun addition that makes the phone stand out.",
+    content:
+      "The Snapdragon 8+ Gen 1 delivers flagship performance at a more reasonable price. The RGB lighting on the back is a fun addition that makes the phone stand out.",
     author: "Zoe Carter",
-    productId: 9
+    productId: 9,
   },
   {
     title: "Camera is just average",
     rating: 3,
-    content: "While the performance and charging speed are impressive, the camera quality is just average. If photography is important to you, consider other options.",
+    content:
+      "While the performance and charging speed are impressive, the camera quality is just average. If photography is important to you, consider other options.",
     author: "Gabriel Turner",
-    productId: 9
+    productId: 9,
   },
-  
+
   // Reviews for Nothing Phone (1) (id: 10)
   {
     title: "Unique design stands out",
     rating: 5,
-    content: "The transparent back with Glyph Interface is unlike anything else on the market. It's not just for show - the lights are actually useful for notifications and charging status.",
+    content:
+      "The transparent back with Glyph Interface is unlike anything else on the market. It's not just for show - the lights are actually useful for notifications and charging status.",
     author: "Chloe Harris",
-    productId: 10
+    productId: 10,
   },
   {
     title: "Solid mid-range performer",
     rating: 4,
-    content: "The Nothing Phone (1) offers a clean Android experience with good performance. The Glyph Interface is a cool feature, but the camera is just average for the price.",
+    content:
+      "The Nothing Phone (1) offers a clean Android experience with good performance. The Glyph Interface is a cool feature, but the camera is just average for the price.",
     author: "Owen Phillips",
-    productId: 10
+    productId: 10,
   },
   {
     title: "Style over substance",
     rating: 3,
-    content: "While the design is unique and eye-catching, the actual performance and features are just average for the price range. Still, it's a refreshing approach to smartphone design.",
+    content:
+      "While the design is unique and eye-catching, the actual performance and features are just average for the price range. Still, it's a refreshing approach to smartphone design.",
     author: "Audrey Foster",
-    productId: 10
+    productId: 10,
   },
-  
+
   // Reviews for Dell XPS 15 (id: 13)
   {
     title: "Best Windows laptop for creators",
     rating: 5,
-    content: "The 4K OLED display is stunning for creative work. Performance is excellent for video editing and the build quality is top-notch. Battery life is decent considering the powerful hardware.",
+    content:
+      "The 4K OLED display is stunning for creative work. Performance is excellent for video editing and the build quality is top-notch. Battery life is decent considering the powerful hardware.",
     author: "Nathan Cooper",
-    productId: 13
+    productId: 13,
   },
   {
     title: "Premium in every way",
     rating: 5,
-    content: "The combination of aluminum and carbon fiber makes this laptop both durable and lightweight. The keyboard and trackpad are excellent, and the display is gorgeous.",
+    content:
+      "The combination of aluminum and carbon fiber makes this laptop both durable and lightweight. The keyboard and trackpad are excellent, and the display is gorgeous.",
     author: "Leah Morgan",
-    productId: 13
+    productId: 13,
   },
   {
     title: "Great but runs hot",
     rating: 4,
-    content: "Performance is excellent for creative work, but the laptop can get quite hot under heavy load. The fans can be loud when pushed, but the cooling is effective.",
+    content:
+      "Performance is excellent for creative work, but the laptop can get quite hot under heavy load. The fans can be loud when pushed, but the cooling is effective.",
     author: "Ryan Butler",
-    productId: 13
+    productId: 13,
   },
-  
+
   // Reviews for MacBook Pro 16" (id: 14)
   {
     title: "M2 chip is a game changer",
     rating: 5,
-    content: "The performance of the M2 Pro/Max chip is incredible, especially for creative work. Battery life is amazing - I can work all day without needing to charge. The display is the best I've ever used.",
+    content:
+      "The performance of the M2 Pro/Max chip is incredible, especially for creative work. Battery life is amazing - I can work all day without needing to charge. The display is the best I've ever used.",
     author: "Victoria Reed",
-    productId: 14
+    productId: 14,
   },
   {
     title: "Worth every penny",
     rating: 5,
-    content: "Yes, it's expensive, but the performance, build quality, and battery life justify the price. The return of useful ports like HDMI and SD card reader is very welcome.",
+    content:
+      "Yes, it's expensive, but the performance, build quality, and battery life justify the price. The return of useful ports like HDMI and SD card reader is very welcome.",
     author: "Isaac Collins",
-    productId: 14
+    productId: 14,
   },
   {
     title: "Perfect for video editing",
     rating: 5,
-    content: "I can edit 4K video without any lag or stuttering. The Liquid Retina XDR display is perfect for color grading. The speakers are also surprisingly good for a laptop.",
+    content:
+      "I can edit 4K video without any lag or stuttering. The Liquid Retina XDR display is perfect for color grading. The speakers are also surprisingly good for a laptop.",
     author: "Ellie Stewart",
-    productId: 14
+    productId: 14,
   },
-  
+
   // Reviews for Logitech MX Master 3 (id: 15)
   {
     title: "Best productivity mouse",
     rating: 5,
-    content: "The MagSpeed scroll wheel is a game-changer for productivity. The ergonomics are perfect for long work sessions, and the customization options are extensive.",
+    content:
+      "The MagSpeed scroll wheel is a game-changer for productivity. The ergonomics are perfect for long work sessions, and the customization options are extensive.",
     author: "Mason Hughes",
-    productId: 15
+    productId: 15,
   },
   {
     title: "Great for multi-device users",
     rating: 5,
-    content: "Being able to control multiple computers with Flow is incredibly useful. The battery life is excellent - I only need to charge it once every couple of months.",
+    content:
+      "Being able to control multiple computers with Flow is incredibly useful. The battery life is excellent - I only need to charge it once every couple of months.",
     author: "Harper Ross",
-    productId: 15
+    productId: 15,
   },
   {
     title: "Not ideal for small hands",
     rating: 4,
-    content: "The mouse is quite large, which may be uncomfortable for users with smaller hands. Otherwise, it's an excellent productivity tool with great features.",
+    content:
+      "The mouse is quite large, which may be uncomfortable for users with smaller hands. Otherwise, it's an excellent productivity tool with great features.",
     author: "Evelyn Price",
-    productId: 15
+    productId: 15,
   },
-  
+
   // Reviews for Samsung 32" Curved (id: 16)
   {
     title: "Immersive gaming experience",
     rating: 5,
-    content: "The 1000R curve really does make a difference for immersion in games. The 144Hz refresh rate and 1ms response time make for smooth gameplay without motion blur.",
+    content:
+      "The 1000R curve really does make a difference for immersion in games. The 144Hz refresh rate and 1ms response time make for smooth gameplay without motion blur.",
     author: "Leo Campbell",
-    productId: 16
+    productId: 16,
   },
   {
     title: "Great for work and play",
     rating: 4,
-    content: "The large screen and high resolution are perfect for productivity, while the high refresh rate and low response time make it great for gaming as well.",
+    content:
+      "The large screen and high resolution are perfect for productivity, while the high refresh rate and low response time make it great for gaming as well.",
     author: "Stella Ward",
-    productId: 16
+    productId: 16,
   },
   {
     title: "Colors are vibrant",
     rating: 5,
-    content: "The QLED technology delivers rich, vibrant colors that make both games and movies look fantastic. The curve helps reduce eye strain during long sessions.",
+    content:
+      "The QLED technology delivers rich, vibrant colors that make both games and movies look fantastic. The curve helps reduce eye strain during long sessions.",
     author: "Felix Barnes",
-    productId: 16
+    productId: 16,
   },
-  
+
   // Reviews for Cyberpunk 2077 (id: 18)
   {
     title: "Immersive open world",
     rating: 4,
-    content: "Night City is one of the most detailed and immersive open worlds I've experienced in gaming. The story and characters are compelling, though there are still some bugs.",
+    content:
+      "Night City is one of the most detailed and immersive open worlds I've experienced in gaming. The story and characters are compelling, though there are still some bugs.",
     author: "Jasmine Hayes",
-    productId: 18
+    productId: 18,
   },
   {
     title: "Visually stunning with RTX",
     rating: 5,
-    content: "With ray tracing enabled, this is possibly the best-looking game I've ever played. The atmosphere of Night City is incredible, especially at night with all the neon lights.",
+    content:
+      "With ray tracing enabled, this is possibly the best-looking game I've ever played. The atmosphere of Night City is incredible, especially at night with all the neon lights.",
     author: "Caleb Fisher",
-    productId: 18
+    productId: 18,
   },
   {
     title: "Much improved since launch",
     rating: 4,
-    content: "After numerous patches, the game is in a much better state than at launch. The story and side quests are excellent, with meaningful choices that affect the outcome.",
+    content:
+      "After numerous patches, the game is in a much better state than at launch. The story and side quests are excellent, with meaningful choices that affect the outcome.",
     author: "Nora Bennett",
-    productId: 18
-  }
-];
+    productId: 18,
+  },
+]
 
 export interface Product {
   id: number
@@ -367,6 +412,7 @@ export interface Product {
   brand: string
   condition: string
   category: string
+  categoryIcon: string // New field for category icons
   features: string[]
   specs: string[]
   descriptions: Array<{
@@ -379,11 +425,7 @@ export const mockProducts: Product[] = [
   {
     id: 1,
     image: "/imgs/phone 1.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Samsung Galaxy S23 Ultra",
     rating: 4.8,
@@ -392,12 +434,8 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     condition: "New",
     category: "Phones",
-    features: [
-      "200MP Wide-angle Camera", 
-      "Snapdragon 8 Gen 2 Processor", 
-      "5000mAh Battery", 
-      "8K Video Recording"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["200MP Wide-angle Camera", "Snapdragon 8 Gen 2 Processor", "5000mAh Battery", "8K Video Recording"],
     specs: [
       "Display: 6.8-inch Dynamic AMOLED 2X",
       "Resolution: 3088 x 1440 pixels",
@@ -423,18 +461,14 @@ export const mockProducts: Product[] = [
         title: "Nightography",
         content:
           "Whether you're headed to a concert or just staying out late, you can capture epic content in any lighting. The camera's enhanced AI keeps details clear, so your low light photos and videos will be bright and colorful from dusk to dawn.",
-      }
+      },
     ],
   },
   {
     id: 2,
     image: "/imgs/phone 2.png",
     badge: "LIMITED OFFER",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     title: "Apple iPhone 14 Pro Max",
     rating: 4.9,
     reviews: 450,
@@ -442,12 +476,8 @@ export const mockProducts: Product[] = [
     brand: "Apple",
     condition: "New",
     category: "Phones",
-    features: [
-      "48MP Main Camera", 
-      "A16 Bionic Chip", 
-      "Dynamic Island", 
-      "Always-On Display"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["48MP Main Camera", "A16 Bionic Chip", "Dynamic Island", "Always-On Display"],
     specs: [
       "Display: 6.7-inch Super Retina XDR OLED",
       "Resolution: 2796 x 1290 pixels",
@@ -473,17 +503,13 @@ export const mockProducts: Product[] = [
         title: "All-Day Battery Life",
         content:
           "iPhone 14 Pro Max has the best battery life ever in an iPhone. So whether you're checking in on various social media platforms, streaming high-definition video, or gaming with console-level graphics, you'll experience longer-lasting battery life.",
-      }
+      },
     ],
   },
   {
     id: 3,
     image: "/imgs/phone 3.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Google Pixel 7 Pro",
     rating: 4.7,
@@ -492,12 +518,8 @@ export const mockProducts: Product[] = [
     brand: "Google",
     condition: "New",
     category: "Phones",
-    features: [
-      "Tensor G2 Chip", 
-      "50MP Triple Camera System", 
-      "24-Hour Battery Life", 
-      "Advanced Photo Editing"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["Tensor G2 Chip", "50MP Triple Camera System", "24-Hour Battery Life", "Advanced Photo Editing"],
     specs: [
       "Display: 6.7-inch LTPO OLED",
       "Resolution: 3120 x 1440 pixels",
@@ -523,17 +545,13 @@ export const mockProducts: Product[] = [
         title: "Titan M2 Security",
         content:
           "The Titan M2 security chip helps protect your personal data, PINs, and passwords. And with Google's Protected Computing, your personal info is even more secure.",
-      }
+      },
     ],
   },
   {
     id: 4,
     image: "/imgs/phone 4.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "BEST SELLER",
     title: "OnePlus 11 5G",
     rating: 4.6,
@@ -542,12 +560,8 @@ export const mockProducts: Product[] = [
     brand: "OnePlus",
     condition: "New",
     category: "Phones",
-    features: [
-      "Snapdragon 8 Gen 2", 
-      "100W SUPERVOOC Charging", 
-      "50MP Triple Camera", 
-      "Hasselblad Camera"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["Snapdragon 8 Gen 2", "100W SUPERVOOC Charging", "50MP Triple Camera", "Hasselblad Camera"],
     specs: [
       "Display: 6.7-inch AMOLED LTPO 3.0",
       "Resolution: 3216 x 1440 pixels",
@@ -573,17 +587,13 @@ export const mockProducts: Product[] = [
         title: "Snapdragon 8 Gen 2",
         content:
           "Powered by the latest Snapdragon 8 Gen 2, experience up to 35% faster CPU performance and 25% faster GPU performance compared to the previous generation.",
-      }
+      },
     ],
   },
   {
     id: 5,
     image: "/imgs/phone 5.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Xiaomi 13 Pro",
     rating: 4.5,
@@ -592,12 +602,8 @@ export const mockProducts: Product[] = [
     brand: "Xiaomi",
     condition: "Second",
     category: "Phones",
-    features: [
-      "Leica Optics Camera", 
-      "Snapdragon 8 Gen 2", 
-      "120W HyperCharge", 
-      "IP68 Water Resistance"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["Leica Optics Camera", "Snapdragon 8 Gen 2", "120W HyperCharge", "IP68 Water Resistance"],
     specs: [
       "Display: 6.73-inch AMOLED",
       "Resolution: 3200 x 1440 pixels",
@@ -623,17 +629,13 @@ export const mockProducts: Product[] = [
         title: "Ceramic Body Design",
         content:
           "The premium ceramic body offers exceptional durability and a luxurious feel, while the IP68 rating ensures protection against water and dust in any environment.",
-      }
+      },
     ],
   },
   {
     id: 6,
     image: "/imgs/phone 6.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Samsung Galaxy Z Flip 4",
     rating: 4.4,
@@ -642,12 +644,8 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     condition: "New",
     category: "Phones",
-    features: [
-      "Foldable Display", 
-      "FlexCam", 
-      "Snapdragon 8+ Gen 1", 
-      "IPX8 Water Resistance"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["Foldable Display", "FlexCam", "Snapdragon 8+ Gen 1", "IPX8 Water Resistance"],
     specs: [
       "Main Display: 6.7-inch Dynamic AMOLED 2X",
       "Cover Display: 1.9-inch Super AMOLED",
@@ -674,17 +672,13 @@ export const mockProducts: Product[] = [
         title: "Customizable Cover Screen",
         content:
           "The 1.9-inch Cover Screen lets you do more without opening your phone. Take selfies, reply to texts, and access widgets—all from the Cover Screen.",
-      }
+      },
     ],
   },
   {
     id: 7,
     image: "/imgs/phone 7.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Apple iPhone 13",
     rating: 4.7,
@@ -693,12 +687,8 @@ export const mockProducts: Product[] = [
     brand: "Apple",
     condition: "Refurbished",
     category: "Phones",
-    features: [
-      "A15 Bionic Chip", 
-      "Dual Camera System", 
-      "Super Retina XDR Display", 
-      "Ceramic Shield"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["A15 Bionic Chip", "Dual Camera System", "Super Retina XDR Display", "Ceramic Shield"],
     specs: [
       "Display: 6.1-inch Super Retina XDR OLED",
       "Resolution: 2532 x 1170 pixels",
@@ -724,17 +714,13 @@ export const mockProducts: Product[] = [
         title: "Super Retina XDR Display",
         content:
           "The Super Retina XDR display is 28% brighter, up to 800 nits, so it's easier to see in full sunlight. And it still delivers an amazing HDR experience with true blacks and over a billion colors.",
-      }
+      },
     ],
   },
   {
     id: 8,
     image: "/imgs/phone 8.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Google Pixel 6a",
     rating: 4.3,
@@ -743,12 +729,8 @@ export const mockProducts: Product[] = [
     brand: "Google",
     condition: "Second",
     category: "Phones",
-    features: [
-      "Google Tensor Chip", 
-      "12MP Dual Camera", 
-      "24-Hour Battery Life", 
-      "Titan M2 Security"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["Google Tensor Chip", "12MP Dual Camera", "24-Hour Battery Life", "Titan M2 Security"],
     specs: [
       "Display: 6.1-inch OLED",
       "Resolution: 2400 x 1080 pixels",
@@ -774,17 +756,13 @@ export const mockProducts: Product[] = [
         title: "Fast, Accurate Photos",
         content:
           "Take beautiful photos with Pixel's 12 megapixel camera and Google's expert image processing. Magic Eraser makes distractions disappear. And with Real Tone, everyone's skin tone is authentically represented.",
-      }
+      },
     ],
   },
   {
     id: 9,
     image: "/imgs/phone 9.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Realme GT 3",
     rating: 4.2,
@@ -793,12 +771,8 @@ export const mockProducts: Product[] = [
     brand: "Realme",
     condition: "New",
     category: "Phones",
-    features: [
-      "240W SuperVOOC Charging", 
-      "Snapdragon 8+ Gen 1", 
-      "144Hz AMOLED Display", 
-      "Pulse Interface Design"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["240W SuperVOOC Charging", "Snapdragon 8+ Gen 1", "144Hz AMOLED Display", "Pulse Interface Design"],
     specs: [
       "Display: 6.74-inch AMOLED",
       "Resolution: 2772 x 1240 pixels",
@@ -824,17 +798,13 @@ export const mockProducts: Product[] = [
         title: "Flagship Performance",
         content:
           "Powered by the Snapdragon 8+ Gen 1 processor and up to 16GB of RAM, the Realme GT 3 delivers exceptional performance for gaming, multitasking, and demanding applications.",
-      }
+      },
     ],
   },
   {
     id: 10,
     image: "/imgs/phone 10.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Nothing Phone (1)",
     rating: 4.1,
@@ -843,12 +813,8 @@ export const mockProducts: Product[] = [
     brand: "Nothing",
     condition: "New",
     category: "Phones",
-    features: [
-      "Glyph Interface", 
-      "Snapdragon 778G+", 
-      "50MP Dual Camera", 
-      "Wireless Charging"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["Glyph Interface", "Snapdragon 778G+", "50MP Dual Camera", "Wireless Charging"],
     specs: [
       "Display: 6.55-inch OLED",
       "Resolution: 2400 x 1080 pixels",
@@ -874,17 +840,13 @@ export const mockProducts: Product[] = [
         title: "Nothing OS",
         content:
           "Nothing OS delivers a clean, distraction-free experience that's fast, smooth, and personal. The hardware and software speak the same visual language, with custom fonts, sounds, and graphical elements.",
-      }
+      },
     ],
   },
   {
     id: 11,
     image: "/imgs/phone 11.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Samsung Galaxy A54",
     rating: 4.0,
@@ -893,12 +855,8 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     condition: "Refurbished",
     category: "Phones",
-    features: [
-      "50MP OIS Camera", 
-      "Super AMOLED Display", 
-      "5000mAh Battery", 
-      "IP67 Water Resistance"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["50MP OIS Camera", "Super AMOLED Display", "5000mAh Battery", "IP67 Water Resistance"],
     specs: [
       "Display: 6.4-inch Super AMOLED",
       "Resolution: 2340 x 1080 pixels",
@@ -924,17 +882,13 @@ export const mockProducts: Product[] = [
         title: "Long-lasting Battery",
         content:
           "The 5000mAh battery keeps you going all day and into the night. When you need a boost, 25W Super Fast Charging gets you back to full power quickly.",
-      }
+      },
     ],
   },
   {
     id: 12,
     image: "/imgs/phone 12.png",
-    thumbnails: [
-      "/imgs/phone1-thumb1.png",
-      "/imgs/phone1-thumb2.png",
-      "/imgs/phone1-thumb3.png"
-    ],
+    thumbnails: ["/imgs/phone1-thumb1.png", "/imgs/phone1-thumb2.png", "/imgs/phone1-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Motorola Edge 30 Ultra",
     rating: 4.3,
@@ -943,12 +897,8 @@ export const mockProducts: Product[] = [
     brand: "Motorola",
     condition: "Second",
     category: "Phones",
-    features: [
-      "200MP Camera", 
-      "125W TurboPower Charging", 
-      "Snapdragon 8+ Gen 1", 
-      "144Hz pOLED Display"
-    ],
+    categoryIcon: "/imgs/category-phone-icon.png",
+    features: ["200MP Camera", "125W TurboPower Charging", "Snapdragon 8+ Gen 1", "144Hz pOLED Display"],
     specs: [
       "Display: 6.67-inch pOLED",
       "Resolution: 2400 x 1080 pixels",
@@ -974,18 +924,14 @@ export const mockProducts: Product[] = [
         title: "Immersive Display",
         content:
           "The 6.67-inch pOLED display with 144Hz refresh rate delivers ultra-smooth scrolling and gaming. The HDR10+ support and 1B colors ensure vibrant, lifelike visuals for all your content.",
-      }
+      },
     ],
   },
   //imgs/ Adding products for other categories
   {
     id: 13,
     image: "/imgs/Dell XPS 15.png",
-    thumbnails: [
-      "/imgs/laptop-thumb1.png",
-      "/imgs/laptop-thumb2.png",
-      "/imgs/laptop-thumb3.png"
-    ],
+    thumbnails: ["/imgs/laptop-thumb1.png", "/imgs/laptop-thumb2.png", "/imgs/laptop-thumb3.png"],
     badge: "LIMITED OFFER ",
     title: "Dell XPS 15",
     rating: 4.7,
@@ -994,18 +940,14 @@ export const mockProducts: Product[] = [
     brand: "Dell",
     condition: "New",
     category: "Laptops",
-    features: [
-      "12th Gen Intel Core i7", 
-      "NVIDIA RTX 3050 Ti", 
-      "15.6\" 4K OLED Display", 
-      "32GB DDR5 RAM"
-    ],
+    categoryIcon: "/imgs/category-laptop-icon.png",
+    features: ["12th Gen Intel Core i7", "NVIDIA RTX 3050 Ti", '15.6" 4K OLED Display', "32GB DDR5 RAM"],
     specs: [
       "Processor: Intel Core i7-12700H (14 cores, up to 4.7GHz)",
       "Graphics: NVIDIA GeForce RTX 3050 Ti, 4GB GDDR6",
       "RAM: 32GB DDR5 4800MHz",
       "Storage: 1TB PCIe NVMe SSD",
-      "Display: 15.6\" 4K UHD+ (3840 x 2400) OLED Touch",
+      'Display: 15.6" 4K UHD+ (3840 x 2400) OLED Touch',
       "Battery: 86Whr, up to 13 hours",
       "Ports: 2x Thunderbolt 4, 1x USB-C 3.2, SD card reader, headphone jack",
       "Weight: 4.22 lbs (1.92 kg)",
@@ -1025,17 +967,13 @@ export const mockProducts: Product[] = [
         title: "Premium Build Quality",
         content:
           "Crafted from CNC machined aluminum and carbon fiber, the XPS 15 combines durability with lightweight design. The large precision touchpad and edge-to-edge keyboard provide a comfortable user experience.",
-      }
+      },
     ],
   },
   {
     id: 14,
     image: "/imgs/Keyboard Cover.jpeg",
-    thumbnails: [
-      "/imgs/laptop-thumb1.png",
-      "/imgs/laptop-thumb2.png",
-      "/imgs/laptop-thumb3.png"
-    ],
+    thumbnails: ["/imgs/laptop-thumb1.png", "/imgs/laptop-thumb2.png", "/imgs/laptop-thumb3.png"],
     badge: "LIMITED OFFER",
     title: 'MacBook Pro 16"',
     rating: 4.8,
@@ -1044,17 +982,18 @@ export const mockProducts: Product[] = [
     brand: "Apple",
     condition: "New",
     category: "Laptops",
+    categoryIcon: "/imgs/category-laptop-icon.png",
     features: [
-      "M2 Pro/Max Chip", 
-      "16\" Liquid Retina XDR Display", 
-      "Up to 96GB Unified Memory", 
-      "Up to 22 Hours Battery Life"
+      "M2 Pro/Max Chip",
+      '16" Liquid Retina XDR Display',
+      "Up to 96GB Unified Memory",
+      "Up to 22 Hours Battery Life",
     ],
     specs: [
       "Processor: Apple M2 Pro or M2 Max",
       "RAM: 16GB/32GB/64GB/96GB unified memory",
       "Storage: 512GB/1TB/2TB/4TB/8TB SSD",
-      "Display: 16.2\" Liquid Retina XDR (3456 x 2234)",
+      'Display: 16.2" Liquid Retina XDR (3456 x 2234)',
       "Graphics: Up to 38-core GPU",
       "Battery: Up to 22 hours",
       "Ports: 3x Thunderbolt 4, HDMI, SDXC card slot, headphone jack, MagSafe 3",
@@ -1080,17 +1019,13 @@ export const mockProducts: Product[] = [
         title: "All-Day Battery Life",
         content:
           "The MacBook Pro delivers up to 22 hours of battery life, the longest ever in a Mac. Work unplugged all day and well into the night, no matter where you are.",
-      }
+      },
     ],
   },
   {
     id: 15,
     image: "/imgs/Logitech MX Master 3.jpeg",
-    thumbnails: [
-      "/imgs/accessory-thumb1.png",
-      "/imgs/accessory-thumb2.png",
-      "/imgs/accessory-thumb3.png"
-    ],
+    thumbnails: ["/imgs/accessory-thumb1.png", "/imgs/accessory-thumb2.png", "/imgs/accessory-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Logitech MX Master 3",
     rating: 4.6,
@@ -1099,11 +1034,12 @@ export const mockProducts: Product[] = [
     brand: "Logitech",
     condition: "New",
     category: "Accessories",
+    categoryIcon: "/imgs/category-accessory-icon.png",
     features: [
-      "Electromagnetic Scrolling", 
-      "8K DPI Precision Sensor", 
-      "App-Specific Customization", 
-      "Multi-Device Control"
+      "Electromagnetic Scrolling",
+      "8K DPI Precision Sensor",
+      "App-Specific Customization",
+      "Multi-Device Control",
     ],
     specs: [
       "Sensor: Darkfield high precision, 8000 DPI",
@@ -1130,17 +1066,13 @@ export const mockProducts: Product[] = [
         title: "Flow Cross-Computer Control",
         content:
           "Work seamlessly on multiple computers with Flow technology. Simply move your cursor to the edge of one screen and it appears on the other computer. You can even copy and paste text, images, and files between computers.",
-      }
+      },
     ],
   },
   {
     id: 16,
     image: "/imgs/Samsung Curved Monitor.jpg",
-    thumbnails: [
-      "/imgs/monitor-thumb1.png",
-      "/imgs/monitor-thumb2.png",
-      "/imgs/monitor-thumb3.png"
-    ],
+    thumbnails: ["/imgs/monitor-thumb1.png", "/imgs/monitor-thumb2.png", "/imgs/monitor-thumb3.png"],
     badge: "LIMITED OFFER",
     title: 'Samsung 32" Curved',
     rating: 4.5,
@@ -1149,12 +1081,8 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     condition: "New",
     category: "Monitors",
-    features: [
-      "1000R Curved Display", 
-      "QLED Technology", 
-      "144Hz Refresh Rate", 
-      "1ms Response Time"
-    ],
+    categoryIcon: "/imgs/category-monitor-icon.png",
+    features: ["1000R Curved Display", "QLED Technology", "144Hz Refresh Rate", "1ms Response Time"],
     specs: [
       "Screen Size: 32 inches",
       "Resolution: 2560 x 1440 (WQHD)",
@@ -1169,7 +1097,7 @@ export const mockProducts: Product[] = [
       {
         title: "Immersive 1000R Curved Screen",
         content:
-          "The Samsung 32\" Curved Monitor features an industry-leading 1000R curvature that matches the natural curve of the human eye, reducing eye strain and providing a more immersive viewing experience.",
+          'The Samsung 32" Curved Monitor features an industry-leading 1000R curvature that matches the natural curve of the human eye, reducing eye strain and providing a more immersive viewing experience.',
       },
       {
         title: "QLED Technology",
@@ -1180,17 +1108,13 @@ export const mockProducts: Product[] = [
         title: "Smooth Gaming Experience",
         content:
           "With a 144Hz refresh rate and 1ms response time, this monitor eliminates lag and motion blur for smooth gameplay. AMD FreeSync Premium technology prevents screen tearing for a seamless gaming experience.",
-      }
+      },
     ],
   },
   {
     id: 17,
     image: "/imgs/TP-Link Archer AX6000.jpeg",
-    thumbnails: [
-      "/imgs/network-thumb1.png",
-      "/imgs/network-thumb2.png",
-      "/imgs/network-thumb3.png"
-    ],
+    thumbnails: ["/imgs/network-thumb1.png", "/imgs/network-thumb2.png", "/imgs/network-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "TP-Link Archer AX6000",
     rating: 4.3,
@@ -1199,12 +1123,8 @@ export const mockProducts: Product[] = [
     brand: "TP-Link",
     condition: "New",
     category: "Network",
-    features: [
-      "Wi-Fi 6 Technology", 
-      "6000Mbps Total Speed", 
-      "8 Gigabit LAN Ports", 
-      "2.5G WAN Port"
-    ],
+    categoryIcon: "/imgs/category-network-icon.png",
+    features: ["Wi-Fi 6 Technology", "6000Mbps Total Speed", "8 Gigabit LAN Ports", "2.5G WAN Port"],
     specs: [
       "Wi-Fi Standard: 802.11ax (Wi-Fi 6)",
       "Speed: 4804Mbps (5GHz) + 1148Mbps (2.4GHz)",
@@ -1235,17 +1155,13 @@ export const mockProducts: Product[] = [
         title: "Comprehensive Security",
         content:
           "TP-Link HomeCare provides robust security with real-time antivirus protection, intrusion prevention, and advanced parental controls to keep your family safe online.",
-      }
+      },
     ],
   },
   {
     id: 18,
     image: "/imgs/Cyberpunk 2077.jpg",
-    thumbnails: [
-      "/imgs/game-thumb1.png",
-      "/imgs/game-thumb2.png",
-      "/imgs/game-thumb3.png"
-    ],
+    thumbnails: ["/imgs/game-thumb1.png", "/imgs/game-thumb2.png", "/imgs/game-thumb3.png"],
     badge: "LIMITED OFFER",
     title: "Cyberpunk 2077",
     rating: 4.0,
@@ -1254,12 +1170,8 @@ export const mockProducts: Product[] = [
     brand: "CD Projekt",
     condition: "New",
     category: "PC Games",
-    features: [
-      "Open-World RPG", 
-      "Ray Tracing Support", 
-      "Character Customization", 
-      "Multiple Endings"
-    ],
+    categoryIcon: "/imgs/category-game-icon.png",
+    features: ["Open-World RPG", "Ray Tracing Support", "Character Customization", "Multiple Endings"],
     specs: [
       "Genre: Open-World RPG",
       "Developer: CD Projekt RED",
@@ -1290,7 +1202,7 @@ export const mockProducts: Product[] = [
         title: "Deep Character Customization",
         content:
           "Create your own cyberpunk with a customizable cyberware, skillset, and playstyle. Upgrade your character with different perks and augmentations as you level up to become the ultimate mercenary outlaw.",
-      }
+      },
     ],
   },
   {
@@ -1305,29 +1217,36 @@ export const mockProducts: Product[] = [
     brand: "Apple",
     condition: "New",
     category: "Audio",
+    categoryIcon: "/imgs/AirPods Max.png",
     features: ["High-Fidelity Audio", "Active Noise Cancellation", "Spatial Audio", "20-Hour Battery Life"],
     specs: [
       "Drivers: 40mm dynamic drivers",
       "Connectivity: Bluetooth 5.0",
       "Battery Life: Up to 20 hours",
       "Weight: 384.8g",
-      "Sensors: Optical, position, case-detect, gyroscope, accelerometer"
+      "Sensors: Optical, position, case-detect, gyroscope, accelerometer",
     ],
     descriptions: [
       {
         title: "Exceptional Sound Quality",
-        content: "Custom-designed driver delivers rich, deep bass and crisp, clean high frequencies. The perfect balance for any type of music."
+        content:
+          "Custom-designed driver delivers rich, deep bass and crisp, clean high frequencies. The perfect balance for any type of music.",
       },
       {
         title: "Active Noise Cancellation",
-        content: "Block out the world and focus on what you're listening to with advanced active noise cancellation technology."
-      }
-    ]
+        content:
+          "Block out the world and focus on what you're listening to with advanced active noise cancellation technology.",
+      },
+    ],
   },
   {
     id: 20,
     image: "/imgs/Edifier Speakers.png",
-    thumbnails: ["/imgs/Edifier Speakers-thumb1.png", "/imgs/Edifier Speakers-thumb2.png", "/imgs/Edifier Speakers-thumb3.png"],
+    thumbnails: [
+      "/imgs/Edifier Speakers-thumb1.png",
+      "/imgs/Edifier Speakers-thumb2.png",
+      "/imgs/Edifier Speakers-thumb3.png",
+    ],
     badge: "BEST VALUE",
     title: "Edifier Speakers",
     rating: 4.7,
@@ -1336,465 +1255,21 @@ export const mockProducts: Product[] = [
     brand: "Edifier",
     condition: "New",
     category: "Audio",
+    categoryIcon: "/imgs/category-audio-icon.png",
     features: ["Bookshelf Speakers", "Bluetooth Connectivity", "Wood Enclosure", "Remote Control"],
     specs: [
       "Type: 2.0 Bookshelf Speakers",
       "Output Power: 42W RMS",
       "Frequency Response: 55Hz-20KHz",
-      "Input: Bluetooth, RCA, Optical"
+      "Input: Bluetooth, RCA, Optical",
     ],
     descriptions: [
       {
         title: "Studio Quality Sound",
-        content: "Experience rich, full sound with these compact bookshelf speakers. Perfect for desktop use or small room audio setups."
-      }
-    ]
+        content:
+          "Experience rich, full sound with these compact bookshelf speakers. Perfect for desktop use or small room audio setups.",
+      },
+    ],
   },
-  {
-    id: 21,
-    image: "/imgs/USB-C Charger.png",
-    thumbnails: ["/imgs/USB-C Charger-thumb1.png", "/imgs/USB-C Charger-thumb2.png", "/imgs/USB-C Charger-thumb3.png"],
-    badge: "ESSENTIAL",
-    title: "USB-C Charger",
-    rating: 4.6,
-    reviews: 189,
-    price: 39.99,
-    brand: "Samsung",
-    condition: "New",
-    category: "Accessories",
-    features: ["Fast Charging", "25W Power Output", "Compact Design", "USB-C to C Cable Included"],
-    specs: [
-      "Input: 100-240V, 50/60Hz",
-      "Output: 5V/3A, 9V/2.77A, 15V/1.66A, PPS",
-      "Technology: USB Power Delivery 3.0",
-      "Cable Length: 1.5m"
-    ],
-    descriptions: [
-      {
-        title: "Super Fast Charging",
-        content: "Power up your devices in minutes with this 25W fast charger. Compatible with a wide range of USB-C devices."
-      }
-    ]
-  },
-  {
-    id: 22,
-    image: "/imgs/AirTag Cases.png",
-    thumbnails: ["/imgs/AirTag Cases-thumb1.png", "/imgs/AirTag Cases-thumb2.png", "/imgs/AirTag Cases-thumb3.png"],
-    badge: "NEW ARRIVAL",
-    title: "AirTag Cases",
-    rating: 4.5,
-    reviews: 120,
-    price: 29.99,
-    brand: "Apple",
-    condition: "New",
-    category: "Accessories",
-    features: ["Protective Design", "Multiple Colors", "Keyring Attachment", "Silicone Material"],
-    specs: [
-      "Material: Silicone",
-      "Compatibility: Apple AirTag",
-      "Colors: Blue, Gray, Pink",
-      "Attachment: Metal keyring"
-    ],
-    descriptions: [
-      {
-        title: "Stylish Protection",
-        content: "Keep your AirTag protected while adding a pop of color with these durable silicone cases. Available in multiple colors to match your style."
-      }
-    ]
-  },
-  {
-    id: 23,
-    image: "/imgs/Huawei MateBook.png",
-    thumbnails: ["/imgs/Huawei MateBook-thumb1.png", "/imgs/Huawei MateBook-thumb2.png", "/imgs/Huawei MateBook-thumb3.png"],
-    badge: "TOP RATED",
-    title: "Huawei MateBook",
-    rating: 4.6,
-    reviews: 210,
-    price: 999.99,
-    brand: "Huawei",
-    condition: "New",
-    category: "Laptops",
-    features: ["Ultra-thin Design", "11th Gen Intel Core", "13.3\" 3K Display", "Long Battery Life"],
-    specs: [
-      "Processor: 11th Gen Intel Core i7",
-      "RAM: 16GB LPDDR4x",
-      "Storage: 512GB NVMe SSD",
-      "Display: 13.3\" 3:2 3K (3000x2000) touchscreen",
-      "Battery: 56Wh, up to 13 hours"
-    ],
-    descriptions: [
-      {
-        title: "Ultra-Portable Powerhouse",
-        content: "The Huawei MateBook combines premium design with powerful performance in an ultra-thin package. Perfect for professionals on the go."
-      }
-    ]
-  },
-  {
-    id: 24,
-    image: "/imgs/USB Condenser Microphone.png",
-    thumbnails: ["/imgs/USB Microphone-thumb1.png", "/imgs/USB Microphone-thumb2.png", "/imgs/USB Microphone-thumb3.png"],
-    badge: "POPULAR",
-    title: "USB Condenser Microphone",
-    rating: 4.4,
-    reviews: 175,
-    price: 69.99,
-    brand: "FIFINE",
-    condition: "New",
-    category: "Audio",
-    features: ["Plug & Play USB", "Cardioid Pattern", "Gain Control", "Zero-Latency Monitoring"],
-    specs: [
-      "Type: Condenser microphone",
-      "Polar Pattern: Cardioid",
-      "Sample Rate: 24bit/192kHz",
-      "Frequency Response: 20Hz-20kHz",
-      "Connection: USB"
-    ],
-    descriptions: [
-      {
-        title: "Studio-Quality Recording",
-        content: "Capture professional-sounding audio for podcasts, streaming, voice-overs, and more with this easy-to-use USB condenser microphone."
-      }
-    ]
-  },
-  {
-    id: 25,
-    image: "/imgs/Wooden PC Case.png",
-    thumbnails: ["/imgs/Wooden PC Case-thumb1.png", "/imgs/Wooden PC Case-thumb2.png", "/imgs/Wooden PC Case-thumb3.png"],
-    badge: "EXCLUSIVE",
-    title: "Wooden PC Case",
-    rating: 4.7,
-    reviews: 85,
-    price: 299.99,
-    brand: "Volta",
-    condition: "New",
-    category: "PC Components",
-    features: ["Wooden Construction", "Minimalist Design", "USB-C Ports", "Quiet Cooling"],
-    specs: [
-      "Material: Natural wood with aluminum accents",
-      "Form Factor: Mini-ITX / Micro-ATX",
-      "Front I/O: 2x USB 3.0, 1x USB-C, Audio in/out",
-      "Dimensions: 350 x 250 x 100mm"
-    ],
-    descriptions: [
-      {
-        title: "Nature Meets Technology",
-        content: "This unique wooden PC case combines natural materials with modern computer design for a stunning desktop centerpiece that stands out from typical metal and plastic cases."
-      }
-    ]
-  },
-  {
-    id: 26,
-    image: "/imgs/Smart Watch.png",
-    thumbnails: ["/imgs/Smart Watch-thumb1.png", "/imgs/Smart Watch-thumb2.png", "/imgs/Smart Watch-thumb3.png"],
-    badge: "NEW ARRIVAL",
-    title: "Smart Watch",
-    rating: 4.3,
-    reviews: 150,
-    price: 199.99,
-    brand: "Amazfit",
-    condition: "New",
-    category: "Wearables",
-    features: ["AMOLED Display", "Heart Rate Monitoring", "Sleep Tracking", "5 ATM Water Resistance"],
-    specs: [
-      "Display: 1.65\" AMOLED",
-      "Battery: Up to 14 days",
-      "Sensors: Heart rate, accelerometer, gyroscope",
-      "Connectivity: Bluetooth 5.0, GPS",
-      "Compatibility: Android, iOS"
-    ],
-    descriptions: [
-      {
-        title: "Your Health Companion",
-        content: "Track your fitness goals, monitor your health metrics, and stay connected with notifications on your wrist with this feature-packed smart watch."
-      }
-    ]
-  },
-  {
-    id: 27,
-    image: "/imgs/Power Cable.png",
-    thumbnails: ["/imgs/Power Cable-thumb1.png", "/imgs/Power Cable-thumb2.png", "/imgs/Power Cable-thumb3.png"],
-    badge: "ESSENTIAL",
-    title: "Power Cable",
-    rating: 4.5,
-    reviews: 120,
-    price: 12.99,
-    brand: "Anker",
-    condition: "New",
-    category: "Accessories",
-    features: ["Universal AC Power", "6ft Length", "Heavy Duty", "Compatible with Most Devices"],
-    specs: [
-      "Type: 3-prong AC power cable",
-      "Length: 6 feet (1.8m)",
-      "Rating: 10A, 125V",
-      "Material: PVC insulation, copper conductors"
-    ],
-    descriptions: [
-      {
-        title: "Reliable Power Connection",
-        content: "This standard 3-prong power cable works with most computers, monitors, printers, and other electronic devices that use the common IEC C13 connector."
-      }
-    ]
-  },
-  {
-    id: 28,
-    image: "/imgs/USB-C Cable.png",
-    thumbnails: ["/imgs/USB-C Cable-thumb1.png", "/imgs/USB-C Cable-thumb2.png", "/imgs/USB-C Cable-thumb3.png"],
-    badge: "BEST SELLER",
-    title: "USB-C Cable",
-    rating: 4.7,
-    reviews: 230,
-    price: 19.99,
-    brand: "Satechi",
-    condition: "New",
-    category: "Accessories",
-    features: ["USB-C to USB-C", "100W Power Delivery", "10Gbps Data Transfer", "Durable Design"],
-    specs: [
-      "Type: USB-C to USB-C",
-      "Length: 6 inches (15cm)",
-      "Power: Up to 100W (20V/5A)",
-      "Data Transfer: 10Gbps",
-      "Material: Braided nylon"
-    ],
-    descriptions: [
-      {
-        title: "Compact & Powerful",
-        content: "This short but mighty USB-C cable supports fast charging and high-speed data transfer in a compact form factor, perfect for travel or reducing desktop clutter."
-      }
-    ]
-  },
-  {
-    id: 29,
-    image: "/imgs/USB Drive.png",
-    thumbnails: ["/imgs/USB Drive-thumb1.png", "/imgs/USB Drive-thumb2.png", "/imgs/USB Drive-thumb3.png"],
-    badge: "LIMITED EDITION",
-    title: "USB Drive",
-    rating: 4.2,
-    reviews: 95,
-    price: 24.99,
-    brand: "Spotify",
-    condition: "New",
-    category: "Storage",
-    features: ["32GB Capacity", "USB 3.0 Speed", "Swivel Design", "Branded Finish"],
-    specs: [
-      "Capacity: 32GB",
-      "Interface: USB 3.0",
-      "Read Speed: Up to 100MB/s",
-      "Write Speed: Up to 30MB/s",
-      "Dimensions: 21.3 x 12 x 4.6mm"
-    ],
-    descriptions: [
-      {
-        title: "Spotify Branded Storage",
-        content: "This limited edition USB flash drive featuring Spotify branding combines style with functionality, offering quick data transfers in a compact, swivel-protected design."
-      }
-    ]
-  },
-  {
-    id: 30,
-    image: "/imgs/Braided Cable.png",
-    thumbnails: ["/imgs/Braided Cable-thumb1.png", "/imgs/Braided Cable-thumb2.png", "/imgs/Braided Cable-thumb3.png"],
-    badge: "PREMIUM",
-    title: "Braided Cable",
-    rating: 4.9,
-    reviews: 320,
-    price: 34.99,
-    brand: "Nomad",
-    condition: "New",
-    category: "Accessories",
-    features: ["USB to Lightning", "MFi Certified", "Kevlar Reinforced", "Cable Management Strap"],
-    specs: [
-      "Type: USB-A to Lightning",
-      "Length: 1.5m (5ft)",
-      "Material: Braided ballistic nylon",
-      "Strength: Kevlar core reinforcement",
-      "Compatibility: All Lightning devices"
-    ],
-    descriptions: [
-      {
-        title: "Built to Last",
-        content: "This premium braided cable with Kevlar reinforcement is designed to withstand heavy daily use without fraying or breaking. The integrated cable management strap keeps things tidy when not in use."
-      }
-    ]
-  },
-  {
-    id: 31,
-    image: "/imgs/Travel Case.png",
-    thumbnails: ["/imgs/Travel Case-thumb1.png", "/imgs/Travel Case-thumb2.png", "/imgs/Travel Case-thumb3.png"],
-    badge: "TRAVEL ESSENTIAL",
-    title: "Travel Case",
-    rating: 4.8,
-    reviews: 175,
-    price: 29.99,
-    brand: "BAGSMART",
-    condition: "New",
-    category: "Accessories",
-    features: ["Electronics Organizer", "Water-Resistant", "Multiple Compartments", "Compact Design"],
-    specs: [
-      "Material: Carbon fiber PU leather exterior",
-      "Dimensions: 9.4 x 6.3 x 1.2 inches",
-      "Weight: 8.5oz",
-      "Compartments: Multiple elastic loops, mesh pockets, and pouches"
-    ],
-    descriptions: [
-      {
-        title: "Stay Organized On The Go",
-        content: "Keep your cables, chargers, earbuds, and small electronics neatly organized in this compact travel case. The water-resistant exterior protects your gadgets while the multiple compartments ensure everything has its place."
-      }
-    ]
-  },
-  {
-    id: 32,
-    image: "/imgs/S7 Headphone.png",
-    thumbnails: ["/imgs/Headphones-thumb1.png", "/imgs/Headphones-thumb2.png", "/imgs/Headphones-thumb3.png"],
-    badge: "PREMIUM AUDIO",
-    title: "S7 Headphones",
-    rating: 4.6,
-    reviews: 210,
-    price: 349.99,
-    brand: "Sennheiser",
-    condition: "New",
-    category: "Audio",
-    features: ["High-Resolution Audio", "Active Noise Cancellation", "Comfortable Design", "Bluetooth 5.2"],
-    specs: [
-      "Type: Over-ear, closed-back",
-      "Drivers: 40mm dynamic drivers",
-      "Frequency Response: 6Hz-22kHz",
-      "Battery Life: Up to 30 hours",
-      "Connectivity: Bluetooth 5.2, 3.5mm wired"
-    ],
-    descriptions: [
-      {
-        title: "Audiophile-Grade Sound",
-        content: "Experience exceptional sound quality with these premium headphones featuring custom-tuned drivers and advanced acoustic engineering for clear, detailed audio reproduction across all frequencies."
-      }
-    ]
-  },
-  {
-    id: 33,
-    image: "/imgs/USB Hub.png",
-    thumbnails: ["/imgs/USB Hub-thumb1.png", "/imgs/USB Hub-thumb2.png", "/imgs/USB Hub-thumb3.png"],
-    badge: "VERSATILE",
-    title: "USB Hub",
-    rating: 4.5,
-    reviews: 180,
-    price: 79.99,
-    brand: "Anker",
-    condition: "New",
-    category: "Accessories",
-    features: ["7-in-1 Hub", "4K HDMI Output", "100W Power Delivery", "SD Card Reader"],
-    specs: [
-      "Ports: USB-C PD, HDMI, 2x USB-A 3.0, SD card reader, microSD card reader",
-      "Video Output: 4K@60Hz",
-      "Power Delivery: Up to 100W pass-through",
-      "Data Transfer: Up to 5Gbps",
-      "Dimensions: 115 x 28 x 9mm"
-    ],
-    descriptions: [
-      {
-        title: "All-in-One Connectivity",
-        content: "Expand your laptop's capabilities with this sleek 7-in-1 USB-C hub. Connect to displays, transfer data, read memory cards, and charge your device—all through a single USB-C connection."
-      }
-    ]
-  },
-  {
-    id: 34,
-    image: "/imgs/Smart Watch Call.png",
-    thumbnails: ["/imgs/Smart Watch Call-thumb1.png", "/imgs/Smart Watch Call-thumb2.png", "/imgs/Smart Watch Call-thumb3.png"],
-    badge: "FAMILY FRIENDLY",
-    title: "Smart Watch Call",
-    rating: 4.4,
-    reviews: 135,
-    price: 159.99,
-    brand: "Xplora",
-    condition: "New",
-    category: "Wearables",
-    features: ["4G Calling", "GPS Tracking", "SOS Button", "Water Resistant"],
-    specs: [
-      "Display: 1.4\" touchscreen",
-      "Connectivity: 4G LTE, WiFi, Bluetooth",
-      "Battery: Up to 3 days standby",
-      "Camera: 2MP front-facing",
-      "Water Resistance: IP67",
-      "Compatibility: iOS, Android (via app)"
-    ],
-    descriptions: [
-      {
-        title: "Stay Connected with Family",
-        content: "This smart watch with calling features enables children to stay connected with parents while providing location tracking, SOS alerts, and safe communication features for peace of mind."
-      }
-    ]
-  },
-  {
-    id: 35,
-    image: "/imgs/leather-handbag.jpeg",
-    thumbnails: [
-        "/imgs/leather-handbag-thumb1.png",
-        "/imgs/leather-handbag-thumb2.png",
-        "/imgs/leather-handbag-thumb3.png"
-    ],
-    badge: "NEW ARRIVAL",
-    title: "Luxury Leather Handbag",
-    rating: 4.8,
-    reviews: 120,
-    price: 149.99,
-    brand: "Elegance Paris",
-    condition: "New",
-    category: "Fashion",
-    features: [
-        "Genuine Leather Material",
-        "Handcrafted Design",
-        "Adjustable Shoulder Strap",
-        "Gold-Tone Hardware"
-    ],
-    specs: [
-        "Material: 100% Genuine Leather",
-        "Dimensions: 12” x 8” x 5”",
-        "Strap Length: Adjustable up to 45 inches",
-        "Lining: Premium Satin Fabric",
-        "Closure: Magnetic Snap & Zipper"
-    ],
-    descriptions: [
-        {
-            title: "Timeless Elegance",
-            content: "Crafted from premium genuine leather, this luxurious handbag embodies sophistication and style. With a spacious interior and gold-tone hardware, it's the perfect companion for any occasion."
-        }
-    ]
-  },
-  {
-    id: 36,
-    image: "/imgs/organic-fertilizer.jpeg",
-    thumbnails: [
-        "/imgs/organic-fertilizer-thumb1.png",
-        "/imgs/organic-fertilizer-thumb2.png",
-        "/imgs/organic-fertilizer-thumb3.png"
-    ],
-    badge: "BEST SELLER",
-    title: "Organic Fertilizer",
-    rating: 4.7,
-    reviews: 85,
-    price: 29.99,
-    brand: "GreenHarvest",
-    condition: "New",
-    category: "Agriculture",
-    features: [
-        "100% Organic & Eco-Friendly",
-        "Enhances Soil Fertility",
-        "Rich in Essential Nutrients",
-        "Suitable for All Crops"
-    ],
-    specs: [
-        "Type: Organic Compost",
-        "Weight: 10kg Bag",
-        "Nutrient Ratio: NPK 5-3-2",
-        "Application: Vegetables, Fruits, Flowers, Grains",
-        "Storage: Keep in a Cool, Dry Place"
-    ],
-    descriptions: [
-        {
-            title: "Boost Your Harvest Naturally",
-            content: "GreenHarvest Organic Fertilizer is a premium soil enhancer designed to improve plant health and increase yield. Made from all-natural ingredients, it ensures sustainable farming and rich, fertile soil."
-        }
-    ]
-},
+]
 
-];
