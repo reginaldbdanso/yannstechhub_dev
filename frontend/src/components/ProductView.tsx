@@ -151,7 +151,7 @@ const Thumbnail = styled.img`
   border: 2px solid transparent;
 
   &:hover, &.active {
-    border-color:rgb(81, 92, 104);
+    border-color: #007bff;
   }
 `
 

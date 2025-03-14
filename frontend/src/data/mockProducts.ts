@@ -1724,6 +1724,7 @@ export const mockProducts: Product[] = [
       }
     ]
   },
+
   {
     id: 35,
     image: "/imgs/leather-handbag.jpeg",
@@ -1796,5 +1797,6 @@ export const mockProducts: Product[] = [
         }
     ]
 },
+
 
 ];
