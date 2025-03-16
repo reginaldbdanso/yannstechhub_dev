@@ -1,71 +1,229 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-interface Product {
-  id: number;
-  title: string;
-  price: number;
-  rating: number;
-  image: string;
-  isFavorite: boolean;
-  reviews: number;
-  badge?: string;
-}
+import styled from 'styled-components';
+import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
-  product: Product;
-  onAddToCart: (e: React.MouseEvent, product: Product) => void;
-  onToggleFavorite: (e: React.MouseEvent, productId: number) => void;
+  id: number;
+  image: string;
+  title: string;
+  rating: number;
+  reviews: number;
+  price: number;
+  badge?: string | {
+    show: boolean;
+    text: string;
+  };
+  noBorder?: boolean;
 }
 
-export const ProductCard = ({ product, onAddToCart, onToggleFavorite }: ProductCardProps) => {
+const Card = styled.article<{ noBorder?: boolean }>`
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 15px 16px 26px;
+  border: ${props => props.noBorder ? 'none' : '1px solid #e4e4e4'};
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 991px) {
+    padding: 5px 5px 10px;
+  }
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  border-radius: 10px;
+  aspect-ratio: 1.06;
+  width: 100%;
+`;
+
+const ProductImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+`;
+
+const WishlistIcon = styled.img`
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  width: 19px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 991px) {
+    width: 13px;
+    top: 11px;
+    left: 12px;
+  }
+`;
+
+const ProductBadge = styled.span`
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-radius: 20px;
+  background: #ffc107;
+  padding: 6px 12px;
+  font: 700 12px 'Open Sans', sans-serif;
+  color: #000;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 991px) {
+    top: 10px;
+    right: 9px;
+    border-radius: 5px;
+    padding: 1px 3px;
+    font: 700 7px 'Open Sans', sans-serif;
+    max-width: 80px;
+  }
+`;
+
+const Title = styled.h2`
+  color: #000;
+  margin-top: 28px;
+  font: 700 14px Open Sans, sans-serif;
+
+  @media (max-width: 991px) {
+    margin-top: 0px;
+    text-align: center;
+    font: 700 12px Open Sans, sans-serif;
+  }
+`;
+
+const Details = styled.div`
+  display: flex;
+  margin-top: 7px;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media (max-width: 991px) {
+    flex-direction: column;
+    margin-top: 0%;
+  }
+`;
+
+const RatingPrice = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Rating = styled.div`
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: #a5a5a5;
+  align-items: center;
+
+  @media (max-width: 991px) {
+    gap: 5px;
+  }
+`;
+
+const RatingIcon = styled.img`
+  width: 16px;
+  aspect-ratio: 1;
+
+  @media (max-width: 991px) {
+    width: 12px;
+  }
+`;
+
+const Price = styled.span`
+  color: #000;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 7px;
+  font-family: Inter, sans-serif;
+
+  @media (max-width: 991px) {
+    font-size: 12px;
+  }
+`;
+
+const CartButton = styled.button`
+  background-color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: #333;
+  }
+
+  @media (max-width: 991px) {
+    align-self: flex-end;
+    margin-top: -20px;
+  }
+`;
+
+const CartIcon = styled.img`
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 25px;
+  margin: 3px 0px;
+
+  @media (max-width: 991px) {
+    width: 13px;
+  }
+`;
+
+const ProductCard: React.FC<ProductCardProps> = ({ id, image, title, rating, reviews, price, badge, noBorder }) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart({
+      id,
+      image,
+      title,
+      price
+    });
+  };
   return (
-    <Link 
-      to={`/product/${product.id}`}
-      className="bg-white rounded-[10px] p-4 pb-6 border border-[#e4e4e4] flex flex-col"
-      style={{ cursor: 'pointer', textDecoration: 'none' }}
-    >
-      <div className="relative rounded-[10px] aspect-[1.06] w-full">
-        <img 
-          src={product.image} 
-          alt={product.title}
-          className="w-full h-full object-cover rounded-[10px]"
-        />
-        <button 
-          className="absolute top-3.5 left-3.5 w-[19px] aspect-square cursor-pointer"
-          onClick={(e) => onToggleFavorite(e, product.id)}
-        >
-          <img
-            src="/src/assets/favorie 1.png"
-            alt="Favorite"
-            className="w-full h-full"
-          />
-        </button>
-        {product.badge && (
-          <div className="absolute top-2.5 right-3.5 rounded-[20px] bg-[#ffc107] px-5.5 py-1.5 font-bold text-xs">
-            {product.badge}
-          </div>
-        )}
-      </div>
-      
-      <h3 className="text-black mt-7 font-bold text-sm font-['Open_Sans']">{product.title}</h3>
-      
-      <div className="flex justify-between items-start mt-2">
-        <div className="flex flex-col">
-          <div className="flex gap-2.5 items-center text-xs text-[#a5a5a5]">
-            <img src="/src/assets/star 1.png" alt="Rating" className="w-4 aspect-square" />
-            <span>{product.rating} ({product.reviews} reviews)</span>
-          </div>
-          <span className="text-black text-xl font-bold font-['Inter'] mt-2">
-            ${product.price.toFixed(2)}
-          </span>
-        </div>
-        <button 
-          className="bg-black rounded-full p-2 cursor-pointer hover:bg-gray-800 transition-colors"
-          onClick={(e) => onAddToCart(e, product)}
-        >
-          <img src="/src/assets/Buy - 6.png" alt="Add to cart" className="w-6 h-6" />
-        </button>
-      </div>
-    </Link>
+    <Card noBorder={noBorder}>
+      <Link to={`/product/${id}`} state={{ product: { id, image, title, rating, reviews, price, badge } }}>
+        <ImageContainer>
+          <ProductImage src={image} alt={title} />
+          <WishlistIcon src="/imgs/favorie 1.png" alt="Add to wishlist" />
+          {badge && (
+            <ProductBadge>
+              {typeof badge === 'string' ? badge : badge.text}
+            </ProductBadge>
+          )}
+        </ImageContainer>
+      </Link>
+        <Title>{title}</Title>
+        <Details>
+          <RatingPrice>
+            <Rating>
+              <RatingIcon src="/imgs/star 1.png" alt="Rating" />
+              {rating} ({reviews} reviews)
+            </Rating>
+            <Price>${price.toFixed(2)}</Price>
+          </RatingPrice>
+          <CartButton onClick={handleAddToCart}>
+            <CartIcon src="/imgs/Buy - 6.png" alt="Add to cart" />
+          </CartButton>
+        </Details>
+    </Card>
   );
 };
+
+export default ProductCard;
+
+

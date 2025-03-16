@@ -1,49 +1,166 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import styled from 'styled-components';
 
-export const Footer = () => {
+const FooterContainer = styled.footer`
+  background-color: #000;
+  padding-top: 10px;
+  width: 100%;
+  margin-top: auto;
+`;
+
+const FooterContent = styled.div`
+  padding: 73px 70px 40px;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 991px) {
+    padding: 40px 20px;
+  }
+`;
+
+const FooterSections = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 50%;
+  gap: 20px;
+  justify-content: space-between;
+
+  @media (max-width: 991px) {
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: start;
+    text-align: start;
+    gap: 5rem;
+    justify-content: center;
+  }
+`;
+
+const FooterLogoSocial = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SocialIcons = styled.div`
+  display: flex;
+  margin-top: 19px;
+  gap: 33px;
+
+  @media (max-width: 991px) {
+    justify-content: center;
+  }
+`;
+
+const SocialIcon = styled.img`
+  width: 18px;
+  aspect-ratio: 1;
+`;
+
+const FooterLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+`;
+
+const FooterHeading = styled.h3`
+  color: #dedede;
+  font-size: 17px;
+  font-weight: 700;
+  font-family: Inter, sans-serif;
+`;
+
+const FooterLink = styled(Link)`
+  color: #fff;
+  font: 300 12px Inter, sans-serif;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+// Create a separate styled component for social links
+const SocialLink = styled.a`
+  color: #fff;
+  text-decoration: none;
+  background-color: #000;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const Copyright = styled.div`
+  background-color: #191919;
+  color: #fff;
+  text-align: center;
+  padding: 7px 70px 13px;
+  font: 400 10px Inter, sans-serif;
+
+  @media (max-width: 991px) {
+    padding: 7px 20px;
+  }
+`;
+
+const Logo = styled.img`
+  aspect-ratio: 4.13;
+  object-fit: contain;
+  object-position: center;
+  width: 132px;
+  max-width: 100%;
+`;
+
+const Footer: React.FC = () => {
   return (
-    <footer className="bg-black pt-[10px] w-full">
-      <div className="py-[73px] px-[70px] flex justify-center">
-        <div className="flex flex-row w-[655px] max-w-full gap-5 justify-between">
-          <div className="flex flex-col">
-            <img src="/src/assets/Logo (1).png" alt="YannsTechHub Footer Logo" className="w-[132px] aspect-[4.13] object-contain" />
-            <div className="flex mt-[19px] gap-[33px]">
-              <Link to="#" aria-label="Facebook" className="text-white hover:text-blue-400">
-                <Facebook className="w-[18px] h-[18px]" />
-              </Link>
-              <Link to="#" aria-label="Twitter" className="text-white hover:text-blue-400">
-                <Twitter className="w-[18px] h-[18px]" />
-              </Link>
-              <Link to="#" aria-label="Instagram" className="text-white hover:text-blue-400">
-                <Instagram className="w-[18px] h-[18px]" />
-              </Link>
-              <Link to="#" aria-label="LinkedIn" className="text-white hover:text-blue-400">
-                <Linkedin className="w-[18px] h-[18px]" />
-              </Link>
-              <Link to="#" aria-label="YouTube" className="text-white hover:text-blue-400">
-                <Youtube className="w-[18px] h-[18px]" />
-              </Link>
-            </div>
-          </div>
-          
-          <div className="flex flex-col gap-8">
-            <h3 className="text-[#dedede] text-[17px] font-bold font-inter">Company</h3>
-            <Link to="/about" className="text-white text-xs font-light hover:underline">About Us</Link>
-            <Link to="/careers" className="text-white text-xs font-light hover:underline">Careers</Link>
-          </div>
-          
-          <div className="flex flex-col gap-8">
-            <h3 className="text-[#dedede] text-[17px] font-bold font-inter">Help</h3>
-            <Link to="/legal" className="text-white text-xs font-light hover:underline">Legal</Link>
-            <Link to="/faqs" className="text-white text-xs font-light hover:underline">FAQs</Link>
-            <Link to="/contact" className="text-white text-xs font-light hover:underline">Contact</Link>
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#191919] text-white text-center py-[7px] px-[70px] text-[10px] font-normal">
-        @yannstechhub2025
-      </div>
-    </footer>
+    <FooterContainer>
+      <FooterContent>
+        <FooterSections>
+          <FooterLogoSocial>
+            <Logo src="/imgs/Logo (1).png" alt="YannsTechHub Footer Logo" />
+            <SocialIcons>
+              <SocialLink href="#" aria-label="Facebook">
+                <SocialIcon src="/imgs/Facebook.png" alt="" />
+              </SocialLink>
+              <SocialLink href="#" aria-label="Twitter">
+                <SocialIcon src="/imgs/Twitter.png" alt="" />
+              </SocialLink>
+              <SocialLink href="#" aria-label="Instagram">
+                <SocialIcon src="/imgs/Instagram.png" alt="" />
+              </SocialLink>
+              <SocialLink href="#" aria-label="LinkedIn">
+                <SocialIcon src="/imgs/LinkedIn.png" alt="" />
+              </SocialLink>
+              <SocialLink href="#" aria-label="YouTube">
+                <SocialIcon src="/imgs/YouTube.png" alt="" />
+              </SocialLink>
+              <SocialLink href="#" aria-label="TikTok">
+                <SocialIcon src="/imgs/TikTok.png" alt="" />
+              </SocialLink>
+            </SocialIcons>
+          </FooterLogoSocial>
+          <FooterLinks>
+            <FooterHeading>Company</FooterHeading>
+            <FooterLink to="/about">About Us</FooterLink>
+            <FooterLink to="/careers">Careers</FooterLink>
+          </FooterLinks>
+          <FooterLinks>
+            <FooterHeading>Help</FooterHeading>
+            <FooterLink to="/legal">Legal</FooterLink>
+            <FooterLink to="/faqs">FAQs</FooterLink>
+            <FooterLink to="/contact">Contact</FooterLink>
+          </FooterLinks>
+        </FooterSections>
+      </FooterContent>
+      <Copyright>@yannstechhub2025</Copyright>
+    </FooterContainer>
   );
 };
+
+export default Footer;
