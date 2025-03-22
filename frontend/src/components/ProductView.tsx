@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { mockProducts, mockReviews } from "../data/mockProducts"
+import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
@@ -590,7 +590,14 @@ const ProductView: React.FC = () => {
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const [product, setProduct] = useState<(typeof mockProducts)[0] | null>(null)
-  const [reviews, setReviews] = useState<typeof mockReviews>([])
+  const [reviews, setReviews] = useState<Array<{
+    id: string;
+    productId: number;
+    rating: number;
+    title: string;
+    content: string;
+    author: string;
+  }>>([])
 
   const [mainImage, setMainImage] = useState("")
   const [averageRating, setAverageRating] = useState(0)
@@ -609,14 +616,27 @@ const ProductView: React.FC = () => {
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    if (id) {
-      const foundProduct = mockProducts.find((p) => p.id === Number(id))
-      setProduct(foundProduct || null)
-      setMainImage(foundProduct?.image || "")
+    const fetchProductAndReviews = async () => {
+      if (id) {
+        try {
+          // Fetch product
+          const foundProduct = mockProducts.find((p) => p.id === Number(id))
+          setProduct(foundProduct || null)
+          setMainImage(foundProduct?.image || "")
 
-      const productReviews = mockReviews.filter((r) => r.productId === Number(id))
-      setReviews(productReviews)
+          // Fetch reviews from API
+          const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
+          if (reviewsResponse.ok) {
+            const reviewsData = await reviewsResponse.json()
+            setReviews(reviewsData)
+          }
+        } catch (err) {
+          console.error("Error fetching reviews:", err)
+        }
+      }
     }
+
+    fetchProductAndReviews()
   }, [id])
 
   useEffect(() => {
@@ -751,8 +771,21 @@ const ProductView: React.FC = () => {
     setMainImage(relatedProduct.image)
 
     // Get product reviews for the new product
-    const productReviews = mockReviews.filter((r) => r.productId === relatedProduct.id)
-    setReviews(productReviews)
+    const fetchReviews = async () => {
+      try {
+        console.log(`http://192.168.0.51:4000/api/reviews/product/${relatedProduct.id}`)
+        const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
+        if (reviewsResponse.ok) {
+          const productReviews = await reviewsResponse.json()
+          setReviews(productReviews)
+        }
+      } catch (err) {
+        console.error("Error fetching reviews:", err)
+        setReviews([])
+      }
+    }
+    fetchReviews()
+// This line is redundant since we're already setting reviews in the fetchReviews function
 
     // Scroll to the top of the product container
     const productContainerElement = document.querySelector(".product-container")

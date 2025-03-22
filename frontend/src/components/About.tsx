@@ -266,8 +266,8 @@ const About: React.FC = () => {
               />
               <QuoteText>
                 <blockquote>
-                  "Our work does make sense only if it is a faithful witness of
-                  his time."
+                &quot;Our work does make sense only if it is a faithful witness of
+                  his time.&quot;
                 </blockquote>
                 <QuoteAuthor>Lorem ipsum dolor sit amet consectetur</QuoteAuthor>
               </QuoteText>

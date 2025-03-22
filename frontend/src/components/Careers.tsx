@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -250,4 +249,4 @@ const Careers: React.FC = () => {
   );
 };
 
-export default Careers; 
+export default Careers;

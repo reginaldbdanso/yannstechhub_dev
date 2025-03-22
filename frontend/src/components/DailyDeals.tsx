@@ -6,10 +6,16 @@ import styled from "styled-components"
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
-import { mockProducts } from "../data/mockProducts"
 
-// Use the type from mockProducts directly
-type Product = (typeof mockProducts)[0]
+// Define the Product type
+type Product = {
+  _id: number
+  title: string
+  price: number
+  rating: number
+  reviews: number
+  image: string
+}
 
 const Container = styled.section`
   background-color: #eef2f4;
@@ -184,15 +190,25 @@ const DailyDeals: React.FC = () => {
   const [itemsPerPage, setItemsPerPage] = useState(15)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  
+  // console.log('API URL:', process.env.REACT_APP_PRODUCTS_API);
 
-  // Simulate data fetching with a delay
+  // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
+      // console.log('API URL:', process.env.REACT_APP_PRODUCTS_API);
       setIsLoading(true)
       try {
-        // Simulate API call with timeout
-        await new Promise((resolve) => setTimeout(resolve, 800))
-        setProducts(mockProducts)
+        const response = await fetch("http://192.168.0.51:4000/api/products")
+
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`)
+        }
+
+        const data = await response.json()
+        setProducts(data.products)
+        // alert(data.products);
+        
         setError(null)
       } catch (err) {
         setError("Failed to load products. Please try again later.")
@@ -244,16 +260,12 @@ const DailyDeals: React.FC = () => {
     setCurrentPage(1) // Reset to first page when items per page changes
   }
 
-  // Function to load more products
-  const loadMoreProducts = () => {
-    setItemsPerPage((prev) => prev + 10)
-  }
-
   // Calculate pagination
   const totalPages = Math.ceil(products.length / itemsPerPage)
   const indexOfLastProduct = currentPage * itemsPerPage
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
+  // alert(currentProducts);
 
   // Generate page numbers
   const pageNumbers = []
@@ -305,8 +317,8 @@ const DailyDeals: React.FC = () => {
             <ProductsGrid>
               {currentProducts.map((product) => (
                 <ProductCard
-                  key={product.id}
-                  id={product.id} // Pass the product ID
+                  key={product._id}
+                  id={product._id}
                   image={product.image}
                   title={product.title}
                   rating={product.rating}
@@ -315,23 +327,6 @@ const DailyDeals: React.FC = () => {
                 />
               ))}
             </ProductsGrid>
-            {indexOfLastProduct < products.length && (
-              <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
-                <button
-                  onClick={loadMoreProducts}
-                  style={{
-                    padding: "10px 20px",
-                    backgroundColor: "#080808",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Load More Products....
-                </button>
-              </div>
-            )}
 
             {totalPages > 1 && (
               <PaginationContainer>

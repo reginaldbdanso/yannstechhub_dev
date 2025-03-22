@@ -434,7 +434,7 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     condition: "New",
     category: "Phones",
-    categoryIcon: "/imgs/category-phone-icon.png",
+    categoryIcon: "/imgs/Rectangle 9.png",
     features: ["200MP Wide-angle Camera", "Snapdragon 8 Gen 2 Processor", "5000mAh Battery", "8K Video Recording"],
     specs: [
       "Display: 6.8-inch Dynamic AMOLED 2X",
@@ -476,7 +476,7 @@ export const mockProducts: Product[] = [
     brand: "Apple",
     condition: "New",
     category: "Phones",
-    categoryIcon: "/imgs/category-phone-icon.png",
+    categoryIcon: "/imgs/Rectangle 9.png",
     features: ["48MP Main Camera", "A16 Bionic Chip", "Dynamic Island", "Always-On Display"],
     specs: [
       "Display: 6.7-inch Super Retina XDR OLED",
@@ -855,7 +855,7 @@ export const mockProducts: Product[] = [
     brand: "Samsung",
     condition: "Refurbished",
     category: "Phones",
-    categoryIcon: "/imgs/category-phone-icon.png",
+    categoryIcon: "/imgs/Rectangle 9.png",
     features: ["50MP OIS Camera", "Super AMOLED Display", "5000mAh Battery", "IP67 Water Resistance"],
     specs: [
       "Display: 6.4-inch Super AMOLED",
