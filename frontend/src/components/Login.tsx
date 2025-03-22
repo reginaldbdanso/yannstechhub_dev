@@ -193,7 +193,7 @@ const Login: React.FC = () => {
 
               <FormFooter>
                 <SignupText>
-                  Don't have an account?{' '}
+                  Don&apos;t have an account?{' '}
                   <SignupLink to="/signup">Sign up</SignupLink>
                 </SignupText>
                 <ForgotPassword to="/reset-password">
@@ -209,4 +209,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login; 
+export default Login;
