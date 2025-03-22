@@ -28,7 +28,6 @@
     "dev": "react-scripts start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
-
   },
   "browserslist": {
     "production": [

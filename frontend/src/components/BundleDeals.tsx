@@ -184,12 +184,24 @@ const DailyDeals: React.FC = () => {
   const [itemsPerPage, setItemsPerPage] = useState(15)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  console.log("Fetching products...", process.env.REACT_APP_API_URL);
+  console.log("Hello World");
 
   // Simulate data fetching with a delay
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true)
       try {
+        // fetch("https://localhost:4000/api/products")
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     setProducts(data);
+        //     setError(null);
+        //   })
+        //   .catch((err) => {
+        //     setError("Failed to load products. Please try again later.");
+        //     console.error("Error fetching products:", err);
+        //   });
         // Simulate API call with timeout
         await new Promise((resolve) => setTimeout(resolve, 800))
         setProducts(mockProducts)

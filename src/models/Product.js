@@ -1,19 +1,49 @@
 const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
-  name: {
+const descriptionSchema = new mongoose.Schema({
+  title: {
     type: String,
     required: true
   },
-  description: {
+  content: {
     type: String,
     required: true
+  }
+});
+
+const productSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  image: {
+    type: String,
+    required: true
+  },
+  thumbnails: [{
+    type: String
+  }],
+  badge: {
+    type: String
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5
+  },
+  reviews: {
+    type: Number,
+    default: 0
   },
   price: {
     type: Number,
     required: true
   },
-  imageUrl: {
+  brand: {
+    type: String,
+    required: true
+  },
+  condition: {
     type: String,
     required: true
   },
@@ -21,11 +51,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  seller: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
+  features: [{
+    type: String
+  }],
+  specs: [{
+    type: String
+  }],
+  descriptions: [descriptionSchema],
   stock: {
     type: Number,
     required: true,
