@@ -199,7 +199,7 @@ const DailyDeals: React.FC = () => {
       // console.log('API URL:', process.env.REACT_APP_PRODUCTS_API);
       setIsLoading(true)
       try {
-        const response = await fetch("http://192.168.0.51:4000/api/products")
+        const response = await fetch(process.env.REACT_APP_PRODUCTS_API ? `${process.env.REACT_APP_PRODUCTS_API}/products` : "https://yannstechhub-dev-api.onrender.com/api/products")
 
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`)
@@ -207,7 +207,6 @@ const DailyDeals: React.FC = () => {
 
         const data = await response.json()
         setProducts(data.products)
-        // alert(data.products);
         
         setError(null)
       } catch (err) {
@@ -217,16 +216,13 @@ const DailyDeals: React.FC = () => {
         setIsLoading(false)
       }
     }
-
     fetchProducts()
-  }, [])
 
-  // Sort products when sort option changes
-  useEffect(() => {
     if (products.length === 0) return
 
     const sortProducts = () => {
       const productsCopy = [...products]
+      console.log("Copy of products", productsCopy)
 
       switch (sortOption) {
         case "bestSellers":
@@ -244,10 +240,15 @@ const DailyDeals: React.FC = () => {
           return productsCopy.sort((a, b) => b.rating * b.reviews - a.rating * a.reviews)
       }
     }
-
     setProducts(sortProducts())
     setCurrentPage(1) // Reset to first page when sorting changes
+
   }, [sortOption])
+
+  // Sort products when sort option changes
+  // useEffect(() => {
+
+  // }, [sortOption])
 
   // Handle sort change
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -313,7 +314,6 @@ const DailyDeals: React.FC = () => {
               Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, products.length)} of {products.length}{" "}
               products
             </ResultsInfo>
-
             <ProductsGrid>
               {currentProducts.map((product) => (
                 <ProductCard
