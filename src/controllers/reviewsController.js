@@ -13,6 +13,15 @@ const getReview = async (req, res) => {
   const review = await reviewService.getReviewById(reviewId);
   res.status(StatusCodes.OK).json({ review });
 };
+const get1ProductReviews = async (req, res) => {
+  try {
+  const id = req.params.id;
+  const review = await reviewService.getReviewsByProductId(id);
+  res.status(StatusCodes.OK).json({ review });
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: error.message });
+  }
+};
 
 // Create review
 const createReview = async (req, res) => {
@@ -51,6 +60,7 @@ const deleteReview = async (req, res) => {
 module.exports = {
   getReviews,
   getReview,
+  get1ProductReviews,
   createReview,
   updateReview,
   deleteReview,

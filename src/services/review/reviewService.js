@@ -6,7 +6,7 @@ const createreview = async (reviewData) => {
     const review = new Review(reviewData);
     return await review.save();
   } catch (error) {
-    throw error;
+    throw new Error (`Error creating review: ${error.message}`);
   }
 };
 
@@ -15,7 +15,7 @@ const getAllReviews = async () => {
   try {
     return await Review.find();
   } catch (error) {
-    throw error;
+    throw new Error (`Error getting all reviews: ${error.message}`);
   }
 };
 
@@ -24,7 +24,7 @@ const getReviewById = async (reviewId) => {
   try {
     return await Review.findById(reviewId);
   } catch (error) {
-    throw error;
+    throw new Error (`Error getting review by Id: ${error.message}`);
   }
 };
 
@@ -33,7 +33,7 @@ const updatereview = async (reviewId, updateData) => {
   try {
     return await Review.findByIdAndUpdate(reviewId, updateData, { new: true });
   } catch (error) {
-    throw error;
+    throw new Error (`Error updating a single review: ${error.message}`);
   }
 };
 
@@ -42,16 +42,16 @@ const deletereview = async (reviewId) => {
   try {
     return await Review.findByIdAndDelete(reviewId);
   } catch (error) {
-    throw error;
+    throw new Error (`Error deleting a single reviews: ${error.message}`);
   }
 };
 
 // Get reviews by user ID
-const getReviewsByUserId = async (userId) => {
+const getReviewsByProductId = async (productId) => {
   try {
-    return await Review.find({ userId: userId });
+    return await Review.find({ productId: productId });
   } catch (error) {
-    throw error;
+    throw new Error (`Error getting reviews for this product: ${error.message}`);
   }
 };
 
@@ -61,5 +61,5 @@ module.exports = {
   getReviewById,
   updatereview,
   deletereview,
-  getReviewsByUserId
+  getReviewsByProductId
 };

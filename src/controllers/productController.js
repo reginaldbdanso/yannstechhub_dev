@@ -19,7 +19,7 @@ exports.createProduct = async (req, res) => {
       descriptions 
     } = req.body;
     
-    if (!req.file) {
+    if (!req.image || !req.thumbnails) {
       return res.status(400).json({ 
         success: false, 
         message: 'Product image is required' 

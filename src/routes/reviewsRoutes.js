@@ -3,6 +3,7 @@ const {
   createReview,
   getReviews,
   getReview,
+  get1ProductReviews,
   updateReview,
   deleteReview
 } = require('../controllers/reviewsController.js');
@@ -13,6 +14,7 @@ const router = express.Router();
 // Public routes
 router.get('/', getReviews);
 router.get('/:id', getReview);
+router.get('/product/:id', get1ProductReviews);
 
 // Protected routes - require authentication
 router.use(protect);
