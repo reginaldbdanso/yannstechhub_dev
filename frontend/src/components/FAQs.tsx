@@ -186,7 +186,8 @@ const FAQs: React.FC = () => {
               <li>What is your return policy?</li>
               <p>We accept returns for eligible products within [X] days of delivery. Items must be unused, in their original packaging, and accompanied by a receipt.</p>
               <li>How do I request a return?</li>
-              <p>To request a return, log in to your account, go to &ldquo;My Orders,&rdquo; select the order you want to return, and follow the return process.</p>
+              <p>To request a return, log in to your account, go to &quot;My Orders,&quot; select the order you want to return, and follow the return process.</p>
+
               <li>When will I receive my refund?</li>
               <p>Refunds are processed within [X] business days of receiving and inspecting the returned item. The refund will be issued to the original payment method.</p>
               <li>What should I do if I receive a defective product?</li>
@@ -214,7 +215,9 @@ const FAQs: React.FC = () => {
             <TopicTitle>8. Promotions and Discounts</TopicTitle>
             <FAQList>
               <li>How can I find current promotions?</li>
-              <p>Check our &ldquo;Offers&rdquo; page or subscribe to our newsletter for updates on discounts and special deals.</p>
+
+              <p>Check our &quot;Offers&quot; page or subscribe to our newsletter for updates on discounts and special deals.</p>
+
               <li>Can I use multiple discount codes on a single order?</li>
               <p>Only one discount code can be applied per order unless stated otherwise.</p>
               <li>Do you offer student or military discounts?</li>
@@ -227,7 +230,9 @@ const FAQs: React.FC = () => {
             <TopicTitle>9. Customer Support</TopicTitle>
             <FAQList>
               <li>How can I contact customer support?</li>
-              <p>You can reach us via email, live chat, or by calling our customer support hotline. Contact details are available on our &ldquo;Contact Us&rdquo; page.</p>
+
+              <p>You can reach us via email, live chat, or by calling our customer support hotline. Contact details are available on our &quot;Contact Us&quot; page.</p>
+
               <li>What are your customer support hours?</li>
               <p>Our support team is available [X] days a week, from [X AM] to [X PM].</p>
               <li>Do you offer technical support for gadgets?</li>
@@ -254,4 +259,4 @@ const FAQs: React.FC = () => {
   );
 };
 
-export default FAQs; 
+export default FAQs;

@@ -479,9 +479,9 @@ const Shop: React.FC = () => {
   // State for filtered products
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(mockProducts)
 
-  const [itemsPerPage, setItemsPerPage] = useState<number>(12)
-  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
+  // const [itemsPerPage, setItemsPerPage] = useState<number>(12)
+  // const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+  // const [currentPage, setCurrentPage] = useState(1)
 
   // Debug logging
   useEffect(() => {

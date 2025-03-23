@@ -20,11 +20,13 @@ class OrderService {
   }
 
   async getOrders() {
-    return Order.find().populate('seller', 'name email');
+    return Order.find()
+    // .populate('seller', 'name email');
   }
 
   async getOrderById(id) {
-    const order = await Order.findById(id).populate('seller', 'name email');
+    const order = await Order.findById(id)
+    // .populate('seller', 'name email');
     if (!order) {
       throw new Error('Order not found');
     }
