@@ -3,17 +3,33 @@ import styles from '../styles/components/DailyDeals.module.css'
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
+import { useProducts } from "@/context/ProductContext"
 
 type Product = {
-  _id: number
-  title: string
-  price: number
-  rating: number
-  reviews: number
-  image: string
+  _id: string;
+  title: string;
+  price: number;
+  rating: number;
+  image: string;
+  isFavorite: boolean;
+  reviews: number;
+  badge?: string;
+  brand: string;
+  condition: 'new' | 'used' | 'refurbished';
+  category: string;
+  descriptions: Array<any>;
+  features: string[];
+  specs: string[];
+  stock: number;
+  thumbnails: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 const DailyDeals: React.FC = () => {
+  const { products: contextProducts, 
+    // isLoading, error
+   } = useProducts();
   const [products, setProducts] = useState<Product[]>([])
   const [sortOption, setSortOption] = useState<"recommended" | "bestSellers" | "lowPrice" | "highPrice" | "reviews">("recommended")
   const [currentPage, setCurrentPage] = useState(1)
@@ -25,14 +41,10 @@ const DailyDeals: React.FC = () => {
     const fetchProducts = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch(process.env.REACT_APP_PRODUCTS_API ? `${process.env.REACT_APP_PRODUCTS_API}/products` : "https://yannstechhub-dev-api.onrender.com/api/products")
-
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`)
+        if (contextProducts) {
+          setProducts(contextProducts);
         }
-
-        const data = await response.json()
-        setProducts(data.products)
+    
         setError(null)
       } catch (err) {
         setError("Failed to load products. Please try again later.")
@@ -43,7 +55,7 @@ const DailyDeals: React.FC = () => {
     }
 
     fetchProducts()
-  }, [])
+  }, [contextProducts])
 
   useEffect(() => {
     if (products.length === 0) return

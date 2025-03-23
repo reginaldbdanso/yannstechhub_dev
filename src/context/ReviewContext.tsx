@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 
 interface Review {
   id: number;
-  productId: number;
+  productId: string;
   rating: number;
   comment: string;
   userId: string;
@@ -12,9 +12,9 @@ interface Review {
 interface ReviewContextType {
   reviews: Review[];
   addReview: (review: Omit<Review, 'id' | 'date'>) => void;
-  getProductReviews: (productId: number) => Review[];
-  getAverageRating: (productId: number) => number;
-  getReviewCount: (productId: number) => number;
+  getProductReviews: (productId: string) => Review[];
+  getAverageRating: (productId: string) => number;
+  getReviewCount: (productId: string) => number;
 }
 
 const ReviewContext = createContext<ReviewContextType | undefined>(undefined);
@@ -56,18 +56,18 @@ export const ReviewProvider: React.FC<ReviewProviderProps> = ({ children }) => {
     setReviews(prevReviews => [...prevReviews, newReview]);
   };
 
-  const getProductReviews = (productId: number) => {
+  const getProductReviews = (productId: string) => {
     return reviews.filter(review => review.productId === productId);
   };
 
-  const getAverageRating = (productId: number) => {
+  const getAverageRating = (productId: string) => {
     const productReviews = getProductReviews(productId);
     if (productReviews.length === 0) return 0;
     const sum = productReviews.reduce((acc, review) => acc + review.rating, 0);
     return sum / productReviews.length;
   };
 
-  const getReviewCount = (productId: number) => {
+  const getReviewCount = (productId: string) => {
     return getProductReviews(productId).length;
   };
 

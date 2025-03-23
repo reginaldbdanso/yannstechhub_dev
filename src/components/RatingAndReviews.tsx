@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import  '../styles/components/RatingAndReviews.module.css';
 
 interface RatingDistribution {
   stars: number;
@@ -20,143 +20,7 @@ interface ReviewProps {
   author: string;
 }
 
-const ReviewsContainer = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 20px;
-  margin-top: 30px;
-`;
 
-const RatingSummary = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: Open Sans, sans-serif;
-  color: #000;
-`;
-
-const RatingScore = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 50px;
-  font-weight: 800;
-
-  img {
-    height: 30px;
-  }
-
-  @media (max-width: 991px) {
-    font-size: 40px;
-  }
-`;
-
-const RatingCount = styled.span`
-  font-size: 14px;
-  color: #666;
-  margin-top: 5px;
-`;
-
-const RatingBars = styled.div`
-  display: flex;
-  margin-top: 17px;
-  flex-direction: column;
-  gap: 15px;
-
-  @media (max-width: 991px) {
-    margin: 20px 0;
-  }
-`;
-
-const RatingBar = styled.div`
-  display: flex;
-  gap: 13px;
-  align-items: center;
-`;
-
-const BarContainer = styled.div`
-  border-radius: 10px;
-  background-color: #E4E4E4;
-  height: 15px;
-  width: 320px;
-
-  @media (max-width: 991px) {
-    width: 200px;
-  }
-`;
-
-const BarFill = styled.div<{ width: string }>`
-  border-radius: 10px;
-  background-color: #FFC107;
-  height: 100%;
-  width: ${props => props.width};
-  transition: width 0.3s ease;
-`;
-
-const ReviewCard = styled.div`
-  border-radius: 20px;
-  background-color: #FFF;
-  padding: 32px 58px;
-  margin-top: 20px;
-  width: 100%;
-  color: #000;
-  font: 500 15px Open Sans, sans-serif;
-  border: 1px solid #E4E4E4;
-
-  @media (max-width: 991px) {
-    padding: 20px;
-  }
-`;
-
-const ReviewRating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-`;
-
-const ReviewTitle = styled.h3`
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0;
-`;
-
-const ReviewStars = styled.div`
-  display: flex;
-  gap: 5px;
-  
-  img {
-    width: 20px;
-    height: 20px;
-  }
-`;
-
-const ReviewText = styled.p`
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 10px;
-`;
-
-const ReviewAuthor = styled.p`
-  font-size: 12px;
-  color: #666;
-  margin: 0;
-`;
-
-const RateProductSection = styled.div`
-  margin-top: 30px;
-
-  h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 14px;
-    color: #666;
-  }
-`;
 
 interface RatingAndReviewsProps {
   ratingData?: RatingData;
@@ -186,39 +50,40 @@ const RatingAndReviews: React.FC<RatingAndReviewsProps> = ({
 }) => {
 
   return (
-    <ReviewsContainer>
-      <RatingSummary>
-        <RatingScore>
+    <div className="reviews-container">
+      <div className="rating-summary">
+        <div className="rating-score">
           <span>{ratingData.average}</span>
           <img src="/imgs/star.png" alt="Rating stars" />
-        </RatingScore>
-        <RatingCount>{ratingData.total} ratings</RatingCount>
+        </div>
+        <div className="rating-count">{ratingData.total} ratings</div>
 
-        <RatingBars>
+        <div className="rating-bars">
           {ratingData.distribution.map(item => (
-            <RatingBar key={item.stars}>
+            <div className="rating-bar" key={item.stars}>
               <span>{item.stars}</span>
-              <BarContainer>
-                <BarFill 
-                  width={`${item.width}px`}
+              <div className="bar-container">
+                <div 
+                  className="bar-fill"
+                  style={{ width: `${item.width}px` }}
                 />
-              </BarContainer>
+              </div>
               <span>{item.count}</span>
-            </RatingBar>
+            </div>
           ))}
-        </RatingBars>
+        </div>
 
-        <RateProductSection>
+        <div className="rate-product-section">
           <h2>Rate This Product</h2>
           <p>Lorem ipsum dolor sit amet</p>
-        </RateProductSection>
-      </RatingSummary>
+        </div>
+      </div>
 
       {reviews.map((review, index) => (
-        <ReviewCard key={index}>
-          <ReviewRating>
-            <ReviewTitle>{review.title}</ReviewTitle>
-            <ReviewStars>
+        <div className="review-card" key={index}>
+          <div className="review-rating">
+            <h3 className="review-title">{review.title}</h3>
+            <div className="review-stars">
               {[...Array(review.rating)].map((_, i) => (
                 <img
                   key={i}
@@ -226,13 +91,13 @@ const RatingAndReviews: React.FC<RatingAndReviewsProps> = ({
                   alt="Rating star"
                 />
               ))}
-            </ReviewStars>
-          </ReviewRating>
-          <ReviewText>{review.reviewText}</ReviewText>
-          <ReviewAuthor>Reviewed by {review.author}</ReviewAuthor>
-        </ReviewCard>
+            </div>
+          </div>
+          <div className="review-text">{review.reviewText}</div>
+          <p className="review-author">Reviewed by {review.author}</p>
+        </div>
       ))}
-    </ReviewsContainer>
+    </div>
   );
 };
 

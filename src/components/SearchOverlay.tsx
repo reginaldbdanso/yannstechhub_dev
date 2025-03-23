@@ -1,120 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import  '../styles/components/SearchOverlay.module.css';
 import { useNavigate } from 'react-router-dom';
 
 interface SearchOverlayProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const Overlay = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: ${props => props.isOpen ? 'flex' : 'none'};
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 100px;
-  z-index: 1500;
-`;
-
-const SearchContainer = styled.div`
-  width: 100%;
-  max-width: 600px;
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 0 20px;
-`;
-
-const SearchForm = styled.form`
-  display: flex;
-  gap: 10px;
-`;
-
-const SearchInput = styled.input`
-  flex: 1;
-  padding: 12px 20px;
-  border: 2px solid #e4e4e4;
-  border-radius: 30px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.3s;
-
-  &:focus {
-    border-color: #0055b6;
-  }
-`;
-
-const SearchButton = styled.button`
-  background-color: #0055b6;
-  color: white;
-  border: none;
-  border-radius: 30px;
-  padding: 12px 30px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #003d82;
-  }
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 10px;
-`;
-
-const SearchResults = styled.div`
-  margin-top: 20px;
-  max-height: 400px;
-  overflow-y: auto;
-`;
-
-const ResultItem = styled.div`
-  padding: 10px;
-  border-bottom: 1px solid #e4e4e4;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const ResultImage = styled.img`
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 5px;
-`;
-
-const ResultInfo = styled.div`
-  flex: 1;
-`;
-
-const ResultTitle = styled.div`
-  font-weight: 600;
-  margin-bottom: 5px;
-`;
-
-const ResultPrice = styled.div`
-  color: #0055b6;
-  font-weight: 500;
-`;
 
 const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -162,39 +53,52 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleResultClick = (productId: number) => {
+  const handleResultClick = (productId: string) => {
     // Navigate to product page
     navigate(`/product/${productId}`);
     onClose();
   };
 
   return (
-    <Overlay isOpen={isOpen} ref={overlayRef} onClick={handleClickOutside}>
-      <CloseButton onClick={onClose}>&times;</CloseButton>
-      <SearchContainer>
-        <SearchForm onSubmit={handleSearch}>
-          <SearchInput
+    <div 
+      className={`overlay ${isOpen ? 'open' : ''}`} 
+      ref={overlayRef} 
+      onClick={handleClickOutside}
+    >
+      <button className="close-button" onClick={onClose}>&times;</button>
+      <div className="search-container">
+        <form className="search-form" onSubmit={handleSearch}>
+          <input
+            className="search-input"
             type="text"
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             autoFocus
           />
-          <SearchButton type="submit">Search</SearchButton>
-        </SearchForm>
-        <SearchResults>
+          <button className="search-button" type="submit">Search</button>
+        </form>
+        <div className="search-results">
           {results.map(product => (
-            <ResultItem key={product.id} onClick={() => handleResultClick(product.id)}>
-              <ResultImage src={product.image} alt={product.title} />
-              <ResultInfo>
-                <ResultTitle>{product.title}</ResultTitle>
-                <ResultPrice>${product.price.toFixed(2)}</ResultPrice>
-              </ResultInfo>
-            </ResultItem>
+            <div 
+              className="result-item" 
+              key={product.id} 
+              onClick={() => handleResultClick(product.id)}
+            >
+              <img 
+                className="result-image" 
+                src={product.image} 
+                alt={product.title} 
+              />
+              <div className="result-info">
+                <div className="result-title">{product.title}</div>
+                <div className="result-price">${product.price.toFixed(2)}</div>
+              </div>
+            </div>
           ))}
-        </SearchResults>
-      </SearchContainer>
-    </Overlay>
+        </div>
+      </div>
+    </div>
   );
 };
 

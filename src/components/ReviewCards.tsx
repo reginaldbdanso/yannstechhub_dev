@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import  '../styles/components/ReviewsCard.module.css';
+
 
 interface ReviewCardProps {
   title: string;
@@ -8,54 +9,6 @@ interface ReviewCardProps {
   author: string;
 }
 
-const Card = styled.div`
-  background-color: white;
-  border-radius: 20px;
-  padding: 32px 58px;
-  margin-top: 20px;
-  width: 100%;
-  border: 1px solid #E4E4E4;
-
-  @media (max-width: 991px) {
-    max-width: 95%;
-    padding: 20px;
-  }
-`;
-
-const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-`;
-
-const Title = styled.h3`
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0;
-`;
-
-const Stars = styled.div`
-  display: flex;
-  gap: 5px;
-
-  img {
-    height: 20px;
-  }
-`;
-
-const ReviewText = styled.p`
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  color: #000;
-`;
-
-const Author = styled.p`
-  font-size: 12px;
-  color: #666;
-  margin: 0;
-`;
 
 const ReviewCards: React.FC = () => {
   const reviews: ReviewCardProps[] = [
@@ -94,10 +47,10 @@ const ReviewCards: React.FC = () => {
   return (
     <>
       {reviews.map((review, index) => (
-        <Card key={index}>
-          <Rating>
-            <Title>{review.title}</Title>
-            <Stars>
+        <div className="card" key={index}>
+          <div className="rating">
+            <h3 className="title">{review.title}</h3>
+            <div className="stars">
               {[...Array(review.rating)].map((_, i) => (
                 <img
                   key={i}
@@ -105,11 +58,11 @@ const ReviewCards: React.FC = () => {
                   alt="Rating star"
                 />
               ))}
-            </Stars>
-          </Rating>
-          <ReviewText>{review.reviewText}</ReviewText>
-          <Author>Reviewed by {review.author}</Author>
-        </Card>
+            </div>
+          </div>
+          <p className="reviewText">{review.reviewText}</p>
+          <p className="author">Reviewed by {review.author}</p>
+        </div>
       ))}
     </>
   );

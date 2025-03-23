@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import  '../styles/components/ReviewCard.module.css';
 
 interface ReviewCardProps {
   title: string;
@@ -8,61 +8,12 @@ interface ReviewCardProps {
   author: string;
 }
 
-const Card = styled.div`
-  background-color: white;
-  border-radius: 20px;
-  padding: 32px 58px;
-  margin-top: 20px;
-  width: 100%;
-  border: 1px solid #E4E4E4;
-
-  @media (max-width: 991px) {
-    max-width: 95%;
-    padding: 20px;
-  }
-`;
-
-const Rating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-`;
-
-const Title = styled.h3`
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0;
-`;
-
-const Stars = styled.div`
-  display: flex;
-  gap: 5px;
-
-  img {
-    height: 20px;
-  }
-`;
-
-const ReviewText = styled.p`
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 10px;
-  color: #000;
-`;
-
-const Author = styled.p`
-  font-size: 12px;
-  color: #666;
-  margin: 0;
-`;
-
 const ReviewCard: React.FC<ReviewCardProps> = ({ title, rating, reviewText, author }) => {
   return (
-    <Card>
-      <Rating>
-        <Title>{title}</Title>
-        <Stars>
+    <div className="card">
+      <div className="rating">
+        <h3 className="title">{title}</h3>
+        <div className="stars">
           {[...Array(rating)].map((_, index) => (
             <img
               key={index}
@@ -70,11 +21,11 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ title, rating, reviewText, auth
               alt="Rating star"
             />
           ))}
-        </Stars>
-      </Rating>
-      <ReviewText>{reviewText}</ReviewText>
-      <Author>Reviewed by {author}</Author>
-    </Card>
+        </div>
+      </div>
+      <p className="review-text">{reviewText}</p>
+      <p className="author">Reviewed by {author}</p>
+    </div>
   );
 };
 

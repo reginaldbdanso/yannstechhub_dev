@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import styles from '../styles/components/ProductCard.module.css';
 
 interface ProductCardProps {
-  id: number;
+  id: string;
   image: string;
   title: string;
   rating: number;

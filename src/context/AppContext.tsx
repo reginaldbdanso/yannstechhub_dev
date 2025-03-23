@@ -7,19 +7,12 @@ type AppState = {
     email: string;
     token: string;
   };
-  cart: {
-    items: Array<{id: string; name: string; price: number; quantity: number}>;
-    total: number;
-  };
-  // Add other global state properties
 };
 
 type Action =
   | { type: 'LOGIN'; payload: { username: string; email: string; token: string } }
   | { type: 'LOGOUT' }
-  | { type: 'UPDATE_PROFILE'; payload: { username: string; email: string } }
-  | { type: 'ADD_TO_CART'; payload: { id: string; name: string; price: number; quantity: number } }
-  | { type: 'REMOVE_FROM_CART'; payload: string };
+  | { type: 'UPDATE_PROFILE'; payload: { username: string; email: string } };
 
 const initialState: AppState = {
   user: {
@@ -27,10 +20,6 @@ const initialState: AppState = {
     username: '',
     email: '',
     token: ''
-  },
-  cart: {
-    items: [],
-    total: 0
   }
 };
 
@@ -65,14 +54,6 @@ const reducer = (state: AppState, action: Action): AppState => {
         user: {
           ...state.user,
           ...action.payload
-        }
-      };
-    case 'ADD_TO_CART':
-      return {
-        ...state,
-        cart: {
-          items: [...state.cart.items, action.payload],
-          total: state.cart.total + action.payload.price
         }
       };
     default:

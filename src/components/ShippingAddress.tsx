@@ -1,346 +1,13 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import  '../styles/components/ShippingAddress.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Header from './Header';
 import Footer from './Footer';
 
-const SecureCheckout = styled.div`
-  background-color: #eef2f4;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
 
-const MainContents = styled.div`
-  background-color: #eef2f4;
-  display: flex;
-  align-self: center;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  padding: 21px 0 179px;
-`;
-
-const DividerTop = styled.div`
-  align-self: stretch;
-  min-height: 0px;
-  margin-top: 100px;
-  width: 99.9%;
-  border: 1px solid #d5d5d5;
-`;
-
-const Divider = styled.div`
-  align-self: stretch;
-  min-height: 0px;
-  margin-top: 10px;
-  width: 99.9%;
-  border: 1px solid #d5d5d5;
-`;
-
-const BreadcrumbSort = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 70%;
-  gap: 2px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 9px 0 0 0px;
-
-  @media (max-width: 991px) {
-    width: 70%;
-    justify-content: center;
-    gap: 2rem;
-  }
-`;
-
-const Breadcrumb = styled.div`
-  align-self: start;
-  display: flex;
-  gap: 12px;
-  color: #000;
-  font: 15px Open Sans, sans-serif;
-`;
-
-const BreadcrumbItem = styled.span<{ bold?: boolean }>`
-  align-self: stretch;
-  border-radius: 10px;
-  background-color: #fff;
-  padding: 4px 14px;
-  font: ${props => props.bold ? '700' : '400'} 15px Open Sans, sans-serif;
-`;
-
-const CheckoutContent = styled.main`
-  display: flex;
-  margin: 38px 39px;
-  width: 100%;
-  max-width: 75%;
-  gap: 20px;
-
-  @media (max-width: 991px) {
-    max-width: 100%;
-    flex-direction: column;
-    margin: 40px 10px;
-  }
-`;
-
-const ShippingSection = styled.section`
-  width: 62%;
-  padding: 15px 0;
-
-  @media (max-width: 991px) {
-    width: 95%;
-    align-self: center;
-  }
-`;
-
-const SectionTitle = styled.h1`
-  font-family: "Open Sans", sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 23px 25px;
-
-  @media (max-width: 991px) {
-    margin-left: 10px;
-  }
-`;
-
-const ShippingForm = styled.form`
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-`;
-
-const FormRow = styled.div`
-  display: flex;
-  gap: 25px;
-  margin-bottom: 18px;
-`;
-
-const FormGroup = styled.div`
-  flex: 1;
-  margin-bottom: 18px;
-`;
-
-const FormInput = styled.input`
-  width: 100%;
-  height: 49px;
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
-  background-color: #fff;
-  margin-top: 10px;
-  padding: 0 15px;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-
-  &::placeholder {
-    color: #999;
-  }
-`;
-
-const FormCheckbox = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin: 11px 0;
-  font-weight: 400;
-`;
-
-const HelperText = styled.p`
-  color: #010101;
-  margin: 11px 0 0;
-  font-size: 14px;
-`;
-
-const CheckoutButton = styled(Link)`
-  background-color: #0055b6;
-  color: #fff9f9;
-  font-weight: 700;
-  border: none;
-  text-align: center;
-  justify-content: center;
-  padding: 20px 0;
-  align-items: center;
-  border-radius: 30px;
-  width: 469px;
-  max-width: 100%;
-  margin-top: 38px;
-  cursor: pointer;
-  display: block;
-  text-decoration: none;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-
-  @media (max-width: 991px) {
-    padding: 19px 20px;
-  }
-`;
-
-const OrderSummary = styled.section`
-  width: 38%;
-
-  @media (max-width: 991px) {
-    width: 95%;
-    align-self: center;
-  }
-`;
-
-const SummaryContainer = styled.div`
-  background-color: #fff;
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
-  padding: 30px 22px 57px;
-`;
-
-const SummaryHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 336px;
-  max-width: 100%;
-  margin: 0 auto;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-`;
-
-
-const OrderItems = styled.div`
-  margin-top: 30px;
-`;
-
-const OrderItem = styled.article`
-  display: flex;
-  gap: 20px;
-  margin: 20px 11px;
-  position: relative;
-  align-items: flex-start;
-`;
-
-const RemoveIcon = styled.img`
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  z-index: 1;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-const FirstItem = styled.div`
-display: flex;
-width: 45%;
-flex-direction: column;
-`;
-
-
-const ItemImage = styled.img`
-  width: 89px;
-  height: 84px;
-  border-radius: 10px;
-  object-fit: contain;
-`;
-
-const ItemTitle = styled.h3`
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  margin: 10px 0 0 0;
-  width: 140px;
-  text-align: start;
-`;
-
-const ItemDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-`;
-
-const ItemPrice = styled.p`
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  margin: 0;
-  order: 1;
-`;
-
-const QuantityControl = styled.div`
-  border-radius: 10px;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 20px;
-  border: 1px solid rgba(228, 228, 228, 1);
-  width: 120px;
-  order: 2;
-`;
-
-const ItemTotalPrice = styled.p`
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  margin: 0;
-  order: 4;
-`;
-
-
-const ItemDivider = styled.hr`
-  border: 0;
-  border-top: 1px solid #d5d5d5;
-  margin: 17px 0;
-`;
-
-const TotalSummary = styled.div`
-  background-color: #fff;
-  border: 1px solid #e4e4e4;
-  border-radius: 10px;
-  margin-top: 28px;
-  padding: 28px 41px 49px;
-
-  @media (max-width: 991px) {
-    padding: 28px 20px 49px;
-  }
-`;
-
-const SummaryGrid = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const SummaryLabels = styled.div`
-  width: 68%;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-`;
-
-const SummaryValues = styled.div`
-  width: 32%;
-  font-family: "Open Sans", sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  text-align: right;
-`;
-
-const TotalLabel = styled.p`
-  font-size: 25px;
-  font-weight: 700;
-  margin-top: 35px;
-`;
-
-const TotalValue = styled.p`
-  font-size: 25px;
-  font-weight: 700;
-  margin-top: 35px;
-`;
-
+const ShippingAddress: React.FC = () => {
+  
 interface FormData {
   firstName: string;
   lastName: string;
@@ -354,37 +21,19 @@ interface FormData {
   setAsDefault: boolean;
 }
 
-
-const QuantityButton = styled.button`
-  padding: 5px 10px;
-  font-size: 18px;
-  border: none;
-  color: #000;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: 0.3s;
-
-  &:hover {
-    background-color: black;
-    color: #fff;
-  }
-`;
-
-const ShippingAddress: React.FC = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    stateProvince: '',
-    city: '',
-    district: '',
-    address: '',
-    address2: '',
-    phoneNumber: '',
-    setAsDefault: false,
-  });
+const navigate = useNavigate();
+const [formData, setFormData] = useState<FormData>({
+  firstName: '',
+  lastName: '',
+  email: '',
+  stateProvince: '',
+  city: '',
+  district: '',
+  address: '',
+  address2: '',
+  phoneNumber: '',
+  setAsDefault: false,
+});
 
   const { cart, removeFromCart, updateQuantity, subtotal } = useCart();
 
@@ -406,57 +55,60 @@ const ShippingAddress: React.FC = () => {
   };
 
   return (
-    <SecureCheckout>
-      <MainContents>
+    <div className="secure-checkout">
+      <div className="main-contents">
         <Header />
-        <DividerTop />
-        <BreadcrumbSort>
-          <Breadcrumb>
-            <BreadcrumbItem bold>yannstechub</BreadcrumbItem>
-            <BreadcrumbItem>/ Daily deals</BreadcrumbItem>
-          </Breadcrumb>
-        </BreadcrumbSort>
-        <Divider />
+        <div className="divider-top" />
+        <div className="breadcrumb-sort">
+          <div className="breadcrumb">
+            <div className="breadcrumb-item breadcrumb-item-bold">yannstechub</div>
+            <div className="breadcrumb-item">/ Daily deals</div>
+          </div>
+        </div>
+        <div className="divider" />
 
-        <CheckoutContent>
-          <ShippingSection>
-            <SectionTitle>Shipping Address</SectionTitle>
-            <ShippingForm onSubmit={handleSubmit}>
-              <FormRow>
-                <FormGroup>
+        <div className="checkout-content">
+          <div className="shipping-section">
+            <div className="section-title">Shipping Address</div>
+            <form className="shipping-form" onSubmit={handleSubmit}>
+              <div className="form-row">
+                <div className="form-group">
                   <label>First Name</label>
-                  <FormInput 
+                  <input 
+                    className="form-input"
                     type="text" 
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleInputChange}
                     required
                   />
-                </FormGroup>
-                <FormGroup>
+                </div>
+                <div className="form-group">
                   <label>Last Name</label>
-                  <FormInput 
+                  <input 
+                    className="form-input"
                     type="text" 
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleInputChange}
                     required
                   />
-                </FormGroup>
-              </FormRow>
+                </div>
+              </div>
 
-              <FormGroup>
+              <div className="form-group">
                 <label>Email</label>
-                <FormInput 
+                <input 
+                  className="form-input"
                   type="email" 
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
                   required
                 />
-              </FormGroup>
+              </div>
 
-              <FormCheckbox>
+              <div className="form-checkbox">
                 <input 
                   type="checkbox" 
                   id="default-address"
@@ -465,45 +117,49 @@ const ShippingAddress: React.FC = () => {
                   onChange={handleInputChange}
                 />
                 <label htmlFor="default-address">Set as default</label>
-              </FormCheckbox>
+              </div>
 
-              <FormGroup>
+              <div className="form-group">
                 <label>State/Province</label>
-                <FormInput 
+                <input 
+                  className="form-input"
                   type="text" 
                   name="stateProvince"
                   value={formData.stateProvince}
                   onChange={handleInputChange}
                   required
                 />
-              </FormGroup>
+              </div>
 
-              <FormRow>
-                <FormGroup>
+              <div className="form-row">
+                <div className="form-group">
                   <label>City</label>
-                  <FormInput 
+                  <input 
+                    className="form-input"
                     type="text" 
                     name="city"
                     value={formData.city}
                     onChange={handleInputChange}
                     required
                   />
-                </FormGroup>
-                <FormGroup>
+                </div>
+                <div className="form-group">
                   <label>District</label>
-                  <FormInput 
+                  <input 
+                    className="form-input"
                     type="text" 
                     name="district"
                     value={formData.district}
                     onChange={handleInputChange}
                     required
                   />
-                </FormGroup>
-              </FormRow>
+                </div>
+              </div>
 
-              <FormGroup>
+              <div className="form-group">
                 <label>Address</label>
-                <FormInput 
+                <input 
+                  className="form-input"
                   type="text"
                   name="address"
                   value={formData.address}
@@ -511,96 +167,99 @@ const ShippingAddress: React.FC = () => {
                   placeholder="Street, Apartment, Suite, etc."
                   required
                 />
-                <HelperText>
+                <div className="helper-text">
                   Detailed street address can help our rider find you quickly.
-                </HelperText>
-              </FormGroup>
+                </div>
+              </div>
 
-              <FormGroup>
+              <div className="form-group">
                 <label>Address 2</label>
-                <FormInput 
+                <input 
+                  className="form-input"
                   type="text" 
                   name="address2"
                   value={formData.address2}
                   onChange={handleInputChange}
                 />
-              </FormGroup>
+              </div>
 
-              <FormGroup>
+              <div className="form-group">
                 <label>Phone number</label>
-                <FormInput 
+                <input 
+                  className="form-input"
                   type="tel" 
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
                   required
                 />
-              </FormGroup>
-            </ShippingForm>
-          </ShippingSection>
+              </div>
+            </form>
+          </div>
 
-          <OrderSummary>
-            <SummaryContainer>
-              <SummaryHeader>
+          <div className="order-summary">
+            <div className="summary-container">
+              <div className="summary-header">
                 <span>Order Summary</span>
                 <span>{cart.length} items</span>
-              </SummaryHeader>
+              </div>
 
-              <OrderItems>
+              <div className="order-items">
                 {cart.map((item) => (
                   <React.Fragment key={item.id}>
-                    <OrderItem>
-                      <RemoveIcon
+                    <div className="order-item">
+                      <img
+                        className="remove-icon"
                         src="/imgs/close.png"
                         alt="Remove"
                         onClick={() => removeFromCart(item.id)}
                       />
-                      <FirstItem>
-                      <ItemImage
-                        src={item.image}
-                        alt={item.title}
-                      />
-                      <ItemTitle>{item.title}</ItemTitle>
-                      </FirstItem>
-                      <ItemDetails>
-                        <ItemPrice>${item.price.toFixed(2)}</ItemPrice>
-                        <QuantityControl>
-                          <QuantityButton onClick={() => updateQuantity(item.id, -1)}>-</QuantityButton>
+                      <div className="first-item">
+                        <img
+                          className="item-image"
+                          src={item.image}
+                          alt={item.title}
+                        />
+                        <div className="item-title">{item.title}</div>
+                      </div>
+                      <div className="item-details">
+                        <div className="item-price">${item.price.toFixed(2)}</div>
+                        <div className="quantity-control">
+                          <button className="quantity-button" onClick={() => updateQuantity(item.id, -1)}>-</button>
                           <span>{item.quantity}</span>
-                          <QuantityButton onClick={() => updateQuantity(item.id, 1)}>+</QuantityButton>
-                        </QuantityControl>
-                        <ItemTotalPrice>${(item.price * item.quantity).toFixed(2)}</ItemTotalPrice>
-                      </ItemDetails>
-                    </OrderItem>
-                    <ItemDivider />
+                          <button className="quantity-button" onClick={() => updateQuantity(item.id, 1)}>+</button>
+                        </div>
+                        <div className="item-total-price">${(item.price * item.quantity).toFixed(2)}</div>
+                      </div>
+                    </div>
+                    <div className="item-divider" />
                   </React.Fragment>
                 ))}
-              </OrderItems>
-            </SummaryContainer>
+              </div>
+            </div>
 
-            <TotalSummary>
-              <SummaryGrid>
-                <SummaryLabels>
+            <div className="total-summary">
+              <div className="summary-grid">
+                <div className="summary-labels">
                   <p>Cart Summary</p>
                   <p>Shipping</p>
-                  <TotalLabel>Total</TotalLabel>
-                </SummaryLabels>
-                <SummaryValues>
+                  <p className="total-label">Total</p>
+                </div>
+                <div className="summary-values">
                   <p>${subtotal.toFixed(2)}</p>
                   <p>${shipping.toFixed(2)}</p>
-                  <TotalValue>${total.toFixed(2)}</TotalValue>
-                </SummaryValues>
-              </SummaryGrid>
-            </TotalSummary>
-            <CheckoutButton to="/shipping-details">
-                Proceed to checkout
-              </CheckoutButton>
-          </OrderSummary>
-          
-        </CheckoutContent>
-      </MainContents>
+                  <p className="total-value">${total.toFixed(2)}</p>
+                </div>
+              </div>
+            </div>
+            <Link className="checkout-button" to="/shipping-details">
+              Proceed to checkout
+            </Link>
+          </div>
+        </div>
+      </div>
       <Footer />
-    </SecureCheckout>
+    </div>
   );
 };
 

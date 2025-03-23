@@ -3,7 +3,7 @@ export interface ReviewData {
     rating: number
     content: string
     author: string
-    productId: number
+    productId: string
   }
   
   export const mockReviews: ReviewData[] = [

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface Product {
-  id: number;
+  _id: string;
   title: string;
   price: number;
   rating: number;
@@ -11,6 +11,14 @@ interface Product {
   badge?: string;
   brand: string;
   condition: 'new' | 'used' | 'refurbished';
+  category: string;
+  descriptions: Array<any>;
+  features: string[];
+  specs: string[];
+  stock: number;
+  thumbnails: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Filters {
@@ -29,62 +37,20 @@ interface ProductContextType {
   filteredProducts: Product[];
   filters: Filters;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
-  updateProductRating: (productId: number, rating: number) => void;
-  toggleFavorite: (productId: number) => void;
+  updateProductRating: (productId: string, rating: number) => void;
+  toggleFavorite: (productId: string) => void;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-export const useProducts = () => {
-  const context = useContext(ProductContext);
-  if (!context) {
-    throw new Error('useProducts must be used within a ProductProvider');
-  }
-  return context;
-};
-
-interface ProductProviderProps {
-  children: ReactNode;
-}
-
-export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) => {
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      title: "Smart Watch",
-      price: 50.00,
-      rating: 5.0,
-      image: "/imgs/Watch 1.png",
-      isFavorite: false,
-      reviews: 58,
-      badge: "2 FOR USD 80",
-      brand: "Apple",
-      condition: "new"
-    },
-    {
-      id: 2,
-      title: "Wireless Headphones",
-      price: 80.00,
-      rating: 4.5,
-      image: "/imgs/Rectangle 62.png",
-      isFavorite: false,
-      reviews: 45,
-      brand: "Samsung",
-      condition: "new"
-    },
-    {
-      id: 3,
-      title: "Smartphone",
-      price: 299.99,
-      rating: 4.7,
-      image: "/imgs/Rectangle 62 (9).png",
-      isFavorite: false,
-      reviews: 120,
-      brand: "Apple",
-      condition: "refurbished"
-    }
-  ]);
-
+// Move useProducts after the Provider component
+export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
   const [filters, setFilters] = useState<Filters>({
     priceRange: { min: '', max: '' },
     brand: 'all',
@@ -148,7 +114,7 @@ export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) =>
     setFilteredProducts(result);
   }, [filters, products]);
 
-  const updateProductRating = (productId: number, rating: number) => {
+  const updateProductRating = (productId: string, rating: number) => {
     setProducts(prevProducts =>
       prevProducts.map(product =>
         product.id === productId
@@ -158,7 +124,7 @@ export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) =>
     );
   };
 
-  const toggleFavorite = (productId: number) => {
+  const toggleFavorite = (productId: string) => {
     setProducts(prevProducts =>
       prevProducts.map(product =>
         product.id === productId
@@ -168,6 +134,28 @@ export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) =>
     );
   };
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(import.meta.env.VITE_API_URL + '/products');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        console.log(data.products); // Log the fetched products for debugging reaso
+        setProducts(data.products);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <ProductContext.Provider
       value={{
@@ -176,10 +164,21 @@ export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) =>
         filters,
         setFilters,
         updateProductRating,
-        toggleFavorite
+        toggleFavorite,
+        isLoading,
+        error
       }}
     >
       {children}
     </ProductContext.Provider>
   );
+};
+
+// Export the hook after the Provider
+export const useProducts = () => {
+  const context = useContext(ProductContext);
+  if (!context) {
+    throw new Error('useProducts must be used within a ProductProvider');
+  }
+  return context;
 };

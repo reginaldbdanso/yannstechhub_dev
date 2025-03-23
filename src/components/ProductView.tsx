@@ -2,597 +2,37 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import styled from "styled-components"
+import  '../styles/components/ProductView.module.css';
 import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
 import Footer from "./Footer"
 
-// Styled components (most of these remain the same as in the example)
-const Container = styled.section`
-  background-color: #eef2f4;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`
-
-const MainContent = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  padding: 21px 0 179px;
-`
-
-const Divider = styled.div<{ top?: boolean }>`
-  align-self: stretch;
-  min-height: 0px;
-  margin-top: ${(props) => (props.top ? "100px" : "10px")};
-  width: 99.9%;
-  border: 1px solid #d5d5d5;
-`
-
-const BreadcrumbSort = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 70%;
-  gap: 2px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 9px 0 0 0px;
-
-  @media (max-width: 991px) {
-    width: 70%;
-    justify-content: center;
-    gap: 2rem;
-    max-width: 100%;
-  }
-`
-
-const Breadcrumb = styled.div`
-  align-self: start;
-  display: flex;
-  gap: 12px;
-  color: #000;
-  font: 15px 'Open Sans', sans-serif;
-`
-
-const BreadcrumbItem = styled.span<{ bold?: boolean }>`
-  align-self: stretch;
-  border-radius: 10px;
-  background-color: #fff;
-  padding: 4px 14px;
-  font: ${(props) => (props.bold ? "700" : "400")} 15px 'Open Sans', sans-serif;
-`
-
-const ProductContainer = styled.div`
-  align-self: center;
-  display: flex;
-  margin-top: 38px;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 991px) {
-    max-width: 95%;
-  }
-`
-
-const ProductWrapper = styled.div`
-  align-self: center;
-  width: 100%;
-  max-width: 987px;
-
-  @media (max-width: 991px) {
-    max-width: 95%;
-  }
-`
-
-const ProductContent = styled.div`
-  gap: 30px;
-  display: flex;
-
-  @media (max-width: 991px) {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    max-width: 95%;
-  }
-`
-
-const ProductGallery = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-  width: 50%;
-  margin-left: 0;
-  position: relative;
-
-  @media (max-width: 991px) {
-    width: 100%;
-    margin: 40px 0 0;
-  }
-`
-
-const MainImageWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-
-  @media (max-width: 991px) {
-    max-width: 95%;
-  }
-`
-
-const MainProductImage = styled.img`
-  aspect-ratio: 1.06;
-  object-fit: contain;
-  object-position: center;
-  width: 100%;
-  border-radius: 10px;
-`
-
-const ThumbnailGallery = styled.div`
-  display: flex;
-  margin-top: 15px;
-  gap: 13px;
-`
-
-const Thumbnail = styled.img`
-  aspect-ratio: 1.11;
-  object-fit: contain;
-  object-position: center;
-  width: 104px;
-  border-radius: 20px;
-  cursor: pointer;
-  border: 2px solid transparent;
-
-  &:hover, &.active {
-    border-color: #007bff;
-  }
-`
-
-const ProductInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  line-height: normal;
-  width: 50%;
-  margin-left: 20px;
-
-  @media (max-width: 991px) {
-    width: 100%;
-    margin: 40px 0 0;
-    max-width: 95%;
-  }
-`
-
-const InfoContainer = styled.div`
-  display: flex;
-  margin-top: 20px;
-  width: 100%;
-  flex-direction: column;
-`
-
-const ProductDetail = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: start;
-  color: #000;
-  font: 700 15px 'Open Sans', sans-serif;
-`
-
-const TitleContainer = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const ProductTitle = styled.h1`
-  font-size: 25px;
-  align-self: stretch;
-`
-
-const RatingWrapper = styled.div`
-  display: flex;
-  margin-top: 18px;
-  gap: 10px;
-  font-size: 12px;
-  color: #A5A5A5;
-`
-
-const RatingIcon = styled.img`
-  aspect-ratio: 1;
-  object-fit: contain;
-  object-position: center;
-  width: 16px;
-`
-
-const Price = styled.div`
-  font-size: 25px;
-  margin-top: 7px;
-`
-
-const QuantityLabel = styled.div`
-  margin-top: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-`
-
-const FeatureList = styled.div`
-  font-weight: 500;
-  margin-top: 27px;
-`
-
-const FeatureItem = styled.div`
-  margin-top: 19px;
-`
-
-const ActionButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 31px;
-`
-
-const Button = styled.button`
-  align-self: stretch;
-  border-radius: 30px;
-  min-height: 57px;
-  color: #FFF;
-  padding: 19px;
-  text-align: center;
-  font: 700 15px 'Open Sans', sans-serif;
-  border: none;
-  cursor: pointer;
-
-  @media (max-width: 991px) {
-    padding: 19px 20px;
-  }
-`
-
-const PrimaryButton = styled(Button)`
-  background-color: #0055B6;
-`
-
-const SecondaryButton = styled(Button)`
-  background-color: #000;
-`
-
-const ContentSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  max-width: 70%;
-
-  @media (max-width: 991px) {
-    max-width: 95%;
-  }
-`
-
-const SectionTitle = styled.h2`
-  color: #000;
-  margin: 74px 0 0 44px;
-  font: 700 25px 'Open Sans', sans-serif;
-
-  @media (max-width: 991px) {
-    margin: 40px 0 0 10px;
-  }
-`
-
-const SpecsList = styled.div`
-  color: #000;
-  margin: 20px 0 0 44px;
-  font: 500 15px 'Open Sans', sans-serif;
-`
-
-const FeatureDescription = styled.div`
-  color: #000;
-  margin: 34px 0 0 44px;
-  font: 500 15px 'Open Sans', sans-serif;
-`
-
-const ReviewsContainer = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 1003px;
-  align-items: start;
-  gap: 20px;
-  justify-content: space-between;
-  margin: 33px 0 0 42px;
-
-  @media (max-width: 991px) {
-    flex-direction: column;
-    margin: 0% 10%;
-    max-width: 95%;
-  }
-`
-
-const RatingSummary = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: 'Open Sans', sans-serif;
-  color: #000;
-`
-
-// Update RatingScore styles
-const RatingScore = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 50px;
-  font-weight: 800;
-
-  img {
-    width: 24px;
-    height: 24px;
-  }
-
-  @media (max-width: 991px) {
-    font-size: 40px;
-  }
-`
-
-const RatingBars = styled.div`
-  display: flex;
-  margin-top: 17px;
-  flex-direction: column;
-  gap: 15px;
-
-  @media (max-width: 991px) {
-    margin: 0% -8%;
-  }
-`
-
-const RatingBar = styled.div`
-  display: flex;
-  gap: 13px;
-  align-items: center;
-`
-
-const BarContainer = styled.div`
-  border-radius: 10px;
-  background-color: #E4E4E4;
-  height: 15px;
-  width: 320px;
-`
-
-const BarFill = styled.div<{ width: string }>`
-  border-radius: 10px;
-  background-color: #FFC107;
-  height: 100%;
-  width: ${(props) => props.width};
-`
-
-const ReviewCard = styled.div`
-  border-radius: 20px;
-  background-color: #FFF;
-  padding: 32px 58px;
-  margin-top: 20px;
-  width: 100%;
-  max-width: 1065px;
-  color: #000;
-  font: 500 15px 'Open Sans', sans-serif;
-  border: 1px solid #E4E4E4;
-
-  p:last-child {
-    padding-top: 15px;
-    font-weight: 700;
-  }
-
-  @media (max-width: 991px) {
-    padding: 0 20px;
-    max-width: 95%;
-  }
-`
-
-const ReviewRating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 15px;
-`
-
-const ReviewTitle = styled.h3`
-  font-size: 25px;
-  font-weight: 700;
-`
-
-// New styled components for the slider
-const SliderContainer = styled.div`
-  position: relative;
-  width: 100%;
-  margin: 20px 0;
-  overflow: hidden;
-  padding: 20px 0;
-`
-
-const SliderWrapper = styled.div`
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-`
-
-const ProductsSlider = styled.div`
-  display: flex;
-  transition: transform 0.5s ease;
-  gap: 20px;
-`
-
-const ProductSlide = styled.div`
-  flex: 0 0 auto;
-  width: calc(25% - 15px);
-  
-  @media (max-width: 1200px) {
-    width: calc(33.333% - 15px);
-  }
-  
-  @media (max-width: 768px) {
-    width: calc(50% - 15px);
-  }
-  
-  @media (max-width: 480px) {
-    width: calc(100% - 15px);
-  }
-`
-
-const SliderNavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  opacity: 0.7;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  &:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-`
-
-const PrevButton = styled(SliderNavButton)`
-  left: 10px;
-`
-
-const NextButton = styled(SliderNavButton)`
-  right: 10px;
-`
-
-const RateProductSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 20px;
-  border-radius: 8px;
-  
-  h2 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-`
-
-const StarRating = styled.div`
-  display: flex;
-  gap: 8px;
-  margin: 10px 0;
-  
-  img {
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    transition: transform 0.2s;
-    
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-`
-
-const VerificationText = styled.p`
-  font-size: 14px;
-  color: #666;
-  text-align: center;
-`
-
-const StarIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  
-  &:hover {
-    transform: scale(1.1);
-  }
-`
-
-// Add new styled components for quantity controls
-const QuantityControl = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`
-
-// Update the QuantityButton styling to handle text content
-const QuantityButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  
-  &:hover {
-    background: #f5f5f5;
-  }
-  
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-`
-
-const QuantityInput = styled.input`
-  width: 50px;
-  height: 30px;
-  text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-`
-
-// Update the WishlistButton to use the image
-const WishlistButton = styled.button`
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  img {
-    width: 24px;
-    height: 24px;
-    transition: transform 0.2s;
-  }
-  
-  &:hover img {
-    transform: scale(1.1);
-  }
-`
 
 const ProductView: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { addToCart } = useCart()
-  const [product, setProduct] = useState<(typeof mockProducts)[0] | null>(null)
+  const [product, setProduct] = useState<{
+    id: string;
+    title: string;
+    price: number;
+    image: string;
+    thumbnails: string[];
+    category: string;
+    rating: number;
+    reviews: number;
+    features: string[];
+    specs: string[];
+    descriptions: Array<{
+      title: string;
+      content: string;
+    }>;
+  } | null>(null)
   const [reviews, setReviews] = useState<Array<{
     id: string;
-    productId: number;
+    productId: string;
     rating: number;
     title: string;
     content: string;
@@ -801,149 +241,166 @@ const ProductView: React.FC = () => {
   }
 
   return (
-    <Container>
-      <MainContent>
+    <div className="container">
+      <div className="main-content">
         <Header />
-        <Divider top />
+        <div className="divider divider-top"></div>
 
-        <BreadcrumbSort>
-          <Breadcrumb>
-            <BreadcrumbItem bold>yannstechub</BreadcrumbItem>
-            <BreadcrumbItem>/ Product / {product.title}</BreadcrumbItem>
-          </Breadcrumb>
-        </BreadcrumbSort>
+        <div className="breadcrumb-sort">
+          <div className="breadcrumb">
+            <div className="breadcrumb-item breadcrumb-item-bold">yannstechub</div>
+            <div className="breadcrumb-item">/ Product / {product.title}</div>
+          </div>
+        </div>
 
-        <Divider />
+        <div className="divider divider-default"></div>
 
-        <ProductContainer className="product-container">
-          <ProductWrapper>
-            <ProductContent>
-              <ProductGallery>
-                <MainImageWrapper>
-                  <MainProductImage src={mainImage || "/placeholder.svg"} alt={product.title} />
-                  <ThumbnailGallery>
+        <div className="product-container">
+          <div className="product-wrapper">
+            <div className="product-content">
+              <div className="product-gallery">
+                <div className="main-image-wrapper">
+                  <img className="main-product-image" src={mainImage || "/placeholder.svg"} alt={product.title} />
+                  <div className="thumbnail-gallery">
                     {thumbnails.map((thumb, index) => (
-                      <Thumbnail
+                      <img
                         key={index}
+                        className={`thumbnail ${mainImage === thumb ? "active" : ""}`}
                         src={thumb}
                         alt={`${product.title} thumbnail ${index + 1}`}
                         onClick={() => handleThumbnailClick(thumb)}
-                        className={mainImage === thumb ? "active" : ""}
                       />
                     ))}
-                  </ThumbnailGallery>
-                </MainImageWrapper>
-              </ProductGallery>
-              <ProductInfo>
-                <InfoContainer>
-                  <ProductDetail>
-                    <TitleContainer>
-                      <ProductTitle>{product.title}</ProductTitle>
-                      <WishlistButton onClick={() => setIsWishlisted(!isWishlisted)}>
+                  </div>
+                </div>
+              </div>
+              <div className="product-info">
+                <div className="info-container">
+                  <div className="product-detail">
+                    <div className="title-container">
+                      <div className="product-title">{product.title}</div>
+                      <button className="wishlist-button" onClick={() => setIsWishlisted(!isWishlisted)}>
                         <img
                           src="/imgs/favorie 2.png"
                           alt="Add to wishlist"
                           style={{ filter: isWishlisted ? "none" : "grayscale(100%)" }}
                         />
-                      </WishlistButton>
-                    </TitleContainer>
-                    <RatingWrapper>
-                      <RatingIcon src="/imgs/star 1.png" alt="Rating stars" />
+                      </button>
+                    </div>
+                    <div className="rating-wrapper">
+                      <img className="rating-icon" src="/imgs/star 1.png" alt="Rating stars" />
                       <span>
                         {product.rating} ({product.reviews} reviews)
                       </span>
-                    </RatingWrapper>
-                    <Price>${product.price.toFixed(2)}</Price>
-                    <QuantityLabel>
+                    </div>
+                    <div className="price">${product.price.toFixed(2)}</div>
+                    <div className="quantity-label">
                       Quantity
-                      <QuantityControl>
-                        <QuantityButton onClick={handleDecrement} disabled={quantity <= 1}>
+                      <div className="quantity-control">
+                        <button className="quantity-button" onClick={handleDecrement} disabled={quantity <= 1}>
                           -
-                        </QuantityButton>
-                        <QuantityInput type="number" min="1" value={quantity} onChange={handleQuantityChange} />
-                        <QuantityButton onClick={handleIncrement}>+</QuantityButton>
-                      </QuantityControl>
-                    </QuantityLabel>
-                    <FeatureList>
+                        </button>
+                        <input
+                          type="number"
+                          min="1"
+                          value={quantity}
+                          onChange={handleQuantityChange}
+                          className="quantity-input"
+                        />
+                        <button className="quantity-button" onClick={handleIncrement}>
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="feature-list">
                       {product.features.map((feature, index) => (
-                        <FeatureItem key={index}>{feature}</FeatureItem>
+                        <div key={index} className="feature-item">
+                          {feature}
+                        </div>
                       ))}
-                    </FeatureList>
-                  </ProductDetail>
-                  <ActionButtons>
-                    <PrimaryButton onClick={() => navigate(-1)}>Continue Shopping</PrimaryButton>
-                    <SecondaryButton onClick={handleAddToCart}>Add to Cart</SecondaryButton>
-                  </ActionButtons>
-                </InfoContainer>
-              </ProductInfo>
-            </ProductContent>
-          </ProductWrapper>
+                    </div>
+                  </div>
+                  <div className="action-buttons">
+                    <button className="button button-primary" onClick={() => navigate(-1)}>
+                      Continue Shopping
+                    </button>
+                    <button className="button button-secondary" onClick={handleAddToCart}>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <ContentSection>
-            <SectionTitle>Description</SectionTitle>
-            <SpecsList>
+          <div className="content-section">
+            <div className="section-title">Description</div>
+            <div className="specs-list">
               {product.specs.map((spec, index) => (
                 <React.Fragment key={index}>
                   {spec}
                   <br />
                 </React.Fragment>
               ))}
-            </SpecsList>
+            </div>
 
             {product.descriptions.map((desc, index) => (
-              <FeatureDescription key={index}>
+              <div key={index} className="feature-description">
                 <strong>{desc.title}</strong>
                 <br />
                 {desc.content}
-              </FeatureDescription>
+              </div>
             ))}
 
-            <SectionTitle>Ratings and Reviews</SectionTitle>
-            <ReviewsContainer>
-              <RatingSummary>
-                <RatingScore>
+            <div className="section-title">Ratings and Reviews</div>
+            <div className="reviews-container">
+              <div className="rating-summary">
+                <div className="rating-score">
                   <span>{averageRating.toFixed(1)}</span>
                   <img src="/imgs/star 1.png" alt="Rating stars" />
-                </RatingScore>
+                </div>
                 <span>{reviews.length} ratings</span>
-              </RatingSummary>
+              </div>
 
-              <RatingBars>
+              <div className="rating-bars">
                 {[5, 4, 3, 2, 1].map((rating) => (
-                  <RatingBar key={rating}>
+                  <div key={rating} className="rating-bar">
                     <span>{rating}</span>
-                    <BarContainer>
-                      <BarFill width={`${((ratingDistribution[rating] || 0) / reviews.length) * 100}%`} />
-                    </BarContainer>
+                    <div className="bar-container">
+                      <div
+                        className="bar-fill"
+                        style={{ width: `${((ratingDistribution[rating] || 0) / reviews.length) * 100}%` }}
+                      ></div>
+                    </div>
                     <span>{ratingDistribution[rating] || 0}</span>
-                  </RatingBar>
+                  </div>
                 ))}
-              </RatingBars>
+              </div>
 
-              <RateProductSection>
+              <div className="rate-product-section">
                 <h2>Rate This Product</h2>
-                <StarRating>
+                <div className="star-rating">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <StarIcon
+                    <img
                       key={star}
+                      className="star-icon"
                       src={isRatingHovered >= star || userRating >= star ? "/imgs/star 1.png" : "/imgs/star-empty.png"}
                       alt={`Rate ${star} stars`}
-                      className="star-icon"
                       onMouseEnter={() => handleStarHover(star)}
                       onMouseLeave={() => handleStarHover(0)}
                       onClick={() => handleStarClick(star)}
                     />
                   ))}
-                </StarRating>
-                <VerificationText>Adding a review requires a valid email for verification</VerificationText>
-              </RateProductSection>
-            </ReviewsContainer>
+                </div>
+                <div className="verification-text">Adding a review requires a valid email for verification</div>
+              </div>
+            </div>
 
             {reviews.map((review, index) => (
-              <ReviewCard key={index}>
-                <ReviewRating>
-                  <ReviewTitle>{review.title}</ReviewTitle>
-                  <StarRating>
+              <div key={index} className="review-card">
+                <div className="review-rating">
+                  <div className="review-title">{review.title}</div>
+                  <div className="star-rating">
                     {[...Array(5)].map((_, i) => (
                       <img
                         key={i}
@@ -951,29 +408,36 @@ const ProductView: React.FC = () => {
                         alt="Rating star"
                       />
                     ))}
-                  </StarRating>
-                </ReviewRating>
+                  </div>
+                </div>
                 <p>{review.content}</p>
                 <p>Reviewed by {review.author}</p>
-              </ReviewCard>
+              </div>
             ))}
 
-            <SectionTitle>More {product.category} Products</SectionTitle>
-            <SliderContainer>
+            <div className="section-title">More {product.category} Products</div>
+            <div className="slider-container">
               {relatedProducts.length > 0 ? (
-                <SliderWrapper ref={sliderRef}>
-                  <PrevButton onClick={handlePrevSlide} disabled={currentSlide === 0}>
+                <div className="slider-wrapper" ref={sliderRef}>
+                  <button
+                    className="slider-nav-button slider-nav-button-prev"
+                    onClick={handlePrevSlide}
+                    disabled={currentSlide === 0}
+                  >
                     ←
-                  </PrevButton>
-                  <ProductsSlider style={{ transform: `translateX(-${currentSlide * (100 / (4 - 0.25))}%)` }}>
+                  </button>
+                  <div
+                    className="products-slider"
+                    style={{ transform: `translateX(-${currentSlide * (100 / (4 - 0.25))}%)` }}
+                  >
                     {relatedProducts.map((relatedProduct) => (
-                      <ProductSlide
+                      <div
                         key={relatedProduct.id}
+                        className="product-slide"
                         onClick={() => handleRelatedProductClick(relatedProduct)}
                         style={{ cursor: "pointer" }}
                       >
                         <ProductCard
-                          key={relatedProduct.id}
                           id={relatedProduct.id}
                           image={relatedProduct.image}
                           title={relatedProduct.title}
@@ -981,26 +445,29 @@ const ProductView: React.FC = () => {
                           reviews={relatedProduct.reviews}
                           price={relatedProduct.price}
                         />
-                      </ProductSlide>
+                      </div>
                     ))}
-                  </ProductsSlider>
-                  <NextButton onClick={handleNextSlide} disabled={currentSlide >= maxSlide}>
+                  </div>
+                  <button
+                    className="slider-nav-button slider-nav-button-next"
+                    onClick={handleNextSlide}
+                    disabled={currentSlide >= maxSlide}
+                  >
                     →
-                  </NextButton>
-                </SliderWrapper>
+                  </button>
+                </div>
               ) : (
                 <div style={{ padding: "20px", textAlign: "center", width: "100%" }}>
                   No other products found in this category.
                 </div>
               )}
-            </SliderContainer>
-          </ContentSection>
-        </ProductContainer>
-      </MainContent>
+            </div>
+          </div>
+        </div>
+      </div>
       <Footer />
-    </Container>
+    </div>
   )
 }
 
 export default ProductView
-

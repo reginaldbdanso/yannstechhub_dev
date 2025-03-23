@@ -3,7 +3,7 @@ export interface ReviewData {
   rating: number
   content: string
   author: string
-  productId: number // Added productId to associate reviews with products
+  productId: string // Added productId to associate reviews with products
 }
 
 // Instead of a single array of reviews, we'll create reviews for each product

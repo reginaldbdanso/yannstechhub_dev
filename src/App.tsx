@@ -1,6 +1,6 @@
 import type React from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import { createGlobalStyle } from "styled-components"
+// import { createGlobalStyle } from "styled-components"
 import { CartProvider } from "./context/CartContext"
 import DailyDeals from "./components/DailyDeals"
 import Shop from "./components/Shop"
@@ -25,49 +25,12 @@ import ProductView from "./components/ProductView"
 import CategoryProducts from "./components/CategoryProducts"
 
 
-const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  html, body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-
-  body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #fff;
-    line-height: 1.5;
-  }
-
-  #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-`
+import './App.css';
 
 const App: React.FC = () => {
   return (
     <CartProvider>
       <Router>
-        <GlobalStyle />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/daily-deals" element={<DailyDeals />} />
@@ -92,12 +55,10 @@ const App: React.FC = () => {
           <Route path="/product/:id" element={<ProductView />} />
           {/* Ensure this route is correctly defined */}
           <Route path="/category/:category" element={<CategoryProducts />} />
-
         </Routes>
       </Router>
     </CartProvider>
   )
 }
-
 export default App
 
