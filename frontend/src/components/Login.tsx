@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from './Header';
 import Footer from './Footer';
+// import { useAppContext } from '../context/AppContext'
 
 const LoginContainer = styled.div`
   background-color: #eef2f4;
@@ -146,16 +147,31 @@ const ForgotPassword = styled(Link)`
   text-decoration: none;
 `;
 
+
+
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // const { dispatch } = useAppContext();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Logging in with:', { username, password });
+    console.log('Logging in with:', { username });
+    
+    // if (response.ok) {
+    //   dispatch({
+    //     type: 'LOGIN',
+    //     payload: {
+    //       username: data.username,
+    //       email: data.email,
+    //       token: data.token
+    //     }
+    //   })
+    // }
+
     // Navigate to user-account after successful login
-    navigate('/user-account');
+    navigate('/dashboard');
   };
 
   return (

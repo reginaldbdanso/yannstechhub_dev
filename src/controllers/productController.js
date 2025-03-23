@@ -2,9 +2,24 @@ const ProductService = require('../services/product/productService');
 
 exports.createProduct = async (req, res) => {
   try {
-    const { name, description, price, category, stock } = req.body;
+    const { 
+      title, 
+      image, 
+      thumbnails, 
+      badge, 
+      rating, 
+      reviews, 
+      price, 
+      brand, 
+      condition, 
+      stock, 
+      category, 
+      features, 
+      specs, 
+      descriptions 
+    } = req.body;
     
-    if (!req.file) {
+    if (!req.image || !req.thumbnails) {
       return res.status(400).json({ 
         success: false, 
         message: 'Product image is required' 
@@ -12,7 +27,22 @@ exports.createProduct = async (req, res) => {
     }
 
     const product = await ProductService.createProduct(
-      { name, description, price, category, stock },
+      { 
+        title,
+        image,
+        thumbnails,
+        badge,
+        rating,
+        reviews,
+        price,
+        brand,
+        condition,
+        stock,
+        category,
+        features,
+        specs,
+        descriptions
+      },
       req.file.buffer,
       req.user._id
     );

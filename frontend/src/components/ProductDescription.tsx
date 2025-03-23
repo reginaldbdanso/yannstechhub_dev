@@ -201,7 +201,7 @@ const ProductDescription: React.FC = () => {
               </ReviewStars>
             </ReviewRating>
             <ReviewText>
-              The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.
+              The sound quality from this device is great and my favourite feature is how I&apos;m able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.
             </ReviewText>
             <ReviewAuthor>Reviewed by Sweetie Baiden</ReviewAuthor>
           </ReviewCard>

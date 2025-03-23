@@ -208,6 +208,7 @@ const SignUp: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Add signup logic here
+    
     console.log('Form submitted:', formData);
   };
 
@@ -250,6 +251,7 @@ const SignUp: React.FC = () => {
                   />
                   <InputIcon src="/imgs/User.png" alt="Username icon" loading="lazy" />
                 </InputGroup>
+                <UsernameNote>*Can&apos;t change username</UsernameNote>
                 
                 <InputGroup>
                   <FormInput

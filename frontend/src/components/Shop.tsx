@@ -476,9 +476,9 @@ const Shop: React.FC = () => {
   // State for filtered products
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(mockProducts)
 
-  const [itemsPerPage, setItemsPerPage] = useState<number>(12)
-  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
+  // const [itemsPerPage, setItemsPerPage] = useState<number>(12)
+  // const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+  // const [currentPage, setCurrentPage] = useState(1)
 
   // Debug logging
   useEffect(() => {
@@ -498,6 +498,10 @@ const Shop: React.FC = () => {
 
   // Extract unique brands from mockProducts
   const brands = ["All Brands", ...Array.from(new Set(mockProducts.map((product) => product.brand)))]
+
+  const [itemsPerPage, setItemsPerPage] = useState<number>(12)
+  const [displayedProducts, setDisplayedProducts] = useState<Product[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
 
   // Handle condition checkbox changes
   const handleConditionChange = (condition: keyof typeof conditions) => {
@@ -835,17 +839,18 @@ const Shop: React.FC = () => {
                   >
                     <ItemsPerPageContainer>
                       <ItemsPerPageLabel htmlFor="itemsPerPage">Items per page:</ItemsPerPageLabel>
-                      <ItemsPerPageSelect
-                        id="itemsPerPage"
-                        value={itemsPerPage}
-                        onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
-                        aria-label="Number of items per page"
-                      >
+                        <ItemsPerPageSelect
+                          id="itemsPerPage"
+                          value={itemsPerPage}
+                          onChange={(e) => handleItemsPerPageChange(Number(e.target.value))}
+                          aria-label="Number of items per page"
+                        >
                         <option value="12">12</option>
                         <option value="24">24</option>
                         <option value="36">36</option>
                       </ItemsPerPageSelect>
                     </ItemsPerPageContainer>
+
                   </div>
                 </>
               ) : (

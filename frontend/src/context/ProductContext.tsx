@@ -13,20 +13,22 @@ interface Product {
   condition: 'new' | 'used' | 'refurbished';
 }
 
+interface Filters {
+  priceRange: { min: string; max: string };
+  brand: string;
+  conditions: {
+    new: boolean;
+    used: boolean;
+    refurbished: boolean;
+  };
+  sortBy: string;
+}
+
 interface ProductContextType {
   products: Product[];
   filteredProducts: Product[];
-  filters: {
-    priceRange: { min: string; max: string };
-    brand: string;
-    conditions: {
-      new: boolean;
-      used: boolean;
-      refurbished: boolean;
-    };
-    sortBy: string;
-  };
-  setFilters: (filters: any) => void;
+  filters: Filters;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
   updateProductRating: (productId: number, rating: number) => void;
   toggleFavorite: (productId: number) => void;
 }
@@ -83,7 +85,7 @@ export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) =>
     }
   ]);
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     priceRange: { min: '', max: '' },
     brand: 'all',
     conditions: {
@@ -115,7 +117,7 @@ export const ProductProvider: React.FC<ProductProviderProps> = ({ children }) =>
 
     // Apply condition filters
     const activeConditions = Object.entries(filters.conditions)
-      .filter(([_, isActive]) => isActive)
+      .filter(([, isActive]) => isActive)
       .map(([condition]) => condition);
 
     if (activeConditions.length > 0) {

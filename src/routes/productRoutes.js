@@ -16,7 +16,12 @@ const upload = multer({
   }
 });
 
-router.post('/', protect, upload.single('image'), createProduct);
+router.post('/', 
+  protect, 
+  upload.fields([
+    { name: 'image', maxCount: 1 },
+    { name: 'thumbnails', maxCount: 5 }
+  ]), createProduct);
 router.get('/', getProducts);
 router.get('/:id', getProduct);
 router.delete('/:id', protect, deleteProduct);

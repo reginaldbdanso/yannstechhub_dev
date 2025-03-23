@@ -12,7 +12,9 @@ require('dotenv').config();
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const ordersRoutes = require('./routes/ordersRoutes');
-const protect = require('./middleware/auth').protect;
+const cartRoutes = require('./routes/cartRoutes');
+const reviewsRoutes = require('./routes/reviewsRoutes');
+// const protect = require('./middleware/auth').protect;
 
 const app = express();
 
@@ -28,6 +30,12 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', ordersRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/reviews', reviewsRoutes);
+app.use('/', (req, res) => {
+  res.json({ message: "You have reached the Yannstechhub API" });
+});
+// app.use('/api/admin', protect, require('./routes/adminRoutes'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -24,6 +24,7 @@ import PaymentApproval from "./components/PaymentApproval"
 import ProductView from "./components/ProductView"
 import CategoryProducts from "./components/CategoryProducts"
 
+
 const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -91,6 +92,7 @@ const App: React.FC = () => {
           <Route path="/product/:id" element={<ProductView />} />
           {/* Ensure this route is correctly defined */}
           <Route path="/category/:category" element={<CategoryProducts />} />
+
         </Routes>
       </Router>
     </CartProvider>
