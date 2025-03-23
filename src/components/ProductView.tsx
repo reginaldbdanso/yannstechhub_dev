@@ -3,19 +3,24 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import  '../styles/components/ProductView.module.css';
-import { mockProducts } from "../data/mockProducts"
+// import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
 import Footer from "./Footer"
+import { useProducts } from "@/context/ProductContext"
+import { useReviews } from "@/context/ReviewContext"
+
 
 
 const ProductView: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { addToCart } = useCart()
+  const { products: contextProducts } = useProducts();
+  const { reviews: contextReviews } = useReviews();
   const [product, setProduct] = useState<{
-    id: string;
+    _id: string;
     title: string;
     price: number;
     image: string;
@@ -30,8 +35,9 @@ const ProductView: React.FC = () => {
       content: string;
     }>;
   } | null>(null)
+
   const [reviews, setReviews] = useState<Array<{
-    id: string;
+    _id: string;
     productId: string;
     rating: number;
     title: string;
@@ -60,15 +66,27 @@ const ProductView: React.FC = () => {
       if (id) {
         try {
           // Fetch product
-          const foundProduct = mockProducts.find((p) => p.id === Number(id))
-          setProduct(foundProduct || null)
-          setMainImage(foundProduct?.image || "")
+          if (contextProducts) {
+            const foundProduct = contextProducts.find((p) => p._id === String(id));
+            console.log(foundProduct)
+            setProduct(foundProduct || null);
+            setMainImage(contextProducts.find((p) => p._id === String(id))?.image || "")
+          } else {
+            setProduct(null);
+            setMainImage("");
+          }
+          // const foundProduct = mockProducts.find((p) => p.id === Number(id))
+          // setProduct(foundProduct || null)
+          // setMainImage(foundProduct?.image || "")
 
           // Fetch reviews from API
-          const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
-          if (reviewsResponse.ok) {
-            const reviewsData = await reviewsResponse.json()
-            setReviews(reviewsData)
+          if (contextReviews) {
+            console.log(contextReviews)
+            const foundReviews = contextReviews.find((p) => p.productId === String(id));
+            // console.log(foundReviews)
+            setReviews(foundReviews ? [foundReviews] : []);
+          } else {
+            setReviews([]);
           }
         } catch (err) {
           console.error("Error fetching reviews:", err)
@@ -99,8 +117,8 @@ const ProductView: React.FC = () => {
   useEffect(() => {
     // Get related products (excluding current product)
     const relatedProducts = product
-      ? mockProducts.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 8)
-      : mockProducts.filter((p) => p.id !== Number(id));
+      ? contextProducts.filter((p) => p.category === product.category && p._id !== product._id).slice(0, 8)
+      : contextProducts.filter((p) => p._id !== String(id));
 
     // Calculate max slide based on number of products and visible items
     const calculateMaxSlide = () => {
@@ -145,7 +163,7 @@ const ProductView: React.FC = () => {
   const handleAddToCart = () => {
     if (product) {
       const cartItem = {
-        id: product.id,
+        id: product._id,
         title: product.title,
         price: product.price,
         image: product.image,
@@ -155,7 +173,7 @@ const ProductView: React.FC = () => {
 
       // Store the quantity in localStorage
       const cartQuantities = JSON.parse(localStorage.getItem("cartQuantities") || "{}")
-      cartQuantities[product.id] = (cartQuantities[product.id] || 0) + quantity
+      cartQuantities[product._id] = (cartQuantities[product._id] || 0) + quantity
       localStorage.setItem("cartQuantities", JSON.stringify(cartQuantities))
     }
   }
@@ -202,29 +220,29 @@ const ProductView: React.FC = () => {
   const thumbnails = [product.image, ...product.thumbnails.slice(0, 3)]
 
   // Get related products (same category, excluding current product)
-  const relatedProducts = mockProducts.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 8)
+  const relatedProducts = contextProducts.filter((p) => p.category === product.category && p._id !== product._id).slice(0, 8)
 
   // Add a new function to handle product click in the "You May Also Like" section
-  const handleRelatedProductClick = (relatedProduct: (typeof mockProducts)[0]) => {
+  const handleRelatedProductClick = (relatedProduct: (typeof contextProducts)[0]) => {
     // Update the current product with the clicked product
     setProduct(relatedProduct)
     setMainImage(relatedProduct.image)
 
     // Get product reviews for the new product
-    const fetchReviews = async () => {
-      try {
-        console.log(`http://192.168.0.51:4000/api/reviews/product/${relatedProduct.id}`)
-        const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
-        if (reviewsResponse.ok) {
-          const productReviews = await reviewsResponse.json()
-          setReviews(productReviews)
-        }
-      } catch (err) {
-        console.error("Error fetching reviews:", err)
-        setReviews([])
-      }
-    }
-    fetchReviews()
+    // const fetchReviews = async () => {
+    //   try {
+    //     console.log(`http://192.168.0.51:4000/api/reviews/product/${relatedProduct.id}`)
+    //     const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
+    //     if (reviewsResponse.ok) {
+    //       const productReviews = await reviewsResponse.json()
+    //       setReviews(productReviews)
+    //     }
+    //   } catch (err) {
+    //     console.error("Error fetching reviews:", err)
+    //     setReviews([])
+    //   }
+    // }
+    // fetchReviews()
 // This line is redundant since we're already setting reviews in the fetchReviews function
 
     // Scroll to the top of the product container
@@ -432,13 +450,13 @@ const ProductView: React.FC = () => {
                   >
                     {relatedProducts.map((relatedProduct) => (
                       <div
-                        key={relatedProduct.id}
+                        key={relatedProduct._id}
                         className="product-slide"
                         onClick={() => handleRelatedProductClick(relatedProduct)}
                         style={{ cursor: "pointer" }}
                       >
                         <ProductCard
-                          id={relatedProduct.id}
+                          id={relatedProduct._id}
                           image={relatedProduct.image}
                           title={relatedProduct.title}
                           rating={relatedProduct.rating}
@@ -471,3 +489,6 @@ const ProductView: React.FC = () => {
 }
 
 export default ProductView
+
+
+

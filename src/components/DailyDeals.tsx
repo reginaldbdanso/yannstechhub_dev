@@ -28,7 +28,6 @@ type Product = {
 
 const DailyDeals: React.FC = () => {
   const { products: contextProducts, 
-    // isLoading, error
    } = useProducts();
   const [products, setProducts] = useState<Product[]>([])
   const [sortOption, setSortOption] = useState<"recommended" | "bestSellers" | "lowPrice" | "highPrice" | "reviews">("recommended")

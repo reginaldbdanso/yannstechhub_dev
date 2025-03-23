@@ -117,7 +117,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   const updateProductRating = (productId: string, rating: number) => {
     setProducts(prevProducts =>
       prevProducts.map(product =>
-        product.id === productId
+        product._id === productId
           ? { ...product, rating: (product.rating + rating) / 2, reviews: product.reviews + 1 }
           : product
       )
@@ -127,7 +127,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   const toggleFavorite = (productId: string) => {
     setProducts(prevProducts =>
       prevProducts.map(product =>
-        product.id === productId
+        product._id === productId
           ? { ...product, isFavorite: !product.isFavorite }
           : product
       )
@@ -144,7 +144,7 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
           throw new Error('Failed to fetch products');
         }
         const data = await response.json();
-        console.log(data.products); // Log the fetched products for debugging reaso
+        // console.log(data.products); // Log the fetched products for debugging reaso
         setProducts(data.products);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');

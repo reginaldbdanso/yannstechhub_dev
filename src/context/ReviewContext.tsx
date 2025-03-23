@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface Review {
-  id: number;
+  _id: string;
   productId: string;
   rating: number;
   comment: string;
@@ -11,49 +11,67 @@ interface Review {
 
 interface ReviewContextType {
   reviews: Review[];
-  addReview: (review: Omit<Review, 'id' | 'date'>) => void;
+  addReview: (review: Omit<Review, '_id' | 'date'>) => Promise<void>;
   getProductReviews: (productId: string) => Review[];
   getAverageRating: (productId: string) => number;
   getReviewCount: (productId: string) => number;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const ReviewContext = createContext<ReviewContextType | undefined>(undefined);
 
-export const useReviews = () => {
-  const context = useContext(ReviewContext);
-  if (!context) {
-    throw new Error('useReviews must be used within a ReviewProvider');
-  }
-  return context;
-};
-
-interface ReviewProviderProps {
-  children: ReactNode;
-}
-
-export const ReviewProvider: React.FC<ReviewProviderProps> = ({ children }) => {
+export const ReviewProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Load reviews from localStorage on initial render
   useEffect(() => {
-    const savedReviews = localStorage.getItem('reviews');
-    if (savedReviews) {
-      setReviews(JSON.parse(savedReviews));
-    }
+    const fetchReviews = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(import.meta.env.VITE_API_URL + '/reviews');
+        if (!response.ok) {
+          throw new Error('Failed to fetch reviews');
+        }
+        const data = await response.json();
+        // console.log(data.reviews);
+        setReviews(data.reviews);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchReviews();
   }, []);
 
-  // Save reviews to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('reviews', JSON.stringify(reviews));
-  }, [reviews]);
+  const addReview = async (review: Omit<Review, '_id' | 'date'>) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(import.meta.env.VITE_API_URL + '/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(review),
+      });
 
-  const addReview = (review: Omit<Review, 'id' | 'date'>) => {
-    const newReview = {
-      ...review,
-      id: Date.now(),
-      date: new Date().toISOString()
-    };
-    setReviews(prevReviews => [...prevReviews, newReview]);
+      if (!response.ok) {
+        throw new Error('Failed to add review');
+      }
+
+      const newReview = await response.json();
+      setReviews(prevReviews => [...prevReviews, newReview]);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const getProductReviews = (productId: string) => {
@@ -78,10 +96,21 @@ export const ReviewProvider: React.FC<ReviewProviderProps> = ({ children }) => {
         addReview,
         getProductReviews,
         getAverageRating,
-        getReviewCount
+        getReviewCount,
+        isLoading,
+        error
       }}
     >
       {children}
     </ReviewContext.Provider>
   );
+};
+
+// Export the hook after the Provider
+export const useReviews = () => {
+  const context = useContext(ReviewContext);
+  if (!context) {
+    throw new Error('useReviews must be used within a ReviewProvider');
+  }
+  return context;
 };

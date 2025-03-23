@@ -3,17 +3,33 @@ import styles from '../styles/components/BundleDeals.module.css'
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
+import { useProducts } from "@/context/ProductContext"
+
 
 type Product = {
-  _id: number
-  title: string
-  price: number
-  rating: number
-  reviews: number
-  image: string
+  _id: string;
+  title: string;
+  price: number;
+  rating: number;
+  image: string;
+  isFavorite: boolean;
+  reviews: number;
+  badge?: string;
+  brand: string;
+  condition: 'new' | 'used' | 'refurbished';
+  category: string;
+  descriptions: Array<any>;
+  features: string[];
+  specs: string[];
+  stock: number;
+  thumbnails: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 const BundleDeals: React.FC = () => {
+  const { products: contextProducts, 
+  } = useProducts();
   const [products, setProducts] = useState<Product[]>([])
   const [sortOption, setSortOption] = useState<"recommended" | "bestSellers" | "lowPrice" | "highPrice" | "reviews">("recommended")
   const [currentPage, setCurrentPage] = useState(1)
@@ -22,28 +38,36 @@ const BundleDeals: React.FC = () => {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true)
-      try {
-        const response = await fetch("http://192.168.0.51:4000/api/products")
-
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`)
-        }
-
-        const data = await response.json()
-        setProducts(data.products)
-        setError(null)
-      } catch (err) {
-        setError("Failed to load products. Please try again later.")
-        console.error("Error fetching products:", err)
-      } finally {
-        setIsLoading(false)
-      }
+    if (contextProducts) {
+      setProducts(contextProducts);
+      setError(null)
+      setIsLoading(false)
     }
+  }, [contextProducts]);
 
-    fetchProducts()
-  }, [])
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     setIsLoading(true)
+  //     try {
+  //       const response = await fetch("http://192.168.0.51:4000/api/products")
+
+  //       if (!response.ok) {
+  //         throw new Error(`API error: ${response.status}`)
+  //       }
+
+  //       const data = await response.json()
+  //       setProducts(data.products)
+  //       setError(null)
+  //     } catch (err) {
+  //       setError("Failed to load products. Please try again later.")
+  //       console.error("Error fetching products:", err)
+  //     } finally {
+  //       setIsLoading(false)
+  //     }
+  //   }
+
+  //   fetchProducts()
+  // }, [])
 
   useEffect(() => {
     if (products.length === 0) return
