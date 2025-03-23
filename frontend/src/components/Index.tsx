@@ -825,11 +825,17 @@ const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id 
 // Extract unique categories from mockProducts
 const getUniqueCategories = () => {
   const uniqueCategories: string[] = []
+  const categoryIcons: Record<string, string> = {}
 
-  // Collect unique categories
+  // Collect unique categories and their icons
   mockProducts.forEach((product) => {
     if (product.category && !uniqueCategories.includes(product.category)) {
       uniqueCategories.push(product.category)
+
+      // If the product has a categoryIcon, store it for this category
+      if (product.categoryIcon) {
+        categoryIcons[product.category] = product.categoryIcon
+      }
     }
   })
 
@@ -840,10 +846,24 @@ const getUniqueCategories = () => {
     const categorySlug = category.toLowerCase().replace(/\s+/g, "-")
     console.log(`Category: ${category}, Slug: ${categorySlug}`)
 
+    // Use the category icon if available, otherwise use the first product image from this category
+    let categoryImage = "/imgs/Rectangle 9.png" // Default fallback image
+
+    if (categoryIcons[category]) {
+      // If we have a dedicated category icon, use it
+      categoryImage = categoryIcons[category]
+    } else {
+      // Otherwise, find the first product in this category and use its image
+      const productInCategory = mockProducts.find((product) => product.category === category)
+      if (productInCategory) {
+        categoryImage = productInCategory.image
+      }
+    }
+
     return {
       id: index + 1,
       name: category,
-      image: "/imgs/Rectangle 9.png", // Default image
+      image: categoryImage,
       link: `/category/${categorySlug}`,
     }
   })

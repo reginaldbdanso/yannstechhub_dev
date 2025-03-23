@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { mockProducts, mockReviews } from "../data/mockProducts"
+import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
@@ -590,7 +590,14 @@ const ProductView: React.FC = () => {
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const [product, setProduct] = useState<(typeof mockProducts)[0] | null>(null)
-  const [reviews, setReviews] = useState<typeof mockReviews>([])
+  const [reviews, setReviews] = useState<Array<{
+    id: string;
+    productId: number;
+    rating: number;
+    title: string;
+    content: string;
+    author: string;
+  }>>([])
 
   const [mainImage, setMainImage] = useState("")
   const [averageRating, setAverageRating] = useState(0)
@@ -609,14 +616,27 @@ const ProductView: React.FC = () => {
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    if (id) {
-      const foundProduct = mockProducts.find((p) => p.id === Number(id))
-      setProduct(foundProduct || null)
-      setMainImage(foundProduct?.image || "")
+    const fetchProductAndReviews = async () => {
+      if (id) {
+        try {
+          // Fetch product
+          const foundProduct = mockProducts.find((p) => p.id === Number(id))
+          setProduct(foundProduct || null)
+          setMainImage(foundProduct?.image || "")
 
-      const productReviews = mockReviews.filter((r) => r.productId === Number(id))
-      setReviews(productReviews)
+          // Fetch reviews from API
+          const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
+          if (reviewsResponse.ok) {
+            const reviewsData = await reviewsResponse.json()
+            setReviews(reviewsData)
+          }
+        } catch (err) {
+          console.error("Error fetching reviews:", err)
+        }
+      }
     }
+
+    fetchProductAndReviews()
   }, [id])
 
   useEffect(() => {
@@ -638,7 +658,9 @@ const ProductView: React.FC = () => {
   // New effect for slider functionality
   useEffect(() => {
     // Get related products (excluding current product)
-    const relatedProducts = mockProducts.filter((p) => p.id !== Number(id))
+    const relatedProducts = product
+      ? mockProducts.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 8)
+      : mockProducts.filter((p) => p.id !== Number(id));
 
     // Calculate max slide based on number of products and visible items
     const calculateMaxSlide = () => {
@@ -674,7 +696,7 @@ const ProductView: React.FC = () => {
       clearInterval(interval)
       window.removeEventListener("resize", handleResize)
     }
-  }, [id, maxSlide])
+  }, [id, maxSlide, product])
 
   const handleThumbnailClick = (image: string) => {
     setMainImage(image)
@@ -739,8 +761,8 @@ const ProductView: React.FC = () => {
   // Create an array of thumbnail images, including the main image
   const thumbnails = [product.image, ...product.thumbnails.slice(0, 3)]
 
-  // Get related products (excluding current product)
-  const relatedProducts = mockProducts.filter((p) => p.id !== product.id)
+  // Get related products (same category, excluding current product)
+  const relatedProducts = mockProducts.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 8)
 
   // Add a new function to handle product click in the "You May Also Like" section
   const handleRelatedProductClick = (relatedProduct: (typeof mockProducts)[0]) => {
@@ -749,8 +771,21 @@ const ProductView: React.FC = () => {
     setMainImage(relatedProduct.image)
 
     // Get product reviews for the new product
-    const productReviews = mockReviews.filter((r) => r.productId === relatedProduct.id)
-    setReviews(productReviews)
+    const fetchReviews = async () => {
+      try {
+        console.log(`http://192.168.0.51:4000/api/reviews/product/${relatedProduct.id}`)
+        const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
+        if (reviewsResponse.ok) {
+          const productReviews = await reviewsResponse.json()
+          setReviews(productReviews)
+        }
+      } catch (err) {
+        console.error("Error fetching reviews:", err)
+        setReviews([])
+      }
+    }
+    fetchReviews()
+// This line is redundant since we're already setting reviews in the fetchReviews function
 
     // Scroll to the top of the product container
     const productContainerElement = document.querySelector(".product-container")
@@ -923,35 +958,41 @@ const ProductView: React.FC = () => {
               </ReviewCard>
             ))}
 
-            <SectionTitle>You May Also Like</SectionTitle>
+            <SectionTitle>More {product.category} Products</SectionTitle>
             <SliderContainer>
-              <SliderWrapper ref={sliderRef}>
-                <PrevButton onClick={handlePrevSlide} disabled={currentSlide === 0}>
-                  ←
-                </PrevButton>
-                <ProductsSlider style={{ transform: `translateX(-${currentSlide * (100 / (4 - 0.25))}%)` }}>
-                  {relatedProducts.map((relatedProduct) => (
-                    <ProductSlide
-                      key={relatedProduct.id}
-                      onClick={() => handleRelatedProductClick(relatedProduct)}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <ProductCard
+              {relatedProducts.length > 0 ? (
+                <SliderWrapper ref={sliderRef}>
+                  <PrevButton onClick={handlePrevSlide} disabled={currentSlide === 0}>
+                    ←
+                  </PrevButton>
+                  <ProductsSlider style={{ transform: `translateX(-${currentSlide * (100 / (4 - 0.25))}%)` }}>
+                    {relatedProducts.map((relatedProduct) => (
+                      <ProductSlide
                         key={relatedProduct.id}
-                        id={relatedProduct.id}
-                        image={relatedProduct.image}
-                        title={relatedProduct.title}
-                        rating={relatedProduct.rating}
-                        reviews={relatedProduct.reviews}
-                        price={relatedProduct.price}
-                      />
-                    </ProductSlide>
-                  ))}
-                </ProductsSlider>
-                <NextButton onClick={handleNextSlide} disabled={currentSlide >= maxSlide}>
-                  →
-                </NextButton>
-              </SliderWrapper>
+                        onClick={() => handleRelatedProductClick(relatedProduct)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <ProductCard
+                          key={relatedProduct.id}
+                          id={relatedProduct.id}
+                          image={relatedProduct.image}
+                          title={relatedProduct.title}
+                          rating={relatedProduct.rating}
+                          reviews={relatedProduct.reviews}
+                          price={relatedProduct.price}
+                        />
+                      </ProductSlide>
+                    ))}
+                  </ProductsSlider>
+                  <NextButton onClick={handleNextSlide} disabled={currentSlide >= maxSlide}>
+                    →
+                  </NextButton>
+                </SliderWrapper>
+              ) : (
+                <div style={{ padding: "20px", textAlign: "center", width: "100%" }}>
+                  No other products found in this category.
+                </div>
+              )}
             </SliderContainer>
           </ContentSection>
         </ProductContainer>

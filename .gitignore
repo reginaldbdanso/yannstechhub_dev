@@ -4,5 +4,4 @@ cool-beanbag-439522-a0-04ed69f33420.json
 package-lock.json
 .bolt
 build
-.DS_Store
-.qodo
+dist

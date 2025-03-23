@@ -113,11 +113,11 @@ const InputIcon = styled.img`
   object-fit: contain;
 `;
 
-const UsernameNote = styled.p`
-  color: #423eff;
-  font-size: 8px;
-  margin: 10px 0 0 23px;
-`;
+// const UsernameNote = styled.p`
+//   color: #423eff;
+//   font-size: 8px;
+//   margin: 10px 0 0 23px;
+// `;
 
 const SubmitButton = styled(Link)`
   background-color: #000;
@@ -315,4 +315,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp; 
+export default SignUp;
