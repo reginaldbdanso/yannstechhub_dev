@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, useEffect, useMemo } from "react"
-import '../styles/components/Index.module.css';
+import '../styles/components/index_module.css';
 import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
@@ -400,7 +400,7 @@ const Index: React.FC = () => {
           {mockProducts.slice().map((product) => (
             <ProductCard
               key={product.id}
-              id={product.id}
+              id={product.id.toString()}
               image={product.image}
               title={product.title}
               rating={product.rating}

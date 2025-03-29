@@ -153,7 +153,7 @@ const CategoryProducts: React.FC = () => {
               {currentProducts.map((product) => (
                 <ProductCard
                   key={product.id}
-                  id={product.id}
+                  id={product.id.toString()}
                   image={product.image}
                   title={product.title}
                   rating={product.rating}
