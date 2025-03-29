@@ -3,6 +3,10 @@ const cloudinary = require('cloudinary').v2;
 
 const getCloudinaryUrl = async function(imagePath) {
 
+    if (!imagePath) {
+        throw new Error("Invalid image path provided.");
+    }
+
     // Configuration
 cloudinary.config({ 
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -13,7 +17,8 @@ cloudinary.config({
     // Upload an image
      const uploadResult = await cloudinary.uploader.upload( imagePath )
        .catch((error) => {
-           console.log(error);
+        console.error("Cloudinary Upload Error:", error);
+        throw new Error("Cloudinary upload failed.");           
        });
     
     console.log(uploadResult);

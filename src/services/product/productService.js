@@ -3,15 +3,15 @@ const Product = require('../../models/Product');
 const getCloudinaryUrl = require('../storage/cloudinary');
 
 class ProductService {
-  async createProduct(productData, imageBuffer) {
+  async createProduct(productData, mainImageBuffer, thumbnailBuffers) {
     try {
-      // const filename = `product-${Date.now()}.jpg`;
-      // const imageUrl = await driveService.uploadFile(imageBuffer, filename);
-      const imageUrl = await getCloudinaryUrl(imageBuffer);
+      const mainImageUrl = mainImageBuffer ? await getCloudinaryUrl(mainImageBuffer) : null;
+      const thumbnailUrls = await Promise.all(thumbnailBuffers.map(getCloudinaryUrl));
       
       const product = await Product.create({
         ...productData,
-        imageUrl
+        image: mainImageUrl,
+        thumbnails: thumbnailUrls,
       });
 
       return product;

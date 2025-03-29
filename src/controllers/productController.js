@@ -3,9 +3,7 @@ const ProductService = require('../services/product/productService');
 exports.createProduct = async (req, res) => {
   try {
     const { 
-      title, 
-      image, 
-      thumbnails, 
+      title,   
       badge, 
       rating, 
       reviews, 
@@ -19,18 +17,19 @@ exports.createProduct = async (req, res) => {
       descriptions 
     } = req.body;
     
-    if (!req.image || !req.thumbnails) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Product image is required' 
-      });
-    }
+    // if (!req.image || !req.thumbnails) {
+    //   return res.status(400).json({ 
+    //     success: false, 
+    //     message: 'Product image is required' 
+    //   });
+    // }
+       // Extract images from request
+       const mainImage = req.files['image'] ? req.files['image'][0].buffer : null;
+       const thumbnails = req.files['thumbnails'] ? req.files['thumbnails'].map(file => file.buffer) : [];
 
     const product = await ProductService.createProduct(
       { 
         title,
-        image,
-        thumbnails,
         badge,
         rating,
         reviews,
@@ -43,8 +42,8 @@ exports.createProduct = async (req, res) => {
         specs,
         descriptions
       },
-      req.file.buffer,
-      req.user._id
+      mainImage,
+      thumbnails
     );
 
     res.status(201).json({ success: true, product });
