@@ -5,3 +5,4 @@ package-lock.json
 .bolt
 build
 dist
+.qodo

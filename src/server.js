@@ -3,7 +3,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
-const seedData = require('./utils/seedData');
+// const seedData = require('./utils/seedData');
+const seedData = require('./utils/populateProducts');
 
 // Load environment variables
 require('dotenv').config();
