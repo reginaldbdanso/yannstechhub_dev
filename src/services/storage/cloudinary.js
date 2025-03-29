@@ -21,7 +21,7 @@ cloudinary.config({
         throw new Error("Cloudinary upload failed.");           
        });
     
-    console.log(uploadResult);
+    console.log(uploadResult.public_id);
     const url = cloudinary.url(uploadResult.public_id, {
         transformation: [
             {quality: 'auto'},

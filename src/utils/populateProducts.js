@@ -6,6 +6,8 @@ const { createProduct } = require('../services/product/productService');
 const path = require('path');
 const fs = require('fs').promises;
 
+const products = [];
+const users = [];
 // Create sample products
 const productsData = [
   // {
@@ -1665,7 +1667,14 @@ const productsData = [
   },
 ]
 
-const seedData = async () => {
+const userData = {
+    name: 'Test User',
+    email: 'test@example.com',
+    password: 'Password@123',
+    role: 'admin'
+  }
+
+const seedProductData = async () => {
   try {
     // Check if data already exists
     const userCount = await User.countDocuments();
@@ -1677,38 +1686,29 @@ const seedData = async () => {
     }
 
     // Create test user
-    const user = await User.create({
-      name: 'Test User',
-      email: 'test@example.com',
-      password: 'Password@123',
-      role: 'admin'
-    });
+    const user = await User.create(userData);
+    // Add user to users array
+    await users.push(user);
 
 
     // Helper function to read image file as buffer
-const getImageBuffer = async (imagePath) => {
-  const fullPath = path.join(__dirname, '../../frontend/public', imagePath);
-  const defaultPath = path.join(__dirname, '../../default-product.jpg');
-  
-  try {
-    // Check if file exists at the full path
-    await fs.access(fullPath);
-    // return {
-    //   buffer: await fs.readFile(fullPath),
-    //   originalname: path.basename(imagePath)
-    // };
-    return  await fs.readFile(fullPath)
+    const getImageBuffer = async (imagePath) => {
+      const fullPath = path.join(__dirname, '../../frontend/public', imagePath);
+      const defaultPath = path.join(__dirname, '../../frontend/public/imgs/default-product.jpg');
 
-  } catch (error) {
-    // If file doesn't exist, return default image
-    console.warn(`Image not found at ${fullPath}, using default image`);
-    return await fs.readFile(defaultPath)
-    // return {
-    //   buffer: await fs.readFile(defaultPath),
-    //   originalname: 'default-product.jpg'
-    // };
-  }
-};
+      try {
+        // Check if file exists at the full path
+        await fs.access(fullPath);
+
+        return fullPath;
+
+      } catch (error) {
+        // If file doesn't exist, return default image
+        // console.warn(`Image not found at ${fullPath}, using default image`);
+        return defaultPath;
+
+      }
+    };
 
     // Create sample products using productService
     for (const productData of productsData) {
@@ -1719,34 +1719,46 @@ const getImageBuffer = async (imagePath) => {
           productData.thumbnails.map(thumb => getImageBuffer(thumb))
         );
 
-        // Create form data-like object for the service
-        const productWithImages = {
-          ...productData,
-          mainImage,
-          thumbnailImages
-        };
 
         // Create product using the service
-        const createdProduct = await createProduct(productWithImages);
+        const createdProduct = await createProduct(productData, mainImage, thumbnailImages);
+        // Add the created product to the array
+        await products.push(createdProduct);
+        // Log the created product to the console for debugge
         console.log(`Created product: ${createdProduct.title}`);
       } catch (error) {
         console.error(`Failed to create product ${productData.title}:`, error);
       }
     }
+    console.log('Sample Product data seeded', products);
 
-    console.log('Database seeding completed successfully');
-    //   } catch (error) {
-    //     console.error('Error seeding database:', error);
-    //     throw error;
-    //   }
-    // };
+   
+    console.log('Sample Product data seeded successfully');
+    console.log('Test user credentials:');
+    console.log('Email: test@example.com');
+    console.log('Password: Password@123');
+  } catch (error) {
+    console.error('Error seeding Product data:', error);
+    throw error;
+  }
+};
+const seedReviewData = async () => {
+  try {
+    // Check if data already exists
+    const reviewCount = await Review.countDocuments();
 
-
-
-    const products = await Product.create(productsData);
+    if (reviewCount > 0) {
+      console.log('Review already seeded. Skipping seed operation.');
+      return;
+    }
+    // Check if we have products
+    if (products.length === 0) {
+      console.log('No products available for creating reviews');
+      return;
+    }
 
     // Create sample reviews
-    await Review.create([
+    let reviewsData = [
       // {
       //   title: 'Best smartphone camera ever',
       //   rating: 5,
@@ -2107,25 +2119,67 @@ const getImageBuffer = async (imagePath) => {
       }
 
 
-    ]);
+    ]
+
+     // Filter reviewsData to only include reviews for existing products
+    //  const validReviewsData = reviewsData.filter(review => {
+    //   const productIndex = parseInt(review.productId.match(/\d+/)[0]) - 1;
+    //   return productIndex < products.length;
+    // });
+
+    // Create sample reviews
+    await Review.create(reviewsData);
+    console.log('Sample Review data seeded successfully');
+    
+  } catch (error) {
+    console.error('Error seeding Review data:', error);
+    throw error;
+  }
+};
+const seedCartData = async () => {
+  try {
+    // Check if data already exists
+    const cartCount = await Cart.countDocuments();
+    if (cartCount > 0) {
+      console.log('Cart Data already seeded. Skipping seed operation.');
+      return;
+    }
+
+    const cartData = [
+      {
+        userId: users[0]._id,
+        image: products[0].image,
+        title: products[0].title,
+        price: products[0].price,
+        quantity: 1
+      }
+    ]
 
     // Create sample cart
-    await Cart.create({
-      userId: user._id,
-      image: products[0].image,
-      title: products[0].title,
-      price: products[0].price,
-      quantity: 1
-    });
+    await Cart.create(cartData);
 
-    console.log('Sample data seeded successfully');
-    console.log('Test user credentials:');
-    console.log('Email: test@example.com');
-    console.log('Password: Password@123');
+    console.log('Sample Cart data seeded successfully');
+    
   } catch (error) {
-    console.error('Error seeding data:', error);
+    console.error('Error seeding Cart data:', error);
     throw error;
   }
 };
 
-module.exports = seedData;
+const seedAll = async () => {
+  try {
+    await seedProductData();
+    await seedReviewData();
+    await seedCartData();
+    console.log('All data seeded successfully');
+  } catch (error) {
+    console.error('Error seeding data:', error);
+  }
+};
+
+module.exports = {
+  seedAll,
+  seedProductData,
+  seedReviewData,
+  seedCartData
+};

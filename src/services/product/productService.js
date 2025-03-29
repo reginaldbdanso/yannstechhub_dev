@@ -6,12 +6,11 @@ class ProductService {
   async createProduct(productData, mainImageBuffer, thumbnailBuffers) {
     try {
       const mainImageUrl = mainImageBuffer ? await getCloudinaryUrl(mainImageBuffer) : null;
-      const thumbnailUrls = await Promise.all(thumbnailBuffers.map(getCloudinaryUrl));
-      
+      const thumbnailUrls = thumbnailBuffers ? await Promise.all(thumbnailBuffers.map(getCloudinaryUrl)) : [];
       const product = await Product.create({
         ...productData,
         image: mainImageUrl,
-        thumbnails: thumbnailUrls,
+        thumbnails: thumbnailUrls
       });
 
       return product;

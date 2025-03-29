@@ -3,8 +3,10 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
-// const seedData = require('./utils/seedData');
-const seedData = require('./utils/populateProducts');
+const { seedAll } = require('./utils/populateProducts');
+// const {seedProductData} = require('./utils/populateProducts');
+// const {seedReviewData} = require('./utils/populateProducts');
+// const {seedCartData} = require('./utils/populateProducts');
 
 // Load environment variables
 require('dotenv').config();
@@ -56,7 +58,8 @@ const PORT = process.env.PORT || 4000;
 connectDB().then(() => {
   // Seed data in development environment
   if (process.env.NODE_ENV === 'development') {
-    seedData().catch(console.error);
+    seedAll();
+   
   }
 }).then(() => {
   app.listen(PORT, () => {
