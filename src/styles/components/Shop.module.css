@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--color-background);
+  background-color: #eef2f4;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -18,7 +18,7 @@
   align-self: stretch;
   min-height: 0px;
   width: 99.9%;
-  border: 1px solid var(--color-border);
+  border: 1px solid #d5d5d5;
 }
 
 .dividerTop {
@@ -53,16 +53,16 @@
   align-self: start;
   display: flex;
   gap: 12px;
-  color: var(--color-text);
-  font: 15px 'Open Sans', sans-serif;
+  color: #000;
+  font: 15px "Open Sans", sans-serif;
 }
 
 .breadcrumbItem {
   align-self: stretch;
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-white);
+  border-radius: 10px;
+  background-color: #fff;
   padding: 4px 14px;
-  font: 400 15px 'Open Sans', sans-serif;
+  font: 400 15px "Open Sans", sans-serif;
 }
 
 .breadcrumbItemBold {
@@ -76,17 +76,17 @@
 }
 
 .sortLabel {
-  color: var(--color-text);
+  color: #000;
   flex-grow: 1;
   margin: auto 0;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
 }
 
 .sortSelect {
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-white);
+  border-radius: 10px;
+  background-color: #fff;
   padding: 4px 30px;
-  border: 1px solid var(--color-border);
+  border: 1px solid #e4e4e4;
   cursor: pointer;
 }
 
@@ -153,14 +153,14 @@
 }
 
 .categoriesSection {
-  border-radius: var(--border-radius-lg);
-  background-color: var(--color-white);
+  border-radius: 20px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: start;
-  color: var(--color-text);
+  color: #000;
   padding: 18px 16px 38px;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
 }
 
 @media (max-width: 991px) {
@@ -171,7 +171,7 @@
 }
 
 .categoryTitle {
-  font: 700 15px 'Open Sans', sans-serif;
+  font: 700 15px "Open Sans", sans-serif;
   margin-left: 24px;
   margin-bottom: 10px;
   margin-top: 15px;
@@ -187,7 +187,7 @@
   align-self: stretch;
   margin-top: 0px;
   height: 0px;
-  border: 1px solid var(--color-border);
+  border: 1px solid #d5d5d5;
 }
 
 .categoryNav ul {
@@ -204,7 +204,7 @@
 }
 
 .categoryLink {
-  color: var(--color-text-light);
+  color: #666;
   text-decoration: none;
   font-family: Inter, sans-serif;
   margin: 5px 0 0 24px;
@@ -219,7 +219,7 @@
 
 .categoryLinkActive {
   composes: categoryLink;
-  color: var(--color-text);
+  color: #000;
   font-weight: 700;
 }
 
@@ -234,14 +234,14 @@
 }
 
 .priceSection {
-  border-radius: var(--border-radius-lg);
-  background-color: var(--color-white);
+  border-radius: 20px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: start;
-  color: var(--color-text);
+  color: #000;
   padding: 18px 30px 38px;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
 }
 
 @media (max-width: 991px) {
@@ -252,7 +252,7 @@
 }
 
 .filterTitle {
-  font: 700 15px 'Open Sans', sans-serif;
+  font: 700 15px "Open Sans", sans-serif;
   margin-bottom: 20px;
 }
 
@@ -260,17 +260,17 @@
   align-self: stretch;
   display: flex;
   gap: 20px;
-  color: var(--color-text);
+  color: #000;
   white-space: nowrap;
   margin-top: -10px;
   justify-content: space-between;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
   width: 100%;
 }
 
 .priceRange {
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-background);
+  border-radius: 10px;
+  background-color: #eef2f4;
   padding: 10px 15px;
   flex: 1;
   text-align: center;
@@ -285,22 +285,22 @@
 }
 
 .brandName {
-  color: var(--color-text);
+  color: #000;
   margin-top: 24px;
-  font: 700 15px 'Open Sans', sans-serif;
+  font: 700 15px "Open Sans", sans-serif;
 }
 
 .brandSelect {
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-background);
+  border-radius: 10px;
+  background-color: #eef2f4;
   align-self: stretch;
   display: flex;
   margin-top: 5px;
   gap: 20px;
-  color: var(--color-text);
+  color: #000;
   justify-content: space-between;
   padding: 10px 13px;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
   width: 100%;
   border: none;
   cursor: pointer;
@@ -313,32 +313,32 @@
 }
 
 .sortTitle {
-  color: var(--color-text);
+  color: #000;
   margin-top: 20px;
-  font: 700 15px 'Open Sans', sans-serif;
+  font: 700 15px "Open Sans", sans-serif;
 }
 
 .sortOptions {
-  border-radius: var(--border-radius-md);
-  background-color: var(--color-background);
+  border-radius: 10px;
+  background-color: #eef2f4;
   align-self: stretch;
   display: flex;
   margin-top: 5px;
   gap: 20px;
-  color: var(--color-text);
+  color: #000;
   justify-content: space-between;
   padding: 10px 13px;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
   width: 100%;
   border: none;
   cursor: pointer;
 }
 
 .conditionsTitle {
-  color: var(--color-text);
+  color: #000;
   margin-top: 25px;
   margin-bottom: -5px;
-  font: 700 15px 'Open Sans', sans-serif;
+  font: 700 15px "Open Sans", sans-serif;
 }
 
 .conditionOption {
@@ -346,10 +346,10 @@
   margin-top: 14px;
   align-items: center;
   gap: 10px;
-  color: var(--color-text);
+  color: #000;
   white-space: nowrap;
   justify-content: start;
-  font: 500 15px 'Open Sans', sans-serif;
+  font: 500 15px "Open Sans", sans-serif;
 }
 
 @media (max-width: 991px) {
@@ -397,13 +397,13 @@
   text-align: center;
   padding: 40px;
   font-size: 16px;
-  color: var(--color-text-light);
+  color: #666;
 }
 
 .resetFiltersButton {
   background-color: #333;
   color: white;
-  border-radius: var(--border-radius-md);
+  border-radius: 10px;
   padding: 10px 20px;
   margin-top: 20px;
   border: none;
@@ -414,12 +414,12 @@
 }
 
 .resetFiltersButton:hover {
-  background-color: var(--color-text);
+  background-color: #000;
 }
 
 .filterCount {
   display: inline-block;
-  background-color: var(--color-text);
+  background-color: #000;
   color: white;
   border-radius: 50%;
   width: 20px;
@@ -432,9 +432,9 @@
 
 .clearFiltersButton {
   background-color: transparent;
-  color: var(--color-text-light);
+  color: #666;
   border: 1px solid #ccc;
-  border-radius: var(--border-radius-md);
+  border-radius: 10px;
   padding: 8px 15px;
   margin-top: 10px;
   font-weight: 500;
@@ -458,19 +458,19 @@
 .pageButton {
   padding: 8px 16px;
   border-radius: 8px;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-white);
-  color: var(--color-text);
+  border: 1px solid #d5d5d5;
+  background-color: #fff;
+  color: #000;
   cursor: pointer;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   transition: all 0.2s ease;
 }
 
 .pageButtonActive {
   composes: pageButton;
-  border-color: var(--color-text);
-  background-color: var(--color-text);
-  color: var(--color-white);
+  border-color: #080808;
+  background-color: #080808;
+  color: #fff;
 }
 
 .pageButton:hover {
@@ -478,7 +478,7 @@
 }
 
 .pageButtonActive:hover {
-  background-color: var(--color-text);
+  background-color: #080808;
 }
 
 .pageButton:disabled {
@@ -494,12 +494,13 @@
 }
 
 .itemsPerPageLabel {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 14px;
 }
 
 .itemsPerPageSelect {
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid var(--color-border);
+  border: 1px solid #d5d5d5;
 }
+
