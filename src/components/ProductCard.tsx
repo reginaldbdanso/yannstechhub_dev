@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   reviews, 
   price, 
   badge,
-  noBorder 
+  noBorder = false
 }) => {
   const { addToCart } = useCart();
 
@@ -80,7 +80,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
           onClick={handleAddToCart}
         >
           <img 
-            src="/imgs/Buy - 6.png" 
+            src="/imgs/Buy.png" 
             alt="Add to cart" 
             className={styles.cartIcon} 
           />

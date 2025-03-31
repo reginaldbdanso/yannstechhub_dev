@@ -22,12 +22,10 @@
 }
 
 .dividerTop {
-  composes: divider;
   margin-top: 100px;
 }
 
 .dividerNormal {
-  composes: divider;
   margin-top: 10px;
 }
 
@@ -346,7 +344,7 @@
 }
 
 .emptyCartImage {
-  width: 200px;
+  width: 40px;
   margin-bottom: 20px;
 }
 

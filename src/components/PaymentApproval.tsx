@@ -47,38 +47,26 @@ const PaymentApproval: React.FC = () => {
           <h2 className={styles.paymentTitle}>Payment Approval</h2>
           <div className={styles.paymentCard}>
             <div className={styles.paymentContent}>
-              <p className={styles.paymentText}>
-                Your payment is being processed. Please do not close this window.
-              </p>
+            <img
+                src="/imgs/payment 1.png"
+                alt="Payment Success"
+                className="payment-icon"
+                width={159}
+                height={159}
+              />
+              <div className={styles.paymentText}>
+                <p>Approve payment on</p>
+                <p>+233 54******42</p>
+              </div>
               <p className={styles.paymentMessage}>
-                Note: This process may take a few minutes. Once completed, you will receive
-                a confirmation email with your order details.
+                Thank you for using yannstechub. We are truly grateful for your support and the opportunity to serve
+                you. Your satisfaction is our top priority, and we are committed to ensuring you have an exceptional
+                experience every time.
               </p>
               <Link to="/shop" className={styles.continueButton}>
                 Continue Shopping
               </Link>
             </div>
-          </div>
-
-          <div className={styles.reviewsContainer}>
-            {reviews.map((review, index) => (
-              <div key={index} className={styles.reviewCard}>
-                <div className={styles.rating}>
-                  <h3 className={styles.title}>{review.title}</h3>
-                  <div className={styles.stars}>
-                    {[...Array(review.rating)].map((_, i) => (
-                      <img
-                        key={i}
-                        src="/imgs/star.png"
-                        alt="Rating star"
-                      />
-                    ))}
-                  </div>
-                </div>
-                <p className={styles.reviewText}>{review.reviewText}</p>
-                <p className={styles.author}>Reviewed by {review.author}</p>
-              </div>
-            ))}
           </div>
         </div>
       </div>

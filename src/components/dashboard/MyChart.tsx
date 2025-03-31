@@ -19,10 +19,10 @@ const MyChart: React.FC = () => {
         textAlign: 'center'
       }}>
         <img 
-          src="/imgs/empty-cart.png" 
+          src="/imgs/cart.png" 
           alt="Empty cart" 
           style={{ 
-            width: '200px', 
+            width: '40px', 
             marginBottom: '20px' 
           }} 
         />

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import  '../styles/components/ShippingAddress.module.css';
+import '../styles/components/ShippingAddress_module.css';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 import Header from './Header';
 import Footer from './Footer';
+import OrderSummary from './OrderSummary';
 
 
 const ShippingAddress: React.FC = () => {
@@ -35,7 +35,7 @@ const [formData, setFormData] = useState<FormData>({
   setAsDefault: false,
 });
 
-  const { cart, removeFromCart, updateQuantity, subtotal } = useCart();
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -45,8 +45,6 @@ const [formData, setFormData] = useState<FormData>({
     }));
   };
 
-  const shipping = 5.00;
-  const total = subtotal + shipping;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -196,62 +194,8 @@ const [formData, setFormData] = useState<FormData>({
               </div>
             </form>
           </div>
-
           <div className="order-summary">
-            <div className="summary-container">
-              <div className="summary-header">
-                <span>Order Summary</span>
-                <span>{cart.length} items</span>
-              </div>
-
-              <div className="order-items">
-                {cart.map((item) => (
-                  <React.Fragment key={item.id}>
-                    <div className="order-item">
-                      <img
-                        className="remove-icon"
-                        src="/imgs/close.png"
-                        alt="Remove"
-                        onClick={() => removeFromCart(item.id)}
-                      />
-                      <div className="first-item">
-                        <img
-                          className="item-image"
-                          src={item.image}
-                          alt={item.title}
-                        />
-                        <div className="item-title">{item.title}</div>
-                      </div>
-                      <div className="item-details">
-                        <div className="item-price">${item.price.toFixed(2)}</div>
-                        <div className="quantity-control">
-                          <button className="quantity-button" onClick={() => updateQuantity(item.id, -1)}>-</button>
-                          <span>{item.quantity}</span>
-                          <button className="quantity-button" onClick={() => updateQuantity(item.id, 1)}>+</button>
-                        </div>
-                        <div className="item-total-price">${(item.price * item.quantity).toFixed(2)}</div>
-                      </div>
-                    </div>
-                    <div className="item-divider" />
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-
-            <div className="total-summary">
-              <div className="summary-grid">
-                <div className="summary-labels">
-                  <p>Cart Summary</p>
-                  <p>Shipping</p>
-                  <p className="total-label">Total</p>
-                </div>
-                <div className="summary-values">
-                  <p>${subtotal.toFixed(2)}</p>
-                  <p>${shipping.toFixed(2)}</p>
-                  <p className="total-value">${total.toFixed(2)}</p>
-                </div>
-              </div>
-            </div>
+          <OrderSummary />
             <Link className="checkout-button" to="/shipping-details">
               Proceed to checkout
             </Link>

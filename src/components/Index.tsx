@@ -406,7 +406,7 @@ const Index: React.FC = () => {
               rating={product.rating}
               reviews={product.reviews}
               price={product.price}
-              noBorder
+              noBorder={true} 
             />
           ))}
         </div>
@@ -482,4 +482,3 @@ const Index: React.FC = () => {
 }
 
 export default Index
-

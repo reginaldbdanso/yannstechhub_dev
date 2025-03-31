@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/components/PaymentMobile.module.css';
-import { useCart } from '../context/CartContext';
 import Header from './Header';
 import Footer from './Footer';
+import OrderSummary from './OrderSummary';
 
 const PaymentMobile: React.FC = () => {
   const navigate = useNavigate();
-  const { cart, updateQuantity, subtotal } = useCart();
   const [activeTab, setActiveTab] = useState('momo');
   const [showOptions, setShowOptions] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState({
@@ -21,17 +20,6 @@ const PaymentMobile: React.FC = () => {
     { name: 'AirtelTigo Money', icon: '/imgs/airtel-tigo.png' }
   ];
 
-  const calculateTotal = () => {
-    const cartSubtotal = subtotal;
-    const shipping = 5.00;
-    return {
-      subtotal: cartSubtotal,
-      shipping,
-      total: cartSubtotal + shipping
-    };
-  };
-
-  const totals = calculateTotal();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -186,57 +174,7 @@ const PaymentMobile: React.FC = () => {
           </section>
 
           <section className={styles.orderSection}>
-            <div className={styles.orderSummary}>
-              <div className={styles.summaryHeader}>
-                <h2>Order Summary</h2>
-                <span>{cart.length} items</span>
-              </div>
-
-              <div className={styles.orderItems}>
-                {cart.map((item) => (
-                  <div key={item.id} className={styles.orderItem}>
-                    <img src={item.image} alt={item.title} className={styles.itemImage} />
-                    <div className={styles.itemDetails}>
-                      <h3 className={styles.itemTitle}>{item.title}</h3>
-                      <p className={styles.itemPrice}>${item.price.toFixed(2)}</p>
-                      <div className={styles.quantityControl}>
-                        <button
-                          className={styles.quantityButton}
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        >
-                          -
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button
-                          className={styles.quantityButton}
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.totalSection}>
-                <div className={styles.totalRow}>
-                  <span>Subtotal</span>
-                  <span>${totals.subtotal.toFixed(2)}</span>
-                </div>
-                <div className={styles.totalRow}>
-                  <span>Shipping</span>
-                  <span>${totals.shipping.toFixed(2)}</span>
-                </div>
-                <div className={styles.totalRow}>
-                  <span>Total</span>
-                  <span>${totals.total.toFixed(2)}</span>
-                </div>
-                <p className={styles.shippingInfo}>
-                  Shipping costs are calculated based on your location
-                </p>
-              </div>
-            </div>
+            <OrderSummary />
           </section>
         </div>
       </div>

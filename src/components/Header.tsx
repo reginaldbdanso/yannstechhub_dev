@@ -34,7 +34,7 @@ const Header: React.FC = () => {
           <img src="/imgs/Profile - 3.png" alt="User Account" className={styles.actionIcon} />
         </Link>
         <Link to="/cart" className={styles.cartWrapper}>
-          <img src="/imgs/Buy - 6 (1).png" alt="Shopping Cart" className={styles.actionIcon} />
+          <img src="/imgs/cart.png" alt="Shopping Cart" className={styles.actionIcon} />
           {cartCount > 0 && (
             <span className={styles.cartNotification}>{cartCount}</span>
           )}

@@ -27,7 +27,7 @@ const Cart: React.FC = () => {
           <div className={styles.dividerNormal} />
           <div className={styles.emptyCartContainer}>
             <img 
-              src="/imgs/empty-cart.png" 
+              src="/imgs/cart.png" 
               alt="Empty cart" 
               className={styles.emptyCartImage}
             />
