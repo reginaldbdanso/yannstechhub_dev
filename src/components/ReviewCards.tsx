@@ -1,5 +1,5 @@
 import React from 'react';
-import  '../styles/components/ReviewsCard.module.css';
+import  '../styles/components/ReviewsCard_module.css';
 
 
 interface ReviewCardProps {

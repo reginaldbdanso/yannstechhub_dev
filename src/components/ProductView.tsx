@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import  '../styles/components/ProductView.module.css';
+import  '../styles/components/ProductView_module.css';
 // import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
@@ -36,14 +36,15 @@ const ProductView: React.FC = () => {
     }>;
   } | null>(null)
 
-  const [reviews, setReviews] = useState<Array<{
-    _id: string;
-    productId: string;
-    rating: number;
-    title: string;
-    content: string;
-    author: string;
-  }>>([])
+  const [reviews, setReviews] = useState<any[]>([])
+  // const [reviews, setReviews] = useState<Array<{
+  //   _id: string;
+  //   productId: string;
+  //   rating: number;
+  //   title: string;
+  //   content: string;
+  //   author: string;
+  // }>>([])
 
   const [mainImage, setMainImage] = useState("")
   const [averageRating, setAverageRating] = useState(0)

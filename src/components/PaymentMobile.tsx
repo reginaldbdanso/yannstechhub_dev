@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../styles/components/PaymentMobile.module.css';
+import '../styles/components/PaymentMobile_module.css';
 import Header from './Header';
 import Footer from './Footer';
 import OrderSummary from './OrderSummary';
@@ -38,142 +38,142 @@ const PaymentMobile: React.FC = () => {
   };
 
   return (
-    <div className={styles.paymentMobileContainer}>
-      <div className={styles.mainContainer}>
+    <div className="paymentMobileContainer">
+      <div className="mainContainer">
         <Header />
-        <div className={styles.dividerTop} />
-        <div className={styles.breadcrumbSort}>
-          <div className={styles.breadcrumb}>
-            <Link to="/" className={styles.breadcrumbItem}>Cart</Link>
-            <Link to="/shipping" className={styles.breadcrumbItem}>Shipping</Link>
-            <Link to="/payment" className={styles.breadcrumbItem}>Payment</Link>
-            <Link to="/approval" className={`${styles.breadcrumbItem} ${styles.breadcrumbItemActive}`}>Approval</Link>
+        <div className="dividerTop" />
+        <div className="breadcrumbSort">
+          <div className="breadcrumb">
+            <Link to="/" className="breadcrumbItem">Cart</Link>
+            <Link to="/shipping" className="breadcrumbItem">Shipping</Link>
+            <Link to="/payment" className="breadcrumbItem">Payment</Link>
+            <Link to="/approval" className={`$"breadcrumbItem" $"breadcrumbItemActive"`}>Approval</Link>
           </div>
         </div>
-        <div className={styles.dividerNormal} />
+        <div className="dividerNormal" />
 
-        <div className={styles.mainContent}>
-          <section className={styles.paymentSection}>
-            <h1 className={styles.paymentTitle}>Payment Method</h1>
-            <div className={styles.paymentForm}>
-              <div className={styles.paymentTabs}>
-                <div className={styles.tabGroup}>
+        <div className="mainContent">
+          <section className="paymentSection">
+            <h1 className="paymentTitle">Payment Method</h1>
+            <div className="paymentForm">
+              <div className="paymentTabs">
+                <div className="tabGroup">
                   <button
-                    className={styles.tabButton}
+                    className="tabButton"
                     onClick={() => setActiveTab('momo')}
                   >
                     Mobile Money
                   </button>
-                  <div className={activeTab === 'momo' ? styles.tabIndicatorActive : styles.tabIndicator} />
+                  <div className={activeTab === 'momo' ? "tabIndicatorActive" : "tabIndicator"} />
                 </div>
-                <div className={styles.tabGroup}>
+                <div className="tabGroup">
                   <button
-                    className={styles.tabButton}
+                    className="tabButton"
                     onClick={() => setActiveTab('card')}
                   >
                     Card
                   </button>
-                  <div className={activeTab === 'card' ? styles.tabIndicatorActive : styles.tabIndicator} />
+                  <div className={activeTab === 'card' ? "tabIndicatorActive" : "tabIndicator"} />
                 </div>
               </div>
 
-              <div className={activeTab === 'momo' ? styles.paymentDetailsActive : styles.paymentDetails}>
-                <div className={styles.paymentProvider}>
-                  <div className={`${styles.customSelect} custom-select`}>
-                    <div className={styles.selectedOption} onClick={() => setShowOptions(!showOptions)}>
-                      <img src={selectedProvider.icon} alt={selectedProvider.name} className={styles.providerIcon} />
+              <div className={activeTab === 'momo' ? "paymentDetailsActive" : "paymentDetails"}>
+                <div className="paymentProvider">
+                  <div className={`$"customSelect" custom-select`}>
+                    <div className="selectedOption" onClick={() => setShowOptions(!showOptions)}>
+                      <img src={selectedProvider.icon} alt={selectedProvider.name} className="providerIcon" />
                       <span>{selectedProvider.name}</span>
                     </div>
-                    <ul className={showOptions ? styles.optionsListShow : styles.optionsList}>
+                    <ul className={showOptions ? "optionsListShow" : "optionsList"}>
                       {providers.map((provider) => (
                         <li
                           key={provider.name}
-                          className={styles.optionItem}
+                          className="optionItem"
                           onClick={() => {
                             setSelectedProvider(provider);
                             setShowOptions(false);
                           }}
                         >
-                          <img src={provider.icon} alt={provider.name} className={styles.providerIcon} />
+                          <img src={provider.icon} alt={provider.name} className="providerIcon" />
                           <span>{provider.name}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <button className={styles.changeButton} onClick={() => setShowOptions(!showOptions)}>
+                  <button className="changeButton" onClick={() => setShowOptions(!showOptions)}>
                     <span>Change</span>
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d416a212f7eda943315abbc16f9eb418e0c44b37aef97f5f6f38538b2d414b1"
                       alt="Change icon"
-                      className={styles.changeIcon}
+                      className="changeIcon"
                     />
                   </button>
                 </div>
 
-                <div className={styles.paymentPhone}>
-                  <div className={styles.phoneInfo}>
+                <div className="paymentPhone">
+                  <div className="phoneInfo">
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/afeaea94ec4bf72161507bc26b978113574005a314df0f8df4da204bb977c662"
                       alt="Phone icon"
-                      className={styles.phoneIcon}
+                      className="phoneIcon"
                     />
                     <input
                       type="tel"
                       placeholder="+233 54*******42"
-                      className={styles.phoneNumber}
+                      className="phoneNumber"
                     />
                   </div>
                 </div>
 
-                <div className={styles.paymentAmount}>
-                  <div className={styles.amountInfo}>
+                <div className="paymentAmount">
+                  <div className="amountInfo">
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/ea28c42ad763c50754410221e02154f79df70f07903bbfecf526f46e807a0a89"
                       alt="Amount icon"
-                      className={styles.amountIcon}
+                      className="amountIcon"
                     />
                     <input
                       type="number"
                       placeholder="Enter Amount (GHS)"
                       min="0"
-                      className={styles.amountValue}
+                      className="amountValue"
                     />
                   </div>
                 </div>
 
-                <div className={styles.paymentSecurity}>
+                <div className="paymentSecurity">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets/TEMP/019049c0e90a7169b8dcb06d9ac93eed81b07dadad55bf7a87f9f7e36e71f98c"
                     alt="Security icon"
-                    className={styles.securityIcon}
+                    className="securityIcon"
                   />
-                  <div className={styles.securityBadges}>
+                  <div className="securityBadges">
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/21100b53cb7d691fdf947ded4d15b8bd99f12be24160215a2ff8d814aec85822"
                       alt="Security badge 1"
-                      className={styles.badge}
+                      className="badge"
                     />
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3f218578efe236f050f49e2d1766b7b00d0cd1d999bd715eb493a4f590e1ce1"
                       alt="Security badge 2"
-                      className={styles.badge}
+                      className="badge"
                     />
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets/TEMP/352fbdd8cd8d9c091ede6fcca7cdf422c41250a54cab4d3bc1a61fd84010929c"
                       alt="Security badge 3"
-                      className={styles.badge}
+                      className="badge"
                     />
                   </div>
                 </div>
               </div>
 
-              <button onClick={handleCheckout} className={styles.paymentButton}>
+              <button onClick={handleCheckout} className="paymentButton">
                 Make Payment
               </button>
             </div>
           </section>
 
-          <section className={styles.orderSection}>
+          <section className="orderSection">
             <OrderSummary />
           </section>
         </div>

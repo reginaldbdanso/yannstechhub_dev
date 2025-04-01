@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/components/Careers.module.css';
+import '../styles/components/Careers_module.css';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -44,43 +44,43 @@ const jobData: JobData[] = [
 
 const Careers: React.FC = () => {
   return (
-    <div className={styles.careersContainer}>
+    <div className="careersContainer">
       <Header />
-      <main className={styles.mainContent}>
-        <h1 className={styles.pageTitle}>Career opportunities</h1>
-        <p className={styles.pageDescription}>
+      <main className="mainContent">
+        <h1 className="pageTitle">Career opportunities</h1>
+        <p className="pageDescription">
           Explore our open roles for working with the team, either full-time
           employment or internship.
         </p>
 
-        <div className={styles.jobStats}>
-          <h2 className={styles.totalJobs}>4 open roles</h2>
-          <div className={styles.jobTypes}>
+        <div className="jobStats">
+          <h2 className="totalJobs">4 open roles</h2>
+          <div className="jobTypes">
             <span>Regular - 4</span>
             <span>Internship - 0</span>
           </div>
         </div>
 
-        <div className={styles.jobListings}>
+        <div className="jobListings">
           {jobData.map((job) => (
-            <article key={job.id} className={styles.jobCard}>
-              <div className={styles.jobImageContainer}>
+            <article key={job.id} className="jobCard">
+              <div className="jobImageContainer">
                 <img
                   src={job.image}
                   alt={`${job.title} position`}
-                  className={styles.jobImage}
+                  className="jobImage"
                 />
-                <span className={job.status === 'Closed' ? styles.statusBadgeClosed : styles.statusBadgeOpen}>
+                <span className={job.status === 'Closed' ? "statusBadgeClosed" : "statusBadgeOpen"}>
                   {job.status}
                 </span>
               </div>
-              <div className={styles.jobDetails}>
+              <div className="jobDetails">
                 <div>
-                  <h3 className={styles.jobTitle}>{job.title}</h3>
-                  <p className={styles.jobType}>{job.type}</p>
+                  <h3 className="jobTitle">{job.title}</h3>
+                  <p className="jobType">{job.type}</p>
                 </div>
                 <button 
-                  className={styles.applyButton}
+                  className="applyButton"
                   disabled={job.status === 'Closed'}
                 >
                   Apply now
