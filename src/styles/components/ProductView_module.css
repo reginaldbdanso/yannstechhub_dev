@@ -23,11 +23,12 @@
   border: 1px solid #d5d5d5;
 }
 
-.dividerTop {
+/* These should be combined with .divider */
+.divider.divider-top {
   margin-top: 100px;
 }
 
-.dividerNormal {
+.divider.divider-normal {
   margin-top: 10px;
 }
 
@@ -102,6 +103,7 @@
 .product-content {
   gap: 30px;
   display: flex;
+  padding: 20px; /* Add padding for better spacing */
 }
 
 @media (max-width: 991px) {
@@ -163,6 +165,10 @@
   border-radius: 20px;
   cursor: pointer;
   border: 2px solid transparent;
+}
+
+.thumbnail.active {
+  border: 2px solid #007bff;
 }
 
 .thumbnailHover,
@@ -334,7 +340,8 @@
 @media (max-width: 991px) {
   .reviews-container {
     flex-direction: column;
-    margin: 0% 10%;
+    margin: 20px auto; /* Fix the margin */
+    padding: 0 20px; /* Add padding instead of negative margins */
     max-width: 95%;
   }
 }
@@ -391,7 +398,15 @@
   width: 320px;
 }
 
+/* This class name doesn't match the one used in JSX */
 .barFill {
+  border-radius: 10px;
+  background-color: #ffc107;
+  height: 100%;
+}
+
+/* Should be */
+.bar-fill {
   border-radius: 10px;
   background-color: #ffc107;
   height: 100%;
@@ -617,7 +632,26 @@
 
 .wishlist-button:hover img {
   transform: scale(1.1);
-} 
+}
+
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 24px;
+  color: #333;
+}
+
+.loading-text {
+  animation: fadeInOut 1.5s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
 
 
  

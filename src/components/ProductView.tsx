@@ -213,11 +213,40 @@ const ProductView: React.FC = () => {
     }
   }
 
-  if (!product) {
-    return <div>Product not found</div>
+  // Add loading state
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProductAndReviews = async () => {
+      if (id && contextProducts && contextProducts.length > 0) {
+        try {
+          const foundProduct = contextProducts.find((p) => p._id === String(id));
+          if (foundProduct) {
+            setProduct(foundProduct);
+            setMainImage(foundProduct.image);
+          }
+        } catch (err) {
+          console.error("Error fetching product:", err);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    fetchProductAndReviews();
+  }, [id, contextProducts]); // Add contextProducts to dependency array
+
+  // Show loading state
+  // Replace both loading and not found checks with:
+  if (isLoading || !product) {
+    return (
+      <div className="loading-container">
+        <div className="loading-text">Loading...</div>
+      </div>
+    );
   }
 
-  // Create an array of thumbnail images, including the main image
+  // Remove the product not found check since we're handling it above
+  // Create an array of thumbnail images...
   const thumbnails = [product.image, ...product.thumbnails.slice(0, 3)]
 
   // Get related products (same category, excluding current product)
