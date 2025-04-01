@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import  '../styles/components/ProductView_module.css';
-// import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
@@ -13,30 +12,32 @@ import { useReviews } from "@/context/ReviewContext"
 
 
 
+/**
+ * ProductView Component
+ * 
+ * Detailed product page showing:
+ * - Product images and thumbnails
+ * - Product details and specifications
+ * - Quantity selection
+ * - Add to cart functionality
+ * - Reviews and ratings
+ * - Related products
+ * 
+ * Uses multiple contexts:
+ * - ProductContext for product data
+ * - CartContext for cart operations
+ * - ReviewContext for review data
+ */
 const ProductView: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const { products: contextProducts } = useProducts();
   const { reviews: contextReviews } = useReviews();
-  const [product, setProduct] = useState<{
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-    thumbnails: string[];
-    category: string;
-    rating: number;
-    reviews: number;
-    features: string[];
-    specs: string[];
-    descriptions: Array<{
-      title: string;
-      content: string;
-    }>;
-  } | null>(null)
+  // Product and review state
+  const [product, setProduct] = useState(contextProducts.find(p => p._id === id) || null)
 
-  const [reviews, setReviews] = useState<any[]>([])
+  const [reviews, setReviews] = useState(contextReviews.filter(r => r.productId === id))
   // const [reviews, setReviews] = useState<Array<{
   //   _id: string;
   //   productId: string;
@@ -50,10 +51,12 @@ const ProductView: React.FC = () => {
   const [averageRating, setAverageRating] = useState(0)
   const [ratingDistribution, setRatingDistribution] = useState<Record<number, number>>({})
 
+  // User interaction state
   const [userRating, setUserRating] = useState<number>(0)
   const [isRatingHovered, setIsRatingHovered] = useState<number>(0)
 
   // New state for slider
+  // Slider state for related products
   const [currentSlide, setCurrentSlide] = useState(0)
   const [maxSlide, setMaxSlide] = useState(0)
   const sliderRef = useRef<HTMLDivElement>(null)
