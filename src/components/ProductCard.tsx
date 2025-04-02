@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import styles from '../styles/components/ProductCard.module.css';
+import '../styles/components/ProductCard_module.css';
 
 interface ProductCardProps {
   id: string;
@@ -39,50 +39,50 @@ const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   return (
-    <article className={`${styles.card} ${noBorder ? styles.noBorder : ''}`}>
+    <article className={`card ${noBorder ? noBorder : ''}`}>
       <Link 
         to={`/product/${id}`} 
         state={{ product: { id, image, title, rating, reviews, price, badge } }}
       >
-        <div className={styles.imageContainer}>
+        <div className="imageContainer">
           <img 
             src={image} 
             alt={title} 
-            className={styles.productImage} 
+            className="productImage" 
           />
           <img 
             src="/imgs/favorie 1.png" 
             alt="Add to wishlist" 
-            className={styles.wishlistIcon} 
+            className="wishlistIcon" 
           />
           {badge && (
-            <span className={styles.productBadge}>
+            <span className="productBadge">
               {typeof badge === 'string' ? badge : badge.text}
             </span>
           )}
         </div>
       </Link>
-      <h2 className={styles.title}>{title}</h2>
-      <div className={styles.details}>
-        <div className={styles.ratingPrice}>
-          <div className={styles.rating}>
+      <h2 className="title">{title}</h2>
+      <div className="details">
+        <div className="ratingPrice">
+          <div className="rating">
             <img 
               src="/imgs/star 1.png" 
               alt="Rating" 
-              className={styles.ratingIcon} 
+              className="ratingIcon" 
             />
             {rating} ({reviews} reviews)
           </div>
-          <span className={styles.price}>${price.toFixed(2)}</span>
+          <span className="price">${price.toFixed(2)}</span>
         </div>
         <button 
-          className={styles.cartButton} 
+          className="cartButton" 
           onClick={handleAddToCart}
         >
           <img 
             src="/imgs/Buy.png" 
             alt="Add to cart" 
-            className={styles.cartIcon} 
+            className="cartIcon" 
           />
         </button>
       </div>

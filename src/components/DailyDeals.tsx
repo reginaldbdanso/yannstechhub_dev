@@ -1,80 +1,35 @@
 import React, { useState, useEffect } from "react"
-import styles from '../styles/components/DailyDeals.module.css'
+import '../styles/components/DailyDeals_module.css'
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
 import { useProducts } from "@/context/ProductContext"
 
-type Product = {
-  _id: string;
-  title: string;
-  price: number;
-  rating: number;
-  image: string;
-  isFavorite: boolean;
-  reviews: number;
-  badge?: string;
-  brand: string;
-  condition: 'new' | 'used' | 'refurbished';
-  category: string;
-  descriptions: Array<any>;
-  features: string[];
-  specs: string[];
-  stock: number;
-  thumbnails: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
+/**
+ * DailyDeals Component
+ * 
+ * Displays a grid of products with sorting, pagination and filtering capabilities.
+ * Uses the useProducts hook to fetch and manage product data.
+ */
 const DailyDeals: React.FC = () => {
   const { products: contextProducts } = useProducts();
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState(contextProducts)
   const [sortOption, setSortOption] = useState<"recommended" | "bestSellers" | "lowPrice" | "highPrice" | "reviews">("recommended")
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(15)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  // Initialize products from context and handle loading state
   useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true)
-      try {
-        const response = await fetch("https://yannstechhub-dev-api.onrender.com/api/products")
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`)
-        }
-        const data = await response.json()
-        console.log('Fetched products:', data) // Debug log
-        if (Array.isArray(data)) {
-          setProducts(data)
-        } else if (data.products && Array.isArray(data.products)) {
-          setProducts(data.products)
-        } else {
-          throw new Error('Invalid data format')
-        }
-        setError(null)
-      } catch (err) {
-        setError("Failed to load products. Please try again later.")
-        console.error("Error fetching products:", err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    // Only fetch if we don't have context products
-    if (!contextProducts || contextProducts.length === 0) {
-      fetchProducts()
-    }
-  }, []) // Remove contextProducts dependency
-
-  // Separate effect for handling context products
-  useEffect(() => {
-    if (contextProducts && contextProducts.length > 0) {
-      setProducts(contextProducts)
+    if (contextProducts) {
+      setProducts(contextProducts);
+      setError(null)
       setIsLoading(false)
     }
-  }, [contextProducts])
+  }, [contextProducts]);
 
+  // Sort products when sort option changes
   useEffect(() => {
     if (products.length === 0) return
 
@@ -124,21 +79,21 @@ const DailyDeals: React.FC = () => {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
 
   return (
-    <div className={styles.container}>
-      <div className={styles.mainContent}>
+    <div className="container">
+      <div className="mainContent">
         <Header />
-        <div className={styles.dividerTop} />
+        <div className="dividerTop" />
 
-        <div className={styles.breadcrumbSort}>
-          <div className={styles.breadcrumb}>
-            <span className={styles.breadcrumbItemBold}>yannstechub</span>
-            <span className={styles.breadcrumbItem}>/ Daily deals</span>
+        <div className="breadcrumbSort">
+          <div className="breadcrumb">
+            <span className="breadcrumbItemBold">yannstechub</span>
+            <span className="breadcrumbItem">/ Daily deals</span>
           </div>
-          <div className={styles.sortContainer}>
-            <label className={styles.sortLabel} htmlFor="sortSelect">Sort by</label>
+          <div className="sortContainer">
+            <label className="sortLabel" htmlFor="sortSelect">Sort by</label>
             <select
               id="sortSelect"
-              className={styles.sortSelect}
+              className="sortSelect"
               value={sortOption}
               onChange={handleSortChange}
             >
@@ -151,19 +106,19 @@ const DailyDeals: React.FC = () => {
           </div>
         </div>
 
-        <div className={styles.dividerNormal} />
+        <div className="dividerNormal" />
 
         {isLoading ? (
-          <div className={styles.statusMessage}>Loading products...</div>
+          <div className="statusMessage">Loading products...</div>
         ) : error ? (
-          <div className={styles.statusMessage}>{error}</div>
+          <div className="statusMessage">{error}</div>
         ) : (
           <>
-            <div className={styles.resultsInfo}>
+            <div className="resultsInfo">
               Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, products.length)} of {products.length} products
             </div>
 
-            <div className={styles.productsGrid}>
+            <div className="productsGrid">
               {currentProducts.map((product) => (
                 <ProductCard
                   key={product._id}
@@ -178,9 +133,9 @@ const DailyDeals: React.FC = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className={styles.paginationContainer}>
+              <div className="paginationContainer">
                 <button
-                  className={styles.pageButton}
+                  className="pageButton"
                   onClick={prevPage}
                   disabled={currentPage === 1}
                   aria-label="Previous page"
@@ -191,7 +146,7 @@ const DailyDeals: React.FC = () => {
                 {pageNumbers.map((number) => (
                   <button
                     key={number}
-                    className={currentPage === number ? styles.pageButtonActive : styles.pageButton}
+                    className={currentPage === number ? "pageButtonActive" : "pageButton"}
                     onClick={() => paginate(number)}
                     aria-label={`Page ${number}`}
                     aria-current={currentPage === number ? "page" : undefined}
@@ -201,7 +156,7 @@ const DailyDeals: React.FC = () => {
                 ))}
 
                 <button
-                  className={styles.pageButton}
+                  className="pageButton"
                   onClick={nextPage}
                   disabled={currentPage === totalPages}
                   aria-label="Next page"
@@ -211,11 +166,11 @@ const DailyDeals: React.FC = () => {
               </div>
             )}
 
-            <div className={styles.itemsPerPageContainer}>
-              <label className={styles.itemsPerPageLabel} htmlFor="itemsPerPage">Items per page:</label>
+            <div className="itemsPerPageContainer">
+              <label className="itemsPerPageLabel" htmlFor="itemsPerPage">Items per page:</label>
               <select
                 id="itemsPerPage"
-                className={styles.itemsPerPageSelect}
+                className="itemsPerPageSelect"
                 value={itemsPerPage}
                 onChange={handleItemsPerPageChange}
                 aria-label="Number of items per page"

@@ -1,2 +1,24 @@
 @import './base/reset.css';
 @import './base/variables.css';
+
+/* Ensure CSS modules are properly loaded */
+:root {
+  --primary-color: #0055b6;
+  --secondary-color: #000000;
+  --background-color: #eef2f4;
+}
+
+/* Global styles */
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

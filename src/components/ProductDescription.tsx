@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from '../styles/components/ProductDescription.module.css';
+import '../styles/components/ProductDescription_module.css';
 
 const ProductDescription: React.FC = () => {
   return (
-    <section className={styles.contentSection}>
-      <h2 className={styles.sectionTitle}>Description</h2>
-      <div className={styles.specsList}>
+    <section className="contentSection">
+      <h2 className="sectionTitle">Description</h2>
+      <div className="specsList">
         BT Version: 5.2<br/>
         BT Range: ≥10m<br/>
         Speaker Diameter: 40mm<br/>
@@ -15,7 +15,7 @@ const ProductDescription: React.FC = () => {
         Model: OHP-610
       </div>
 
-      <div className={styles.featureDescription}>
+      <div className="featureDescription">
         <strong>
           Powerful Deep Bass<br/>
           Hits You in Waves
@@ -23,22 +23,22 @@ const ProductDescription: React.FC = () => {
         Powered by advanced 40mm drivers and exclusive HavyBassTM technology, BoomPop2 is meticulously designed to offer music enthusiasts an unparalleled sound experience, characterized by incredibly deep and dynamic bass.
       </div>
 
-      <h2 className={styles.sectionTitle}>Ratings and Reviews</h2>
-      <div className={styles.reviewsContainer}>
-        <div className={styles.ratingSummary}>
-          <div className={styles.ratingScore}>
+      <h2 className="sectionTitle">Ratings and Reviews</h2>
+      <div className="reviewsContainer">
+        <div className="ratingSummary">
+          <div className="ratingScore">
             <span>5.0</span>
             <img src="/imgs/star.png" alt="Rating stars" />
           </div>
           <div>5489 ratings</div>
 
-          <div className={styles.ratingBars}>
+          <div className="ratingBars">
             {[5, 4, 3, 2, 1].map(rating => (
-              <div key={rating} className={styles.ratingBar}>
+              <div key={rating} className="ratingBar">
                 <span>{rating}</span>
-                <div className={styles.barContainer}>
+                <div className="barContainer">
                   <div 
-                    className={styles.barFill} 
+                    className="barFill" 
                     style={{ 
                       width: rating === 5 ? '100%' : 
                              rating === 4 ? '80%' : 
@@ -54,10 +54,10 @@ const ProductDescription: React.FC = () => {
         </div>
 
         {[1, 2, 3].map(index => (
-          <div key={index} className={styles.reviewCard}>
-            <div className={styles.reviewRating}>
-              <h3 className={styles.reviewTitle}>Super impressive</h3>
-              <div className={styles.reviewStars}>
+          <div key={index} className="reviewCard">
+            <div className="reviewRating">
+              <h3 className="reviewTitle">Super impressive</h3>
+              <div className="reviewStars">
                 {[1, 2, 3, 4].map(star => (
                   <img
                     key={star}
@@ -67,10 +67,10 @@ const ProductDescription: React.FC = () => {
                 ))}
               </div>
             </div>
-            <p className={styles.reviewText}>
+            <p className="reviewText">
               The sound quality from this device is great and my favourite feature is how I&apos;m able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.
             </p>
-            <p className={styles.reviewAuthor}>Reviewed by Sweetie Baiden</p>
+            <p className="reviewAuthor">Reviewed by Sweetie Baiden</p>
           </div>
         ))}
       </div>
