@@ -1,5 +1,5 @@
 import React from 'react';
-import  '../styles/components/RatingAndReviews.module.css';
+import  '../styles/components/RatingAndReviews_module.css';
 
 interface RatingDistribution {
   stars: number;

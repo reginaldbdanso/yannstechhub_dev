@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styles from '../styles/components/Toast.module.css';
+import '../styles/components/Toast_module.css';
 
 interface ToastProps {
   message: string;
@@ -27,9 +27,9 @@ const Toast: React.FC<ToastProps> = ({
   }, [isVisible, duration, onClose]);
 
   const containerClasses = [
-    styles.toastContainer,
-    !isVisible && styles.hidden,
-    styles[variant]
+    'toast-container',
+    !isVisible && 'hidden',
+    variant
   ].filter(Boolean).join(' ');
 
   return (

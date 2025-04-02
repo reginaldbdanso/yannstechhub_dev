@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import  '../styles/components/ProductView.module.css';
-// import { mockProducts } from "../data/mockProducts"
+import  '../styles/components/ProductView_module.css';
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
@@ -13,46 +12,51 @@ import { useReviews } from "@/context/ReviewContext"
 
 
 
+/**
+ * ProductView Component
+ * 
+ * Detailed product page showing:
+ * - Product images and thumbnails
+ * - Product details and specifications
+ * - Quantity selection
+ * - Add to cart functionality
+ * - Reviews and ratings
+ * - Related products
+ * 
+ * Uses multiple contexts:
+ * - ProductContext for product data
+ * - CartContext for cart operations
+ * - ReviewContext for review data
+ */
 const ProductView: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { addToCart } = useCart()
   const { products: contextProducts } = useProducts();
   const { reviews: contextReviews } = useReviews();
-  const [product, setProduct] = useState<{
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-    thumbnails: string[];
-    category: string;
-    rating: number;
-    reviews: number;
-    features: string[];
-    specs: string[];
-    descriptions: Array<{
-      title: string;
-      content: string;
-    }>;
-  } | null>(null)
+  // Product and review state
+  const [product, setProduct] = useState(contextProducts.find(p => p._id === id) || null)
 
-  const [reviews, setReviews] = useState<Array<{
-    _id: string;
-    productId: string;
-    rating: number;
-    title: string;
-    content: string;
-    author: string;
-  }>>([])
+  const [reviews, setReviews] = useState(contextReviews.filter(r => r.productId === id))
+  // const [reviews, setReviews] = useState<Array<{
+  //   _id: string;
+  //   productId: string;
+  //   rating: number;
+  //   title: string;
+  //   content: string;
+  //   author: string;
+  // }>>([])
 
   const [mainImage, setMainImage] = useState("")
   const [averageRating, setAverageRating] = useState(0)
   const [ratingDistribution, setRatingDistribution] = useState<Record<number, number>>({})
 
+  // User interaction state
   const [userRating, setUserRating] = useState<number>(0)
   const [isRatingHovered, setIsRatingHovered] = useState<number>(0)
 
   // New state for slider
+  // Slider state for related products
   const [currentSlide, setCurrentSlide] = useState(0)
   const [maxSlide, setMaxSlide] = useState(0)
   const sliderRef = useRef<HTMLDivElement>(null)
@@ -212,11 +216,40 @@ const ProductView: React.FC = () => {
     }
   }
 
-  if (!product) {
-    return <div>Product not found</div>
+  // Add loading state
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProductAndReviews = async () => {
+      if (id && contextProducts && contextProducts.length > 0) {
+        try {
+          const foundProduct = contextProducts.find((p) => p._id === String(id));
+          if (foundProduct) {
+            setProduct(foundProduct);
+            setMainImage(foundProduct.image);
+          }
+        } catch (err) {
+          console.error("Error fetching product:", err);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    fetchProductAndReviews();
+  }, [id, contextProducts]); // Add contextProducts to dependency array
+
+  // Show loading state
+  // Replace both loading and not found checks with:
+  if (isLoading || !product) {
+    return (
+      <div className="loading-container">
+        <div className="loading-text">Loading...</div>
+      </div>
+    );
   }
 
-  // Create an array of thumbnail images, including the main image
+  // Remove the product not found check since we're handling it above
+  // Create an array of thumbnail images...
   const thumbnails = [product.image, ...product.thumbnails.slice(0, 3)]
 
   // Get related products (same category, excluding current product)

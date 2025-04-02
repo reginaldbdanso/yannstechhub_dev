@@ -1,24 +1,24 @@
 import React from 'react';
-import styles from '../styles/components/About.module.css';
+import '../styles/components/About_module.css';
 import Header from './Header';
 import Footer from './Footer';
 
 const About: React.FC = () => {
   return (
-    <div className={styles.aboutUs}>
-      <div className={styles.mainContent}>
+    <div className="aboutUs">
+      <div className="mainContent">
         <Header />
-        <h1 className={styles.pageTitle}>About Us.</h1>
+        <h1 className="pageTitle">About Us.</h1>
         
-        <div className={styles.contentSection}>
-          <div className={styles.sidebar}>
-            <nav className={styles.sidebarNav}>
+        <div className="contentSection">
+          <div className="sidebar">
+            <nav className="sidebarNav">
               <p>About Us<br />Our Team.<br />Press.</p>
             </nav>
           </div>
           
-          <article className={styles.article}>
-            <p className={styles.description}>
+          <article className="article">
+            <p className="description">
               Lorem ipsum dolor sit amet consectetur. Vulputate magna mi lectus auctor
               nisi varius enim. Feugiat sed ut amet lacus enim nibh. Adipiscing lacus
               eu libero felis elit eros mauris. Proin quam nunc varius nulla
@@ -31,7 +31,7 @@ const About: React.FC = () => {
               volutpat elementum integer. Vel gravida rutrum ut at tortor erat sed
               duis. Volutpat blandit magna nisi consequat diam ac.
             </p>
-            <p className={styles.description}>
+            <p className="description">
               Tincidunt at quis fames semper morbi aliquam massa aliquet elit. Eget
               maecenas tincidunt suspendisse sit sed rutrum sed cum mauris. Lacus elit
               tristique pharetra proin vulputate magna. Facilisis diam turpis facilisi
@@ -48,78 +48,78 @@ const About: React.FC = () => {
           </article>
         </div>
 
-        <section className={styles.teamSection}>
+        <section className="teamSection">
           <img
             loading="lazy"
             src="https://cdn.builder.io/api/v1/image/assets/TEMP/aea414fb9fa092b267b2060386b3831983788ae5ef05956396250820ad440dd4"
             alt="Team banner"
-            className={styles.teamBanner}
+            className="teamBanner"
           />
 
-          <div className={styles.quoteContainer}>
-            <div className={styles.quoteContent}>
+          <div className="quoteContainer">
+            <div className="quoteContent">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/8a0693f118f8bb7d7a320f1621e71fe824ee785a21eaca21a3e37c15b6c6f505"
                 alt="Quote image"
-                className={styles.quoteImage}
+                className="quoteImage"
               />
-              <div className={styles.quoteText}>
+              <div className="quoteText">
                 <blockquote>
                   "Our work does make sense only if it is a faithful witness of
                   his time."
                 </blockquote>
-                <p className={styles.quoteAuthor}>Lorem ipsum dolor sit amet consectetur</p>
+                <p className="quoteAuthor">Lorem ipsum dolor sit amet consectetur</p>
               </div>
             </div>
           </div>
 
-          <h2 className={styles.sectionTitle}>The Team.</h2>
+          <h2 className="sectionTitle">The Team.</h2>
 
-          <div className={styles.teamGallery}>
-            <div className={styles.teamMember}>
+          <div className="teamGallery">
+            <div className="teamMember">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/4e16a9db58ecc6395d1f8d1a6d7f62c8299e3ab3dbe393fc03c58b52b382921c"
                 alt="Team member 1"
-                className={styles.memberImage}
+                className="memberImage"
               />
             </div>
-            <div className={styles.teamMember}>
+            <div className="teamMember">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/3b3991ab6995b8437944a9e9d742e3da28ceaeaa22e33e75f1c6089a75048e8a"
                 alt="Team member 2"
-                className={styles.memberImage}
+                className="memberImage"
               />
             </div>
-            <div className={styles.teamMember}>
+            <div className="teamMember">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc1ef4414de19456a9ed2a57fa39819216005a05b088a578e9e3661b0dafa6d2"
                 alt="Team member 3"
-                className={styles.memberImage}
+                className="memberImage"
               />
             </div>
-            <div className={styles.teamMember}>
+            <div className="teamMember">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc1ef4414de19456a9ed2a57fa39819216005a05b088a578e9e3661b0dafa6d2"
                 alt="Team member 4"
-                className={styles.memberImage}
+                className="memberImage"
               />
             </div>
-            <div className={styles.teamMember}>
+            <div className="teamMember">
               <img
                 loading="lazy"
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/bc1ef4414de19456a9ed2a57fa39819216005a05b088a578e9e3661b0dafa6d2"
                 alt="Team member 5"
-                className={styles.memberImage}
+                className="memberImage"
               />
             </div>
           </div>
 
-          <p className={styles.teamDescription}>
+          <p className="teamDescription">
             Lorem ipsum dolor sit amet consectetur. Vulputate magna mi lectus auctor
             nisi varius enim. Feugiat sed ut amet lacus enim nibh. Adipiscing lacus eu
             libero felis elit eros mauris. Proin quam nunc varius nulla convallis.
