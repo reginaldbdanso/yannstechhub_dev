@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import  '../styles/components/ProductView.module.css';
+import  '../styles/components/ProductView_module.css';
 // import { mockProducts } from "../data/mockProducts"
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
@@ -260,7 +260,7 @@ const ProductView: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="main-content">
+      <div className="pvmain-content">
         <Header />
         <div className="divider divider-top"></div>
 
