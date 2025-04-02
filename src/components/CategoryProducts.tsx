@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
-import '../styles/components/CategoryProducts_module.css'
-// import { mockProducts } from "../data/mockProducts"
+import styles from '../styles/components/CategoryProducts.module.css'
+import { mockProducts } from "../data/mockProducts"
 import ProductCard from "./ProductCard"
 import Header from "./Header"
 import Footer from "./Footer"
-import { useProducts } from "@/context/ProductContext"
 
 const CategoryProducts: React.FC = () => {
   const { category } = useParams<{ category: string }>()
-  const [filteredProducts, setFilteredProducts] = useState<typeof products>([])
+  const [filteredProducts, setFilteredProducts] = useState<typeof mockProducts>([])
   const [sortOption, setSortOption] = useState<string>("default")
   const [debugInfo, setDebugInfo] = useState<string>("")
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(15)
-  const { products } = useProducts()
 
   const formatCategoryName = (categorySlug: string) => {
     return categorySlug
@@ -28,13 +26,13 @@ const CategoryProducts: React.FC = () => {
   useEffect(() => {
     let debug = ""
     debug += `Category param: ${category}\n`
-    debug += `All categories in Products: ${products.map((p) => p.category).join(", ")}\n\n`
+    debug += `All categories in mockProducts: ${mockProducts.map((p) => p.category).join(", ")}\n\n`
 
     if (category) {
       const categoryParam = category.toLowerCase()
       debug += `Looking for products with category matching: ${categoryParam}\n\n`
 
-      const filtered = products.filter((product) => {
+      const filtered = mockProducts.filter((product) => {
         if (!product.category) return false
         const productCategory = product.category.toLowerCase().replace(/\s+/g, "-")
         debug += `Product: ${product.title}, Category: ${product.category}, URL format: ${productCategory}, Match: ${productCategory === categoryParam}\n`
@@ -47,7 +45,7 @@ const CategoryProducts: React.FC = () => {
     } else {
       debug += "No category parameter, showing all products"
       setDebugInfo(debug)
-      setFilteredProducts(products)
+      setFilteredProducts(mockProducts)
     }
 
     setCurrentPage(1)
@@ -106,21 +104,21 @@ const CategoryProducts: React.FC = () => {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
 
   return (
-    <div className="container">
-      <div className="mainContent">
+    <div className={styles.container}>
+      <div className={styles.mainContent}>
         <Header />
-        <div className="dividerTop" />
+        <div className={styles.dividerTop} />
 
-        <div className="breadcrumbSort">
-          <div className="breadcrumb">
-            <span className="breadcrumbItemBold">yannstechub</span>
-            <span className="breadcrumbItem">/ {displayCategory || "All Products"}</span>
+        <div className={styles.breadcrumbSort}>
+          <div className={styles.breadcrumb}>
+            <span className={styles.breadcrumbItemBold}>yannstechub</span>
+            <span className={styles.breadcrumbItem}>/ {displayCategory || "All Products"}</span>
           </div>
-          <div className="sortContainer">
-            <label htmlFor="sortSelect" className="sortLabel">Sort by</label>
+          <div className={styles.sortContainer}>
+            <label htmlFor="sortSelect" className={styles.sortLabel}>Sort by</label>
             <select
               id="sortSelect"
-              className="sortSelect"
+              className={styles.sortSelect}
               value={sortOption}
               onChange={handleSortChange}
             >
@@ -134,28 +132,28 @@ const CategoryProducts: React.FC = () => {
           </div>
         </div>
 
-        <div className="dividerNormal" />
+        <div className={styles.dividerNormal} />
 
-        <div className="debugInfo">{debugInfo}</div>
+        <div className={styles.debugInfo}>{debugInfo}</div>
 
         {displayCategory && (
-          <p className="categoryDescription">
+          <p className={styles.categoryDescription}>
             Browse our selection of {displayCategory.toLowerCase()} from top brands.
           </p>
         )}
 
-        <div className="resultsInfo">
+        <div className={styles.resultsInfo}>
           Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
           {filteredProducts.length} products
         </div>
 
         {currentProducts.length > 0 ? (
           <>
-            <div className="productsGrid">
+            <div className={styles.productsGrid}>
               {currentProducts.map((product) => (
                 <ProductCard
-                  key={product._id}
-                  id={product._id.toString()}
+                  key={product.id}
+                  id={product.id.toString()}
                   image={product.image}
                   title={product.title}
                   rating={product.rating}
@@ -167,9 +165,9 @@ const CategoryProducts: React.FC = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className="paginationContainer">
+              <div className={styles.paginationContainer}>
                 <button
-                  className="pageButton"
+                  className={styles.pageButton}
                   onClick={prevPage}
                   disabled={currentPage === 1}
                   aria-label="Previous page"
@@ -180,7 +178,7 @@ const CategoryProducts: React.FC = () => {
                 {pageNumbers.map((number) => (
                   <button
                     key={number}
-                    className={currentPage === number ? "pageButtonActive" : "pageButton"}
+                    className={currentPage === number ? styles.pageButtonActive : styles.pageButton}
                     onClick={() => paginate(number)}
                     aria-label={`Page ${number}`}
                     aria-current={currentPage === number ? "page" : undefined}
@@ -190,7 +188,7 @@ const CategoryProducts: React.FC = () => {
                 ))}
 
                 <button
-                  className="pageButton"
+                  className={styles.pageButton}
                   onClick={nextPage}
                   disabled={currentPage === totalPages}
                   aria-label="Next page"
@@ -200,13 +198,13 @@ const CategoryProducts: React.FC = () => {
               </div>
             )}
 
-            <div className="itemsPerPageContainer">
-              <label htmlFor="itemsPerPage" className="itemsPerPageLabel">
+            <div className={styles.itemsPerPageContainer}>
+              <label htmlFor="itemsPerPage" className={styles.itemsPerPageLabel}>
                 Items per page:
               </label>
               <select
                 id="itemsPerPage"
-                className="itemsPerPageSelect"
+                className={styles.itemsPerPageSelect}
                 value={itemsPerPage}
                 onChange={handleItemsPerPageChange}
                 aria-label="Number of items per page"
@@ -218,7 +216,7 @@ const CategoryProducts: React.FC = () => {
             </div>
           </>
         ) : (
-          <div className="noProductsMessage">
+          <div className={styles.noProductsMessage}>
             No products found in this category. Please check back later or browse other categories.
           </div>
         )}

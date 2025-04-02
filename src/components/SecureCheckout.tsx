@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import  '../styles/components/SecureCheckout_module.css';
+import  '../styles/components/SecureCheckout.module.css';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';

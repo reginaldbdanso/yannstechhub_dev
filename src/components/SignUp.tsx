@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/components/SignUp_module.css';
+import styles from '../styles/components/SignUp.module.css';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -27,26 +27,26 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="loginContainer">
-      <div className="loginWrapper">
+    <div className={styles.loginContainer}>
+      <div className={styles.loginWrapper}>
         <Header />
-        <main className="mainContent">
-          <div className="contentGrid">
-            <section className="imageSection">
-              <img src="/imgs/sign-up.png" alt="Login hero image" className="heroImage" loading="lazy" />
+        <main className={styles.mainContent}>
+          <div className={styles.contentGrid}>
+            <section className={styles.imageSection}>
+              <img src="/imgs/sign-up.png" alt="Login hero image" className={styles.heroImage} loading="lazy" />
             </section>
 
-            <section className="formSection">
-              <h1 className="formTitle">Create a new Account</h1>
+            <section className={styles.formSection}>
+              <h1 className={styles.formTitle}>Create a new Account</h1>
               
-              <form className="signupForm" onSubmit={handleSubmit}>
+              <form className={styles.signupForm} onSubmit={handleSubmit}>
                 <input
                   type="text"
                   placeholder="Full name"
                   name="fullName"
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="formInput"
+                  className={styles.formInput}
                 />
                 <input
                   type="tel"
@@ -54,77 +54,77 @@ const SignUp: React.FC = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  className="formInput"
+                  className={styles.formInput}
                 />
                 
-                <div className="inputGroup">
+                <div className={styles.inputGroup}>
                   <input
                     type="text"
                     placeholder="Username"
                     name="username"
                     value={formData.username}
                     onChange={handleChange}
-                    className="formInput"
+                    className={styles.formInput}
                   />
-                  <img src="/imgs/User.png" alt="Username icon" className="inputIcon" loading="lazy" />
+                  <img src="/imgs/User.png" alt="Username icon" className={styles.inputIcon} loading="lazy" />
                 </div>
-                <p className="usernameNote">*Can&apos;t change username</p>
+                <p className={styles.usernameNote}>*Can&apos;t change username</p>
                 
-                <div className="inputGroup">
+                <div className={styles.inputGroup}>
                   <input
                     type="email"
                     placeholder="Email Address"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="formInput"
+                    className={styles.formInput}
                   />
-                  <img src="/imgs/Gmail.png" alt="Email icon" className="inputIcon" loading="lazy" />
+                  <img src="/imgs/Gmail.png" alt="Email icon" className={styles.inputIcon} loading="lazy" />
                 </div>
                 
-                <div className="inputGroup">
+                <div className={styles.inputGroup}>
                   <input
                     type="password"
                     placeholder="Enter password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="formInput"
+                    className={styles.formInput}
                   />
-                  <img src="/imgs/Lock.png" alt="Password icon" className="inputIcon" loading="lazy" />
+                  <img src="/imgs/Lock.png" alt="Password icon" className={styles.inputIcon} loading="lazy" />
                 </div>
                 
-                <div className="inputGroup">
+                <div className={styles.inputGroup}>
                   <input
                     type="password"
                     placeholder="Confirm password"
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="formInput"
+                    className={styles.formInput}
                   />
-                  <img src="/imgs/Lock.png" alt="Password icon" className="inputIcon" loading="lazy" />
+                  <img src="/imgs/Lock.png" alt="Password icon" className={styles.inputIcon} loading="lazy" />
                 </div>
                 
-                <Link to="/login" className="submitButton">Get Started</Link>
+                <Link to="/login" className={styles.submitButton}>Get Started</Link>
               </form>
 
-              <div className="divider">
-                <span className="dividerLine" />
-                <span className="dividerText">Or</span>
-                <span className="dividerLine" />
+              <div className={styles.divider}>
+                <span className={styles.dividerLine} />
+                <span className={styles.dividerText}>Or</span>
+                <span className={styles.dividerLine} />
               </div>
 
-              <div className="socialLogin">
-                <p className="socialText">Create account with</p>
-                <div className="socialLoginIcons">
-                  <img src="/imgs/Google.png" alt="Google login" className="socialIcon" loading="lazy" />
-                  <img src="/imgs/Apple.png" alt="Apple login" className="socialIcon" loading="lazy" />
+              <div className={styles.socialLogin}>
+                <p className={styles.socialText}>Create account with</p>
+                <div className={styles.socialLoginIcons}>
+                  <img src="/imgs/Google.png" alt="Google login" className={styles.socialIcon} loading="lazy" />
+                  <img src="/imgs/Apple.png" alt="Apple login" className={styles.socialIcon} loading="lazy" />
                 </div>
               </div>
 
-              <p className="loginLink">
-                Already have an account? <Link to="/login" className="linkBlue">Log in</Link>
+              <p className={styles.loginLink}>
+                Already have an account? <Link to="/login" className={styles.linkBlue}>Log in</Link>
               </p>
             </section>
           </div>

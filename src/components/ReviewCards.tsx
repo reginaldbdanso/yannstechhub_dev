@@ -1,20 +1,52 @@
 import React from 'react';
-import  '../styles/components/ReviewsCard_module.css';
-import { useReviews } from "@/context/ReviewContext"
+import  '../styles/components/ReviewsCard.module.css';
 
-/**
- * ReviewCards Component
- * 
- * Displays a list of product reviews with ratings and author information.
- * Uses the useReviews hook to fetch review data.
- */
+
+interface ReviewCardProps {
+  title: string;
+  rating: number;
+  reviewText: string;
+  author: string;
+}
+
+
 const ReviewCards: React.FC = () => {
-  const { reviews } = useReviews();
+  const reviews: ReviewCardProps[] = [
+    {
+      title: "Super impressive",
+      rating: 4,
+      reviewText: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
+      author: "Sweetie Baiden"
+    },
+    {
+      title: "Super impressive",
+      rating: 4,
+      reviewText: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
+      author: "Sweetie Baiden"
+    },
+    {
+      title: "Super impressive",
+      rating: 4,
+      reviewText: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
+      author: "Sweetie Baiden"
+    },
+    {
+      title: "Super impressive",
+      rating: 4,
+      reviewText: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
+      author: "Sweetie Baiden"
+    },
+    {
+      title: "Super impressive",
+      rating: 4,
+      reviewText: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
+      author: "Sweetie Baiden"
+    }
+  ];
 
   return (
     <>
       {reviews.map((review, index) => (
-        // Individual review card with rating stars, title, and content
         <div className="card" key={index}>
           <div className="rating">
             <h3 className="title">{review.title}</h3>

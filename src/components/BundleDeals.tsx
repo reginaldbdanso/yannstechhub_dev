@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import '../styles/components/BundleDeals_module.css'
+import styles from '../styles/components/BundleDeals.module.css'
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
@@ -118,21 +118,21 @@ const BundleDeals: React.FC = () => {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
 
   return (
-    <div className="container">
-      <div className="mainContent">
+    <div className={styles.container}>
+      <div className={styles.mainContent}>
         <Header />
-        <div className="dividerTop" />
+        <div className={styles.dividerTop} />
 
-        <div className="breadcrumbSort">
-          <div className="breadcrumb">
-            <span className="breadcrumbItemBold">yannstechub</span>
-            <span className="breadcrumbItem">/ Bundle deals</span>
+        <div className={styles.breadcrumbSort}>
+          <div className={styles.breadcrumb}>
+            <span className={styles.breadcrumbItemBold}>yannstechub</span>
+            <span className={styles.breadcrumbItem}>/ Bundle deals</span>
           </div>
-          <div className="sortContainer">
-            <label className="sortLabel" htmlFor="sortSelect">Sort by</label>
+          <div className={styles.sortContainer}>
+            <label className={styles.sortLabel} htmlFor="sortSelect">Sort by</label>
             <select
               id="sortSelect"
-              className="sortSelect"
+              className={styles.sortSelect}
               value={sortOption}
               onChange={handleSortChange}
             >
@@ -145,19 +145,19 @@ const BundleDeals: React.FC = () => {
           </div>
         </div>
 
-        <div className="dividerNormal" />
+        <div className={styles.dividerNormal} />
 
         {isLoading ? (
-          <div className="statusMessage">Loading products...</div>
+          <div className={styles.statusMessage}>Loading products...</div>
         ) : error ? (
-          <div className="statusMessage">{error}</div>
+          <div className={styles.statusMessage}>{error}</div>
         ) : (
           <>
-            <div className="resultsInfo">
+            <div className={styles.resultsInfo}>
               Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, products.length)} of {products.length} products
             </div>
 
-            <div className="productsGrid">
+            <div className={styles.productsGrid}>
               {currentProducts.map((product) => (
                 <ProductCard
                   key={product._id}
@@ -172,9 +172,9 @@ const BundleDeals: React.FC = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className="paginationContainer">
+              <div className={styles.paginationContainer}>
                 <button
-                  className="pageButton"
+                  className={styles.pageButton}
                   onClick={prevPage}
                   disabled={currentPage === 1}
                   aria-label="Previous page"
@@ -185,7 +185,7 @@ const BundleDeals: React.FC = () => {
                 {pageNumbers.map((number) => (
                   <button
                     key={number}
-                    className={currentPage === number ? "pageButtonActive" : "pageButton"}
+                    className={currentPage === number ? styles.pageButtonActive : styles.pageButton}
                     onClick={() => paginate(number)}
                     aria-label={`Page ${number}`}
                     aria-current={currentPage === number ? "page" : undefined}
@@ -195,7 +195,7 @@ const BundleDeals: React.FC = () => {
                 ))}
 
                 <button
-                  className="pageButton"
+                  className={styles.pageButton}
                   onClick={nextPage}
                   disabled={currentPage === totalPages}
                   aria-label="Next page"
@@ -205,11 +205,11 @@ const BundleDeals: React.FC = () => {
               </div>
             )}
 
-            <div className="itemsPerPageContainer">
-              <label className="itemsPerPageLabel" htmlFor="itemsPerPage">Items per page:</label>
+            <div className={styles.itemsPerPageContainer}>
+              <label className={styles.itemsPerPageLabel} htmlFor="itemsPerPage">Items per page:</label>
               <select
                 id="itemsPerPage"
-                className="itemsPerPageSelect"
+                className={styles.itemsPerPageSelect}
                 value={itemsPerPage}
                 onChange={handleItemsPerPageChange}
                 aria-label="Number of items per page"

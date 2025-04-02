@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../styles/components/Cart_module.css';
+import styles from '../styles/components/Cart.module.css';
 import Header from './Header';
 import Footer from './Footer';
 import { useCart } from '../context/CartContext';
@@ -14,30 +14,30 @@ const Cart: React.FC = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="container">
-        <div className="mainContent">
+      <div className={styles.container}>
+        <div className={styles.mainContent}>
           <Header />
-          <div className="dividerTop" />
-          <div className="breadcrumbSort">
-            <div className="breadcrumb">
-              <span className="breadcrumbItemBold">yannstechub</span>
-              <span className="breadcrumbItem">/ Cart</span>
+          <div className={styles.dividerTop} />
+          <div className={styles.breadcrumbSort}>
+            <div className={styles.breadcrumb}>
+              <span className={styles.breadcrumbItemBold}>yannstechub</span>
+              <span className={styles.breadcrumbItem}>/ Cart</span>
             </div>
           </div>
-          <div className="dividerNormal" />
-          <div className="emptyCartContainer">
+          <div className={styles.dividerNormal} />
+          <div className={styles.emptyCartContainer}>
             <img 
               src="/imgs/cart.png" 
               alt="Empty cart" 
-              className="emptyCartImage"
+              className={styles.emptyCartImage}
             />
-            <h2 className="emptyCartTitle">
+            <h2 className={styles.emptyCartTitle}>
               Your cart is empty
             </h2>
-            <p className="emptyCartMessage">
+            <p className={styles.emptyCartMessage}>
               Looks like you haven&apos;t added anything to your cart yet
             </p>
-            <Link to="/" className="continueShoppingButton">
+            <Link to="/" className={styles.continueShoppingButton}>
               Continue Shopping
             </Link>
           </div>
@@ -52,68 +52,68 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <Toast
         message={toastMessage}
         isVisible={showToast}
         onClose={() => setShowToast(false)}
       />
-      <div className="mainContent">
+      <div className={styles.mainContent}>
         <Header />
-        <div className="dividerTop" />
-        <div className="breadcrumbSort">
-          <div className="breadcrumb">
-            <span className="breadcrumbItemBold">yannstechub</span>
-            <span className="breadcrumbItem">/ Cart</span>
+        <div className={styles.dividerTop} />
+        <div className={styles.breadcrumbSort}>
+          <div className={styles.breadcrumb}>
+            <span className={styles.breadcrumbItemBold}>yannstechub</span>
+            <span className={styles.breadcrumbItem}>/ Cart</span>
           </div>
         </div>
-        <div className="dividerNormal" />
-        <div className="cartContainer">
-          <h1 className="cartHeader">Your Cart</h1>
-          <Link to="/" className="continueShopping">Continue Shopping</Link>
-          <div className="cartSummary">
+        <div className={styles.dividerNormal} />
+        <div className={styles.cartContainer}>
+          <h1 className={styles.cartHeader}>Your Cart</h1>
+          <Link to="/" className={styles.continueShopping}>Continue Shopping</Link>
+          <div className={styles.cartSummary}>
             <div>Product</div>
-            <div className="cartSummaryColumn">
+            <div className={styles.cartSummaryColumn}>
               <div>Price</div>
               <div>Quantity</div>
               <div>Total</div>
             </div>
           </div>
           {cart.map((item) => (
-            <div key={item.id} className="cartItemWrapper">
-              <div className="cartItemContent">
-                <img src={item.image} alt={item.title} className="productImage" />
-                <div className="productDescription">{item.title}</div>
+            <div key={item.id} className={styles.cartItemWrapper}>
+              <div className={styles.cartItemContent}>
+                <img src={item.image} alt={item.title} className={styles.productImage} />
+                <div className={styles.productDescription}>{item.title}</div>
               </div>
-              <div className="productDetails">
-                <div className="productPrice">${item.price.toFixed(2)}</div>
-                <div className="quantitySelector">
-                  <button className="quantityButton" onClick={() => updateQuantity(item.id, -1)}>-</button>
+              <div className={styles.productDetails}>
+                <div className={styles.productPrice}>${item.price.toFixed(2)}</div>
+                <div className={styles.quantitySelector}>
+                  <button className={styles.quantityButton} onClick={() => updateQuantity(item.id, -1)}>-</button>
                   <span>{item.quantity}</span>
-                  <button className="quantityButton" onClick={() => updateQuantity(item.id, 1)}>+</button>
+                  <button className={styles.quantityButton} onClick={() => updateQuantity(item.id, 1)}>+</button>
                 </div>
-                <div className="productPrice">${(item.price * item.quantity).toFixed(2)}</div>
+                <div className={styles.productPrice}>${(item.price * item.quantity).toFixed(2)}</div>
               </div>
               <img
                 src="/imgs/close.png"
                 alt="Remove item"
                 onClick={() => removeFromCart(item.id)}
-                className="removeIcon"
+                className={styles.removeIcon}
                 loading="lazy"
               />
             </div>
           ))}
-          <div className="subTotal">
-            <div className="subtotalSection" />
-            <div className="subtotalContainer">
-              <div className="subtotalLabel">Subtotal</div>
-              <div className="subtotalAmount">${subtotal.toFixed(2)}</div>
+          <div className={styles.subTotal}>
+            <div className={styles.subtotalSection} />
+            <div className={styles.subtotalContainer}>
+              <div className={styles.subtotalLabel}>Subtotal</div>
+              <div className={styles.subtotalAmount}>${subtotal.toFixed(2)}</div>
             </div>
-            <div className="checkoutDivider" />
-            <div className="taxShippingInfo">
+            <div className={styles.checkoutDivider} />
+            <div className={styles.taxShippingInfo}>
               Tax included and shipping calculated at checkout
             </div>
-            <button onClick={handleCheckout} className="checkoutButton">
+            <button onClick={handleCheckout} className={styles.checkoutButton}>
               Proceed to checkout
             </button>
           </div>

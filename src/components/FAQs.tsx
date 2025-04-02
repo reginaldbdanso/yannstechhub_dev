@@ -1,34 +1,34 @@
 import React from 'react';
-import '../styles/components/FAQs_module.css';
+import styles from '../styles/components/FAQs.module.css';
 import Header from './Header';
 import Footer from './Footer';
 
 const FAQs: React.FC = () => {
   return (
-    <div className="faqsPage">
-      <div className="faqsContainer">
+    <div className={styles.faqsPage}>
+      <div className={styles.faqsContainer}>
         <Header />
       </div>
 
-      <div className="mainContent">
-        <h1 className="faqTitle">Purpose of FAQs</h1>
-        <p className="faqDescription">
+      <div className={styles.mainContent}>
+        <h1 className={styles.faqTitle}>Purpose of FAQs</h1>
+        <p className={styles.faqDescription}>
           The FAQs section serves as a comprehensive resource to address common
           queries customers might have about your platform, products, policies, and
           processes. It&apos;s designed to provide quick answers, reduce customer service
           workload, and improve the overall shopping experience.
         </p>
 
-        <div className="faqContent">
-          <h2 className="sectionTitle">Key Topics to Include in FAQs</h2>
+        <div className={styles.faqContent}>
+          <h2 className={styles.sectionTitle}>Key Topics to Include in FAQs</h2>
           <p>
             Below are the main categories and examples of questions that could appear
             in the FAQ section, along with elaboration:
           </p>
 
-          <div className="faqSection">
-            <h3 className="topicTitle">3. Product Information</h3>
-            <ul className="faqList">
+          <div className={styles.faqSection}>
+            <h3 className={styles.topicTitle}>3. Product Information</h3>
+            <ul className={styles.faqList}>
               <li>Are all products genuine and original?</li>
               <p>Yes, Yannstech Hub only offers 100% authentic products from trusted manufacturers and distributors.</p>
               <li>Do the gadgets come with warranties?</li>
@@ -38,9 +38,9 @@ const FAQs: React.FC = () => {
             </ul>
           </div>
 
-          <div className="faqSection">
-            <h3 className="topicTitle">4. Ordering Process</h3>
-            <ul className="faqList">
+          <div className={styles.faqSection}>
+            <h3 className={styles.topicTitle}>4. Ordering Process</h3>
+            <ul className={styles.faqList}>
               <li>How do I place an order?</li>
               <p>Browse our catalog, add your desired products to the cart, and proceed to checkout. Follow the on-screen instructions to complete your purchase.</p>
               <li>Can I modify or cancel my order after placing it?</li>
@@ -52,9 +52,9 @@ const FAQs: React.FC = () => {
             </ul>
           </div>
 
-          <div className="faqSection">
-            <h3 className="topicTitle">5. Shipping and Delivery</h3>
-            <ul className="faqList">
+          <div className={styles.faqSection}>
+            <h3 className={styles.topicTitle}>5. Shipping and Delivery</h3>
+            <ul className={styles.faqList}>
               <li>How long will it take to receive my order?</li>
               <p>Delivery times vary based on your location and the chosen shipping method. Estimated delivery timelines are provided at checkout.</p>
               <li>Do you ship internationally?</li>
@@ -66,9 +66,9 @@ const FAQs: React.FC = () => {
             </ul>
           </div>
 
-          <div className="faqSection">
-            <h3 className="topicTitle">6. Returns and Refunds</h3>
-            <ul className="faqList">
+          <div className={styles.faqSection}>
+            <h3 className={styles.topicTitle}>6. Returns and Refunds</h3>
+            <ul className={styles.faqList}>
               <li>What is your return policy?</li>
               <p>We accept returns for eligible products within [X] days of delivery. Items must be unused, in their original packaging, and accompanied by a receipt.</p>
               <li>How do I request a return?</li>
@@ -80,9 +80,9 @@ const FAQs: React.FC = () => {
             </ul>
           </div>
 
-          <div className="faqSection">
-            <h3 className="topicTitle">7. Payment and Security</h3>
-            <ul className="faqList">
+          <div className={styles.faqSection}>
+            <h3 className={styles.topicTitle}>7. Payment and Security</h3>
+            <ul className={styles.faqList}>
               <li>Is it safe to shop on Yannstech Hub?</li>
               <p>Yes, our platform uses SSL encryption to protect your personal and payment information.</p>
               <li>What currencies can I pay in?</li>
@@ -94,9 +94,9 @@ const FAQs: React.FC = () => {
             </ul>
           </div>
 
-          <div className="faqSection">
-            <h3 className="topicTitle">8. Customer Support</h3>
-            <ul className="faqList">
+          <div className={styles.faqSection}>
+            <h3 className={styles.topicTitle}>8. Customer Support</h3>
+            <ul className={styles.faqList}>
               <li>How can I contact customer support?</li>
               <p>You can reach us via email, live chat, or by calling our customer support hotline. Contact details are available on our &quot;Contact Us&quot; page.</p>
               <li>What are your customer support hours?</li>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/components/Dashboard_module.css';
+import styles from '../styles/components/Dashboard.module.css';
 import Header from './Header';
 import Footer from './Footer';
 import MyAccount from './dashboard/MyAccount';
@@ -26,25 +26,25 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="dashboardContainer">
-      <div className="mainContents">
+    <div className={styles.dashboardContainer}>
+      <div className={styles.mainContents}>
         <Header />
-        <div className="dividerTop" />
-        <div className="breadcrumbSort">
-          <div className="breadcrumb">
-            <span className="breadcrumbItemActive">yannstechub</span>
-            <span className="breadcrumbItem">/ Daily deals</span>
+        <div className={styles.dividerTop} />
+        <div className={styles.breadcrumbSort}>
+          <div className={styles.breadcrumb}>
+            <span className={styles.breadcrumbItemActive}>yannstechub</span>
+            <span className={styles.breadcrumbItem}>/ Daily deals</span>
           </div>
         </div>
-        <div className="dividerNormal" />
+        <div className={styles.dividerNormal} />
 
-        <div className="contentGrid">
-          <aside className="sidebar">
-            <nav className="sidebarNav">
-              <ul className="sidebarMenu">
+        <div className={styles.contentGrid}>
+          <aside className={styles.sidebar}>
+            <nav className={styles.sidebarNav}>
+              <ul className={styles.sidebarMenu}>
                 <li>
                   <button
-                    className={activeTab === 'my-account' ? "menuItemActive" : "menuItem"}
+                    className={activeTab === 'my-account' ? styles.menuItemActive : styles.menuItem}
                     onClick={() => setActiveTab('my-account')}
                   >
                     My Account
@@ -52,7 +52,7 @@ const Dashboard: React.FC = () => {
                 </li>
                 <li>
                   <button
-                    className={activeTab === 'my-charts' ? "menuItemActive" : "menuItem"}
+                    className={activeTab === 'my-charts' ? styles.menuItemActive : styles.menuItem}
                     onClick={() => setActiveTab('my-charts')}
                   >
                     My Chart
@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
                 </li>
                 <li>
                   <button
-                    className={activeTab === 'my-saved' ? "menuItemActive" : "menuItem"}
+                    className={activeTab === 'my-saved' ? styles.menuItemActive : styles.menuItem}
                     onClick={() => setActiveTab('my-saved')}
                   >
                     My Saved
@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
                 </li>
                 <li>
                   <button
-                    className={activeTab === 'address-management' ? "menuItemActive" : "menuItem"}
+                    className={activeTab === 'address-management' ? styles.menuItemActive : styles.menuItem}
                     onClick={() => setActiveTab('address-management')}
                   >
                     Address Management
@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
             </nav>
           </aside>
 
-          <section className="mainContent">
+          <section className={styles.mainContent}>
             {renderContent()}
           </section>
         </div>

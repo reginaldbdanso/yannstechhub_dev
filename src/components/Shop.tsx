@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react"
-import '../styles/components/Shop_module.css'
+import styles from '../styles/components/Shop.module.css'
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
 import { mockProducts } from "../data/mockProducts"
-import { useProducts } from "@/context/ProductContext"
-
 
 const Shop: React.FC = () => {
   const categories = ["All Categories", ...Array.from(new Set(mockProducts.map((product) => product.category)))]
   const brands = ["All Brands", ...Array.from(new Set(mockProducts.map((product) => product.brand)))]
-  const { products: contextProducts } = useProducts();
+
   const [minPrice, setMinPrice] = useState<string>("100")
   const [maxPrice, setMaxPrice] = useState<string>("1500")
   const [selectedBrand, setSelectedBrand] = useState<string>("All Brands")
@@ -22,7 +20,7 @@ const Shop: React.FC = () => {
   })
   const [sortOption, setSortOption] = useState<string>("recommended")
   const [mainSortOption, setMainSortOption] = useState<string>("recommended")
-  const [filteredProducts, setFilteredProducts] = useState<typeof contextProducts>([])
+  const [filteredProducts, setFilteredProducts] = useState<typeof mockProducts>(mockProducts)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(15)
 
@@ -72,11 +70,11 @@ const Shop: React.FC = () => {
       refurbish: false,
     })
     setSortOption("recommended")
-    setFilteredProducts(contextProducts)
+    setFilteredProducts(mockProducts)
   }
 
   const applyFilters = () => {
-    let filtered = [...contextProducts]
+    let filtered = [...mockProducts]
 
     if (selectedCategory !== "All Categories") {
       filtered = filtered.filter((product) => product.category === selectedCategory)
@@ -144,22 +142,22 @@ const Shop: React.FC = () => {
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
 
   return (
-    <div className="container">
-      <div className="mainContent">
+    <div className={styles.container}>
+      <div className={styles.mainContent}>
         <Header />
-        <div className="dividerTop" />
-        <div className="breadcrumbSort">
-          <div className="breadcrumb">
-            <span className="breadcrumbItemBold">yannstechub</span>
-            <span className="breadcrumbItem">
+        <div className={styles.dividerTop} />
+        <div className={styles.breadcrumbSort}>
+          <div className={styles.breadcrumb}>
+            <span className={styles.breadcrumbItemBold}>yannstechub</span>
+            <span className={styles.breadcrumbItem}>
               / Shop {selectedCategory !== "All Categories" && `/ ${selectedCategory}`}
             </span>
           </div>
-          <div className="sortContainer">
-            <label className="sortLabel" htmlFor="sortSelect">Sort by</label>
+          <div className={styles.sortContainer}>
+            <label className={styles.sortLabel} htmlFor="sortSelect">Sort by</label>
             <select
               id="sortSelect"
-              className="sortSelect"
+              className={styles.sortSelect}
               value={mainSortOption}
               onChange={(e) => setMainSortOption(e.target.value)}
             >
@@ -171,20 +169,20 @@ const Shop: React.FC = () => {
             </select>
           </div>
         </div>
-        <div className="dividerNormal" />
-        <div className="mainGrid">
-          <div className="gridContainer">
-            <aside className="sidebar">
-              <div className="sidebarContent">
-                <div className="categoriesSection">
-                  <h2 className="categoryTitle">Categories</h2>
-                  <div className="categoryDivider" />
-                  <nav className="categoryNav">
+        <div className={styles.dividerNormal} />
+        <div className={styles.mainGrid}>
+          <div className={styles.gridContainer}>
+            <aside className={styles.sidebar}>
+              <div className={styles.sidebarContent}>
+                <div className={styles.categoriesSection}>
+                  <h2 className={styles.categoryTitle}>Categories</h2>
+                  <div className={styles.categoryDivider} />
+                  <nav className={styles.categoryNav}>
                     <ul>
                       {categories.map((category, index) => (
                         <li key={index}>
                           <button
-                            className={selectedCategory === category ? "categoryLinkActive" : "categoryLink"}
+                            className={selectedCategory === category ? styles.categoryLinkActive : styles.categoryLink}
                             onClick={() => handleCategorySelect(category)}
                           >
                             {category}
@@ -194,34 +192,34 @@ const Shop: React.FC = () => {
                     </ul>
                   </nav>
                 </div>
-                <div className="priceSection">
-                  <h2 className="filterTitle">
+                <div className={styles.priceSection}>
+                  <h2 className={styles.filterTitle}>
                     Filters
-                    {getActiveFilterCount() > 0 && <span className="filterCount">{getActiveFilterCount()}</span>}
+                    {getActiveFilterCount() > 0 && <span className={styles.filterCount}>{getActiveFilterCount()}</span>}
                   </h2>
 
-                  <h3 className="filterTitle">Price Range</h3>
-                  <div className="priceRangeContainer">
+                  <h3 className={styles.filterTitle}>Price Range</h3>
+                  <div className={styles.priceRangeContainer}>
                     <input
                       type="number"
-                      className="priceRange"
+                      className={styles.priceRange}
                       value={minPrice}
                       onChange={(e) => setMinPrice(e.target.value)}
                       min="0"
                     />
-                    <span className="priceRangeText">to</span>
+                    <span className={styles.priceRangeText}>to</span>
                     <input
                       type="number"
-                      className="priceRange"
+                      className={styles.priceRange}
                       value={maxPrice}
                       onChange={(e) => setMaxPrice(e.target.value)}
                       min="0"
                     />
                   </div>
 
-                  <h3 className="brandName">Brand Name</h3>
+                  <h3 className={styles.brandName}>Brand Name</h3>
                   <select
-                    className="brandSelect"
+                    className={styles.brandSelect}
                     value={selectedBrand}
                     onChange={(e) => setSelectedBrand(e.target.value)}
                   >
@@ -232,9 +230,9 @@ const Shop: React.FC = () => {
                     ))}
                   </select>
 
-                  <h3 className="sortTitle">Sort by</h3>
+                  <h3 className={styles.sortTitle}>Sort by</h3>
                   <select
-                    className="sortOptions"
+                    className={styles.sortOptions}
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value)}
                   >
@@ -245,63 +243,63 @@ const Shop: React.FC = () => {
                     <option value="rating">Rating</option>
                   </select>
 
-                  <h3 className="conditionsTitle">Conditions</h3>
-                  <div className="conditionOption">
+                  <h3 className={styles.conditionsTitle}>Conditions</h3>
+                  <div className={styles.conditionOption}>
                     <input
                       type="checkbox"
                       id="new"
-                      className="checkbox"
+                      className={styles.checkbox}
                       checked={conditions.new}
                       onChange={() => handleConditionChange("new")}
                     />
-                    <label htmlFor="new" className="conditionLabel">
+                    <label htmlFor="new" className={styles.conditionLabel}>
                       New
                     </label>
                   </div>
-                  <div className="conditionOption">
+                  <div className={styles.conditionOption}>
                     <input
                       type="checkbox"
                       id="second"
-                      className="checkbox"
+                      className={styles.checkbox}
                       checked={conditions.second}
                       onChange={() => handleConditionChange("second")}
                     />
-                    <label htmlFor="second" className="conditionLabel">
+                    <label htmlFor="second" className={styles.conditionLabel}>
                       Second
                     </label>
                   </div>
-                  <div className="conditionOption">
+                  <div className={styles.conditionOption}>
                     <input
                       type="checkbox"
                       id="refurbish"
-                      className="checkbox"
+                      className={styles.checkbox}
                       checked={conditions.refurbish}
                       onChange={() => handleConditionChange("refurbish")}
                     />
-                    <label htmlFor="refurbish" className="conditionLabel">
+                    <label htmlFor="refurbish" className={styles.conditionLabel}>
                       Refurbished
                     </label>
                   </div>
 
-                  <button className="resetFiltersButton" onClick={clearAllFilters}>
+                  <button className={styles.resetFiltersButton} onClick={clearAllFilters}>
                     Reset Filters
                   </button>
 
                   {getActiveFilterCount() > 0 && (
-                    <button className="clearFiltersButton" onClick={clearAllFilters}>
+                    <button className={styles.clearFiltersButton} onClick={clearAllFilters}>
                       Clear All Filters
                     </button>
                   )}
                 </div>
               </div>
             </aside>
-            <div className="productsGrid">
+            <div className={styles.productsGrid}>
               {currentProducts.length > 0 ? (
                 <>
                   {currentProducts.map((product) => (
                     <ProductCard
-                      key={product._id}
-                      id={product._id}
+                      key={product.id}
+                      id={product.id}
                       image={product.image}
                       title={product.title}
                       rating={product.rating}
@@ -311,9 +309,9 @@ const Shop: React.FC = () => {
                   ))}
 
                   {totalPages > 1 && (
-                    <div className="paginationContainer">
+                    <div className={styles.paginationContainer}>
                       <button
-                        className="pageButton"
+                        className={styles.pageButton}
                         onClick={prevPage}
                         disabled={currentPage === 1}
                         aria-label="Previous page"
@@ -324,7 +322,7 @@ const Shop: React.FC = () => {
                       {pageNumbers.map((number) => (
                         <button
                           key={number}
-                          className={currentPage === number ? "pageButtonActive" : "pageButton"}
+                          className={currentPage === number ? styles.pageButtonActive : styles.pageButton}
                           onClick={() => paginate(number)}
                           aria-label={`Page ${number}`}
                           aria-current={currentPage === number ? "page" : undefined}
@@ -334,7 +332,7 @@ const Shop: React.FC = () => {
                       ))}
 
                       <button
-                        className="pageButton"
+                        className={styles.pageButton}
                         onClick={nextPage}
                         disabled={currentPage === totalPages}
                         aria-label="Next page"
@@ -344,13 +342,13 @@ const Shop: React.FC = () => {
                     </div>
                   )}
 
-                  <div className="itemsPerPageContainer">
-                    <label className="itemsPerPageLabel" htmlFor="itemsPerPage">
+                  <div className={styles.itemsPerPageContainer}>
+                    <label className={styles.itemsPerPageLabel} htmlFor="itemsPerPage">
                       Items per page:
                     </label>
                     <select
                       id="itemsPerPage"
-                      className="itemsPerPageSelect"
+                      className={styles.itemsPerPageSelect}
                       value={itemsPerPage}
                       onChange={handleItemsPerPageChange}
                       aria-label="Number of items per page"
@@ -362,7 +360,7 @@ const Shop: React.FC = () => {
                   </div>
                 </>
               ) : (
-                <div className="noProductsMessage">
+                <div className={styles.noProductsMessage}>
                   No products match your filter criteria. Try adjusting your filters.
                 </div>
               )}

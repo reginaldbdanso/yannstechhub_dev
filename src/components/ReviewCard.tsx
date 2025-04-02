@@ -1,5 +1,5 @@
 import React from 'react';
-import  '../styles/components/ReviewCard_module.css';
+import  '../styles/components/ReviewCard.module.css';
 
 interface ReviewCardProps {
   title: string;

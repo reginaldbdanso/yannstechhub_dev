@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import '../styles/components/ProductSlider_module.css';
+import styles from '../styles/components/ProductSlider.module.css';
 import ProductCard from './ProductCard';
-import { useProducts } from '@/context/ProductContext';
 
-// interface Product {
-//   id: string;
-//   image: string;
-//   title: string;
-//   rating: number;
-//   reviews: number;
-//   price: number;
-// }
+interface Product {
+  id: number;
+  image: string;
+  title: string;
+  rating: number;
+  reviews: number;
+  price: number;
+}
 
 const ProductSlider: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,42 +17,41 @@ const ProductSlider: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(3);
   const containerRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
-  const { products } = useProducts();
 
-  // const products: Product[] = [
-  //   {
-  //     id: 1,
-  //     image: '/imgs/Rectangle 62.png',
-  //     title: 'Lorem ipsum dolor',
-  //     rating: 5.0,
-  //     reviews: 58,
-  //     price: 50.00
-  //   },
-  //   {
-  //     id: 2,
-  //     image: '/imgs/Rectangle 62.png',
-  //     title: 'Lorem ipsum dolor',
-  //     rating: 5.0,
-  //     reviews: 58,
-  //     price: 50.00
-  //   },
-  //   {
-  //     id: 3,
-  //     image: '/imgs/Rectangle 62.png',
-  //     title: 'Lorem ipsum dolor',
-  //     rating: 5.0,
-  //     reviews: 58,
-  //     price: 50.00
-  //   },
-  //   {
-  //     id: 4,
-  //     image: '/imgs/Rectangle 62.png',
-  //     title: 'Lorem ipsum dolor',
-  //     rating: 5.0,
-  //     reviews: 58,
-  //     price: 50.00
-  //   }
-  // ];
+  const products: Product[] = [
+    {
+      id: 1,
+      image: '/imgs/Rectangle 62.png',
+      title: 'Lorem ipsum dolor',
+      rating: 5.0,
+      reviews: 58,
+      price: 50.00
+    },
+    {
+      id: 2,
+      image: '/imgs/Rectangle 62.png',
+      title: 'Lorem ipsum dolor',
+      rating: 5.0,
+      reviews: 58,
+      price: 50.00
+    },
+    {
+      id: 3,
+      image: '/imgs/Rectangle 62.png',
+      title: 'Lorem ipsum dolor',
+      rating: 5.0,
+      reviews: 58,
+      price: 50.00
+    },
+    {
+      id: 4,
+      image: '/imgs/Rectangle 62.png',
+      title: 'Lorem ipsum dolor',
+      rating: 5.0,
+      reviews: 58,
+      price: 50.00
+    }
+  ];
 
   const updateSliderDimensions = React.useCallback(() => {
     if (containerRef.current && productsRef.current?.children[0]) {
@@ -95,12 +93,12 @@ const ProductSlider: React.FC = () => {
   };
 
   return (
-    <section className="sliderSection">
-      <h2 className="sectionTitle">You May Also Like</h2>
-      <div className="sliderContainer" ref={containerRef}>
+    <section className={styles.sliderSection}>
+      <h2 className={styles.sectionTitle}>You May Also Like</h2>
+      <div className={styles.sliderContainer} ref={containerRef}>
         {currentIndex > 0 && (
           <button 
-            className="arrowLeft"
+            className={styles.arrowLeft}
             onClick={handlePrevClick}
             aria-label="Previous slide"
           >
@@ -109,13 +107,13 @@ const ProductSlider: React.FC = () => {
         )}
         <div 
           ref={productsRef}
-          className="productsContainer"
+          className={styles.productsContainer}
           style={{ transform: `translateX(-${currentIndex * cardWidth}px)` }}
         >
           {products.map(product => (
-            <div key={product._id} className="productSlide">
+            <div key={product.id} className={styles.productSlide}>
               <ProductCard
-                id={product._id}
+                id={product.id}
                 image={product.image}
                 title={product.title}
                 rating={product.rating}
@@ -127,7 +125,7 @@ const ProductSlider: React.FC = () => {
         </div>
         {currentIndex < maxIndex && (
           <button 
-            className="arrowRight"
+            className={styles.arrowRight}
             onClick={handleNextClick}
             aria-label="Next slide"
           >

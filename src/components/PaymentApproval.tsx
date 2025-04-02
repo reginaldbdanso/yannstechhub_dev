@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/components/PaymentApproval_module.css';
+import styles from '../styles/components/PaymentApproval.module.css';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -28,25 +28,25 @@ const PaymentApproval: React.FC = () => {
   ];
 
   return (
-    <div className="container">
-      <div className="mainContent">
+    <div className={styles.container}>
+      <div className={styles.mainContent}>
         <Header />
-        <div className="dividerTop" />
-        <div className="breadcrumbSort">
-          <div className="breadcrumb">
-            <div className="breadcrumbItem">Cart</div>
-            <div className="breadcrumbItem">Shipping</div>
-            <div className="breadcrumbItem">Payment</div>
-            <div className="breadcrumbItemActive">Approval</div>
+        <div className={styles.dividerTop} />
+        <div className={styles.breadcrumbSort}>
+          <div className={styles.breadcrumb}>
+            <div className={styles.breadcrumbItem}>Cart</div>
+            <div className={styles.breadcrumbItem}>Shipping</div>
+            <div className={styles.breadcrumbItem}>Payment</div>
+            <div className={styles.breadcrumbItemActive}>Approval</div>
           </div>
         </div>
 
-        <div className="dividerNormal" />
+        <div className={styles.dividerNormal} />
 
-        <div className="paymentSection">
-          <h2 className="paymentTitle">Payment Approval</h2>
-          <div className="paymentCard">
-            <div className="paymentContent">
+        <div className={styles.paymentSection}>
+          <h2 className={styles.paymentTitle}>Payment Approval</h2>
+          <div className={styles.paymentCard}>
+            <div className={styles.paymentContent}>
             <img
                 src="/imgs/payment 1.png"
                 alt="Payment Success"
@@ -54,16 +54,16 @@ const PaymentApproval: React.FC = () => {
                 width={159}
                 height={159}
               />
-              <div className="paymentText">
+              <div className={styles.paymentText}>
                 <p>Approve payment on</p>
                 <p>+233 54******42</p>
               </div>
-              <p className="paymentMessage">
+              <p className={styles.paymentMessage}>
                 Thank you for using yannstechub. We are truly grateful for your support and the opportunity to serve
                 you. Your satisfaction is our top priority, and we are committed to ensuring you have an exceptional
                 experience every time.
               </p>
-              <Link to="/shop" className="continueButton">
+              <Link to="/shop" className={styles.continueButton}>
                 Continue Shopping
               </Link>
             </div>

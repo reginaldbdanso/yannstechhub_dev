@@ -7,9 +7,7 @@ import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
-// import { mockProducts } from "../data/mockProducts"
-import { useProducts } from "@/context/ProductContext"
-
+import { mockProducts } from "../data/mockProducts"
 
 // Types
 interface Category {
@@ -22,9 +20,8 @@ interface Category {
 interface SimpleProductCardProps {
   image: string
   title: string
-  id: string
+  id: number
 }
-
 
 // Now replace the SimpleProductCard component with this updated version
 const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id }) => {
@@ -47,13 +44,13 @@ const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id 
 }
 
 // Define the actual categories
-// Extract unique categories from products
-const getUniqueCategories = (products: any[]) => {
+// Extract unique categories from mockProducts
+const getUniqueCategories = () => {
   const uniqueCategories: string[] = []
   const categoryIcons: Record<string, string> = {}
 
   // Collect unique categories and their icons
-  products.forEach((product) => {
+  mockProducts.forEach((product) => {
     if (product.category && !uniqueCategories.includes(product.category)) {
       uniqueCategories.push(product.category)
 
@@ -79,7 +76,7 @@ const getUniqueCategories = (products: any[]) => {
       categoryImage = categoryIcons[category]
     } else {
       // Otherwise, find the first product in this category and use its image
-      const productInCategory = products.find((product) => product.category === category)
+      const productInCategory = mockProducts.find((product) => product.category === category)
       if (productInCategory) {
         categoryImage = productInCategory.image
       }
@@ -94,7 +91,8 @@ const getUniqueCategories = (products: any[]) => {
   })
 }
 
-
+// Get categories dynamically from products
+const actualCategories: Category[] = getUniqueCategories()
 
 // Update the Index component to include these changes
 const Index: React.FC = () => {
@@ -103,11 +101,6 @@ const Index: React.FC = () => {
   const [activeTab, setActiveTab] = useState("top-rated")
   const [showAllTabProducts, setShowAllTabProducts] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const { products } = useProducts();
-
-
-  // Get categories dynamically from products
-  const actualCategories: Category[] = getUniqueCategories(products)
 
   // Create a reference to store the categories with clones for infinite loop
   const categoriesWithClones = useMemo(() => {
@@ -213,17 +206,15 @@ const Index: React.FC = () => {
   const getFilteredProducts = () => {
     switch (activeTab) {
       case "top-rated":
-        return products.filter((product) => product.rating >= 4.5).slice(0, showAllTabProducts ? undefined : 8)
+        return mockProducts.filter((product) => product.rating >= 4.5).slice(0, showAllTabProducts ? undefined : 8)
       case "latest-arrivals":
-        // Sort by createdAt date if available
-        return [...products].sort((a, b) => {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        }).slice(0, showAllTabProducts ? undefined : 8)
+        // Assuming mockProducts has a date field, sort by most recent
+        return [...mockProducts].sort((a, b) => b.id - a.id).slice(0, showAllTabProducts ? undefined : 8)
       case "best-deals":
-        // Assuming products has a discount field or we can calculate best deals
-        return products.filter((product) => product.price < 100).slice(0, showAllTabProducts ? undefined : 8)
+        // Assuming mockProducts has a discount field or we can calculate best deals
+        return mockProducts.filter((product) => product.price < 100).slice(0, showAllTabProducts ? undefined : 8)
       default:
-        return products.slice(0, showAllTabProducts ? undefined : 8)
+        return mockProducts.slice(0, showAllTabProducts ? undefined : 8)
     }
   }
 
@@ -376,13 +367,13 @@ const Index: React.FC = () => {
             {showAllTabProducts ? (
               <div className="full-products-grid">
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard key={product._id} id={product._id} image={product.image} title={product.title} />
+                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
                 ))}
               </div>
             ) : (
               <div className="small-products-grid">
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard key={product._id} id={product._id} image={product.image} title={product.title} />
+                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
                 ))}
               </div>
             )}
@@ -406,10 +397,10 @@ const Index: React.FC = () => {
             </div>
           </div>
 
-          {products.slice().map((product) => (
+          {mockProducts.slice().map((product) => (
             <ProductCard
-              key={product._id}
-              id={product._id.toString()}
+              key={product.id}
+              id={product.id.toString()}    
               image={product.image}
               title={product.title}
               rating={product.rating}

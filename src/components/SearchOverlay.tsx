@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import  '../styles/components/SearchOverlay_module.css';
+import  '../styles/components/SearchOverlay.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useProducts } from '../context/ProductContext';
 
 interface SearchOverlayProps {
   isOpen: boolean;
@@ -10,17 +9,16 @@ interface SearchOverlayProps {
 
 const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState<{id: string; title: string; price: number; image: string}[]>([]);
-  const { products: contextProducts } = useProducts();
+  const [results, setResults] = useState<{id: number; title: string; price: number; image: string}[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   // Mock data - replace with actual API call in production
-  // const mockProducts = [
-  //   { id: 1, title: 'Wireless Earbuds', price: 99.99, image: '/imgs/Rectangle 62.png' },
-  //   { id: 2, title: 'Smart Watch', price: 199.99, image: '/imgs/Rectangle 62 (4).png' },
-  //   { id: 3, title: 'Bluetooth Speaker', price: 79.99, image: '/imgs/asi.png' },
-  // ];
+  const mockProducts = [
+    { id: 1, title: 'Wireless Earbuds', price: 99.99, image: '/imgs/Rectangle 62.png' },
+    { id: 2, title: 'Smart Watch', price: 199.99, image: '/imgs/Rectangle 62 (4).png' },
+    { id: 3, title: 'Bluetooth Speaker', price: 79.99, image: '/imgs/asi.png' },
+  ];
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -43,15 +41,10 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // Filter mock products based on search term
-    const filtered = contextProducts.filter(product =>
+    const filtered = mockProducts.filter(product =>
       product.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setResults(filtered.map(product => ({
-      id: product._id, // Convert string _id to number
-      title: product.title,
-      price: product.price,
-      image: product.image
-    })));
+    setResults(filtered);
   };
 
   const handleClickOutside = (e: React.MouseEvent) => {
