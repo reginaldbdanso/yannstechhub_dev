@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
-import { mockProducts } from "../data/mockProducts"
+import { useProducts } from "@/context/ProductContext"
 
 // Types
 interface Category {
@@ -20,10 +20,10 @@ interface Category {
 interface SimpleProductCardProps {
   image: string
   title: string
-  id: number
+  id: string
 }
 
-// Now replace the SimpleProductCard component with this updated version
+// Update SimpleProductCard to use string IDs
 const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id }) => {
   return (
     <div className="simple-product-card">
@@ -43,65 +43,63 @@ const SimpleProductCard: React.FC<SimpleProductCardProps> = ({ image, title, id 
   )
 }
 
-// Define the actual categories
-// Extract unique categories from mockProducts
-const getUniqueCategories = () => {
-  const uniqueCategories: string[] = []
-  const categoryIcons: Record<string, string> = {}
-
-  // Collect unique categories and their icons
-  mockProducts.forEach((product) => {
-    if (product.category && !uniqueCategories.includes(product.category)) {
-      uniqueCategories.push(product.category)
-
-      // If the product has a categoryIcon, store it for this category
-      if (product.categoryIcon) {
-        categoryIcons[product.category] = product.categoryIcon
-      }
-    }
-  })
-
-  console.log("Unique categories found:", uniqueCategories)
-
-  // Map to Category objects
-  return uniqueCategories.map((category, index) => {
-    const categorySlug = category.toLowerCase().replace(/\s+/g, "-")
-    console.log(`Category: ${category}, Slug: ${categorySlug}`)
-
-    // Use the category icon if available, otherwise use the first product image from this category
-    let categoryImage = "/imgs/Rectangle 9.png" // Default fallback image
-
-    if (categoryIcons[category]) {
-      // If we have a dedicated category icon, use it
-      categoryImage = categoryIcons[category]
-    } else {
-      // Otherwise, find the first product in this category and use its image
-      const productInCategory = mockProducts.find((product) => product.category === category)
-      if (productInCategory) {
-        categoryImage = productInCategory.image
-      }
-    }
-
-    return {
-      id: index + 1,
-      name: category,
-      image: categoryImage,
-      link: `/category/${categorySlug}`,
-    }
-  })
-}
-
-// Get categories dynamically from products
-const actualCategories: Category[] = getUniqueCategories()
-
-// Update the Index component to include these changes
+// Move getUniqueCategories inside the component to use context products
 const Index: React.FC = () => {
+  const { products: contextProducts, isLoading } = useProducts();
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0)
   const [activeTab, setActiveTab] = useState("top-rated")
   const [showAllTabProducts, setShowAllTabProducts] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  
+  // Define getUniqueCategories function inside component to use contextProducts
+  const getUniqueCategories = () => {
+    if (!contextProducts || contextProducts.length === 0) return [];
+    
+    const uniqueCategories: string[] = []
+    const categoryIcons: Record<string, string> = {}
 
+    // Collect unique categories and their icons
+    contextProducts.forEach((product) => {
+      if (product.category && !uniqueCategories.includes(product.category)) {
+        uniqueCategories.push(product.category)
+
+        // If the product has a categoryIcon, store it for this category
+        // Since products don't have categoryIcon, we'll use the first product's image as the category icon
+        categoryIcons[product.category] = product.image
+      }
+    })
+
+    // Map to Category objects
+    return uniqueCategories.map((category, index) => {
+      const categorySlug = category.toLowerCase().replace(/\s+/g, "-")
+
+      // Use the category icon if available, otherwise use the first product image from this category
+      let categoryImage = "/imgs/Rectangle 9.png" // Default fallback image
+
+      if (categoryIcons[category]) {
+        // If we have a dedicated category icon, use it
+        categoryImage = categoryIcons[category]
+      } else {
+        // Otherwise, find the first product in this category and use its image
+        const productInCategory = contextProducts.find((product) => product.category === category)
+        if (productInCategory) {
+          categoryImage = productInCategory.image
+        }
+      }
+
+      return {
+        id: index + 1,
+        name: category,
+        image: categoryImage,
+        link: `/category/${categorySlug}`,
+      }
+    })
+  }
+
+  // Get categories dynamically from products
+  const actualCategories = useMemo(() => getUniqueCategories(), [contextProducts]);
+  
   // Create a reference to store the categories with clones for infinite loop
   const categoriesWithClones = useMemo(() => {
     if (actualCategories.length === 0) return []
@@ -111,7 +109,7 @@ const Index: React.FC = () => {
     const numClones = Math.min(4, actualCategories.length)
     const clones = actualCategories.slice(0, numClones)
     return [...actualCategories, ...clones]
-  }, [])
+  }, [actualCategories])
 
   const totalCategories = actualCategories.length
 
@@ -202,19 +200,23 @@ const Index: React.FC = () => {
     { id: 5, image: "/imgs/Banner 5.png" },
   ]
 
-  // Filter products based on the active tab
+  // Filter products based on the active tab - update to use contextProducts
   const getFilteredProducts = () => {
+    if (!contextProducts || contextProducts.length === 0) return [];
+    
     switch (activeTab) {
       case "top-rated":
-        return mockProducts.filter((product) => product.rating >= 4.5).slice(0, showAllTabProducts ? undefined : 8)
+        return contextProducts.filter((product) => product.rating >= 4.5).slice(0, showAllTabProducts ? undefined : 8)
       case "latest-arrivals":
-        // Assuming mockProducts has a date field, sort by most recent
-        return [...mockProducts].sort((a, b) => b.id - a.id).slice(0, showAllTabProducts ? undefined : 8)
+        // Sort by most recent using createdAt or updatedAt
+        return [...contextProducts]
+          .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+          .slice(0, showAllTabProducts ? undefined : 8)
       case "best-deals":
-        // Assuming mockProducts has a discount field or we can calculate best deals
-        return mockProducts.filter((product) => product.price < 100).slice(0, showAllTabProducts ? undefined : 8)
+        // Assuming we can calculate best deals based on price
+        return contextProducts.filter((product) => product.price < 100).slice(0, showAllTabProducts ? undefined : 8)
       default:
-        return mockProducts.slice(0, showAllTabProducts ? undefined : 8)
+        return contextProducts.slice(0, showAllTabProducts ? undefined : 8)
     }
   }
 
@@ -367,13 +369,13 @@ const Index: React.FC = () => {
             {showAllTabProducts ? (
               <div className="full-products-grid">
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
+                  <SimpleProductCard key={product._id} id={product._id} image={product.image} title={product.title} />
                 ))}
               </div>
             ) : (
               <div className="small-products-grid">
                 {getFilteredProducts().map((product) => (
-                  <SimpleProductCard key={product.id} id={product.id} image={product.image} title={product.title} />
+                  <SimpleProductCard key={product._id} id={product._id} image={product.image} title={product.title} />
                 ))}
               </div>
             )}
@@ -397,10 +399,10 @@ const Index: React.FC = () => {
             </div>
           </div>
 
-          {mockProducts.slice().map((product) => (
+          {contextProducts.slice(0, 8).map((product) => (
             <ProductCard
-              key={product.id}
-              id={product.id.toString()}    
+              key={product._id}
+              id={product._id}    
               image={product.image}
               title={product.title}
               rating={product.rating}
