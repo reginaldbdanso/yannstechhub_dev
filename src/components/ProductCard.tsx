@@ -3,22 +3,11 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import styles from '../styles/components/ProductCard.module.css';
 
-interface ProductCardProps {
-  id: string;
-  image: string;
-  title: string;
-  rating: number;
-  reviews: number;
-  price: number;
-  badge?: string | {
-    show: boolean;
-    text: string;
-  };
-  noBorder?: boolean;
-}
+// ProductCardProps interface removed
 
-const ProductCard: React.FC<ProductCardProps> = ({ 
-  id, 
+const ProductCard: React.FC<any> = ({ 
+  _id, 
+  id,
   image, 
   title, 
   rating, 
@@ -28,10 +17,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
   noBorder = false
 }) => {
   const { addToCart } = useCart();
+  
+  // Use _id if available (from API), otherwise fall back to id (for backward compatibility)
+  const productId = _id || id;
 
   const handleAddToCart = () => {
     addToCart({
-      id,
+      id: productId,
       image,
       title,
       price
@@ -41,8 +33,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <article className={`${styles.card} ${noBorder ? styles.noBorder : ''}`}>
       <Link 
-        to={`/product/${id}`} 
-        state={{ product: { id, image, title, rating, reviews, price, badge } }}
+        to={`/product/${productId}`} 
+        state={{ product: { id: productId, image, title, rating, reviews, price, badge } }}
       >
         <div className={styles.imageContainer}>
           <img 
