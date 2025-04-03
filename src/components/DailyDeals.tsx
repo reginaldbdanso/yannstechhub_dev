@@ -5,75 +5,28 @@ import Footer from "./Footer"
 import ProductCard from "./ProductCard"
 import { useProducts } from "@/context/ProductContext"
 
-type Product = {
-  _id: string;
-  title: string;
-  price: number;
-  rating: number;
-  image: string;
-  isFavorite: boolean;
-  reviews: number;
-  badge?: string;
-  brand: string;
-  condition: 'new' | 'used' | 'refurbished';
-  category: string;
-  descriptions: Array<any>;
-  features: string[];
-  specs: string[];
-  stock: number;
-  thumbnails: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
 const DailyDeals: React.FC = () => {
-  const { products: contextProducts } = useProducts();
-  const [products, setProducts] = useState<Product[]>([])
+  const { products: contextProducts, isLoading: isContextLoading, error: contextError } = useProducts();
+  const [products, setProducts] = useState<any[]>([])
   const [sortOption, setSortOption] = useState<"recommended" | "bestSellers" | "lowPrice" | "highPrice" | "reviews">("recommended")
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(15)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setIsLoading(true)
-      try {
-        const response = await fetch("https://yannstechhub-dev-api.onrender.com/api/products")
-        if (!response.ok) {
-          throw new Error(`API error: ${response.status}`)
-        }
-        const data = await response.json()
-        console.log('Fetched products:', data) // Debug log
-        if (Array.isArray(data)) {
-          setProducts(data)
-        } else if (data.products && Array.isArray(data.products)) {
-          setProducts(data.products)
-        } else {
-          throw new Error('Invalid data format')
-        }
-        setError(null)
-      } catch (err) {
-        setError("Failed to load products. Please try again later.")
-        console.error("Error fetching products:", err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    // Only fetch if we don't have context products
-    if (!contextProducts || contextProducts.length === 0) {
-      fetchProducts()
-    }
-  }, []) // Remove contextProducts dependency
-
-  // Separate effect for handling context products
+  // Use products from context
   useEffect(() => {
     if (contextProducts && contextProducts.length > 0) {
       setProducts(contextProducts)
       setIsLoading(false)
+    } else {
+      setIsLoading(isContextLoading)
     }
-  }, [contextProducts])
+    
+    if (contextError) {
+      setError(contextError)
+    }
+  }, [contextProducts, isContextLoading, contextError])
 
   useEffect(() => {
     if (products.length === 0) return
