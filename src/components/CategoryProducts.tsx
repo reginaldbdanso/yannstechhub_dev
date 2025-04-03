@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import styles from '../styles/components/CategoryProducts.module.css'
-import { mockProducts } from "../data/mockProducts"
+// Remove mockProducts import
 import ProductCard from "./ProductCard"
 import Header from "./Header"
 import Footer from "./Footer"
+import { useProducts } from "@/context/ProductContext"
 
 const CategoryProducts: React.FC = () => {
   const { category } = useParams<{ category: string }>()
-  const [filteredProducts, setFilteredProducts] = useState<typeof mockProducts>([])
+  const { products: contextProducts, isLoading: isLoading, error: contextError } = useProducts()
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([])
   const [sortOption, setSortOption] = useState<string>("default")
   const [debugInfo, setDebugInfo] = useState<string>("")
   const [currentPage, setCurrentPage] = useState(1)
@@ -24,15 +26,17 @@ const CategoryProducts: React.FC = () => {
   const displayCategory = category ? formatCategoryName(category) : ""
 
   useEffect(() => {
+    if (!contextProducts || contextProducts.length === 0) return
+
     let debug = ""
     debug += `Category param: ${category}\n`
-    debug += `All categories in mockProducts: ${mockProducts.map((p) => p.category).join(", ")}\n\n`
+    debug += `All categories in products: ${contextProducts.map((p) => p.category).join(", ")}\n\n`
 
     if (category) {
       const categoryParam = category.toLowerCase()
       debug += `Looking for products with category matching: ${categoryParam}\n\n`
 
-      const filtered = mockProducts.filter((product) => {
+      const filtered = contextProducts.filter((product) => {
         if (!product.category) return false
         const productCategory = product.category.toLowerCase().replace(/\s+/g, "-")
         debug += `Product: ${product.title}, Category: ${product.category}, URL format: ${productCategory}, Match: ${productCategory === categoryParam}\n`
@@ -45,11 +49,11 @@ const CategoryProducts: React.FC = () => {
     } else {
       debug += "No category parameter, showing all products"
       setDebugInfo(debug)
-      setFilteredProducts(mockProducts)
+      setFilteredProducts(contextProducts)
     }
 
     setCurrentPage(1)
-  }, [category])
+  }, [category, contextProducts])
 
   useEffect(() => {
     if (filteredProducts.length === 0) return
@@ -99,6 +103,7 @@ const CategoryProducts: React.FC = () => {
     pageNumbers.push(i)
   }
 
+  // Pagination functions
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages))
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
@@ -134,26 +139,32 @@ const CategoryProducts: React.FC = () => {
 
         <div className={styles.dividerNormal} />
 
-        <div className={styles.debugInfo}>{debugInfo}</div>
+        {isLoading ? (
+          <div className={styles.statusMessage}>Loading products...</div>
+        ) : contextError ? (
+          <div className={styles.statusMessage}>{contextError}</div>
+        ) : (
+          <>
+            <div className={styles.debugInfo}>{debugInfo}</div>
 
-        {displayCategory && (
-          <p className={styles.categoryDescription}>
-            Browse our selection of {displayCategory.toLowerCase()} from top brands.
-          </p>
-        )}
-
-        <div className={styles.resultsInfo}>
-          Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
-          {filteredProducts.length} products
-        </div>
+            {displayCategory && (
+              <p className={styles.categoryDescription}>
+                Browse our selection of {displayCategory.toLowerCase()} from top brands.
+              </p>
+            )}
+            
+            <div className={styles.resultsInfo}>
+              Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of{" "}
+              {filteredProducts.length} products
+            </div>
 
         {currentProducts.length > 0 ? (
           <>
             <div className={styles.productsGrid}>
               {currentProducts.map((product) => (
                 <ProductCard
-                  key={product.id}
-                  id={product.id.toString()}
+                  key={product._id}
+                  id={product._id}
                   image={product.image}
                   title={product.title}
                   rating={product.rating}
@@ -219,6 +230,8 @@ const CategoryProducts: React.FC = () => {
           <div className={styles.noProductsMessage}>
             No products found in this category. Please check back later or browse other categories.
           </div>
+        )}
+      </>
         )}
       </div>
       <Footer />
