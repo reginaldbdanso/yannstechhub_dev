@@ -1,237 +1,258 @@
 import React, { useState } from 'react';
-import  '../styles/components/SecureCheckout.module.css';
+import styles from '../styles/components/SecureCheckout.module.css';
+import ShippingDetails from './ShippingDetails';
+import PaymentMobile from './PaymentMobile';
+import { useCheckout } from '@/hooks/useCheckout';
+import { useCart } from '@/context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';
-import Footer from './Footer';
-import { useCart } from '../context/CartContext';
-
-
-
-// interface CartItem {
-//   id: number;
-//   image: string;
-//   title: string;
-//   price: number;
-//   quantity: number;
-// } removeFromCart not used
 
 const SecureCheckout: React.FC = () => {
-  const { cart, updateQuantity, subtotal } = useCart();
+  const [currentStep, setCurrentStep] = useState<'shipping' | 'payment' | 'review'>('shipping');
+  const { checkoutData, updateCheckoutData, placeOrder, loading, error, orderSummary } = useCheckout();
+  const { cart } = useCart();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    state: '',
-    city: '',
-    district: '',
-    address1: '',
-    address2: '',
-    phone: '',
-    isDefaultAddress: false
-  });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const handleContinueFromShipping = () => {
+    setCurrentStep('payment');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // You can add form validation here
-    navigate('/shipping-details'); // Navigate to shipping details page
+  const handleContinueFromPayment = () => {
+    setCurrentStep('review');
   };
 
-  return (
-    <div className="secure-checkout-page">
-      <div className="main-contents">
-        <Header />
-        <div className="divider-top" />
+  const handleBackToShipping = () => {
+    setCurrentStep('shipping');
+  };
 
-        <div className="breadcrumb-sort">
-          <div className="breadcrumb">
-            <div className="breadcrumb-item y">yannstechub</div>
-            <div className="breadcrumb-item">/ Daily deals</div>
-          </div>
-        </div>
+  const handleBackToPayment = () => {
+    setCurrentStep('payment');
+  };
 
-        <div className="divider" />
+  const handleOrderNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    updateCheckoutData({ orderNotes: e.target.value });
+  };
 
-        <div className="checkout-content">
-          <div className="shipping-section">
-            <div className="section-title">Shipping Address</div>
-            <form className="shipping-form" onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>First Name</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Last Name</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
+  const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateCheckoutData({ agreeToTerms: e.target.checked });
+  };
 
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  className="form-input"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                />
-              </div>
+  const handlePlaceOrder = async () => {
+    if (!checkoutData.agreeToTerms) {
+      alert('Please agree to the terms and conditions');
+      return;
+    }
 
-              <div className="form-checkbox">
-                <input
-                  type="checkbox"
-                  id="default-address"
-                  name="isDefaultAddress"
-                  checked={formData.isDefaultAddress}
-                  onChange={handleInputChange}
-                />
-                <label htmlFor="default-address">Set as default</label>
-              </div>
+    const order = await placeOrder();
+    if (order) {
+      navigate(`/order-confirmation/${order.orderId}`);
+    }
+  };
 
-              <div className="form-group">
-                <label>State/Province</label>
-                <input
-                  className="form-input"
-                  type="text"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>City</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>District</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="district"
-                    value={formData.district}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>Address</label>
-                <input
-                  className="form-input"
-                  type="text"
-                  name="address1"
-                  value={formData.address1}
-                  onChange={handleInputChange}
-                  placeholder="Street, Apartment, Suite, etc."
-                />
-                <div className="helper-text">
-                  Detailed street address can help our rider find you quickly.
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>Address 2</label>
-                <input
-                  className="form-input"
-                  type="text"
-                  name="address2"
-                  value={formData.address2}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Phone number</label>
-                <input
-                  className="form-input"
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-              </div>
-
-              <button className="checkout-button" type="submit">
-                Proceed to checkout
-              </button>
-            </form>
-          </div>
-          <div className="order-summary">
-            <div className="summary-container">
-              <div className="summary-header">
-                <h2>My Order Summary</h2>
-                <button onClick={() => navigate('/cart')}>Edit</button>
-              </div>
-              <div className="order-items">
-                {cart.map((item) => (
-                  <div className="order-item" key={item.id}>
-                    <img className="item-image" src={item.image} alt={item.title} />
-                    <div className="item-details">
-                      <div className="item-title">{item.title}</div>
-                      <div className="item-price">${item.price.toFixed(2)}</div>
-                      <div className="quantity-control">
-                        <button className="quantity-button" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
-                        <span>{item.quantity}</span>
-                        <button className="quantity-button" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="total-section">
-                <div className="total-row">
-                  <span>Subtotal</span>
-                  <span>${subtotal.toFixed(2)}</span>
-                </div>
-                <div className="total-row">
-                  <span>Shipping</span>
-                  <span>$5.00</span>
-                </div>
-                <div className="total-row">
-                  <span>Total</span>
-                  <span>${(subtotal + 5).toFixed(2)}</span>
-                </div>
-                <div className="shipping-info">
-                  Shipping costs are calculated based on your location
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  const renderStepIndicator = () => (
+    <div className={styles.stepIndicator}>
+      <div className={`${styles.step} ${currentStep === 'shipping' || currentStep === 'payment' || currentStep === 'review' ? styles.active : ''}`}>
+        <div className={styles.stepNumber}>1</div>
+        <div className={styles.stepLabel}>Shipping</div>
       </div>
-      <Footer />
+      <div className={styles.stepConnector} />
+      <div className={`${styles.step} ${currentStep === 'payment' || currentStep === 'review' ? styles.active : ''}`}>
+        <div className={styles.stepNumber}>2</div>
+        <div className={styles.stepLabel}>Payment</div>
+      </div>
+      <div className={styles.stepConnector} />
+      <div className={`${styles.step} ${currentStep === 'review' ? styles.active : ''}`}>
+        <div className={styles.stepNumber}>3</div>
+        <div className={styles.stepLabel}>Review</div>
+      </div>
     </div>
   );
 
+  const renderOrderSummary = () => (
+    <div className={styles.orderSummary}>
+      <h3 className={styles.summaryTitle}>Order Summary</h3>
+      <div className={styles.summaryItems}>
+        {cart?.items.map(item => (
+          <div key={item.product._id} className={styles.summaryItem}>
+            <div className={styles.itemImage}>
+              <img src={item.product.image} alt={item.product.title} />
+            </div>
+            <div className={styles.itemDetails}>
+              <div className={styles.itemTitle}>{item.product.title}</div>
+              <div className={styles.itemQuantity}>Qty: {item.quantity}</div>
+            </div>
+            <div className={styles.itemPrice}>${(item.product.price * item.quantity).toFixed(2)}</div>
+          </div>
+        ))}
+      </div>
+      <div className={styles.summaryTotals}>
+        <div className={styles.summaryRow}>
+          <span>Subtotal</span>
+          <span>${cart?.subtotal.toFixed(2)}</span>
+        </div>
+        <div className={styles.summaryRow}>
+          <span>Shipping</span>
+          <span>${(checkoutData.shippingMethod?.price || 0).toFixed(2)}</span>
+        </div>
+        <div className={styles.summaryRow}>
+          <span>Tax</span>
+          <span>${cart?.tax.toFixed(2)}</span>
+        </div>
+        <div className={`${styles.summaryRow} ${styles.summaryTotal}`}>
+          <span>Total</span>
+          <span>${((cart?.total || 0) + (checkoutData.shippingMethod?.price || 0)).toFixed(2)}</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={styles.checkoutContainer}>
+      <h1 className={styles.title}>Secure Checkout</h1>
+      
+      {renderStepIndicator()}
+      
+      <div className={styles.checkoutContent}>
+        <div className={styles.checkoutMain}>
+          {currentStep === 'shipping' && (
+            <ShippingDetails onContinue={handleContinueFromShipping} />
+          )}
+          
+          {currentStep === 'payment' && (
+            <>
+              <button className={styles.backButton} onClick={handleBackToShipping}>
+                Back to Shipping
+              </button>
+              <PaymentMobile onContinue={handleContinueFromPayment} />
+            </>
+          )}
+          
+          {currentStep === 'review' && (
+            <div className={styles.reviewSection}>
+              <button className={styles.backButton} onClick={handleBackToPayment}>
+                Back to Payment
+              </button>
+              
+              <h2 className={styles.sectionTitle}>Review Your Order</h2>
+              
+              <div className={styles.reviewDetails}>
+                <div className={styles.reviewBlock}>
+                  <h3>Shipping Address</h3>
+                  {checkoutData.shippingAddress && (
+                    <div className={styles.addressDetails}>
+                      <p>{checkoutData.shippingAddress.fullName}</p>
+                      <p>{checkoutData.shippingAddress.addressLine1}</p>
+                      {checkoutData.shippingAddress.addressLine2 && (
+                        <p>{checkoutData.shippingAddress.addressLine2}</p>
+                      )}
+                      <p>
+                        {checkoutData.shippingAddress.city}, {checkoutData.shippingAddress.state} {checkoutData.shippingAddress.zipCode}
+                      </p>
+                      <p>{checkoutData.shippingAddress.country}</p>
+                      <p>{checkoutData.shippingAddress.phoneNumber}</p>
+                    </div>
+                  )}
+                </div>
+                
+                {!checkoutData.sameBillingAddress && checkoutData.billingAddress && (
+                  <div className={styles.reviewBlock}>
+                    <h3>Billing Address</h3>
+                    <div className={styles.addressDetails}>
+                      <p>{checkoutData.billingAddress.fullName}</p>
+                      <p>{checkoutData.billingAddress.addressLine1}</p>
+                      {checkoutData.billingAddress.addressLine2 && (
+                        <p>{checkoutData.billingAddress.addressLine2}</p>
+                      )}
+                      <p>
+                        {checkoutData.billingAddress.city}, {checkoutData.billingAddress.state} {checkoutData.billingAddress.zipCode}
+                      </p>
+                      <p>{checkoutData.billingAddress.country}</p>
+                      <p>{checkoutData.billingAddress.phoneNumber}</p>
+                    </div>
+                  </div>
+                )}
+                
+                <div className={styles.reviewBlock}>
+                  <h3>Payment Method</h3>
+                  {checkoutData.paymentMethod && (
+                    <div className={styles.paymentDetails}>
+                      {checkoutData.paymentMethod.type === 'credit_card' && (
+                        <>
+                          <p>Credit Card</p>
+                          <p>**** **** **** {checkoutData.paymentMethod.details.cardNumber?.slice(-4)}</p>
+                          <p>{checkoutData.paymentMethod.details.cardHolder}</p>
+                          <p>Expires: {checkoutData.paymentMethod.details.expiryDate}</p>
+                        </>
+                      )}
+                      
+                      {checkoutData.paymentMethod.type === 'paypal' && (
+                        <>
+                          <p>PayPal</p>
+                          <p>{checkoutData.paymentMethod.details.email}</p>
+                        </>
+                      )}
+                      
+                      {checkoutData.paymentMethod.type === 'apple_pay' && (
+                        <p>Apple Pay</p>
+                      )}
+                      
+                      {checkoutData.paymentMethod.type === 'google_pay' && (
+                        <p>Google Pay</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+                
+                <div className={styles.reviewBlock}>
+                  <h3>Shipping Method</h3>
+                  {checkoutData.shippingMethod && (
+                    <div className={styles.shippingDetails}>
+                      <p>{checkoutData.shippingMethod.name}</p>
+                      <p>Estimated delivery: {checkoutData.shippingMethod.estimatedDelivery}</p>
+                      <p>${checkoutData.shippingMethod.price.toFixed(2)}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className={styles.orderNotes}>
+                <h3>Order Notes (Optional)</h3>
+                <textarea
+                  placeholder="Add any special instructions or notes for your order"
+                  value={checkoutData.orderNotes || ''}
+                  onChange={handleOrderNotesChange}
+                />
+              </div>
+              
+              <div className={styles.termsAgreement}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={checkoutData.agreeToTerms || false}
+                    onChange={handleTermsChange}
+                  />
+                  I agree to the <a href="/terms" target="_blank">Terms and Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+                </label>
+              </div>
+              
+              {error && <div className={styles.errorMessage}>{error}</div>}
+              
+              <button
+                className={styles.placeOrderButton}
+                onClick={handlePlaceOrder}
+                disabled={loading || !checkoutData.agreeToTerms}
+              >
+                {loading ? 'Processing...' : 'Place Order'}
+              </button>
+            </div>
+          )}
+        </div>
+        
+        <div className={styles.checkoutSidebar}>
+          {renderOrderSummary()}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SecureCheckout;
