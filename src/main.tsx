@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import { AppProvider } from './context/AppContext'
+import { AuthProvider } from './context/AuthContext'
 import { ProductProvider } from './context/ProductContext'
 import { CartProvider } from './context/CartContext'
 import { ReviewProvider } from './context/ReviewContext'
@@ -9,7 +9,7 @@ import { ReviewProvider } from './context/ReviewContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AppProvider>
+    <AuthProvider>
     <ProductProvider>
       <ReviewProvider>
       <CartProvider>
@@ -17,6 +17,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       </CartProvider>
       </ReviewProvider>
     </ProductProvider>
-    </AppProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
