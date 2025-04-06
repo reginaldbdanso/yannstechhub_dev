@@ -3,11 +3,13 @@ import styles from '../styles/components/Shop.module.css'
 import Header from "./Header"
 import Footer from "./Footer"
 import ProductCard from "./ProductCard"
-import { mockProducts } from "../data/mockProducts"
+import { useProducts } from "@/context/ProductContext"
 
 const Shop: React.FC = () => {
-  const categories = ["All Categories", ...Array.from(new Set(mockProducts.map((product) => product.category)))]
-  const brands = ["All Brands", ...Array.from(new Set(mockProducts.map((product) => product.brand)))]
+  const { products: contextProducts, isLoading } = useProducts();
+  
+  const categories = ["All Categories", ...Array.from(new Set(contextProducts?.map((product) => product.category) || []))]
+  const brands = ["All Brands", ...Array.from(new Set(contextProducts?.map((product) => product.brand) || []))]
 
   const [minPrice, setMinPrice] = useState<string>("100")
   const [maxPrice, setMaxPrice] = useState<string>("1500")
@@ -20,15 +22,24 @@ const Shop: React.FC = () => {
   })
   const [sortOption, setSortOption] = useState<string>("recommended")
   const [mainSortOption, setMainSortOption] = useState<string>("recommended")
-  const [filteredProducts, setFilteredProducts] = useState<typeof mockProducts>(mockProducts)
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(15)
 
+  // Initialize filtered products when context products load
   useEffect(() => {
-    console.log("Available categories:", Array.from(new Set(mockProducts.map((p) => p.category))))
+    if (contextProducts) {
+      setFilteredProducts(contextProducts);
+    }
+  }, [contextProducts]);
+
+  useEffect(() => {
+    if (!contextProducts) return;
+    
+    console.log("Available categories:", Array.from(new Set(contextProducts.map((p) => p.category))))
     console.log(
       "Accessories products:",
-      mockProducts.filter((p) => p.category === "Accessories"),
+      contextProducts.filter((p) => p.category === "Accessories"),
     )
 
     if (selectedCategory === "Accessories") {
@@ -37,7 +48,7 @@ const Shop: React.FC = () => {
       console.log("Selected brand:", selectedBrand)
       console.log("Price range:", minPrice, maxPrice)
     }
-  }, [selectedCategory, filteredProducts, conditions, selectedBrand, minPrice, maxPrice])
+  }, [selectedCategory, filteredProducts, conditions, selectedBrand, minPrice, maxPrice, contextProducts])
 
   const handleConditionChange = (condition: keyof typeof conditions) => {
     setConditions((prev) => ({
@@ -70,11 +81,15 @@ const Shop: React.FC = () => {
       refurbish: false,
     })
     setSortOption("recommended")
-    setFilteredProducts(mockProducts)
+    if (contextProducts) {
+      setFilteredProducts(contextProducts)
+    }
   }
 
   const applyFilters = () => {
-    let filtered = [...mockProducts]
+    if (!contextProducts) return;
+    
+    let filtered = [...contextProducts]
 
     if (selectedCategory !== "All Categories") {
       filtered = filtered.filter((product) => product.category === selectedCategory)
@@ -119,8 +134,10 @@ const Shop: React.FC = () => {
   }
 
   useEffect(() => {
-    applyFilters()
-  }, [selectedCategory, selectedBrand, minPrice, maxPrice, conditions, sortOption, mainSortOption])
+    if (contextProducts) {
+      applyFilters()
+    }
+  }, [selectedCategory, selectedBrand, minPrice, maxPrice, conditions, sortOption, mainSortOption, contextProducts])
 
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setItemsPerPage(Number(e.target.value))
@@ -140,6 +157,10 @@ const Shop: React.FC = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
   const nextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages))
   const prevPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1))
+
+  if (isLoading) {
+    return <div className={styles.loadingContainer}>Loading products...</div>
+  }
 
   return (
     <div className={styles.container}>
@@ -298,8 +319,8 @@ const Shop: React.FC = () => {
                 <>
                   {currentProducts.map((product) => (
                     <ProductCard
-                      key={product.id}
-                      id={product.id}
+                      key={product._id}
+                      _id={product._id}
                       image={product.image}
                       title={product.title}
                       rating={product.rating}
