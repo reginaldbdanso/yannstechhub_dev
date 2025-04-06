@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import  '../styles/components/ProductView_module.css';
-// import { mockProducts } from "../data/mockProducts"
+import '../styles/components/ProductView_module.css';
 import { useCart } from "../context/CartContext"
 import Header from "./Header"
 import ProductCard from "./ProductCard"
@@ -17,92 +16,47 @@ const ProductView: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { addToCart } = useCart()
-  const { products: contextProducts } = useProducts();
-  const { reviews: contextReviews } = useReviews();
-  const [product, setProduct] = useState<{
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-    thumbnails: string[];
-    category: string;
-    rating: number;
-    reviews: number;
-    features: string[];
-    specs: string[];
-    descriptions: Array<{
-      title: string;
-      content: string;
-    }>;
-  } | null>(null)
-
-  const [reviews, setReviews] = useState<Array<{
-    _id: string;
-    productId: string;
-    rating: number;
-    title: string;
-    content: string;
-    author: string;
-  }>>([])
-
+  const { products: contextProducts, isLoading: productsLoading } = useProducts();
+  const { reviews: contextReviews, isLoading: reviewsLoading } = useReviews();
+  
+  // State for UI elements
   const [mainImage, setMainImage] = useState("")
   const [averageRating, setAverageRating] = useState(0)
   const [ratingDistribution, setRatingDistribution] = useState<Record<number, number>>({})
-
   const [userRating, setUserRating] = useState<number>(0)
   const [isRatingHovered, setIsRatingHovered] = useState<number>(0)
-
-  // New state for slider
   const [currentSlide, setCurrentSlide] = useState(0)
   const [maxSlide, setMaxSlide] = useState(0)
   const sliderRef = useRef<HTMLDivElement>(null)
-
-  // Add state for wishlist
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [quantity, setQuantity] = useState(1)
 
-  useEffect(() => {
-    const fetchProductAndReviews = async () => {
-      if (id) {
-        try {
-          // Fetch product
-          if (contextProducts) {
-            const foundProduct = contextProducts.find((p) => p._id === String(id));
-            console.log(foundProduct)
-            setProduct(foundProduct || null);
-            setMainImage(contextProducts.find((p) => p._id === String(id))?.image || "")
-          } else {
-            setProduct(null);
-            setMainImage("");
-          }
-          // const foundProduct = mockProducts.find((p) => p.id === Number(id))
-          // setProduct(foundProduct || null)
-          // setMainImage(foundProduct?.image || "")
+  // Get product and reviews directly from context
+  const product = contextProducts?.find(p => p._id === id);
+  const productReviews = contextReviews?.filter(r => r.productId === id) || [];
+  
+  // Define relatedProducts using useMemo to avoid recalculation on every render
+  const relatedProducts = React.useMemo(() => {
+    if (!product || !contextProducts) return [];
+    return contextProducts.filter(
+      (p) => p.category === product.category && p._id !== product._id
+    ).slice(0, 8);
+  }, [product, contextProducts]);
 
-          // Fetch reviews from API
-          if (contextReviews) {
-            console.log(contextReviews)
-            const foundReviews = contextReviews.find((p) => p.productId === String(id));
-            // console.log(foundReviews)
-            setReviews(foundReviews ? [foundReviews] : []);
-          } else {
-            setReviews([]);
-          }
-        } catch (err) {
-          console.error("Error fetching reviews:", err)
-        }
-      }
+  // Set main image when product changes
+  useEffect(() => {
+    if (product) {
+      setMainImage(product.image);
     }
+  }, [product]);
 
-    fetchProductAndReviews()
-  }, [id])
-
+  // Calculate average rating and distribution
   useEffect(() => {
-    if (product && reviews.length > 0) {
-      const avgRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+    if (product && productReviews.length > 0) {
+      const avgRating = productReviews.reduce((acc, review) => acc + review.rating, 0) / productReviews.length
       setAverageRating(avgRating)
 
-      const ratingDist = reviews.reduce(
+      const ratingDist = productReviews.reduce(
         (acc, review) => {
           acc[review.rating] = (acc[review.rating] || 0) + 1
           return acc
@@ -111,14 +65,11 @@ const ProductView: React.FC = () => {
       )
       setRatingDistribution(ratingDist)
     }
-  }, [product, reviews])
+  }, [product, productReviews])
 
-  // New effect for slider functionality
+  // Slider functionality
   useEffect(() => {
-    // Get related products (excluding current product)
-    const relatedProducts = product
-      ? contextProducts.filter((p) => p.category === product.category && p._id !== product._id).slice(0, 8)
-      : contextProducts.filter((p) => p._id !== String(id));
+    if (!product || !contextProducts) return;
 
     // Calculate max slide based on number of products and visible items
     const calculateMaxSlide = () => {
@@ -139,7 +90,6 @@ const ProductView: React.FC = () => {
 
     const handleResize = () => {
       setMaxSlide(calculateMaxSlide())
-      // Reset to first slide when resizing to avoid empty slides
       setCurrentSlide(0)
     }
 
@@ -154,7 +104,7 @@ const ProductView: React.FC = () => {
       clearInterval(interval)
       window.removeEventListener("resize", handleResize)
     }
-  }, [id, maxSlide, product])
+  }, [id, product, contextProducts])
 
   const handleThumbnailClick = (image: string) => {
     setMainImage(image)
@@ -178,6 +128,7 @@ const ProductView: React.FC = () => {
     }
   }
 
+  // Star rating handlers
   const handleStarHover = (rating: number) => {
     setIsRatingHovered(rating)
   }
@@ -187,7 +138,7 @@ const ProductView: React.FC = () => {
     // Here you would typically make an API call to submit the rating
   }
 
-  // New slider navigation functions
+  // Slider navigation functions
   const handlePrevSlide = () => {
     setCurrentSlide((prev) => Math.max(0, prev - 1))
   }
@@ -196,7 +147,7 @@ const ProductView: React.FC = () => {
     setCurrentSlide((prev) => Math.min(maxSlide, prev + 1))
   }
 
-  // Add quantity control functions
+  // Quantity control functions
   const handleIncrement = () => {
     setQuantity((prev) => prev + 1)
   }
@@ -212,51 +163,15 @@ const ProductView: React.FC = () => {
     }
   }
 
+  // Loading or product not found state
+  if (productsLoading || reviewsLoading) {
+    return <div className="loading-container">Loading product information...</div>
+  }
+
   if (!product) {
-    return <div>Product not found</div>
+    return <div className="error-container">Product not found</div>
   }
 
-  // Create an array of thumbnail images, including the main image
-  const thumbnails = [product.image, ...product.thumbnails.slice(0, 3)]
-
-  // Get related products (same category, excluding current product)
-  const relatedProducts = contextProducts.filter((p) => p.category === product.category && p._id !== product._id).slice(0, 8)
-
-  // Add a new function to handle product click in the "You May Also Like" section
-  const handleRelatedProductClick = (relatedProduct: (typeof contextProducts)[0]) => {
-    // Update the current product with the clicked product
-    setProduct(relatedProduct)
-    setMainImage(relatedProduct.image)
-
-    // Get product reviews for the new product
-    // const fetchReviews = async () => {
-    //   try {
-    //     console.log(`http://192.168.0.51:4000/api/reviews/product/${relatedProduct.id}`)
-    //     const reviewsResponse = await fetch(`http://192.168.0.51:4000/api/reviews/product/${id}`)
-    //     if (reviewsResponse.ok) {
-    //       const productReviews = await reviewsResponse.json()
-    //       setReviews(productReviews)
-    //     }
-    //   } catch (err) {
-    //     console.error("Error fetching reviews:", err)
-    //     setReviews([])
-    //   }
-    // }
-    // fetchReviews()
-// This line is redundant since we're already setting reviews in the fetchReviews function
-
-    // Scroll to the top of the product container
-    const productContainerElement = document.querySelector(".product-container")
-    if (productContainerElement) {
-      productContainerElement.scrollIntoView({ behavior: "smooth" })
-    } else {
-      // Fallback to scrolling to top of page
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      })
-    }
-  }
 
   return (
     <div className="container">
@@ -280,7 +195,7 @@ const ProductView: React.FC = () => {
                 <div className="main-image-wrapper">
                   <img className="main-product-image" src={mainImage || "/placeholder.svg"} alt={product.title} />
                   <div className="thumbnail-gallery">
-                    {thumbnails.map((thumb, index) => (
+                    {[product.image, ...(product.thumbnails || []).slice(0, 3)].map((thumb, index) => (
                       <img
                         key={index}
                         className={`thumbnail ${mainImage === thumb ? "active" : ""}`}
@@ -377,7 +292,7 @@ const ProductView: React.FC = () => {
                   <span>{averageRating.toFixed(1)}</span>
                   <img src="/imgs/star 1.png" alt="Rating stars" />
                 </div>
-                <span>{reviews.length} ratings</span>
+                <span>{productReviews.length} ratings</span>
               </div>
 
               <div className="rating-bars">
@@ -387,7 +302,7 @@ const ProductView: React.FC = () => {
                     <div className="bar-container">
                       <div
                         className="bar-fill"
-                        style={{ width: `${((ratingDistribution[rating] || 0) / reviews.length) * 100}%` }}
+                        style={{ width: `${((ratingDistribution[rating] || 0) / productReviews.length) * 100}%` }}
                       ></div>
                     </div>
                     <span>{ratingDistribution[rating] || 0}</span>
@@ -414,7 +329,7 @@ const ProductView: React.FC = () => {
               </div>
             </div>
 
-            {reviews.map((review, index) => (
+            {productReviews.map((review, index) => (
               <div key={index} className="review-card">
                 <div className="review-rating">
                   <div className="review-title">{review.title}</div>
@@ -452,16 +367,11 @@ const ProductView: React.FC = () => {
                       <div
                         key={relatedProduct._id}
                         className="product-slide"
-                        onClick={() => handleRelatedProductClick(relatedProduct)}
                         style={{ cursor: "pointer" }}
                       >
                         <ProductCard
-                          id={relatedProduct._id}
-                          image={relatedProduct.image}
-                          title={relatedProduct.title}
-                          rating={relatedProduct.rating}
-                          reviews={relatedProduct.reviews}
-                          price={relatedProduct.price}
+                          {...relatedProduct}
+                          noBorder={false}
                         />
                       </div>
                     ))}
