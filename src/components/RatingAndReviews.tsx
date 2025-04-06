@@ -1,102 +1,230 @@
-import React from 'react';
-import  '../styles/components/RatingAndReviews.module.css';
-
-interface RatingDistribution {
-  stars: number;
-  count: number;
-  width: number;
-}
-
-interface RatingData {
-  average: number;
-  total: number;
-  distribution: RatingDistribution[];
-}
-
-interface ReviewProps {
-  title: string;
-  rating: number;
-  reviewText: string;
-  author: string;
-}
-
-
+import React, { useState, useEffect } from 'react';
+import styles from '../styles/components/RatingAndReviews.module.css';
+import { useReviews } from '@/context/ReviewContext';
+import { useAuth } from '../context/AuthContext';
+import ReviewCards from './ReviewCards';
 
 interface RatingAndReviewsProps {
-  ratingData?: RatingData;
-  reviews?: ReviewProps[];
+  productId: string;
 }
 
-const RatingAndReviews: React.FC<RatingAndReviewsProps> = ({ 
-  ratingData = {
-    average: 5.0,
-    total: 5489,
-    distribution: [
-      { stars: 5, count: 3321, width: 320 },
-      { stars: 4, count: 3321, width: 100 },
-      { stars: 3, count: 3321, width: 280 },
-      { stars: 2, count: 3321, width: 250 },
-      { stars: 1, count: 3321, width: 20 },
-    ]
-  },
-  reviews = [
-    {
-      title: "Super impressive",
-      rating: 5,
-      reviewText: "The sound quality from this device is great and my favourite feature is how I'm able to connect to both my phone and laptop, with the headset auto switching when a sound is being played from either of them.",
-      author: "Sweetie Baiden"
+const RatingAndReviews: React.FC<RatingAndReviewsProps> = ({ productId }) => {
+  const { reviews, addReview, loading, error } = useReviews();
+  const { user } = useAuth();
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [reviewText, setReviewText] = useState('');
+  const [title, setTitle] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const productReviews = reviews.filter(review => review.productId === productId);
+  
+  const averageRating = productReviews.length > 0
+    ? productReviews.reduce((acc, review) => acc + review.rating, 0) / productReviews.length
+    : 0;
+
+  const ratingCounts = [5, 4, 3, 2, 1].map(star => ({
+    star,
+    count: productReviews.filter(review => review.rating === star).length,
+    percentage: productReviews.length > 0
+      ? (productReviews.filter(review => review.rating === star).length / productReviews.length) * 100
+      : 0
+  }));
+
+  const handleRatingClick = (value: number) => {
+    setRating(value);
+  };
+
+  const handleRatingHover = (value: number) => {
+    setHoverRating(value);
+  };
+
+  const handleRatingLeave = () => {
+    setHoverRating(0);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!user) {
+      alert('Please log in to submit a review');
+      return;
     }
-  ]
-}) => {
+    
+    if (rating === 0) {
+      alert('Please select a rating');
+      return;
+    }
+    
+    if (!title.trim()) {
+      alert('Please enter a review title');
+      return;
+    }
+    
+    if (!reviewText.trim()) {
+      alert('Please enter review text');
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      await addReview({
+        productId,
+        userId: user.id,
+        userName: `${user.firstName} ${user.lastName}`,
+        rating,
+        title,
+        text: reviewText,
+        date: new Date().toISOString(),
+      });
+      
+      setRating(0);
+      setReviewText('');
+      setTitle('');
+      setShowForm(false);
+      setSuccessMessage('Your review has been submitted successfully!');
+      
+      setTimeout(() => {
+        setSuccessMessage('');
+      }, 5000);
+    } catch (err) {
+      console.error('Error submitting review:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const userHasReviewed = user && productReviews.some(review => review.userId === user.id);
 
   return (
-    <div className="reviews-container">
-      <div className="rating-summary">
-        <div className="rating-score">
-          <span>{ratingData.average}</span>
-          <img src="/imgs/star.png" alt="Rating stars" />
+    <div className={styles.ratingReviewsContainer}>
+      <h2 className={styles.sectionTitle}>Ratings & Reviews</h2>
+      
+      {successMessage && (
+        <div className={styles.successMessage}>{successMessage}</div>
+      )}
+      
+      <div className={styles.ratingOverview}>
+        <div className={styles.averageRating}>
+          <div className={styles.ratingNumber}>{averageRating.toFixed(1)}</div>
+          <div className={styles.starRating}>
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span
+                key={star}
+                className={star <= Math.round(averageRating) ? styles.starFilled : styles.starEmpty}
+              >
+                ★
+              </span>
+            ))}
+          </div>
+          <div className={styles.reviewCount}>{productReviews.length} reviews</div>
         </div>
-        <div className="rating-count">{ratingData.total} ratings</div>
-
-        <div className="rating-bars">
-          {ratingData.distribution.map(item => (
-            <div className="rating-bar" key={item.stars}>
-              <span>{item.stars}</span>
-              <div className="bar-container">
-                <div 
-                  className="bar-fill"
-                  style={{ width: `${item.width}px` }}
+        
+        <div className={styles.ratingDistribution}>
+          {ratingCounts.map(({ star, count, percentage }) => (
+            <div key={star} className={styles.ratingBar}>
+              <div className={styles.ratingLabel}>{star} stars</div>
+              <div className={styles.ratingBarContainer}>
+                <div
+                  className={styles.ratingBarFill}
+                  style={{ width: `${percentage}%` }}
                 />
               </div>
-              <span>{item.count}</span>
+              <div className={styles.ratingCount}>{count}</div>
             </div>
           ))}
         </div>
-
-        <div className="rate-product-section">
-          <h2>Rate This Product</h2>
-          <p>Lorem ipsum dolor sit amet</p>
-        </div>
       </div>
-
-      {reviews.map((review, index) => (
-        <div className="review-card" key={index}>
-          <div className="review-rating">
-            <h3 className="review-title">{review.title}</h3>
-            <div className="review-stars">
-              {[...Array(review.rating)].map((_, i) => (
-                <img
-                  key={i}
-                  src="/imgs/star.png"
-                  alt="Rating star"
+      
+      {!userHasReviewed && user && (
+        <div className={styles.reviewFormContainer}>
+          {!showForm ? (
+            <button
+              className={styles.writeReviewButton}
+              onClick={() => setShowForm(true)}
+            >
+              Write a Review
+            </button>
+          ) : (
+            <form className={styles.reviewForm} onSubmit={handleSubmit}>
+              <h3>Write Your Review</h3>
+              
+              <div className={styles.formGroup}>
+                <label>Your Rating *</label>
+                <div className={styles.ratingSelector}>
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      className={
+                        star <= (hoverRating || rating)
+                          ? styles.ratingSelectorStarFilled
+                          : styles.ratingSelectorStarEmpty
+                      }
+                      onClick={() => handleRatingClick(star)}
+                      onMouseEnter={() => handleRatingHover(star)}
+                      onMouseLeave={handleRatingLeave}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div className={styles.formGroup}>
+                <label htmlFor="reviewTitle">Review Title *</label>
+                <input
+                  type="text"
+                  id="reviewTitle"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Summarize your experience"
+                  required
                 />
-              ))}
-            </div>
-          </div>
-          <div className="review-text">{review.reviewText}</div>
-          <p className="review-author">Reviewed by {review.author}</p>
+              </div>
+              
+              <div className={styles.formGroup}>
+                <label htmlFor="reviewText">Review *</label>
+                <textarea
+                  id="reviewText"
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  placeholder="What did you like or dislike about this product?"
+                  rows={5}
+                  required
+                />
+              </div>
+              
+              <div className={styles.formActions}>
+                <button
+                  type="submit"
+                  className={styles.submitButton}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                </button>
+                <button
+                  type="button"
+                  className={styles.cancelButton}
+                  onClick={() => setShowForm(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          )}
         </div>
-      ))}
+      )}
+      
+      {productReviews.length > 0 ? (
+        <ReviewCards reviews={productReviews} />
+      ) : (
+        <div className={styles.noReviews}>
+          <p>This product has no reviews yet. Be the first to leave a review!</p>
+        </div>
+      )}
     </div>
   );
 };
