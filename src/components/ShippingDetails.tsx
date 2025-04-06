@@ -1,84 +1,166 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import  '../styles/components/ShippingDetails_module.css';
-import Header from './Header';
-import OrderSummary from './OrderSummary';
-import Footer from './Footer';
+import React, { useState, useEffect } from 'react';
+import styles from '../styles/components/ShippingDetails.module.css';
+import { useShipping, ShippingAddress } from '@/hooks/useShipping';
+import { useCheckout } from '@/hooks/useCheckout';
 
-const ShippingDetails: React.FC = () => {
-  const navigate = useNavigate();
-  const handleCheckout = () => {
-    navigate('/payment-mobile');
+interface ShippingDetailsProps {
+  onContinue?: () => void;
+}
+
+const ShippingDetails: React.FC<ShippingDetailsProps> = ({ onContinue }) => {
+  const { addresses, loading, error, fetchAddresses } = useShipping();
+  const { checkoutData, updateCheckoutData } = useCheckout();
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+  const [sameBillingAddress, setSameBillingAddress] = useState(true);
+  const [selectedBillingAddressId, setSelectedBillingAddressId] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchAddresses();
+  }, []);
+
+  useEffect(() => {
+    // Set default address if available
+    if (addresses.length > 0) {
+      const defaultAddress = addresses.find(addr => addr.isDefault);
+      if (defaultAddress) {
+        setSelectedAddressId(defaultAddress._id);
+        updateCheckoutData({ shippingAddress: defaultAddress });
+      } else {
+        setSelectedAddressId(addresses[0]._id);
+        updateCheckoutData({ shippingAddress: addresses[0] });
+      }
+    }
+  }, [addresses]);
+
+  const handleAddressSelect = (address: ShippingAddress) => {
+    setSelectedAddressId(address._id);
+    updateCheckoutData({ shippingAddress: address });
+  };
+
+  const handleBillingAddressSelect = (address: ShippingAddress) => {
+    setSelectedBillingAddressId(address._id);
+    updateCheckoutData({ billingAddress: address });
+  };
+
+  const handleSameBillingAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isSame = e.target.checked;
+    setSameBillingAddress(isSame);
+    updateCheckoutData({ sameBillingAddress: isSame });
+    
+    if (isSame && selectedAddressId) {
+      const shippingAddress = addresses.find(addr => addr._id === selectedAddressId);
+      if (shippingAddress) {
+        updateCheckoutData({ billingAddress: shippingAddress });
+      }
+    }
+  };
+
+  const handleContinue = () => {
+    if (!selectedAddressId) {
+      alert('Please select a shipping address');
+      return;
+    }
+
+    if (!sameBillingAddress && !selectedBillingAddressId) {
+      alert('Please select a billing address');
+      return;
+    }
+
+    if (onContinue) {
+      onContinue();
+    }
+  };
+
+  if (loading && addresses.length === 0) {
+    return <div className={styles.loading}>Loading addresses...</div>;
   }
+
+  if (error && addresses.length === 0) {
+    return <div className={styles.error}>Error loading addresses: {error}</div>;
+  }
+
   return (
-    <div className="checkout-container">
-      <div className="main-content">
-      <Header />
-
-        <div className="divider-top" />
-        <div className="breadcrumb-sort">
-          <div className="breadcrumb">
-            <div className="breadcrumb-item breadcrumb-item-bold">yannstechub</div>
-            <div className="breadcrumb-item">/ Daily deals</div>
-          </div>
-        </div>
-        <div className="divider" />
-
-        <div className="checkout-content">
-          <div className="content-grid">
-            <div className="shipping-column">
-              <div className="shipping-details-section">
-                <div className="section-title">Shipping Details</div>
-                <div className="address-card">
-                  <div className="address-info">
-                    <div className="info-item"><strong>Name: </strong> John Doe</div>
-                    <div className="info-item"><strong>Email: </strong>adusahpoku@gmail.com</div>
-                    <div className="info-item"><strong>Phone: </strong>05989812365</div>
-                    <div className="info-item"><strong>Ship to: </strong>GA-021-6548 Spintex Shell Signboard</div>
-                    
-                  </div>
-                  <button className="edit-button">
-                    <img className="edit-icon" src="/imgs/edit.png" alt="Edit" />
-                    Edit
-                  </button>
-                </div>
-
-                <div className="section-title">Shipping Method</div>
-                <div className="method-card">
-                  <div className="method-description-title">Standard Shipping</div>
-                  <div className="method-description">(1-3 business days in Accra)</div>
-                  <div className="method-description">(3-7 business days in other areas)</div>
-                  <div className="method-description"><strong>$5.00</strong></div>
-                </div>
-
-                <div className="section-title">Payment Method</div>
-                <div className="payment-column">
-                <div className="payment-option">
-                  <input className="radio-button" type="radio" name="payment" value="card" />
-                  <div className="option-label">Credit/Debit Card</div>
-                </div>
-
-                <div className="mobile-money-section">Mobile Money</div>
-                <div className="mobile-option">
-                  <input className="radio-button" type="radio" name="payment" value="momo" />
-                  <div className="option-label">Mobile Money</div>
-                </div>
+    <div className={styles.shippingDetailsContainer}>
+      <h2 className={styles.title}>Shipping Details</h2>
+      
+      <div className={styles.addressSelection}>
+        <h3>Select Shipping Address</h3>
+        {addresses.length > 0 ? (
+          <div className={styles.addressGrid}>
+            {addresses.map(address => (
+              <div 
+                key={address._id}
+                className={`${styles.addressCard} ${selectedAddressId === address._id ? styles.selected : ''}`}
+                onClick={() => handleAddressSelect(address)}
+              >
+                {address.isDefault && <span className={styles.defaultBadge}>Default</span>}
+                <h4>{address.fullName}</h4>
+                <p>{address.addressLine1}</p>
+                {address.addressLine2 && <p>{address.addressLine2}</p>}
+                <p>{address.city}, {address.state} {address.zipCode}</p>
+                <p>{address.country}</p>
+                <p>{address.phoneNumber}</p>
               </div>
-              {/* <button className="checkout-button" onClick={handleCheckout}>Proceed to Payment</button> */}
-              </div>
-            </div>
-
-          <div className="order-summary">
-          <OrderSummary />
-            <Link className="checkout-button" to="/payment-mobile">
-              Proceed to checkout
-            </Link>
+            ))}
           </div>
-          </div>
-        </div>
+        ) : (
+          <p className={styles.noAddresses}>
+            No shipping addresses found. Please add a new address.
+          </p>
+        )}
       </div>
-
-      <Footer />
+      
+      <div className={styles.billingAddressSection}>
+        <div className={styles.sameBillingOption}>
+          <label className={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              checked={sameBillingAddress}
+              onChange={handleSameBillingAddressChange}
+            />
+            Use same address for billing
+          </label>
+        </div>
+        
+        {!sameBillingAddress && (
+          <div className={styles.billingAddressSelection}>
+            <h3>Select Billing Address</h3>
+            {addresses.length > 0 ? (
+              <div className={styles.addressGrid}>
+                {addresses.map(address => (
+                  <div 
+                    key={`billing-${address._id}`}
+                    className={`${styles.addressCard} ${selectedBillingAddressId === address._id ? styles.selected : ''}`}
+                    onClick={() => handleBillingAddressSelect(address)}
+                  >
+                    {address.isDefault && <span className={styles.defaultBadge}>Default</span>}
+                    <h4>{address.fullName}</h4>
+                    <p>{address.addressLine1}</p>
+                    {address.addressLine2 && <p>{address.addressLine2}</p>}
+                    <p>{address.city}, {address.state} {address.zipCode}</p>
+                    <p>{address.country}</p>
+                    <p>{address.phoneNumber}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.noAddresses}>
+                No billing addresses found. Please add a new address.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+      
+      <div className={styles.actionButtons}>
+        <button 
+          className={styles.continueButton}
+          onClick={handleContinue}
+          disabled={!selectedAddressId || (!sameBillingAddress && !selectedBillingAddressId)}
+        >
+          Continue to Payment
+        </button>
+      </div>
     </div>
   );
 };
