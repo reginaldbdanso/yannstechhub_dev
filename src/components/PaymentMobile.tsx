@@ -1,184 +1,139 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/components/PaymentMobile.module.css';
-import Header from './Header';
-import Footer from './Footer';
-import OrderSummary from './OrderSummary';
+import { usePayment, PaymentMethod } from '@/hooks/usePayment';
+import { useCheckout } from '@/hooks/useCheckout';
 
-const PaymentMobile: React.FC = () => {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('momo');
-  const [showOptions, setShowOptions] = useState(false);
-  const [selectedProvider, setSelectedProvider] = useState({
-    name: 'MTN Mobile Money',
-    icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/37ad312c54ce04ce416e50c9a8a861c7826ea9e033bf4fb177e779b433ed1964'
-  });
+interface PaymentMobileProps {
+  onContinue?: () => void;
+}
 
-  const providers = [
-    { name: 'MTN Mobile Money', icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/37ad312c54ce04ce416e50c9a8a861c7826ea9e033bf4fb177e779b433ed1964' },
-    { name: 'Telecel Cash', icon: '/imgs/T-Cash Red.png' },
-    { name: 'AirtelTigo Money', icon: '/imgs/airtel-tigo.png' }
-  ];
-
+const PaymentMobile: React.FC<PaymentMobileProps> = ({ onContinue }) => {
+  const { paymentMethods, loading, error, fetchPaymentMethods } = usePayment();
+  const { checkoutData, updateCheckoutData } = useCheckout();
+  const [selectedPaymentId, setSelectedPaymentId] = useState<string | null>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest('.custom-select')) {
-        setShowOptions(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
+    fetchPaymentMethods();
   }, []);
 
-  const handleCheckout = () => {
-    navigate('/payment-approval');
+  useEffect(() => {
+    // Set default payment method if available
+    if (paymentMethods.length > 0) {
+      const defaultMethod = paymentMethods.find(method => method.isDefault);
+      if (defaultMethod) {
+        setSelectedPaymentId(defaultMethod.id);
+        updateCheckoutData({ paymentMethod: defaultMethod });
+      } else {
+        setSelectedPaymentId(paymentMethods[0].id);
+        updateCheckoutData({ paymentMethod: paymentMethods[0] });
+      }
+    }
+  }, [paymentMethods]);
+
+  const handlePaymentSelect = (method: PaymentMethod) => {
+    setSelectedPaymentId(method.id);
+    updateCheckoutData({ paymentMethod: method });
   };
 
+  const handleContinue = () => {
+    if (!selectedPaymentId) {
+      alert('Please select a payment method');
+      return;
+    }
+
+    if (onContinue) {
+      onContinue();
+    }
+  };
+
+  if (loading && paymentMethods.length === 0) {
+    return <div className={styles.loading}>Loading payment methods...</div>;
+  }
+
+  if (error && paymentMethods.length === 0) {
+    return <div className={styles.error}>Error loading payment methods: {error}</div>;
+  }
+
   return (
-    <div className={styles.paymentMobileContainer}>
-      <div className={styles.mainContainer}>
-        <Header />
-        <div className={styles.dividerTop} />
-        <div className={styles.breadcrumbSort}>
-          <div className={styles.breadcrumb}>
-            <Link to="/" className={styles.breadcrumbItem}>Cart</Link>
-            <Link to="/shipping" className={styles.breadcrumbItem}>Shipping</Link>
-            <Link to="/payment" className={styles.breadcrumbItem}>Payment</Link>
-            <Link to="/approval" className={`${styles.breadcrumbItem} ${styles.breadcrumbItemActive}`}>Approval</Link>
-          </div>
-        </div>
-        <div className={styles.dividerNormal} />
-
-        <div className={styles.mainContent}>
-          <section className={styles.paymentSection}>
-            <h1 className={styles.paymentTitle}>Payment Method</h1>
-            <div className={styles.paymentForm}>
-              <div className={styles.paymentTabs}>
-                <div className={styles.tabGroup}>
-                  <button
-                    className={styles.tabButton}
-                    onClick={() => setActiveTab('momo')}
-                  >
-                    Mobile Money
-                  </button>
-                  <div className={activeTab === 'momo' ? styles.tabIndicatorActive : styles.tabIndicator} />
-                </div>
-                <div className={styles.tabGroup}>
-                  <button
-                    className={styles.tabButton}
-                    onClick={() => setActiveTab('card')}
-                  >
-                    Card
-                  </button>
-                  <div className={activeTab === 'card' ? styles.tabIndicatorActive : styles.tabIndicator} />
-                </div>
-              </div>
-
-              <div className={activeTab === 'momo' ? styles.paymentDetailsActive : styles.paymentDetails}>
-                <div className={styles.paymentProvider}>
-                  <div className={`${styles.customSelect} custom-select`}>
-                    <div className={styles.selectedOption} onClick={() => setShowOptions(!showOptions)}>
-                      <img src={selectedProvider.icon} alt={selectedProvider.name} className={styles.providerIcon} />
-                      <span>{selectedProvider.name}</span>
+    <div className={styles.paymentContainer}>
+      <h2 className={styles.title}>Payment Method</h2>
+      
+      <div className={styles.paymentSelection}>
+        {paymentMethods.length > 0 ? (
+          <div className={styles.paymentMethods}>
+            {paymentMethods.map(method => (
+              <div 
+                key={method.id}
+                className={`${styles.paymentCard} ${selectedPaymentId === method.id ? styles.selected : ''}`}
+                onClick={() => handlePaymentSelect(method)}
+              >
+                {method.isDefault && <span className={styles.defaultBadge}>Default</span>}
+                
+                {method.type === 'credit_card' && (
+                  <div className={styles.creditCardMethod}>
+                    <div className={styles.cardIcon}>
+                      {/* Card icon based on card number */}
+                      {method.details.cardNumber?.startsWith('4') && <span>Visa</span>}
+                      {method.details.cardNumber?.startsWith('5') && <span>MasterCard</span>}
+                      {method.details.cardNumber?.startsWith('3') && <span>Amex</span>}
+                      {method.details.cardNumber?.startsWith('6') && <span>Discover</span>}
                     </div>
-                    <ul className={showOptions ? styles.optionsListShow : styles.optionsList}>
-                      {providers.map((provider) => (
-                        <li
-                          key={provider.name}
-                          className={styles.optionItem}
-                          onClick={() => {
-                            setSelectedProvider(provider);
-                            setShowOptions(false);
-                          }}
-                        >
-                          <img src={provider.icon} alt={provider.name} className={styles.providerIcon} />
-                          <span>{provider.name}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <button className={styles.changeButton} onClick={() => setShowOptions(!showOptions)}>
-                    <span>Change</span>
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d416a212f7eda943315abbc16f9eb418e0c44b37aef97f5f6f38538b2d414b1"
-                      alt="Change icon"
-                      className={styles.changeIcon}
-                    />
-                  </button>
-                </div>
-
-                <div className={styles.paymentPhone}>
-                  <div className={styles.phoneInfo}>
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/afeaea94ec4bf72161507bc26b978113574005a314df0f8df4da204bb977c662"
-                      alt="Phone icon"
-                      className={styles.phoneIcon}
-                    />
-                    <input
-                      type="tel"
-                      placeholder="+233 54*******42"
-                      className={styles.phoneNumber}
-                    />
+                    <div className={styles.cardDetails}>
+                      <div className={styles.cardNumber}>
+                        **** **** **** {method.details.cardNumber?.slice(-4)}
+                      </div>
+                      <div className={styles.cardHolder}>{method.details.cardHolder}</div>
+                      <div className={styles.expiryDate}>Expires: {method.details.expiryDate}</div>
+                    </div>
+                  {/* </div> */}
+                  <div className={styles.cardDetails}>
+                    <div className={styles.cardNumber}>
+                      **** **** **** {method.details.cardNumber?.slice(-4)}
+                    </div>
+                    <div className={styles.cardHolder}>{method.details.cardHolder}</div>
+                    <div className={styles.expiryDate}>Expires: {method.details.expiryDate}</div>
                   </div>
                 </div>
-
-                <div className={styles.paymentAmount}>
-                  <div className={styles.amountInfo}>
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/ea28c42ad763c50754410221e02154f79df70f07903bbfecf526f46e807a0a89"
-                      alt="Amount icon"
-                      className={styles.amountIcon}
-                    />
-                    <input
-                      type="number"
-                      placeholder="Enter Amount (GHS)"
-                      min="0"
-                      className={styles.amountValue}
-                    />
-                  </div>
+              )}
+              
+              {method.type === 'paypal' && (
+                <div className={styles.paypalMethod}>
+                  <div className={styles.paypalIcon}>PayPal</div>
+                  <div className={styles.paypalEmail}>{method.details.email}</div>
                 </div>
-
-                <div className={styles.paymentSecurity}>
-                  <img
-                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/019049c0e90a7169b8dcb06d9ac93eed81b07dadad55bf7a87f9f7e36e71f98c"
-                    alt="Security icon"
-                    className={styles.securityIcon}
-                  />
-                  <div className={styles.securityBadges}>
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/21100b53cb7d691fdf947ded4d15b8bd99f12be24160215a2ff8d814aec85822"
-                      alt="Security badge 1"
-                      className={styles.badge}
-                    />
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/f3f218578efe236f050f49e2d1766b7b00d0cd1d999bd715eb493a4f590e1ce1"
-                      alt="Security badge 2"
-                      className={styles.badge}
-                    />
-                    <img
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/352fbdd8cd8d9c091ede6fcca7cdf422c41250a54cab4d3bc1a61fd84010929c"
-                      alt="Security badge 3"
-                      className={styles.badge}
-                    />
-                  </div>
+              )}
+              
+              {method.type === 'apple_pay' && (
+                <div className={styles.applePayMethod}>
+                  <div className={styles.applePayIcon}>Apple Pay</div>
                 </div>
-              </div>
-
-              <button onClick={handleCheckout} className={styles.paymentButton}>
-                Make Payment
-              </button>
+              )}
+              
+              {method.type === 'google_pay' && (
+                <div className={styles.googlePayMethod}>
+                  <div className={styles.googlePayIcon}>Google Pay</div>
+                </div>
+              )}
             </div>
-          </section>
-
-          <section className={styles.orderSection}>
-            <OrderSummary />
-          </section>
+          ))}
         </div>
+      ) : (
+        <div className={styles.noPaymentMethods}>
+          <p>No payment methods found. Please add a new payment method.</p>
+          <button className={styles.addPaymentButton}>Add Payment Method</button>
+        </div>
+      )}
+      
+      <div className={styles.actionButtons}>
+        <button 
+          className={styles.continueButton}
+          onClick={handleContinue}
+          disabled={!selectedPaymentId}
+        >
+          Continue to Review
+        </button>
       </div>
-      <Footer />
+    </div>
     </div>
   );
 };
